@@ -17,11 +17,13 @@ app.use(
   })
 )
 app.use(bodyParser.json())
-app.use(cookieParser())
+app.use(Parser())
 
 app.get("/", (req, res) => res.send("DB ROOT"))
 
 app.get("/users", getUsers)
+
+app.post("/login-or-register", postLoginOrRegister)
 
 const server = app.listen(port, () =>
   console.log(`Alias is listening on port ${port}!`)
