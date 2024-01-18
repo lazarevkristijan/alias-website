@@ -1,0 +1,2 @@
+- Auth0 for users
+- Backend REST API endpoints
