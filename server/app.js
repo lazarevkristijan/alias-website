@@ -4,7 +4,7 @@ import dotenv from "dotenv"
 import bodyParser from "body-parser"
 import cookieParser from "cookie-parser"
 import multer from "multer"
-import { storage } from "./cloudinary/index.js"
+import { storage } from "./utils/cloudinary.js"
 const upload = multer({ storage })
 
 dotenv.config()
