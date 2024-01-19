@@ -9,7 +9,11 @@ import { verifyToken } from "./utils/verifyToken.js"
 import { getAllUsers, getUserSettings, getLogout } from "./Routes/getRoutes.js"
 import { postLoginOrRegister } from "./Routes/postRoutes.js"
 import { deleteUser } from "./Routes/deleteRoutes.js"
-import { patchChangeCreds, patchChangeTheme } from "./Routes/patchRoutes.js"
+import {
+  patchChangeCreds,
+  patchChangeProfilePicture,
+  patchChangeTheme,
+} from "./Routes/patchRoutes.js"
 
 dotenv.config()
 
@@ -41,9 +45,12 @@ app.delete("/delete-user", verifyToken, deleteUser)
 app.get("/user-settings", verifyToken, getUserSettings)
 app.patch("/user-settings/change-theme", verifyToken, patchChangeTheme)
 app.patch("/user-settings/change-creds", verifyToken, patchChangeCreds)
-app.patch("/user-settings/", verifyToken)
-app.patch("/user-settings/", verifyToken)
-app.patch("/user-settings/", verifyToken)
+app.patch(
+  "/user-settings/change-profile-picture",
+  verifyToken,
+  patchChangeProfilePicture
+)
+app.delete("/user-settings/", verifyToken)
 
 const server = app.listen(port, () =>
   console.log(`Alias is listening on port ${port}!`)
