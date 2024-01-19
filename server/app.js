@@ -38,6 +38,7 @@ app.delete("/delete-user", verifyToken, deleteUser)
 
 // USER SETTINGS
 app.get("/user-settings", verifyToken, getUserSettings)
+app.patch("/user-settings/change-theme", verifyToken)
 
 const server = app.listen(port, () =>
   console.log(`Alias is listening on port ${port}!`)
