@@ -23,3 +23,46 @@ export const patchChangeTheme = async (req, res) => {
     return res.status(500).json({ error: "Error when changing theme" })
   }
 }
+
+export const patchChangeCreds = async (req, res) => {
+  try {
+    const userId = req.userId
+    let updatedUser = {}
+
+    const user = await sql`
+    SELECT *
+    FROM users
+    WHERE id = ${userId}`
+
+    const { firstName, lastName } = req.body
+
+    if (!nameRegex.test(firstName) || !nameRegex.test(lastName)) {
+      return res
+        .status(400)
+        .json({ error: "First name or last name have invalid format" })
+    }
+
+    if (user[0].first_name !== firstName) {
+      await sql`
+        UPDATE users
+        SET first_name = ${firstName}
+        WHERE id = ${userId}`
+
+      updatedUser = { ...updatedUser, first_name: firstName }
+    }
+
+    if (user[0].last_name !== lastName) {
+      await sql`
+        UPDATE users
+        SET last_name = ${lastName}
+        WHERE id = ${userId}`
+
+      updatedUser = { ...updatedUser, last_name: lastName }
+    }
+
+    return res.json(updatedUser)
+  } catch (error) {
+    console.error("Error is: ", error)
+    return res.status(500).json({ error: "Error when changing credentials" })
+  }
+}
