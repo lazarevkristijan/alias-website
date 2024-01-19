@@ -3,6 +3,9 @@ import { getUsers } from "./Routes/getRoutes.js"
 import dotenv from "dotenv"
 import bodyParser from "body-parser"
 import cookieParser from "cookie-parser"
+import multer from "multer"
+import { storage } from "./cloudinary/index.js"
+const upload = multer({ storage })
 
 dotenv.config()
 
@@ -17,7 +20,7 @@ app.use(
   })
 )
 app.use(bodyParser.json())
-app.use(Parser())
+app.use(cookieParser())
 
 app.get("/", (req, res) => res.send("DB ROOT"))
 

@@ -4,17 +4,10 @@ import { cookieOptions, dayinMs } from "../constants/index.js"
 
 export const postLoginOrRegister = async (req, res) => {
   try {
-    const {
-      given_name,
-      family_name,
-      picture,
-      email,
-      nickname: originalNickname,
-    } = req.body
-    const nickname = originalNickname.toLowerCase()
+    const { given_name, family_name, picture, email } = req.body
 
     const existingUser = await sql`
-    SELECT a.id, a.first_name, a.last_name, a.email, a.username, a.profile_picture 
+    SELECT a.id, a.first_name, a.last_name, a.email, a.profile_picture 
     FROM users as a
     WHERE email = ${email}`
 
@@ -39,13 +32,11 @@ export const postLoginOrRegister = async (req, res) => {
       return res.json(existingUser[0])
     }
     await sql`
-    INSERT INTO users(first_name, last_name, email, profile_picture, username)
-    VALUES(${given_name || null}, ${
-      family_name || null
-    }, ${email}, ${picture}, ${nickname})`
+    INSERT INTO users(first_name, last_name, email, profile_picture)
+    VALUES(${given_name || null}, ${family_name || null}, ${email}, ${picture})`
 
     const newUser = await sql`
-    SELECT * FROM a.id, a.first_name, a.last_name, e.email, a.username, a.profile_picture
+    SELECT * FROM a.id, a.first_name, a.last_name, a.email, a.profile_picture
     FROM users as a
     WHERE email = ${email}`
 
