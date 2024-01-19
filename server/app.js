@@ -1,11 +1,12 @@
 import express from "express"
-import { getUsers } from "./Routes/getRoutes.js"
 import dotenv from "dotenv"
 import bodyParser from "body-parser"
 import cookieParser from "cookie-parser"
 import multer from "multer"
 import { storage } from "./utils/cloudinary.js"
 const upload = multer({ storage })
+import { getAllUsers, getLogout } from "./Routes/getRoutes.js"
+import { postLoginOrRegister } from "./Routes/postRoutes.js"
 
 dotenv.config()
 
@@ -22,11 +23,15 @@ app.use(
 app.use(bodyParser.json())
 app.use(cookieParser())
 
+// GENERAL
 app.get("/", (req, res) => res.send("DB ROOT"))
 
-app.get("/users", getUsers)
+// GET DATA
+app.get("/all-users", getAllUsers)
 
+// AUTHENTICATION RELATED
 app.post("/login-or-register", postLoginOrRegister)
+app.get("/logout", getLogout)
 
 const server = app.listen(port, () =>
   console.log(`Alias is listening on port ${port}!`)
