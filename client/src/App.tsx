@@ -1,12 +1,8 @@
-import axios from "axios"
 import { useQuery } from "react-query"
 import { UserTypes } from "./Types"
+import { getAllUsers } from "./Utils/HeroUtils"
 
 const App = () => {
-  const getAllUsers = async () => {
-    const res = await axios.get("http://localhost:5432/all-users")
-    return res.data
-  }
   const { data: allUsers, isLoading: areUsersLoading } = useQuery(
     "all-users",
     getAllUsers
