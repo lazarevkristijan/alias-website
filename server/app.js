@@ -8,7 +8,7 @@ const upload = multer({ storage })
 import { verifyToken } from "./utils/verifyToken.js"
 import { getAllUsers, getUserSettings, getLogout } from "./Routes/getRoutes.js"
 import { postLoginOrRegister } from "./Routes/postRoutes.js"
-import { deleteUser } from "./Routes/deleteRoutes.js"
+import { deleteProfilePicture, deleteUser } from "./Routes/deleteRoutes.js"
 import {
   patchChangeCreds,
   patchChangeProfilePicture,
@@ -48,9 +48,14 @@ app.patch("/user-settings/change-creds", verifyToken, patchChangeCreds)
 app.patch(
   "/user-settings/change-profile-picture",
   verifyToken,
+  upload.single("profilePicture"),
   patchChangeProfilePicture
 )
-app.delete("/user-settings/", verifyToken)
+app.delete(
+  "/user-settings/delete-profile-picture",
+  verifyToken,
+  deleteProfilePicture
+)
 
 const server = app.listen(port, () =>
   console.log(`Alias is listening on port ${port}!`)
