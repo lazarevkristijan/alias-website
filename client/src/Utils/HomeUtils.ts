@@ -5,7 +5,8 @@ import { AppDispatch } from "../Store"
 
 export const postLoginOrRegister = (
   auth0user: User | undefined,
-  dispatch: AppDispatch
+  dispatch: AppDispatch,
+  setIsLoading: (value: React.SetStateAction<boolean>) => void
 ) => {
   axios
     .post(
@@ -17,7 +18,7 @@ export const postLoginOrRegister = (
       }
     )
     .then((response) => {
-      console.log(response.data)
       dispatch(login(response.data))
+      setIsLoading(false)
     })
 }

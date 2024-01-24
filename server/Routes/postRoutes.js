@@ -12,7 +12,7 @@ export const postLoginOrRegister = async (req, res) => {
     FROM users as a
     WHERE email = ${email}`
 
-    if (existingUser.length) {
+    if (existingUser.length !== 0) {
       const token = jwt.sign({ userId: existingUser[0].id }, JWTsecret)
 
       // const userTheme = await sql`
@@ -30,7 +30,6 @@ export const postLoginOrRegister = async (req, res) => {
       //   maxAge: dayinMs * 7,
       // })
 
-      console.log("existing user sending")
       return res.json(existingUser[0])
     }
     await sql`
@@ -58,7 +57,6 @@ export const postLoginOrRegister = async (req, res) => {
     //   ...cookieOptions,
     //   maxAge: dayinMs * 7,
     // })
-    console.log("new user sending")
     return res.json(newUser[0])
   } catch (error) {
     console.error("Error is: ", error)

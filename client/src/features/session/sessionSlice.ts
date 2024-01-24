@@ -2,11 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 import { UserTypes } from "../../Types"
 
 const initialState: UserTypes = {
-  id: null,
-  first_name: null,
-  last_name: null,
-  email: null,
-  profile_picture: null,
+  user: null,
 }
 
 export const sessionSlice = createSlice({
@@ -14,7 +10,7 @@ export const sessionSlice = createSlice({
   initialState,
   reducers: {
     login: (state, action) => {
-      state = action.payload
+      state.user = action.payload
     },
   },
 })
