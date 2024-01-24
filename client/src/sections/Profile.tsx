@@ -3,7 +3,7 @@ import { RootState } from "../Store"
 import { useEffect } from "react"
 import { useAuth0 } from "@auth0/auth0-react"
 import { useNavigate } from "react-router"
-import { handleDeleteUser } from "../Utils/ProfileUtils"
+import { handleDeleteUser, handleLogout } from "../Utils/ProfileUtils"
 
 const Profile = () => {
   const navigate = useNavigate()
@@ -29,6 +29,7 @@ const Profile = () => {
       />
       <br />
       <button onClick={() => handleDeleteUser(auth0logout)}>delete user</button>
+      <button onClick={() => handleLogout(auth0logout)}>logout</button>
     </div>
   )
 }

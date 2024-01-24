@@ -12,7 +12,6 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true)
   const {
     loginWithPopup,
-    logout,
     isAuthenticated: auth0authenticated,
     user: auth0user,
     isLoading: auth0loading,
@@ -35,9 +34,7 @@ const App = () => {
               <li onClick={() => navigate("/profile")}>profile</li>
             </ul>
 
-            {auth0authenticated ? (
-              <button onClick={() => logout()}>logout</button>
-            ) : (
+            {!auth0authenticated && (
               <button onClick={() => loginWithPopup()}>login</button>
             )}
           </nav>

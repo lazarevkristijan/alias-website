@@ -7,3 +7,13 @@ export const handleDeleteUser = async (auth0logout: () => void) => {
       auth0logout()
     })
 }
+
+export const handleLogout = async (auth0logout: () => void) => {
+  await axios
+    .get("http://localhost:5432/user/logout", {
+      withCredentials: true,
+    })
+    .then(() => {
+      auth0logout()
+    })
+}
