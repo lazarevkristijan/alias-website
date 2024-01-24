@@ -9,8 +9,8 @@ export const deleteUser = async (req, res) => {
     DELETE FROM users
     WHERE id = ${userId}`
 
-    req.clearCookie("user")
-    req.clearCookie("theme")
+    res.clearCookie("user")
+    res.clearCookie("theme")
 
     return res.json({ success: "Successfully deleted user" })
   } catch (error) {

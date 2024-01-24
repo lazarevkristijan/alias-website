@@ -12,9 +12,12 @@ export const sessionSlice = createSlice({
     login: (state, action) => {
       state.user = action.payload
     },
+    logout: (state) => {
+      state.user = null
+    },
   },
 })
 
-export const { login } = sessionSlice.actions
+export const { login, logout } = sessionSlice.actions
 
 export default sessionSlice.reducer

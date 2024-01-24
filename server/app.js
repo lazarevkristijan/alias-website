@@ -38,9 +38,9 @@ app.get("/", (req, res) => res.send("DB ROOT"))
 app.get("/all-users", getAllUsers)
 
 // AUTHENTICATION RELATED
-app.post("/login-or-register", postLoginOrRegister)
-app.get("/logout", getLogout)
-app.delete("/delete-user", verifyToken, deleteUser)
+app.post("/user/login-or-register", postLoginOrRegister)
+app.get("/user/logout", getLogout)
+app.delete("/user/delete-user", verifyToken, deleteUser)
 
 // USER SETTINGS
 app.get("/user-settings", verifyToken, getUserSettings)

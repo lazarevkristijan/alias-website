@@ -10,7 +10,7 @@ export const postLoginOrRegister = (
 ) => {
   axios
     .post(
-      "http://localhost:5432/login-or-register",
+      "http://localhost:5432/user/login-or-register",
       JSON.stringify(auth0user),
       {
         headers: { "Content-Type": "application/json" },
