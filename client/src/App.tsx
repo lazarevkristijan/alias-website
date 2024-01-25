@@ -24,7 +24,7 @@ const App = () => {
 
   return (
     <>
-      {isLoading ? (
+      {!isLoading ? (
         <p>Loading...</p>
       ) : (
         <>
