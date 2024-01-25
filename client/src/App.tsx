@@ -24,11 +24,17 @@ const App = () => {
 
   return (
     <>
-      {!isLoading ? (
+      {isLoading ? (
         <p>Loading...</p>
       ) : (
         <>
-          <nav style={{ display: "flex", justifyContent: "space-between" }}>
+          <nav
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              borderBottom: "1px solid black",
+            }}
+          >
             <ul style={{ display: "flex", gap: 10, listStyle: "none" }}>
               <li onClick={() => navigate("/")}>Home</li>
               <li onClick={() => navigate("/profile")}>profile</li>

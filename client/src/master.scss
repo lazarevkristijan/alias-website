@@ -1,0 +1,9 @@
+@use "app";
+
+// LIGHT MODE
+$primary-text-light: red;
+
+p {
+  color: $primary-text-light;
+  background-color: app.$blue;
+}

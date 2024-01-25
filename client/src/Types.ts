@@ -7,3 +7,14 @@ export type UserTypes = {
     profile_picture: string
   } | null
 }
+
+export type UserSettingsTypes = {
+  id: number
+  user_id: number
+  setting_id: number
+  value: string
+}
+
+export type SettingsSliceTypes = {
+  colorTheme: string
+}

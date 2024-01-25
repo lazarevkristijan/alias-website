@@ -2,6 +2,8 @@ import { User } from "@auth0/auth0-react"
 import axios from "axios"
 import { login } from "../features/session/sessionSlice"
 import { AppDispatch } from "../Store"
+import { UserSettingsTypes } from "../Types"
+import { changeTheme } from "../features/settings/settingsSlice"
 
 export const postLoginOrRegister = (
   auth0user: User | undefined,
@@ -19,6 +21,21 @@ export const postLoginOrRegister = (
     )
     .then((response) => {
       dispatch(login(response.data))
-      setIsLoading(false)
+
+      axios
+        .get("http://localhost:5432/user-settings", {
+          withCredentials: true,
+        })
+        .then((innerResponse) => {
+          const colorTheme = innerResponse.data.filter(
+            (setting: UserSettingsTypes) => setting.setting_id === 1
+          )
+
+          document.body.style.backgroundColor =
+            colorTheme[0].value === "dark" ? "#333" : "#ccc"
+          dispatch(changeTheme(colorTheme[0].value))
+
+          setIsLoading(false)
+        })
     })
 }
