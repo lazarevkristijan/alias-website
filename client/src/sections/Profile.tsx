@@ -8,6 +8,7 @@ import {
   handleDeleteUser,
   handleLogout,
 } from "../Utils/ProfileUtils"
+import ChangeCredentials from "../subsections/Settings/ChangeCredentials"
 
 const Profile = () => {
   const navigate = useNavigate()
@@ -38,6 +39,12 @@ const Profile = () => {
       <button onClick={() => handleChangeTheme("light", dispatch)}>
         light
       </button>
+      <br />
+      <br />
+
+      <ChangeCredentials />
+
+      <br />
       <br />
 
       <button onClick={() => handleDeleteUser(auth0logout)}>delete user</button>

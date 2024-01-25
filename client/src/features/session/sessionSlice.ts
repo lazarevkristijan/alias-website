@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { UserTypes } from "../../Types"
+import { SessionSliceTypes } from "../../Types"
 
-const initialState: UserTypes = {
+const initialState: SessionSliceTypes = {
   user: null,
 }
 
@@ -13,6 +13,7 @@ export const sessionSlice = createSlice({
       state.user = action.payload
     },
     logout: (state) => {
+      state
       state.user = null
     },
   },

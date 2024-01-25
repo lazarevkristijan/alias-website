@@ -1,6 +1,8 @@
 import axios from "axios"
 import { AppDispatch } from "../Store"
 import { changeTheme } from "../features/settings/settingsSlice"
+import { login } from "../features/session/sessionSlice"
+import { UserTypes } from "../Types"
 
 export const handleDeleteUser = async (auth0logout: () => void) => {
   await axios
@@ -30,5 +32,31 @@ export const handleChangeTheme = (theme: string, dispatch: AppDispatch) => {
     .then(() => {
       document.body.style.backgroundColor = theme === "dark" ? "#333" : "#ccc"
       dispatch(changeTheme(theme))
+    })
+}
+
+type LocalUserDataTypes = {
+  firstName: string
+  lastName: string
+}
+export const handleChangeCredentials = (
+  e: React.FormEvent<HTMLFormElement>,
+  userData: LocalUserDataTypes,
+  user: UserTypes,
+  dispatch: AppDispatch
+) => {
+  e.preventDefault()
+
+  axios
+    .patch(
+      "http://localhost:5432/user-settings/change-creds",
+      JSON.stringify(userData),
+      {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      }
+    )
+    .then((response) => {
+      dispatch(login({ ...user, ...response.data }))
     })
 }
