@@ -40,12 +40,14 @@ const ProfilePicture = () => {
             dispatch
           )
         }}
+        style={{ position: "relative" }}
         encType="multipart/form-data"
       >
         <img
           src={user?.profile_picture ? pfpURL : defaultPfpURL}
           width={100}
           height={100}
+          style={{ objectFit: "cover", objectPosition: "center" }}
           alt={`${user?.first_name}'s profile picture`}
         />
         <input
@@ -83,6 +85,16 @@ const ProfilePicture = () => {
             } else {
               return console.error("Error when uplaoding file")
             }
+          }}
+          style={{
+            position: "absolute",
+            width: 100,
+            height: 100,
+            backgroundColor: "red",
+            opacity: 0,
+            top: 0,
+            left: 0,
+            cursor: "pointer",
           }}
         />
 

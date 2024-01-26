@@ -36,6 +36,7 @@ const Profile = () => {
         src={getPfpLink(user?.profile_picture || defaultPfpURL)}
         width={100}
         height={100}
+        style={{ objectFit: "cover", objectPosition: "center" }}
         alt={`${user?.first_name}'s profile picture`}
       />
       <br />
