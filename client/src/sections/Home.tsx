@@ -1,5 +1,13 @@
 const Home = () => {
-  return <div>Home</div>
+  return (
+    <div
+      style={{
+        textAlign: "center",
+      }}
+    >
+      Alias Services
+    </div>
+  )
 }
 
 export default Home

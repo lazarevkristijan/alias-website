@@ -9,6 +9,8 @@ import {
   handleLogout,
 } from "../Utils/ProfileUtils"
 import ChangeCredentials from "../subsections/Settings/ChangeCredentials"
+import { getPfpLink } from "../Utils/SettingsUtils"
+import { defaultPfpURL } from "../constants"
 
 const Profile = () => {
   const navigate = useNavigate()
@@ -31,7 +33,9 @@ const Profile = () => {
       </div>
       <br />
       <img
-        src={user?.profile_picture}
+        src={getPfpLink(user?.profile_picture || defaultPfpURL)}
+        width={100}
+        height={100}
         alt={`${user?.first_name}'s profile picture`}
       />
       <br />

@@ -16,9 +16,14 @@ export const sessionSlice = createSlice({
       state
       state.user = null
     },
+    changeProfilePicture: (state, action) => {
+      if (state.user) {
+        state.user.profile_picture = action.payload
+      }
+    },
   },
 })
 
-export const { login, logout } = sessionSlice.actions
+export const { login, logout, changeProfilePicture } = sessionSlice.actions
 
 export default sessionSlice.reducer

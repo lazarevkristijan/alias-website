@@ -26,7 +26,7 @@ export const deleteProfilePicture = async (req, res) => {
 
     await sql`
     UPDATE users
-    SET profile_picture = ''
+    SET profile_picture = 'https://i.postimg.cc/7LzHDxQv/download.png'
     WHERE id = ${userId}`
 
     if (picturePath) {

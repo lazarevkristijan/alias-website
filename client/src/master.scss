@@ -1,9 +1,9 @@
 @use "app";
-
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&display=swap");
 // LIGHT MODE
 $primary-text-light: red;
 
-p {
-  color: $primary-text-light;
-  background-color: app.$blue;
+body {
+  font-family: "Inter", sans-serif;
+  font-weight: 500;
 }

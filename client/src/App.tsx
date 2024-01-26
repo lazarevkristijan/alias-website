@@ -4,6 +4,8 @@ import { postLoginOrRegister } from "./Utils/HomeUtils"
 import { Route, Routes, useNavigate } from "react-router"
 import { useDispatch } from "react-redux"
 import { Home, Profile } from "./sections"
+import "./master.scss"
+import Settings from "./sections/Settings"
 
 const App = () => {
   const navigate = useNavigate()
@@ -38,6 +40,7 @@ const App = () => {
             <ul style={{ display: "flex", gap: 10, listStyle: "none" }}>
               <li onClick={() => navigate("/")}>Home</li>
               <li onClick={() => navigate("/profile")}>profile</li>
+              <li onClick={() => navigate("/settings")}>settings</li>
             </ul>
 
             {!auth0authenticated && (
@@ -52,6 +55,10 @@ const App = () => {
             <Route
               path="/profile"
               element={<Profile />}
+            />
+            <Route
+              path="/settings"
+              element={<Settings />}
             />
             <Route
               path="*"
