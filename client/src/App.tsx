@@ -1,19 +1,18 @@
 import { useAuth0 } from "@auth0/auth0-react"
 import { useEffect, useState } from "react"
 import { postLoginOrRegister } from "./Utils/HomeUtils"
-import { Route, Routes, useNavigate } from "react-router"
+import { Route, Routes } from "react-router"
 import { useDispatch } from "react-redux"
 import { Home, Profile } from "./sections"
 import "./master.scss"
 import Settings from "./sections/Settings"
+import Navbar from "./sections/Navbar"
 
 const App = () => {
-  const navigate = useNavigate()
   const dispatch = useDispatch()
 
   const [isLoading, setIsLoading] = useState(true)
   const {
-    loginWithPopup,
     isAuthenticated: auth0authenticated,
     user: auth0user,
     isLoading: auth0loading,
@@ -29,24 +28,14 @@ const App = () => {
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        <>
-          <nav
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              borderBottom: "1px solid black",
-            }}
-          >
-            <ul style={{ display: "flex", gap: 10, listStyle: "none" }}>
-              <li onClick={() => navigate("/")}>Home</li>
-              <li onClick={() => navigate("/profile")}>profile</li>
-              <li onClick={() => navigate("/settings")}>settings</li>
-            </ul>
-
-            {!auth0authenticated && (
-              <button onClick={() => loginWithPopup()}>login</button>
-            )}
-          </nav>
+        <main
+          style={{
+            width: "1200px",
+            marginLeft: "auto",
+            marginRight: "auto",
+          }}
+        >
+          <Navbar />
           <Routes>
             <Route
               path="/"
@@ -65,7 +54,7 @@ const App = () => {
               element={<h2>Not found</h2>}
             />
           </Routes>
-        </>
+        </main>
       )}
     </>
   )
