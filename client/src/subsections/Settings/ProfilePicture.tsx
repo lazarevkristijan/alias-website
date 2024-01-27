@@ -47,7 +47,13 @@ const ProfilePicture = () => {
           src={user?.profile_picture ? pfpURL : defaultPfpURL}
           width={100}
           height={100}
-          style={{ objectFit: "cover", objectPosition: "center" }}
+          style={{
+            objectFit: "cover",
+            objectPosition: "center",
+            backgroundColor: "#fff",
+            borderRadius: "50%",
+            border: "2px solid #000",
+          }}
           alt={`${user?.first_name}'s profile picture`}
         />
         <input
@@ -56,6 +62,9 @@ const ProfilePicture = () => {
           name="profilePicture"
           accept="image/png, image/jpeg, image/jpg"
           onChange={(e) => {
+            setSupportedError(false)
+            setSizeError(false)
+
             if (e.target.files) {
               if (
                 e.target.files[0].type !== "image/png" &&
