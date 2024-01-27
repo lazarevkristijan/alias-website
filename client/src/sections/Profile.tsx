@@ -8,7 +8,6 @@ import {
   handleDeleteUser,
   handleLogout,
 } from "../Utils/ProfileUtils"
-import ChangeCredentials from "../subsections/Settings/ChangeCredentials"
 import { getPfpLink } from "../Utils/SettingsUtils"
 import { defaultPfpURL } from "../constants"
 
@@ -44,11 +43,6 @@ const Profile = () => {
       <button onClick={() => handleChangeTheme("light", dispatch)}>
         light
       </button>
-      <br />
-      <br />
-
-      <ChangeCredentials />
-
       <br />
       <br />
 
