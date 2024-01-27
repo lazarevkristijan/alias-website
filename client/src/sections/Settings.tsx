@@ -3,12 +3,10 @@ import { useEffect } from "react"
 import { useNavigate } from "react-router"
 import ProfilePicture from "../subsections/Settings/ProfilePicture"
 import ChangeCredentials from "../subsections/Settings/ChangeCredentials"
-import { handleChangeTheme } from "../Utils/ProfileUtils"
-import { useDispatch } from "react-redux"
 import ChangeTheme from "../subsections/Settings/ChangeTheme"
+import DangerZone from "../subsections/Settings/DangerZone"
 
 const Settings = () => {
-  const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const { isAuthenticated: auth0authenticated } = useAuth0()
@@ -20,8 +18,12 @@ const Settings = () => {
   return (
     <div>
       <ProfilePicture />
+      <br />
       <ChangeTheme />
+      <br />
       <ChangeCredentials />
+      <br />
+      <DangerZone />
     </div>
   )
 }
