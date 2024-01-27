@@ -1,19 +1,14 @@
-import { useDispatch, useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 import { RootState } from "../Store"
 import { useEffect } from "react"
 import { useAuth0 } from "@auth0/auth0-react"
 import { useNavigate } from "react-router"
-import {
-  handleChangeTheme,
-  handleDeleteUser,
-  handleLogout,
-} from "../Utils/ProfileUtils"
+import { handleDeleteUser, handleLogout } from "../Utils/ProfileUtils"
 import { getPfpLink } from "../Utils/SettingsUtils"
 import { defaultPfpURL } from "../constants"
 
 const Profile = () => {
   const navigate = useNavigate()
-  const dispatch = useDispatch()
 
   const user = useSelector((state: RootState) => state.session.user)
   const { isAuthenticated: auth0authenticated, logout: auth0logout } =
@@ -38,11 +33,6 @@ const Profile = () => {
         style={{ objectFit: "cover", objectPosition: "center" }}
         alt={`${user?.first_name}'s profile picture`}
       />
-      <br />
-      <button onClick={() => handleChangeTheme("dark", dispatch)}>dark</button>
-      <button onClick={() => handleChangeTheme("light", dispatch)}>
-        light
-      </button>
       <br />
       <br />
 
