@@ -9,7 +9,9 @@ const DangerZone = () => {
       <p style={{ color: "red", fontWeight: "bold", fontSize: "20px" }}>
         Danger zone
       </p>
-      <button onClick={() => handleDeleteUser(auth0logout)}>delete user</button>
+      <button onDoubleClick={() => handleDeleteUser(auth0logout)}>
+        delete user
+      </button>
     </div>
   )
 }

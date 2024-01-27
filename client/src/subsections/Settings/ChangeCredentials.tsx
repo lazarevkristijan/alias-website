@@ -24,56 +24,59 @@ const ChangeCredentials = () => {
   })
 
   return (
-    <form
-      onSubmit={(e) => {
-        handleChangeCredentials(e, userData, user, dispatch)
-      }}
-    >
-      <input
-        type="text"
-        value={userData.firstName}
-        onChange={(e) => {
-          if (!changedFields.firstName) {
-            setChangedFields({ ...changedFields, firstName: true })
-          }
-          setUserData({ ...userData, firstName: e.target.value })
+    <div>
+      <p>Change crednetials</p>
+      <form
+        onSubmit={(e) => {
+          handleChangeCredentials(e, userData, user, dispatch)
         }}
-        style={{
-          backgroundColor:
-            !nameRegex.test(userData.firstName) && changedFields.firstName
-              ? "red"
-              : "#fff",
-        }}
-      />
-      <input
-        type="text"
-        value={userData.lastName}
-        onChange={(e) => {
-          if (!changedFields.lastName) {
-            setChangedFields({ ...changedFields, lastName: true })
-          }
-          setUserData({ ...userData, lastName: e.target.value })
-        }}
-        style={{
-          backgroundColor:
-            !nameRegex.test(userData.lastName) && changedFields.lastName
-              ? "red"
-              : "#fff",
-        }}
-      />
-      <button
-        disabled={
-          !nameRegex.test(userData.firstName) ||
-          !nameRegex.test(userData.lastName) ||
-          (nameRegex.test(userData.firstName) &&
-            initialUserData.firstName === userData.firstName &&
-            nameRegex.test(userData.lastName) &&
-            initialUserData.lastName === userData.lastName)
-        }
       >
-        save changes
-      </button>
-    </form>
+        <input
+          type="text"
+          value={userData.firstName}
+          onChange={(e) => {
+            if (!changedFields.firstName) {
+              setChangedFields({ ...changedFields, firstName: true })
+            }
+            setUserData({ ...userData, firstName: e.target.value })
+          }}
+          style={{
+            backgroundColor:
+              !nameRegex.test(userData.firstName) && changedFields.firstName
+                ? "red"
+                : "#fff",
+          }}
+        />
+        <input
+          type="text"
+          value={userData.lastName}
+          onChange={(e) => {
+            if (!changedFields.lastName) {
+              setChangedFields({ ...changedFields, lastName: true })
+            }
+            setUserData({ ...userData, lastName: e.target.value })
+          }}
+          style={{
+            backgroundColor:
+              !nameRegex.test(userData.lastName) && changedFields.lastName
+                ? "red"
+                : "#fff",
+          }}
+        />
+        <button
+          disabled={
+            !nameRegex.test(userData.firstName) ||
+            !nameRegex.test(userData.lastName) ||
+            (nameRegex.test(userData.firstName) &&
+              initialUserData.firstName === userData.firstName &&
+              nameRegex.test(userData.lastName) &&
+              initialUserData.lastName === userData.lastName)
+          }
+        >
+          save changes
+        </button>
+      </form>
+    </div>
   )
 }
 
