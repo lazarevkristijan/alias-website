@@ -26,3 +26,7 @@ export type UserSettingsTypes = {
 export type SettingsSliceTypes = {
   colorTheme: string
 }
+
+export type CarServiceTypes = {
+  name: string
+}
