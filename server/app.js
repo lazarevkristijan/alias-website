@@ -7,7 +7,12 @@ import multer from "multer"
 import { storage } from "./utils/cloudinary.js"
 const upload = multer({ storage })
 import { verifyToken } from "./utils/verifyToken.js"
-import { getAllUsers, getUserSettings, getLogout } from "./Routes/getRoutes.js"
+import {
+  getAllUsers,
+  getUserSettings,
+  getLogout,
+  getAllCarServices,
+} from "./Routes/getRoutes.js"
 import { postLoginOrRegister } from "./Routes/postRoutes.js"
 import { deleteProfilePicture, deleteUser } from "./Routes/deleteRoutes.js"
 import {
@@ -57,6 +62,8 @@ app.delete(
   verifyToken,
   deleteProfilePicture
 )
+
+app.get("/services/all-car-services", getAllCarServices)
 
 const server = app.listen(port, () =>
   console.log(`Alias is listening on port ${port}!`)

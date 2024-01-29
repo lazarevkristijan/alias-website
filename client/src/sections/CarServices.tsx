@@ -6,39 +6,37 @@ import { CarServiceTypes } from "../Types"
 const CarServices = () => {
   const navigate = useNavigate()
 
-  const {
-    isLoading: areCarServicesLoading,
-    data: allCarServices,
-    error: carServicesError,
-  } = useQuery({
+  const { isLoading: areCarServicesLoading, data: allCarServices } = useQuery({
     queryKey: ["all-car-services"],
     queryFn: () => getAllCarServices(),
   })
 
+  console.log(allCarServices)
+
   return (
     <div>
-      {carServicesError ? (
-        <>
-          {areCarServicesLoading ? (
-            <p>Loading...</p>
-          ) : (
-            <>
-              <button onClick={() => navigate("/services")}>
-                back to services
-              </button>
-              <button>add service</button>
+      <>
+        {areCarServicesLoading ? (
+          <p>Loading...</p>
+        ) : (
+          <>
+            <button onClick={() => navigate("/services")}>
+              back to services
+            </button>
+            <button>add service</button>
 
-              <p>All car services</p>
-              {allCarServices &&
-                allCarServices.map((service: CarServiceTypes) => (
-                  <p>{service.name}</p>
-                ))}
-            </>
-          )}
-        </>
-      ) : (
-        <p>Error while getting all car services</p>
-      )}
+            <p>All car services</p>
+            {allCarServices &&
+              allCarServices.map((service: CarServiceTypes) => (
+                <div>
+                  <p>Услуга: {service.name}</p>
+                  <p>Категория: {service.category}</p>
+                  <p>Цена: {service.price}</p>
+                </div>
+              ))}
+          </>
+        )}
+      </>
     </div>
   )
 }

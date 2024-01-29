@@ -39,3 +39,20 @@ export const getUserSettings = async (req, res) => {
     return res.status(500).json({ error: "Error when getting user settings" })
   }
 }
+
+export const getAllCarServices = async (req, res) => {
+  try {
+    const allCarServices = await sql`
+    SELECT a.id, a.name, a.price, b.name as category FROM services as a
+    JOIN service_categories as b
+    ON a.category_id = b.id 
+    WHERE b.name = 'Car'`
+
+    return res.json(allCarServices)
+  } catch (error) {
+    console.error("Error is: ", error)
+    return res
+      .status(500)
+      .json({ error: "Error when getting all car services" })
+  }
+}
