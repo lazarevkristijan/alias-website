@@ -1,2 +1,31 @@
-- Auth0 for users
-- Backend REST API endpoints
+- react router pages /services/car, /services/personal, /services/home
+- create table for categories (id, category_name)
+- create table for services (id, service_name, category_id FK categories.id, price)
+- create table for roles (id, role_name)
+- alter table users - add role_id FK roles.id
+
+- create endpoint for adding a service
+- create endpoint for getting all services
+- create endpoint for getting a specific service by id 
+
+- add button for adding service on /services/car
+    onclick post req
+    provide service name, category id, price
+- catch request -> insert into services(name,catid,price)
+- add react query to front end
+- fetch with react-query show all car services
+- if user.role = admin then each service has edit and delete button
+
+- create basic form for editing 
+- create endpoint for editing a service
+    provide service id and other form data
+
+- crate basic delete button
+- create endpoint for deleting a service
+    provide service id
+
+
+// Profile previewing
+- create endpoint for getting a user by id
+- preview profile react router
+- create profile preview component

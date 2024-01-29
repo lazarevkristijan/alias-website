@@ -7,6 +7,10 @@ import { Home, Profile } from "./sections"
 import "./master.scss"
 import Settings from "./sections/Settings"
 import Navbar from "./sections/Navbar"
+import CarServices from "./sections/CarServices"
+import ServicesMain from "./sections/ServicesMain"
+import PersonalServices from "./sections/PersonalServices"
+import HomeServices from "./sections/HomeServices"
 
 const App = () => {
   const dispatch = useDispatch()
@@ -48,6 +52,22 @@ const App = () => {
             <Route
               path="/settings"
               element={<Settings />}
+            />
+            <Route
+              path="/services"
+              element={<ServicesMain />}
+            />
+            <Route
+              path="services/car"
+              element={<CarServices />}
+            />
+            <Route
+              path="services/personal"
+              element={<PersonalServices />}
+            />
+            <Route
+              path="services/home"
+              element={<HomeServices />}
             />
             <Route
               path="*"
