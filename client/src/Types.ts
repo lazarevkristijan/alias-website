@@ -27,9 +27,19 @@ export type SettingsSliceTypes = {
   colorTheme: string
 }
 
-export type CarServiceTypes = {
+export type ServiceTypes = {
   id: number
   name: string
   price: number
   category: string
+}
+export type AddServiceTypes = {
+  service_name: string
+  price: number
+  category: string
+}
+
+export type ServiceCategoryTypes = {
+  id: number
+  name: string
 }

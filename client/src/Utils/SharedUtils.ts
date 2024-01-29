@@ -1,3 +1,27 @@
+import axios from "axios"
+import { AddServiceTypes } from "../Types"
+import { errorNotifEnding } from "../constants"
+
+export const handleAddService = (
+  e: React.FormEvent<HTMLFormElement>,
+  data: AddServiceTypes
+) => {
+  e.preventDefault()
+
+  console.log(data)
+}
+
+export const getAllServiceCategories = async () => {
+  const res = await axios
+    .get("http://localhost:5432/services/all-service-categories")
+    .then((response) => response.data)
+    .catch((error) =>
+      sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
+    )
+
+  return res
+}
+
 export const sendNotification = (message: string, success: boolean = false) => {
   const notification = document.createElement("div")
 

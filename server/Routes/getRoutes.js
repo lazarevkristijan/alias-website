@@ -56,3 +56,17 @@ export const getAllCarServices = async (req, res) => {
       .json({ error: "Error when getting all car services" })
   }
 }
+
+export const getAllServiceCategories = async (req, res) => {
+  try {
+    const allServiceCategories = await sql`
+    SELECT * FROM service_categories`
+
+    return res.json(allServiceCategories)
+  } catch (error) {
+    console.error("Error is: ", error)
+    return res
+      .status(500)
+      .json({ error: "Error when getting all service categories" })
+  }
+}
