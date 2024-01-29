@@ -1,5 +1,16 @@
+import { useNavigate } from "react-router"
+
 const CarServices = () => {
-  return <div>CarServices</div>
+  const navigate = useNavigate()
+
+  return (
+    <div>
+      <button onClick={() => navigate("/services")}>back to services</button>
+      <button>add service</button>
+
+      <p>All car services</p>
+    </div>
+  )
 }
 
 export default CarServices
