@@ -25,11 +25,15 @@ const CarServices = () => {
             <button onClick={() => navigate("/services")}>
               back to services
             </button>
+            <br />
+            <br />
             <button
               onClick={() => setIsAddDialogOpen(isAddDialogOpen ? false : true)}
             >
               add service
             </button>
+            <br />
+            <br />
             <AddServiceDialog
               isOpen={isAddDialogOpen}
               setIsOpen={setIsAddDialogOpen}
@@ -39,7 +43,7 @@ const CarServices = () => {
             <h2>All car services</h2>
             {allCarServices &&
               allCarServices.map((service: ServiceTypes) => (
-                <div>
+                <div key={service.id}>
                   <p>Услуга: {service.name}</p>
                   <p>Категория: {service.category}</p>
                   <p>Цена: {service.price}</p>

@@ -65,3 +65,26 @@ export const postLoginOrRegister = async (req, res) => {
       .json({ error: "Error when logging in or registering" })
   }
 }
+
+export const postAddService = async (req, res) => {
+  try {
+    const { service_name, category, price } = req.body
+
+    await sql`
+    INSERT INTO services(name, category_id, price)
+    VALUES(${service_name}, ${
+      category === "Car"
+        ? 1
+        : category === "Home"
+        ? 2
+        : category === "Personal"
+        ? 3
+        : null
+    }, ${price})`
+
+    return res.json({ success: "Service added" })
+  } catch (error) {
+    console.error("Error is: ", error)
+    return res.status(500).json({ error: "Error when adding service" })
+  }
+}

@@ -8,7 +8,17 @@ export const handleAddService = (
 ) => {
   e.preventDefault()
 
-  console.log(data)
+  axios
+    .post("http://localhost:5432/services/add-service", JSON.stringify(data), {
+      headers: { "Content-Type": "application/json" },
+      withCredentials: true,
+    })
+    .then((response) => {
+      sendNotification(response.data.success, true)
+    })
+    .catch((error) => {
+      sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
+    })
 }
 
 export const getAllServiceCategories = async () => {
