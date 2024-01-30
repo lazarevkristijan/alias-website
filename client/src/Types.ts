@@ -5,6 +5,7 @@ export type SessionSliceTypes = {
     last_name: string | null
     email: string
     profile_picture: string
+    role: string
   } | null
 }
 
@@ -14,6 +15,7 @@ export type UserTypes = {
   last_name: string | null
   email: string
   profile_picture: string
+  role: string
 } | null
 
 export type UserSettingsTypes = {

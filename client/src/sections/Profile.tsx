@@ -18,12 +18,15 @@ const Profile = () => {
     !auth0authenticated && navigate("/")
   }, [auth0authenticated, navigate])
 
+  if (!user) return
+
   return (
     <div>
       <div style={{ display: "flex", gap: 10 }}>
-        <p> {user?.first_name}</p>
-        <p> {user?.last_name}</p>
-        <p> {user?.email}</p>
+        <p>{user?.first_name}</p>
+        <p>{user?.last_name}</p>
+        <p>{user?.email}</p>
+        <p>{user?.role.charAt(0).toUpperCase() + user?.role.slice(1)}</p>
       </div>
       <br />
       <img
@@ -42,7 +45,7 @@ const Profile = () => {
       <br />
       <br />
 
-      <button onClick={() => handleLogout(auth0logout)}>logout</button>
+      <button onClick={() => handleLogout(auth0logout)}>изход</button>
     </div>
   )
 }

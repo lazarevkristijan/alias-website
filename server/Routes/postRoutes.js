@@ -8,8 +8,10 @@ export const postLoginOrRegister = async (req, res) => {
     const { given_name, family_name, picture, email } = req.body
 
     const existingUser = await sql`
-    SELECT a.id, a.first_name, a.last_name, a.email, a.profile_picture
+    SELECT a.id, a.first_name, a.last_name, a.email, a.profile_picture, b.name as role
     FROM users as a
+    JOIN user_roles as b
+    ON a.role_id = b.id
     WHERE email = ${email}`
 
     if (existingUser.length !== 0) {
@@ -33,12 +35,16 @@ export const postLoginOrRegister = async (req, res) => {
       return res.json(existingUser[0])
     }
     await sql`
-    INSERT INTO users(first_name, last_name, email, profile_picture)
-    VALUES(${given_name || null}, ${family_name || null}, ${email}, ${picture})`
+    INSERT INTO users(first_name, last_name, email, profile_picture, role)
+    VALUES(${given_name || null}, ${
+      family_name || null
+    }, ${email}, ${picture}, 'клиент')`
 
     const newUser = await sql`
-    SELECT a.id, a.first_name, a.last_name, a.email, a.profile_picture
+    SELECT a.id, a.first_name, a.last_name, a.email, a.profile_picture, b.name as role
     FROM users as a
+    JOIN user_roles as b
+    ON a.role_id = b.id
     WHERE email = ${email}`
 
     const token = jwt.sign({ userId: newUser[0].id }, JWTsecret)
