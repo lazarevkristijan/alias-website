@@ -39,7 +39,7 @@ export type ServiceTypes = {
 }
 export type AddServiceTypes = {
   service_name: string
-  price: number
+  price: string
   category: string
 }
 

@@ -79,14 +79,14 @@ export const postAddService = async (req, res) => {
     await sql`
     INSERT INTO services(name, category_id, price)
     VALUES(${service_name}, ${
-      category === "Car"
+      category === "коли"
         ? 1
-        : category === "Home"
+        : category === "вкъщи"
         ? 2
-        : category === "Personal"
+        : category === "персонални"
         ? 3
         : null
-    }, ${price})`
+    }, ${Number(price)})`
 
     return res.json({ success: "Service added" })
   } catch (error) {

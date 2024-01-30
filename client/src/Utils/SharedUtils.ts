@@ -2,13 +2,13 @@ import axios from "axios"
 import { AddServiceTypes } from "../Types"
 import { errorNotifEnding } from "../constants"
 
-export const handleAddService = (
+export const handleAddService = async (
   e: React.FormEvent<HTMLFormElement>,
   data: AddServiceTypes
 ) => {
   e.preventDefault()
 
-  axios
+  await axios
     .post("http://localhost:5432/services/add-service", JSON.stringify(data), {
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
