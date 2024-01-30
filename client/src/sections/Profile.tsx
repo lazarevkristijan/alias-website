@@ -24,6 +24,7 @@ const Profile = () => {
     <div>
       <div style={{ display: "flex", gap: 10 }}>
         <p>{user?.first_name}</p>
+        {user.middle_name && <p>{user?.middle_name}</p>}
         <p>{user?.last_name}</p>
         <p>{user?.email}</p>
         <p>{user?.role.charAt(0).toUpperCase() + user?.role.slice(1)}</p>

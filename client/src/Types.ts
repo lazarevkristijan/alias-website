@@ -2,6 +2,7 @@ export type SessionSliceTypes = {
   user: {
     id: number
     first_name: string | null
+    middle_name: string | null
     last_name: string | null
     email: string
     profile_picture: string
@@ -12,6 +13,7 @@ export type SessionSliceTypes = {
 export type UserTypes = {
   id: number
   first_name: string | null
+  middle_name: string | null
   last_name: string | null
   email: string
   profile_picture: string

@@ -1,10 +1,12 @@
 import { useNavigate } from "react-router"
 import AddServiceDialog from "../components/Services/AddServiceDialog"
 import { useState } from "react"
+import { useSelector } from "react-redux"
+import { RootState } from "../Store"
 
 const ServicesMain = () => {
   const navigate = useNavigate()
-
+  const user = useSelector((state: RootState) => state.session.user)
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false)
 
   return (
@@ -14,15 +16,19 @@ const ServicesMain = () => {
       <button onClick={() => navigate("вкъщи")}>Вкъщи</button>
       <br />
       <br />
-      <button
-        onClick={() => setIsAddDialogOpen(isAddDialogOpen ? false : true)}
-      >
-        Добави услуга
-      </button>
-      <AddServiceDialog
-        isOpen={isAddDialogOpen}
-        setIsOpen={setIsAddDialogOpen}
-      />
+      {user?.role === "админ" && (
+        <>
+          <button
+            onClick={() => setIsAddDialogOpen(isAddDialogOpen ? false : true)}
+          >
+            Добави услуга
+          </button>
+          <AddServiceDialog
+            isOpen={isAddDialogOpen}
+            setIsOpen={setIsAddDialogOpen}
+          />
+        </>
+      )}
     </div>
   )
 }
