@@ -64,9 +64,7 @@ export const getAllServices = async (req, res) => {
     SELECT a.id, a.name, a.price, b.name as category FROM services as a
     JOIN service_categories as b
     ON a.category_id = b.id 
-    WHERE b.name = ${
-      category[0].toUpperCase() + category.slice(1).toLowerCase()
-    }`
+    WHERE b.name = ${category}`
 
     return res.json(allServices)
   } catch (error) {

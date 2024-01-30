@@ -30,7 +30,7 @@ const App = () => {
   return (
     <>
       {isLoading ? (
-        <p>Loading...</p>
+        <p>Зареждане...</p>
       ) : (
         <main
           style={{
@@ -46,32 +46,32 @@ const App = () => {
               element={<Home />}
             />
             <Route
-              path="/profile"
+              path="/профил"
               element={<Profile />}
             />
             <Route
-              path="/settings"
+              path="/настройки"
               element={<Settings />}
             />
             <Route
-              path="/services"
+              path="/услуги"
               element={<ServicesMain />}
             />
             <Route
-              path="services/car"
+              path="услуги/коли"
               element={<CarServices />}
             />
             <Route
-              path="services/personal"
+              path="услуги/персонални"
               element={<PersonalServices />}
             />
             <Route
-              path="services/home"
+              path="услуги/вкъщи"
               element={<HomeServices />}
             />
             <Route
               path="*"
-              element={<h2>Not found</h2>}
+              element={<h2>Не е намерено</h2>}
             />
           </Routes>
         </main>

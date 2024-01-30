@@ -25,12 +25,13 @@ const ChangeCredentials = () => {
 
   return (
     <div>
-      <p>Change crednetials</p>
+      <p>Промени имена</p>
       <form
         onSubmit={(e) => {
           handleChangeCredentials(e, userData, user, dispatch)
         }}
       >
+        Име:
         <input
           type="text"
           value={userData.firstName}
@@ -47,6 +48,7 @@ const ChangeCredentials = () => {
                 : "#fff",
           }}
         />
+        Фамилия:
         <input
           type="text"
           value={userData.lastName}
@@ -73,7 +75,7 @@ const ChangeCredentials = () => {
               initialUserData.lastName === userData.lastName)
           }
         >
-          save changes
+          Спази
         </button>
       </form>
     </div>

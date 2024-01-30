@@ -15,15 +15,13 @@ const CarServices = () => {
     <div>
       <>
         {areCarServicesLoading ? (
-          <p>Loading...</p>
+          <p>Зареждане...</p>
         ) : (
           <>
-            <button onClick={() => navigate("/services")}>
-              back to services
-            </button>
+            <button onClick={() => navigate("/услуги")}>Към услуги</button>
             <br />
             <br />
-            <h2>All car services</h2>
+            <h2>Всички услуги за коли</h2>
             {allCarServices &&
               allCarServices.map((service: ServiceTypes) => (
                 <div key={service.id}>

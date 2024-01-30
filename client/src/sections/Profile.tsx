@@ -37,7 +37,7 @@ const Profile = () => {
           borderRadius: "50%",
           border: "2px solid #000",
         }}
-        alt={`${user?.first_name}'s profile picture`}
+        alt={`профилна картинка на ${user?.first_name}`}
       />
       <br />
       <br />

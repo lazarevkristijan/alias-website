@@ -9,16 +9,15 @@ const ServicesMain = () => {
 
   return (
     <div>
-      ServicesMain
-      <button onClick={() => navigate("car")}>car services</button>
-      <button onClick={() => navigate("personal")}>personal services</button>
-      <button onClick={() => navigate("home")}>home services</button>
+      <button onClick={() => navigate("коли")}>Коли</button>
+      <button onClick={() => navigate("персонални")}>Персонални</button>
+      <button onClick={() => navigate("вкъщи")}>Вкъщи</button>
       <br />
       <br />
       <button
         onClick={() => setIsAddDialogOpen(isAddDialogOpen ? false : true)}
       >
-        add service
+        Добави услуга
       </button>
       <AddServiceDialog
         isOpen={isAddDialogOpen}

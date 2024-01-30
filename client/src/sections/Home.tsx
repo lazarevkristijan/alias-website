@@ -5,7 +5,7 @@ const Home = () => {
         textAlign: "center",
       }}
     >
-      Alias Services
+      Алиас услуги
     </div>
   )
 }

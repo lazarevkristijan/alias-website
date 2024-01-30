@@ -6,10 +6,10 @@ const ChangeTheme = () => {
 
   return (
     <div>
-      <p>Change theme</p>
-      <button onClick={() => handleChangeTheme("dark", dispatch)}>dark</button>
+      <p>Промени режим</p>
+      <button onClick={() => handleChangeTheme("dark", dispatch)}>Тъмен</button>
       <button onClick={() => handleChangeTheme("light", dispatch)}>
-        light
+        Светъл
       </button>
     </div>
   )

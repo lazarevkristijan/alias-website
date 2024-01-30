@@ -28,7 +28,7 @@ const ProfilePicture = () => {
 
   return (
     <div>
-      <p>Profile Picture</p>
+      <p>Профилна картинка</p>
 
       <form
         onSubmit={(e) => {
@@ -54,7 +54,7 @@ const ProfilePicture = () => {
             borderRadius: "50%",
             border: "2px solid #000",
           }}
-          alt={`${user?.first_name}'s profile picture`}
+          alt={`Профилна картинка на ${user?.first_name}`}
         />
         <input
           type="file"
@@ -72,10 +72,10 @@ const ProfilePicture = () => {
                 e.target.files[0].type !== "image/jpg"
               ) {
                 setSupportedError(true)
-                return console.error("File type not supported")
+                return console.error("Файла не е от поддържан тип")
               } else if (e.target.files[0].size > 5 * 1048576) {
                 setSizeError(true)
-                return console.error("File size must be max 5mb")
+                return console.error("Файла мора да бъде не по голям от 5мб")
               } else {
                 const reader = new FileReader()
                 reader.onload = (readerEvent) => {
@@ -92,7 +92,7 @@ const ProfilePicture = () => {
                 handleFileChange(e, setProfilePicture)
               }
             } else {
-              return console.error("Error when uplaoding file")
+              return console.error("Грешка при качване на файл")
             }
           }}
           style={{
@@ -121,7 +121,7 @@ const ProfilePicture = () => {
             }
           }}
         >
-          reset
+          нулиране
         </button>
         <button
           disabled={
@@ -131,21 +131,23 @@ const ProfilePicture = () => {
             handlePfpDelete(user?.profile_picture || defaultPfpURL, dispatch)
           }
         >
-          delete pfp
+          истрий снимката
         </button>
 
         <button
           type="submit"
           disabled={!profilePicture}
         >
-          submit
+          спази
         </button>
       </form>
 
       {supportedError && (
-        <p style={{ color: "red" }}>File type not supported</p>
+        <p style={{ color: "red" }}>Файла не е от поддържан тип</p>
       )}
-      {sizeError && <p style={{ color: "red" }}>File size must be max 5mb</p>}
+      {sizeError && (
+        <p style={{ color: "red" }}>Файла мора да бъде не по голям от 5мб</p>
+      )}
     </div>
   )
 }
