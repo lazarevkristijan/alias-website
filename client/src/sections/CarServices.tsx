@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query"
 import { useNavigate } from "react-router"
 import { getAllCarServices } from "../Utils/CarServicesUtils"
 import { ServiceTypes } from "../Types"
+import React from "react"
 
 const CarServices = () => {
   const navigate = useNavigate()
@@ -24,8 +25,8 @@ const CarServices = () => {
             <h2>Всички услуги за коли</h2>
             {allCarServices &&
               allCarServices.map((service: ServiceTypes) => (
-                <>
-                  <div key={service.id}>
+                <React.Fragment key={service.id}>
+                  <div>
                     <p>Услуга: {service.name}</p>
                     <p>Категория: {service.category}</p>
                     <p>Цена: {service.price}</p>
@@ -35,7 +36,7 @@ const CarServices = () => {
                     </button>
                   </div>
                   <br />
-                </>
+                </React.Fragment>
               ))}
           </>
         )}
