@@ -64,3 +64,14 @@ export const sendNotification = (message: string, success: boolean = false) => {
     document.body.removeChild(notification)
   }, 4000)
 }
+
+export const getSingleService = async (category: string, id: string) => {
+  const res = await axios
+    .get(`http://localhost:5432/service/${category}/${id}`)
+    .then((response) => response.data)
+    .catch((error) => {
+      sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
+    })
+
+  return res[0]
+}

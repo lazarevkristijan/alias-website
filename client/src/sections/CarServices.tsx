@@ -24,11 +24,18 @@ const CarServices = () => {
             <h2>Всички услуги за коли</h2>
             {allCarServices &&
               allCarServices.map((service: ServiceTypes) => (
-                <div key={service.id}>
-                  <p>Услуга: {service.name}</p>
-                  <p>Категория: {service.category}</p>
-                  <p>Цена: {service.price}</p>
-                </div>
+                <>
+                  <div key={service.id}>
+                    <p>Услуга: {service.name}</p>
+                    <p>Категория: {service.category}</p>
+                    <p>Цена: {service.price}</p>
+
+                    <button onClick={() => navigate(`${service.id}`)}>
+                      Подробности
+                    </button>
+                  </div>
+                  <br />
+                </>
               ))}
           </>
         )}

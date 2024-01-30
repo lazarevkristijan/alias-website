@@ -24,11 +24,14 @@ const HomeServices = () => {
             <h2>Всички услуги за вкъщи</h2>
             {allCarServices &&
               allCarServices.map((service: ServiceTypes) => (
-                <div key={service.id}>
-                  <p>Услуга: {service.name}</p>
-                  <p>Категория: {service.category}</p>
-                  <p>Цена: {service.price}</p>
-                </div>
+                <>
+                  <div key={service.id}>
+                    <p>Услуга: {service.name}</p>
+                    <p>Категория: {service.category}</p>
+                    <p>Цена: {service.price}</p>
+                  </div>
+                  <br />
+                </>
               ))}
           </>
         )}

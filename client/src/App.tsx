@@ -11,6 +11,7 @@ import CarServices from "./sections/CarServices"
 import ServicesMain from "./sections/ServicesMain"
 import PersonalServices from "./sections/PersonalServices"
 import HomeServices from "./sections/HomeServices"
+import SingleService from "./sections/SingleService"
 
 const App = () => {
   const dispatch = useDispatch()
@@ -61,6 +62,11 @@ const App = () => {
               path="услуги/коли"
               element={<CarServices />}
             />
+            <Route
+              path="услуги/:category/:id"
+              element={<SingleService />}
+            />
+
             <Route
               path="услуги/персонални"
               element={<PersonalServices />}

@@ -1,8 +1,3 @@
-- react router pages /services/car, /services/personal, /services/home
-- create table for categories (id, category_name)
-- create table for services (id, service_name, category_id FK categories.id, price)
-- create table for roles (id, role_name)
-- alter table users - add role_id FK roles.id
 
 - create endpoint for adding a service
 - create endpoint for getting all services

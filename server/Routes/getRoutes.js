@@ -86,3 +86,20 @@ export const getAllServiceCategories = async (req, res) => {
       .json({ error: "Error when getting all service categories" })
   }
 }
+
+export const getSingleService = async (req, res) => {
+  try {
+    const { category, id } = req.params
+
+    const service = await sql`
+    SELECT a.id, a.name, a.price, b.name as category FROM services as a
+    JOIN service_categories as b
+    ON a.category_id = b.id 
+    WHERE a.id = ${id} AND b.name = ${category}`
+
+    return res.json(service)
+  } catch (error) {
+    console.error("Error is: ", error)
+    return res.status(500).json({ error: "Error when getting single service" })
+  }
+}
