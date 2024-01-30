@@ -2,8 +2,6 @@ import { useQuery } from "@tanstack/react-query"
 import { useNavigate } from "react-router"
 import { getAllCarServices } from "../Utils/CarServicesUtils"
 import { ServiceTypes } from "../Types"
-import AddServiceDialog from "../components/Services/AddServiceDialog"
-import { useState } from "react"
 
 const CarServices = () => {
   const navigate = useNavigate()
@@ -12,8 +10,6 @@ const CarServices = () => {
     queryKey: ["all-car-services"],
     queryFn: () => getAllCarServices(),
   })
-
-  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false)
 
   return (
     <div>
@@ -27,17 +23,9 @@ const CarServices = () => {
             </button>
             <br />
             <br />
-            <button
-              onClick={() => setIsAddDialogOpen(isAddDialogOpen ? false : true)}
-            >
-              add service
-            </button>
             <br />
             <br />
-            <AddServiceDialog
-              isOpen={isAddDialogOpen}
-              setIsOpen={setIsAddDialogOpen}
-            />
+
             <br />
             <br />
             <h2>All car services</h2>
