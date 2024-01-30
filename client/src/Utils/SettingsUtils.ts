@@ -3,6 +3,7 @@ import { AppDispatch } from "../Store"
 import { UserTypes } from "../Types"
 import { changeProfilePicture } from "../features/session/sessionSlice"
 import { defaultPfpURL } from "../constants"
+import { changeTheme } from "../features/settings/settingsSlice"
 
 export const getPfpLink = (linkString: string) => {
   try {
@@ -87,4 +88,19 @@ export const handleFileChange = (
   if (file !== undefined && file !== null) {
     setPrrofilePicture(file)
   }
+}
+
+export const handleChangeTheme = (theme: string, dispatch: AppDispatch) => {
+  axios
+    .patch(
+      "http://localhost:5432/user-settings/change-theme",
+      JSON.stringify({ theme: theme }),
+      { headers: { "Content-Type": "application/json" }, withCredentials: true }
+    )
+    .then(() => {
+      document.body.style.backgroundColor = theme === "dark" ? "#333" : "#ccc"
+      document.body.style.color = theme === "dark" ? "#fff" : "#000"
+
+      dispatch(changeTheme(theme))
+    })
 }

@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux"
-import { handleChangeTheme } from "../../Utils/ProfileUtils"
+import { handleChangeTheme } from "../../Utils/SettingsUtils"
 
 const ChangeTheme = () => {
   const dispatch = useDispatch()

@@ -14,10 +14,16 @@ const Navbar = () => {
       }}
     >
       <ul style={{ display: "flex", gap: 10, listStyle: "none" }}>
-        <li onClick={() => navigate("/")}>Home</li>
-        <li onClick={() => navigate("/услуги")}>Services</li>
-        <li onClick={() => navigate("/профил")}>Profile</li>
-        <li onClick={() => navigate("/настройки")}>Settings</li>
+        <li onClick={() => navigate("/")}>Начало</li>
+        <li onClick={() => navigate("/услуги")}>Услуги</li>
+        {auth0authenticated ? (
+          <>
+            <li onClick={() => navigate("/профил")}>Профил</li>
+            <li onClick={() => navigate("/настройки")}>Настройки</li>
+          </>
+        ) : (
+          <li onClick={() => loginWithPopup()}>Вход</li>
+        )}
       </ul>
 
       {!auth0authenticated && (
