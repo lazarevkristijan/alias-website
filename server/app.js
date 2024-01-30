@@ -13,6 +13,7 @@ import {
   getLogout,
   getAllCarServices,
   getAllServiceCategories,
+  getAllServices,
 } from "./Routes/getRoutes.js"
 import { postAddService, postLoginOrRegister } from "./Routes/postRoutes.js"
 import { deleteProfilePicture, deleteUser } from "./Routes/deleteRoutes.js"
@@ -64,7 +65,7 @@ app.delete(
   deleteProfilePicture
 )
 
-app.get("/services/all-car-services", getAllCarServices)
+app.get("/services/all/:category", getAllServices)
 app.get("/services/all-service-categories", getAllServiceCategories)
 
 app.post("/services/add-service", verifyToken, postAddService)

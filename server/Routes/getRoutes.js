@@ -56,6 +56,24 @@ export const getAllCarServices = async (req, res) => {
       .json({ error: "Error when getting all car services" })
   }
 }
+export const getAllServices = async (req, res) => {
+  try {
+    const { category } = req.params
+
+    const allServices = await sql`
+    SELECT a.id, a.name, a.price, b.name as category FROM services as a
+    JOIN service_categories as b
+    ON a.category_id = b.id 
+    WHERE b.name = ${
+      category[0].toUpperCase() + category.slice(1).toLowerCase()
+    }`
+
+    return res.json(allServices)
+  } catch (error) {
+    console.error("Error is: ", error)
+    return res.status(500).json({ error: "Error when getting all services" })
+  }
+}
 
 export const getAllServiceCategories = async (req, res) => {
   try {

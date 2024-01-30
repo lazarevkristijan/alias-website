@@ -23,11 +23,6 @@ const CarServices = () => {
             </button>
             <br />
             <br />
-            <br />
-            <br />
-
-            <br />
-            <br />
             <h2>All car services</h2>
             {allCarServices &&
               allCarServices.map((service: ServiceTypes) => (
