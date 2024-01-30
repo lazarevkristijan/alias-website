@@ -1,4 +1,4 @@
-import { nameRegex } from "../Regex.js"
+import { middleNameRegex, nameRegex } from "../Regex.js"
 import sql from "../db.js"
 import { cookieOptions } from "../constants/index.js"
 
@@ -34,12 +34,15 @@ export const patchChangeCreds = async (req, res) => {
     FROM users
     WHERE id = ${userId}`
 
-    const { firstName, lastName } = req.body
+    const { firstName, lastName, middleName } = req.body
 
-    if (!nameRegex.test(firstName) || !nameRegex.test(lastName)) {
+    if (
+      !nameRegex.test(firstName) ||
+      !nameRegex.test(lastName || !middleNameRegex.test(middleName))
+    ) {
       return res
         .status(400)
-        .json({ error: "First name or last name have invalid format" })
+        .json({ error: "Име, презиме или фамилно име са невалиден формат" })
     }
 
     if (user[0].first_name !== firstName) {
@@ -58,6 +61,15 @@ export const patchChangeCreds = async (req, res) => {
         WHERE id = ${userId}`
 
       updatedUser = { ...updatedUser, last_name: lastName }
+    }
+
+    if (user[0].middle_name !== middleName) {
+      await sql`
+        UPDATE users
+        SET middle_name = ${middleName}
+        WHERE id = ${userId}`
+
+      updatedUser = { ...updatedUser, middle_name: middleName }
     }
 
     return res.json(updatedUser)

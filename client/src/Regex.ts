@@ -1,1 +1,4 @@
-export const nameRegex = /^[a-zA-Z]{2,50}$/
+// CONNECTED TO ../SERVER/REGEX.TS - WHEN CHANGING THIS FILE, CHANGE BOTH
+
+export const nameRegex = /^[a-zA-Zа-яА-Я]{0,50}$/
+export const middleNameRegex = /^[a-zA-Zа-яА-Я]{0,50}$/

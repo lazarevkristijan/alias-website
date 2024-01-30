@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { nameRegex } from "../../Regex"
+import { middleNameRegex, nameRegex } from "../../Regex"
 import { handleChangeCredentials } from "../../Utils/ProfileUtils"
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../../Store"
@@ -11,16 +11,19 @@ const ChangeCredentials = () => {
   const [userData, setUserData] = useState({
     firstName: user?.first_name || "",
     lastName: user?.last_name || "",
+    middleName: user?.middle_name || "",
   })
 
   const initialUserData = {
     firstName: user?.first_name || "",
     lastName: user?.last_name || "",
+    middleName: user?.middle_name || "",
   }
 
   const [changedFields, setChangedFields] = useState({
     firstName: false,
     lastName: false,
+    middleName: false,
   })
 
   return (
@@ -31,9 +34,10 @@ const ChangeCredentials = () => {
           handleChangeCredentials(e, userData, user, dispatch)
         }}
       >
-        Име:
+        <label htmlFor="new_user_first_name">Име</label>
         <input
           type="text"
+          id="new_user_first_name"
           value={userData.firstName}
           onChange={(e) => {
             if (!changedFields.firstName) {
@@ -48,9 +52,33 @@ const ChangeCredentials = () => {
                 : "#fff",
           }}
         />
-        Фамилия:
+        <br />
+        <br />
+        <label htmlFor="new_user_middle_name">Презиме</label>
         <input
           type="text"
+          id="new_user_middle_name"
+          value={userData.middleName}
+          onChange={(e) => {
+            if (!changedFields.middleName) {
+              setChangedFields({ ...changedFields, middleName: true })
+            }
+            setUserData({ ...userData, middleName: e.target.value })
+          }}
+          style={{
+            backgroundColor:
+              !middleNameRegex.test(userData.middleName) &&
+              changedFields.middleName
+                ? "red"
+                : "#fff",
+          }}
+        />
+        <br />
+        <br />
+        <label htmlFor="new_user_last_name">Фамилия</label>
+        <input
+          type="text"
+          id="new_user_last_name"
           value={userData.lastName}
           onChange={(e) => {
             if (!changedFields.lastName) {
@@ -69,10 +97,13 @@ const ChangeCredentials = () => {
           disabled={
             !nameRegex.test(userData.firstName) ||
             !nameRegex.test(userData.lastName) ||
+            !middleNameRegex.test(userData.middleName) ||
             (nameRegex.test(userData.firstName) &&
               initialUserData.firstName === userData.firstName &&
               nameRegex.test(userData.lastName) &&
-              initialUserData.lastName === userData.lastName)
+              initialUserData.lastName === userData.lastName &&
+              middleNameRegex.test(userData.middleName) &&
+              initialUserData.middleName === userData.middleName)
           }
         >
           Спази
