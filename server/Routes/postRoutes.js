@@ -35,10 +35,10 @@ export const postLoginOrRegister = async (req, res) => {
       return res.json(existingUser[0])
     }
     await sql`
-    INSERT INTO users(first_name, last_name, email, profile_picture, role)
+    INSERT INTO users(first_name, last_name, email, profile_picture, role_id)
     VALUES(${given_name || null}, ${
       family_name || null
-    }, ${email}, ${picture}, 'клиент')`
+    }, ${email}, ${picture}, 1)`
 
     const newUser = await sql`
     SELECT a.id, a.first_name, a.middle_name, a.last_name, a.email, a.profile_picture, b.name as role
