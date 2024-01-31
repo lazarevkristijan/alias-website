@@ -7,6 +7,7 @@ import { RootState } from "../Store"
 const ServicesMain = () => {
   const navigate = useNavigate()
   const user = useSelector((state: RootState) => state.session.user)
+
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false)
 
   return (

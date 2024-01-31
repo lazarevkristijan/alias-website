@@ -103,3 +103,40 @@ export const getSingleService = async (req, res) => {
     return res.status(500).json({ error: "Error when getting single service" })
   }
 }
+
+export const getAllServiceProviders = async (req, res) => {
+  try {
+    console.log("params: ", req.params)
+    console.log("body: ", req.body)
+
+    return res.json(req.body)
+  } catch (error) {
+    console.error("Error is: ", error)
+    return res
+      .status(500)
+      .json({ error: "Error when getting service providers" })
+  }
+}
+
+export const getCategoryServiceProviders = async (req, res) => {
+  try {
+    const { category } = req.params
+
+    const providers = await sql`
+    SELECT d.first_name, d.profile_picture, a.service_id, a.provider_id, b.name, b.price, c.name as category FROM service_providers as a
+    LEFT JOIN services as b
+    ON a.service_id = b.id
+    JOIN service_categories as c
+    ON b.category_id = c.id 
+    JOIN users as d
+    ON a.provider_id = d.id
+    WHERE c.name = ${category}`
+
+    return res.json(providers)
+  } catch (error) {
+    console.error("Error is: ", error)
+    return res
+      .status(500)
+      .json({ error: "Error when getting categorized service providers" })
+  }
+}

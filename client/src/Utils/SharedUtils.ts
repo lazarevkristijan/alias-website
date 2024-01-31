@@ -96,3 +96,14 @@ export const handleEditService = async (
       sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
     })
 }
+
+export const getAllProviders = async (category: string) => {
+  const res = await axios
+    .get(`http://localhost:5432/services/providers/${category}`)
+    .then((response) => response.data)
+    .catch((error) =>
+      sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
+    )
+
+  return res
+}

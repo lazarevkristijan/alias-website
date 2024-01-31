@@ -47,3 +47,10 @@ export type ServiceCategoryTypes = {
   id: number
   name: string
 }
+
+export type ProviderTypes = {
+  first_name: string
+  provider_id: number
+  service_id: number
+  profile_picture: string
+}

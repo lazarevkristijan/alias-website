@@ -1,8 +1,10 @@
 import { useQuery } from "@tanstack/react-query"
 import { useNavigate } from "react-router"
 import { getAllCarServices } from "../Utils/CarServicesUtils"
-import { ServiceTypes } from "../Types"
+import { ProviderTypes, ServiceTypes } from "../Types"
 import ServiceCard from "../components/Services/ServiceCard"
+import { getAllProviders } from "../Utils/SharedUtils"
+import { getPfpLink } from "../Utils/SettingsUtils"
 
 const CarServices = () => {
   const navigate = useNavigate()
@@ -12,10 +14,15 @@ const CarServices = () => {
     queryFn: () => getAllCarServices(),
   })
 
+  const { isLoading: areProvidersLoading, data: allProviders } = useQuery({
+    queryKey: ["all-providers"],
+    queryFn: () => getAllProviders("коли"),
+  })
+
   return (
     <div>
       <>
-        {areCarServicesLoading ? (
+        {areCarServicesLoading || areProvidersLoading ? (
           <p>Зареждане...</p>
         ) : (
           <>
@@ -25,10 +32,32 @@ const CarServices = () => {
             <h2>Всички услуги за коли</h2>
             {allCarServices &&
               allCarServices.map((service: ServiceTypes) => (
-                <ServiceCard
-                  service={service}
-                  key={service.id}
-                />
+                <>
+                  <ServiceCard
+                    service={service}
+                    key={service.id}
+                  />
+                  Предлагачи на услугата:
+                  <br />
+                  {allProviders.map((provider: ProviderTypes) => {
+                    if (provider.service_id === service.id) {
+                      return (
+                        <>
+                          <img
+                            src={getPfpLink(provider.profile_picture)}
+                            alt={`Профилна снимка на ${provider.first_name}`}
+                            width={40}
+                            height={40}
+                            style={{ borderRadius: "50%", cursor: "pointer" }}
+                            onClick={() =>
+                              navigate(`/provider/${provider.provider_id}`)
+                            }
+                          />
+                        </>
+                      )
+                    }
+                  })}
+                </>
               ))}
           </>
         )}
