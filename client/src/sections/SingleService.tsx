@@ -4,6 +4,8 @@ import { useQuery } from "@tanstack/react-query"
 import { ServiceTypes } from "../Types"
 import { useSelector } from "react-redux"
 import { RootState } from "../Store"
+import { useState } from "react"
+import EditServiceDialog from "../components/EditServiceDialog"
 
 const SingleService = () => {
   const navigate = useNavigate()
@@ -19,6 +21,8 @@ const SingleService = () => {
     queryKey: ["singleService"],
     queryFn: () => getSingleService(category, id),
   })
+
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
 
   if (!service) return null
 
@@ -36,8 +40,24 @@ const SingleService = () => {
               service?.category.slice(1)}
           </p>
           <p>Цена: {service?.price}</p>
-          {user?.role === "админ" && <button>Редактирай</button>}
+          {user?.role === "админ" && (
+            <button
+              onClick={() =>
+                setIsEditDialogOpen(isEditDialogOpen ? false : true)
+              }
+            >
+              Редактирай
+            </button>
+          )}
           <br />
+          {isEditDialogOpen && (
+            <EditServiceDialog
+              service={service}
+              isOpen={isEditDialogOpen}
+              setIsOpen={setIsEditDialogOpen}
+              // setIsEditDialogOpen={setIsEditDialogOpen}
+            />
+          )}
         </>
       )}
     </div>

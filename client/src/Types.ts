@@ -34,11 +34,11 @@ export type SettingsSliceTypes = {
 export type ServiceTypes = {
   id: number
   name: string
-  price: number
+  price: string
   category: string
 }
-export type AddServiceTypes = {
-  service_name: string
+export type ModifyServiceTypes = {
+  name: string
   price: string
   category: string
 }

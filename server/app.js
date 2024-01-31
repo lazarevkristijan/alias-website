@@ -22,6 +22,7 @@ import {
   patchChangeCreds,
   patchChangeProfilePicture,
   patchChangeTheme,
+  patchEditService,
 } from "./Routes/patchRoutes.js"
 
 dotenv.config()
@@ -71,6 +72,7 @@ app.get("/service/:category/:id", getSingleService)
 app.get("/services/all-service-categories", getAllServiceCategories)
 
 app.post("/services/add-service", verifyToken, postAddService)
+app.patch("/services/edit-service", verifyToken, patchEditService)
 
 const server = app.listen(port, () =>
   console.log(`Alias is listening on port ${port}!`)

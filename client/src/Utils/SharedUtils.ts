@@ -1,10 +1,11 @@
 import axios from "axios"
-import { AddServiceTypes } from "../Types"
+import { ModifyServiceTypes, ServiceTypes } from "../Types"
 import { errorNotifEnding } from "../constants"
+import React from "react"
 
 export const handleAddService = async (
   e: React.FormEvent<HTMLFormElement>,
-  data: AddServiceTypes
+  data: ModifyServiceTypes
 ) => {
   e.preventDefault()
 
@@ -74,4 +75,24 @@ export const getSingleService = async (category: string, id: string) => {
     })
 
   return res[0]
+}
+
+export const handleEditService = async (
+  e: React.FormEvent<HTMLFormElement>,
+  data: ServiceTypes
+) => {
+  e.preventDefault()
+
+  await axios
+    .patch(
+      "http://localhost:5432/services/edit-service",
+      JSON.stringify(data),
+      { headers: { "Content-Type": "application/json" }, withCredentials: true }
+    )
+    .then((response) => {
+      sendNotification(response.data.success, true)
+    })
+    .catch((error) => {
+      sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
+    })
 }

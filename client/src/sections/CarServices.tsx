@@ -25,7 +25,10 @@ const CarServices = () => {
             <h2>Всички услуги за коли</h2>
             {allCarServices &&
               allCarServices.map((service: ServiceTypes) => (
-                <ServiceCard service={service} />
+                <ServiceCard
+                  service={service}
+                  key={service.id}
+                />
               ))}
           </>
         )}

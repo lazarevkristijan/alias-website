@@ -9,7 +9,10 @@ const ServiceCard = ({ service }: { service: ServiceTypes }) => {
     <React.Fragment key={service.id}>
       <div>
         <p>Услуга: {service.name}</p>
-        <p>Категория: {service.category}</p>
+        <p>
+          Категория:{" "}
+          {service.category.charAt(0).toUpperCase() + service.category.slice(1)}
+        </p>
         <p>Цена: {service.price}</p>
 
         <button onClick={() => navigate(`${service.id}`)}>Подробности</button>

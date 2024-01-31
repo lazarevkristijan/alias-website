@@ -96,6 +96,30 @@ export const patchChangeProfilePicture = async (req, res) => {
     console.error("Error is: ", error)
     return res
       .status(500)
-      .json({ error: "Error when changing profile picture" })
+      .json({ error: "Грешка при промяна на профилна снимка" })
+  }
+}
+
+export const patchEditService = async (req, res) => {
+  try {
+    const { id, name, price, category } = req.body
+
+    await sql`
+    UPDATE services
+    SET name = ${name}, price = ${Number(price)}, category_id = ${
+      category === "коли"
+        ? 1
+        : category === "вкъщи"
+        ? 2
+        : category === "персонални"
+        ? 3
+        : null
+    }
+    WHERE id = ${id}`
+
+    return res.json({ success: "Успешно редактирана услуга" })
+  } catch (error) {
+    console.error("Error is: ", error)
+    return res.status(500).json({ error: "Грешка при редактиране услуга" })
   }
 }

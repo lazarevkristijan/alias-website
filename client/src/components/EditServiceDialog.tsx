@@ -1,29 +1,38 @@
 import { useState } from "react"
+import { ServiceCategoryTypes, ServiceTypes } from "../Types"
 import {
   getAllServiceCategories,
-  handleAddService,
-} from "../../Utils/SharedUtils"
+  handleEditService,
+} from "../Utils/SharedUtils"
+import { priceRegex, serviceNameRegex } from "../Regex"
 import { useQuery } from "@tanstack/react-query"
-import { ServiceCategoryTypes } from "../../Types"
-import { priceRegex, serviceNameRegex } from "../../Regex"
 
-const AddServiceDialog = ({
+const EditServiceDialog = ({
+  service,
   isOpen,
   setIsOpen,
 }: {
+  service: ServiceTypes
   isOpen: boolean
   setIsOpen: (value: React.SetStateAction<boolean>) => void
 }) => {
   const [serviceData, setServiceData] = useState({
-    name: "",
-    category: "",
-    price: "",
+    id: service.id,
+    name: service.name,
+    price: service.price.split(".")[0],
+    category: service.category,
   })
+
+  const initialServiceData = {
+    name: service.name,
+    price: service.price.split(".")[0],
+    category: service.category,
+  }
 
   const [changedFields, setChangedFields] = useState({
     name: false,
-    category: false,
     price: false,
+    category: false,
   })
 
   const { isLoading: areServiceCategoriesLoading, data: allServiceCategories } =
@@ -41,36 +50,24 @@ const AddServiceDialog = ({
         backgroundColor: "red",
       }}
     >
+      <p>Меню за редактиране</p>
+
       <button onClick={() => setIsOpen(false)}>Затвори</button>
 
       <form
-        onSubmit={(e) =>
-          handleAddService(e, serviceData).then(() => {
-            setChangedFields({
-              name: false,
-              category: false,
-              price: false,
-            })
-            setServiceData({
-              name: "",
-              category: "",
-              price: "",
-            })
-          })
-        }
+        onSubmit={(e) => {
+          handleEditService(e, serviceData)
+        }}
       >
-        <label htmlFor="new_service_name">Име на услугата:</label>
+        <label htmlFor="new_service_name">Име: </label>
         <input
-          id="new_service_name"
-          autoComplete="off"
           type="text"
-          placeholder="Пране..."
+          id="new_service_name"
           value={serviceData.name}
           onChange={(e) => {
             if (!changedFields.name) {
               setChangedFields({ ...changedFields, name: true })
             }
-
             setServiceData({ ...serviceData, name: e.target.value })
           }}
           style={{
@@ -82,7 +79,7 @@ const AddServiceDialog = ({
         />
         <br />
         <br />
-        <label htmlFor="new_service_category">Категория:</label>
+        <label htmlFor="new_service_category">Категория: </label>
         {!areServiceCategoriesLoading && (
           <select
             id="new_service_category"
@@ -107,12 +104,10 @@ const AddServiceDialog = ({
         )}
         <br />
         <br />
-        <label htmlFor="new_service_price">Цена в лв:</label>
+        <label htmlFor="new_service_price">Цена: </label>
         <input
-          id="new_service_price"
-          autoComplete="off"
           type="text"
-          placeholder="10"
+          id="new_service_price"
           value={serviceData.price}
           onChange={(e) => {
             if (!changedFields.price) {
@@ -122,62 +117,28 @@ const AddServiceDialog = ({
           }}
           style={{
             backgroundColor:
-              !priceRegex.test(serviceData.price) && changedFields.price
+              !priceRegex.test(String(serviceData.price)) && changedFields.price
                 ? "red"
                 : "#fff",
           }}
         />
-        <br />
         <button
           disabled={
-            !priceRegex.test(serviceData.price) ||
             !serviceNameRegex.test(serviceData.name) ||
-            serviceData.category === ""
+            !priceRegex.test(serviceData.price) ||
+            serviceData.category === "" ||
+            (serviceNameRegex.test(serviceData.name) &&
+              initialServiceData.name === serviceData.name &&
+              priceRegex.test(String(serviceData.price)) &&
+              initialServiceData.price === serviceData.price &&
+              initialServiceData.category === serviceData.category)
           }
         >
-          Добави
-        </button>
-        <button
-          type="button"
-          onClick={() => {
-            setIsOpen(false)
-
-            setChangedFields({
-              name: false,
-              category: false,
-              price: false,
-            })
-
-            setServiceData({
-              name: "",
-              category: "",
-              price: "",
-            })
-          }}
-        >
-          Отказ
-        </button>
-        <button
-          type="button"
-          onClick={() => {
-            setChangedFields({
-              name: false,
-              category: false,
-              price: false,
-            })
-
-            setServiceData({
-              name: "",
-              category: "",
-              price: "",
-            })
-          }}
-        >
-          Нулиране
+          Спази
         </button>
       </form>
     </div>
   )
 }
 
-export default AddServiceDialog
+export default EditServiceDialog
