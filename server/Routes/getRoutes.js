@@ -140,3 +140,23 @@ export const getCategoryServiceProviders = async (req, res) => {
       .json({ error: "Error when getting categorized service providers" })
   }
 }
+
+export const getProvider = async (req, res) => {
+  try {
+    const { id } = req.params
+
+    const provider = await sql`
+    SELECT * FROM users
+    WHERE id = ${id} AND role_id = 2`
+
+    if (provider.length === 0)
+      return res
+        .status(404)
+        .json({ error: "Служителя не е намерен или не е служител" })
+
+    return res.json(provider)
+  } catch (error) {
+    console.error("Error is: ", error)
+    return res.status(500).json({ error: "Грешка при отваряне на профил" })
+  }
+}

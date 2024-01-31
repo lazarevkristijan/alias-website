@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 import { useNavigate } from "react-router"
 import { getAllCarServices } from "../Utils/CarServicesUtils"
-import { ProviderTypes, ServiceTypes } from "../Types"
+import { ProviderServiceShowcaseTypes, ServiceTypes } from "../Types"
 import ServiceCard from "../components/Services/ServiceCard"
 import { getAllProviders } from "../Utils/SharedUtils"
 import { getPfpLink } from "../Utils/SettingsUtils"
@@ -37,26 +37,28 @@ const CarServices = () => {
                     service={service}
                     key={service.id}
                   />
-                  Предлагачи на услугата:
+                  Служители на услугата:
                   <br />
-                  {allProviders.map((provider: ProviderTypes) => {
-                    if (provider.service_id === service.id) {
-                      return (
-                        <>
-                          <img
-                            src={getPfpLink(provider.profile_picture)}
-                            alt={`Профилна снимка на ${provider.first_name}`}
-                            width={40}
-                            height={40}
-                            style={{ borderRadius: "50%", cursor: "pointer" }}
-                            onClick={() =>
-                              navigate(`/provider/${provider.provider_id}`)
-                            }
-                          />
-                        </>
-                      )
+                  {allProviders.map(
+                    (provider: ProviderServiceShowcaseTypes) => {
+                      if (provider.service_id === service.id) {
+                        return (
+                          <>
+                            <img
+                              src={getPfpLink(provider.profile_picture)}
+                              alt={`Профилна снимка на ${provider.first_name}`}
+                              width={40}
+                              height={40}
+                              style={{ borderRadius: "50%", cursor: "pointer" }}
+                              onClick={() =>
+                                navigate(`/служител/${provider.provider_id}`)
+                              }
+                            />
+                          </>
+                        )
+                      }
                     }
-                  })}
+                  )}
                 </>
               ))}
           </>

@@ -107,3 +107,14 @@ export const getAllProviders = async (category: string) => {
 
   return res
 }
+
+export const getProvider = async (id: number) => {
+  const res = await axios
+    .get(`http://localhost:5432/provider/${id}`)
+    .then((response) => response.data)
+    .catch((error) =>
+      sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
+    )
+
+  return res[0]
+}

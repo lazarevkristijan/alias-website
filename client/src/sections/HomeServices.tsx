@@ -1,8 +1,10 @@
 import { useNavigate } from "react-router"
-import { ServiceTypes } from "../Types"
+import { ProviderServiceShowcaseTypes, ServiceTypes } from "../Types"
 import { getAllHomeServices } from "../Utils/HomeServicesUtils"
 import { useQuery } from "@tanstack/react-query"
 import ServiceCard from "../components/Services/ServiceCard"
+import { getPfpLink } from "../Utils/SettingsUtils"
+import { getAllProviders } from "../Utils/SharedUtils"
 const HomeServices = () => {
   const navigate = useNavigate()
 
@@ -11,10 +13,15 @@ const HomeServices = () => {
     queryFn: () => getAllHomeServices(),
   })
 
+  const { isLoading: areProvidersLoading, data: allProviders } = useQuery({
+    queryKey: ["all-providers"],
+    queryFn: () => getAllProviders("вкъщи"),
+  })
+
   return (
     <div>
       <>
-        {areCarServicesLoading ? (
+        {areCarServicesLoading || areProvidersLoading ? (
           <p>Зареждане...</p>
         ) : (
           <>
@@ -24,10 +31,34 @@ const HomeServices = () => {
             <h2>Всички услуги за вкъщи</h2>
             {allCarServices &&
               allCarServices.map((service: ServiceTypes) => (
-                <ServiceCard
-                  service={service}
-                  key={service.id}
-                />
+                <>
+                  <ServiceCard
+                    service={service}
+                    key={service.id}
+                  />
+                  Служители на услугата:
+                  <br />
+                  {allProviders.map(
+                    (provider: ProviderServiceShowcaseTypes) => {
+                      if (provider.service_id === service.id) {
+                        return (
+                          <>
+                            <img
+                              src={getPfpLink(provider.profile_picture)}
+                              alt={`Профилна снимка на ${provider.first_name}`}
+                              width={40}
+                              height={40}
+                              style={{ borderRadius: "50%", cursor: "pointer" }}
+                              onClick={() =>
+                                navigate(`/служител/${provider.provider_id}`)
+                              }
+                            />
+                          </>
+                        )
+                      }
+                    }
+                  )}
+                </>
               ))}
           </>
         )}

@@ -16,6 +16,7 @@ import {
   getSingleService,
   getAllServiceProviders,
   getCategoryServiceProviders,
+  getProvider,
 } from "./Routes/getRoutes.js"
 import { postAddService, postLoginOrRegister } from "./Routes/postRoutes.js"
 import { deleteProfilePicture, deleteUser } from "./Routes/deleteRoutes.js"
@@ -76,6 +77,8 @@ app.post("/services/add-service", verifyToken, postAddService)
 app.patch("/services/edit-service", verifyToken, patchEditService)
 app.get("/services/all-providers", getAllServiceProviders)
 app.get("/services/providers/:category", getCategoryServiceProviders)
+
+app.get("/provider/:id", getProvider)
 
 const server = app.listen(port, () =>
   console.log(`Alias is listening on port ${port}!`)

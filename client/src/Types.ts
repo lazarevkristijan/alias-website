@@ -48,9 +48,19 @@ export type ServiceCategoryTypes = {
   name: string
 }
 
-export type ProviderTypes = {
+export type ProviderServiceShowcaseTypes = {
   first_name: string
   provider_id: number
   service_id: number
+  profile_picture: string
+}
+
+export type ProviderTypes = {
+  id: number
+  first_name: string
+  middle_name: string
+  last_name: string
+  email: string
+  role_id: number
   profile_picture: string
 }
