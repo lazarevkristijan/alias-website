@@ -12,10 +12,10 @@ export const deleteUser = async (req, res) => {
     res.clearCookie("user")
     res.clearCookie("theme")
 
-    return res.json({ success: "Successfully deleted user" })
+    return res.json({ success: "Успешно изтриен потребител" })
   } catch (error) {
     console.error("Error is: ", error)
-    return res.status(500).json({ error: "Error when deleting user" })
+    return res.status(500).json({ error: "Грешка при изтриване на потребител" })
   }
 }
 
@@ -33,11 +33,26 @@ export const deleteProfilePicture = async (req, res) => {
       cloudinary.uploader.destroy(picturePath)
     }
 
-    return res.json({ success: "Successfully deleted profile picture" })
+    return res.json({ success: "Успешно изтриена профилна картинка" })
   } catch (error) {
     console.error("Error is: ", error)
     return res
       .status(500)
-      .json({ error: "Error when deleting profile picture" })
+      .json({ error: "Грешка при изтриване на профилна снимка" })
+  }
+}
+
+export const deleteService = async (req, res) => {
+  try {
+    const { id } = req.body
+
+    await sql`
+    DELETE FROM services
+    WHERE id = ${id}`
+
+    return res.json({ success: "Успешно изтриена услуга" })
+  } catch (error) {
+    console.error("Error is: ", error)
+    return res.status(500).json({ error: "Грешка при изтриване на услуга" })
   }
 }

@@ -1,5 +1,5 @@
 import { useNavigate, useParams } from "react-router"
-import { getSingleService } from "../Utils/SharedUtils"
+import { getSingleService, handleDeleteService } from "../Utils/SharedUtils"
 import { useQuery } from "@tanstack/react-query"
 import { ServiceTypes } from "../Types"
 import { useSelector } from "react-redux"
@@ -58,6 +58,9 @@ const SingleService = () => {
               // setIsEditDialogOpen={setIsEditDialogOpen}
             />
           )}
+          <button onClick={() => handleDeleteService(service.id)}>
+            Изтрий
+          </button>
         </>
       )}
     </div>

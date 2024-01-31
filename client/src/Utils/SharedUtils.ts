@@ -118,3 +118,18 @@ export const getProvider = async (id: number) => {
 
   return res[0]
 }
+
+export const handleDeleteService = async (id: number) => {
+  await axios
+    .delete(`http://localhost:5432/services/delete-service`, {
+      headers: { "Content-Type": "application/json" },
+      data: { id },
+      withCredentials: true,
+    })
+    .then((response) => {
+      sendNotification(response.data.success, true)
+    })
+    .catch((error) =>
+      sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
+    )
+}
