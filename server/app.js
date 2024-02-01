@@ -14,9 +14,10 @@ import {
   getAllServiceCategories,
   getAllServices,
   getSingleService,
-  getAllServiceProviders,
+  getAllServicesAndProviders,
   getCategoryServiceProviders,
   getProvider,
+  getAllServiceProviders,
 } from "./Routes/getRoutes.js"
 import { postAddService, postLoginOrRegister } from "./Routes/postRoutes.js"
 import {
@@ -81,7 +82,8 @@ app.post("/services/add-service", verifyToken, postAddService)
 app.patch("/services/edit-service", verifyToken, patchEditService)
 app.delete("/services/delete-service", verifyToken, deleteService)
 
-app.get("/services/all-providers", getAllServiceProviders)
+app.get("/services/all-providers", getAllServicesAndProviders)
+app.get("/all-providers", getAllServiceProviders)
 app.get("/services/providers/:category", getCategoryServiceProviders)
 app.get("/provider/:id", getProvider)
 

@@ -104,7 +104,7 @@ export const getSingleService = async (req, res) => {
   }
 }
 
-export const getAllServiceProviders = async (req, res) => {
+export const getAllServicesAndProviders = async (req, res) => {
   try {
     const providers = await sql`
     SELECT * FROM service_providers`
@@ -114,7 +114,22 @@ export const getAllServiceProviders = async (req, res) => {
     console.error("Error is: ", error)
     return res
       .status(500)
-      .json({ error: "Error when getting service providers" })
+      .json({ error: "Грешка при получаване всички служители и услуги" })
+  }
+}
+
+export const getAllServiceProviders = async (req, res) => {
+  try {
+    const providers = await sql`
+    SELECT * FROM users
+    WHERE role_id = 2`
+
+    return res.json(providers)
+  } catch (error) {
+    console.error("Error is: ", error)
+    return res
+      .status(500)
+      .json({ error: "Грешка при получаване всички служители" })
   }
 }
 

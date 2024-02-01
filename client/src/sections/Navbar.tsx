@@ -16,6 +16,7 @@ const Navbar = () => {
       <ul style={{ display: "flex", gap: 10, listStyle: "none" }}>
         <li onClick={() => navigate("/")}>Начало</li>
         <li onClick={() => navigate("/услуги")}>Услуги</li>
+        <li onClick={() => navigate("/служители")}>Служители</li>
         {auth0authenticated ? (
           <>
             <li onClick={() => navigate("/профил")}>Профил</li>

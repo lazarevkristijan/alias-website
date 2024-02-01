@@ -14,7 +14,7 @@ const Providers = () => {
       ) : (
         <>
           Всички служители:
-          <p>Providers: {providers.length}</p>
+          <p>Количество: {providers.length}</p>
         </>
       )}
     </div>

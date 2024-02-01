@@ -74,11 +74,11 @@ export const postLoginOrRegister = async (req, res) => {
 
 export const postAddService = async (req, res) => {
   try {
-    const { service_name, category, price } = req.body
-
-    await sql`
+    const { name, category, price, providers } = req.body
+    console.log(req.body)
+    const newServiceId = await sql`
     INSERT INTO services(name, category_id, price)
-    VALUES(${service_name}, ${
+    VALUES(${name}, ${
       category === "коли"
         ? 1
         : category === "вкъщи"
@@ -86,7 +86,16 @@ export const postAddService = async (req, res) => {
         : category === "персонални"
         ? 3
         : null
-    }, ${Number(price)})`
+    }, ${Number(price)})
+    RETURNING id`
+
+    console.log(newServiceId)
+
+    providers.forEach(async (element) => {
+      await sql`
+      INSERT INTO service_providers(provider_id, service_id)
+      VALUES(${element}, ${newServiceId[0].id})`
+    })
 
     return res.json({ success: "Service added" })
   } catch (error) {
