@@ -68,13 +68,24 @@ export const sendNotification = (message: string, success: boolean = false) => {
 
 export const getSingleService = async (category: string, id: string) => {
   const res = await axios
-    .get(`http://localhost:5432/service/${category}/${id}`)
+    .get(`http://localhost:5432/service/info/${category}/${id}`)
     .then((response) => response.data)
     .catch((error) => {
       sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
     })
 
   return res[0]
+}
+
+export const getSingleServiceProviders = async (id: string) => {
+  const res = await axios
+    .get(`http://localhost:5432/service/providers/all/${id}`)
+    .then((response) => response.data)
+    .catch((error) => {
+      sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
+    })
+
+  return res
 }
 
 export const handleEditService = async (

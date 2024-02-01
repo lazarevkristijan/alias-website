@@ -65,3 +65,11 @@ export type ProviderTypes = {
   role_id: number
   profile_picture: string
 }
+
+export type SingleServiceProviderTypes = {
+  id: number
+  first_name: string
+  provider_id: number
+  service_id: number
+  profile_picture: string
+}

@@ -104,6 +104,25 @@ export const getSingleService = async (req, res) => {
   }
 }
 
+export const getSingleServiceProviders = async (req, res) => {
+  try {
+    const { id } = req.params
+
+    const providers = await sql`
+    SELECT a.id, a.provider_id, a.service_id, b.first_name, b.profile_picture FROM service_providers as a
+    JOIN users as b
+    ON a.provider_id = b.id
+    WHERE a.service_id = ${id}`
+
+    return res.json(providers)
+  } catch (error) {
+    console.error("Error is: ", error)
+    return res
+      .status(500)
+      .json({ error: "Грешка при получаване на служители за услугата" })
+  }
+}
+
 export const getAllServicesAndProviders = async (req, res) => {
   try {
     const providers = await sql`

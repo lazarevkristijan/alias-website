@@ -18,6 +18,7 @@ import {
   getCategoryServiceProviders,
   getProvider,
   getAllServiceProviders,
+  getSingleServiceProviders,
 } from "./Routes/getRoutes.js"
 import { postAddService, postLoginOrRegister } from "./Routes/postRoutes.js"
 import {
@@ -75,7 +76,8 @@ app.delete(
 )
 
 app.get("/services/all/:category", getAllServices)
-app.get("/service/:category/:id", getSingleService)
+app.get("/service/info/:category/:id", getSingleService)
+app.get("/service/providers/all/:id", getSingleServiceProviders)
 app.get("/services/all-service-categories", getAllServiceCategories)
 
 app.post("/services/add-service", verifyToken, postAddService)
