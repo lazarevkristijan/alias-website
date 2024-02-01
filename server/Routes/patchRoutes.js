@@ -102,7 +102,34 @@ export const patchChangeProfilePicture = async (req, res) => {
 
 export const patchEditService = async (req, res) => {
   try {
-    const { id, name, price, category } = req.body
+    const {
+      id: serviceId,
+      name,
+      price,
+      category,
+      providers: newProviders,
+    } = req.body
+
+    const oldProviders = await sql`
+    SELECT * FROM service_providers
+    WHERE service_id = ${serviceId}`
+
+    const oldProvidersIds = oldProviders.map((provider) => provider.provider_id)
+    const newProviderIds = newProviders.map((provider) => provider.provider_id)
+
+    oldProvidersIds.map(async (id) => {
+      if (newProviderIds.includes(id)) return
+      await sql`
+      DELETE FROM service_providers
+      WHERE service_id = ${serviceId} AND provider_id = ${id}`
+    })
+
+    newProviderIds.map(async (id) => {
+      if (oldProvidersIds.includes(id)) return
+      await sql`
+      INSERT INTO service_providers (service_id, provider_id)
+      VALUES (${serviceId}, ${id})`
+    })
 
     await sql`
     UPDATE services
@@ -115,7 +142,7 @@ export const patchEditService = async (req, res) => {
         ? 3
         : null
     }
-    WHERE id = ${id}`
+    WHERE id = ${serviceId}`
 
     return res.json({ success: "Успешно редактирана услуга" })
   } catch (error) {

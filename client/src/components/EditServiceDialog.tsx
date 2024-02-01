@@ -51,7 +51,7 @@ const EditServiceDialog = ({
       queryFn: () => getAllServiceCategories(),
     })
 
-  console.log(serviceData)
+  console.log(changedFields)
 
   return (
     <div
@@ -69,6 +69,20 @@ const EditServiceDialog = ({
       <form
         onSubmit={(e) => {
           handleEditService(e, serviceData)
+
+          setServiceData({
+            id: service.id,
+            name: initialServiceData.name,
+            price: initialServiceData.price,
+            category: initialServiceData.category,
+            providers: initialServiceData.providers,
+          })
+          setChangedFields({
+            name: false,
+            price: false,
+            category: false,
+            providers: false,
+          })
         }}
       >
         <label htmlFor="new_service_name">Име: </label>
@@ -147,10 +161,7 @@ const EditServiceDialog = ({
               cursor: "pointer",
             }}
             onClick={() => {
-              if (!changedFields.providers) {
-                setChangedFields({ ...changedFields, providers: true })
-              }
-
+              setChangedFields({ ...changedFields, providers: true })
               setServiceData({
                 ...serviceData,
                 providers: serviceData.providers.filter(
@@ -173,12 +184,12 @@ const EditServiceDialog = ({
             !serviceNameRegex.test(serviceData.name) ||
             !priceRegex.test(serviceData.price) ||
             serviceData.category === "" ||
-            changedFields.providers ||
             (serviceNameRegex.test(serviceData.name) &&
               initialServiceData.name === serviceData.name &&
               priceRegex.test(serviceData.price) &&
               initialServiceData.price === serviceData.price &&
-              initialServiceData.category === serviceData.category)
+              initialServiceData.category === serviceData.category &&
+              !changedFields.providers)
           }
         >
           Спази
@@ -193,6 +204,12 @@ const EditServiceDialog = ({
             price: initialServiceData.price,
             category: initialServiceData.category,
             providers: initialServiceData.providers,
+          })
+          setChangedFields({
+            name: false,
+            price: false,
+            category: false,
+            providers: false,
           })
         }}
       >
