@@ -75,7 +75,7 @@ export const postLoginOrRegister = async (req, res) => {
 export const postAddService = async (req, res) => {
   try {
     const { name, category, price, providers } = req.body
-    console.log(req.body)
+
     const newServiceId = await sql`
     INSERT INTO services(name, category_id, price)
     VALUES(${name}, ${
@@ -88,8 +88,6 @@ export const postAddService = async (req, res) => {
         : null
     }, ${Number(price)})
     RETURNING id`
-
-    console.log(newServiceId)
 
     providers.forEach(async (element) => {
       await sql`

@@ -110,8 +110,6 @@ export const patchEditService = async (req, res) => {
       providers: newProviders,
     } = req.body
 
-    console.log(req.body)
-
     const oldProviders = await sql`
     SELECT * FROM service_providers
     WHERE service_id = ${serviceId}`

@@ -76,8 +76,6 @@ const EditServiceDialog = ({
     return () => clearTimeout(addValueTimeout)
   }, [waitedSearchValue])
 
-  console.log(selectedProviders)
-
   return (
     <div
       style={{
@@ -231,7 +229,25 @@ const EditServiceDialog = ({
             />
             {allServiceProviders
               ?.filter(
-                (provider) => provider.first_name === providerSearchValue
+                (provider) =>
+                  provider.first_name
+                    .toLowerCase()
+                    .includes(providerSearchValue.toLowerCase()) ||
+                  provider.last_name
+                    .toLowerCase()
+                    .includes(providerSearchValue.toLowerCase()) ||
+                  provider.middle_name
+                    .toLowerCase()
+                    .includes(providerSearchValue.toLowerCase()) ||
+                  provider.email
+                    .toLowerCase()
+                    .includes(providerSearchValue.toLowerCase())
+              )
+              .filter(
+                (provider) =>
+                  !selectedProviders
+                    .map((serviceAndProvider) => serviceAndProvider.provider_id)
+                    .includes(provider.id)
               )
               .map((provider) => (
                 <div
@@ -255,6 +271,9 @@ const EditServiceDialog = ({
                         .includes(provider.id)
                     )
                       return
+
+                    setWaitedSearchValue("")
+                    setProviderSearchValue("")
 
                     setChangedFields({ ...changedFields, providers: true })
 

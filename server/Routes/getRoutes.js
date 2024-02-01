@@ -114,8 +114,6 @@ export const getSingleServiceProviders = async (req, res) => {
     ON a.provider_id = b.id
     WHERE a.service_id = ${id}`
 
-    console.log(providers)
-
     return res.json(providers)
   } catch (error) {
     console.error("Error is: ", error)
