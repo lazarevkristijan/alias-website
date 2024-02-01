@@ -4,7 +4,7 @@ import { getAllPersonalServices } from "../Utils/PersonalServicesUtils"
 import { ProviderServiceShowcaseTypes, ServiceTypes } from "../Types"
 import ServiceCard from "../components/Services/ServiceCard"
 import { getPfpLink } from "../Utils/SettingsUtils"
-import { getAllProviders } from "../Utils/SharedUtils"
+import { getAllCategoryProviders } from "../Utils/SharedUtils"
 
 const PersonalServices = () => {
   const navigate = useNavigate()
@@ -16,7 +16,7 @@ const PersonalServices = () => {
 
   const { isLoading: areProvidersLoading, data: allProviders } = useQuery({
     queryKey: ["all-providers"],
-    queryFn: () => getAllProviders("персонални"),
+    queryFn: () => getAllCategoryProviders("персонални"),
   })
 
   return (

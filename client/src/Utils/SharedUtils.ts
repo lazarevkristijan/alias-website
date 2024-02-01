@@ -97,17 +97,6 @@ export const handleEditService = async (
     })
 }
 
-export const getAllProviders = async (category: string) => {
-  const res = await axios
-    .get(`http://localhost:5432/services/providers/${category}`)
-    .then((response) => response.data)
-    .catch((error) =>
-      sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
-    )
-
-  return res
-}
-
 export const getProvider = async (id: number) => {
   const res = await axios
     .get(`http://localhost:5432/provider/${id}`)
@@ -128,8 +117,20 @@ export const handleDeleteService = async (id: number) => {
     })
     .then((response) => {
       sendNotification(response.data.success, true)
+      history.back()
     })
     .catch((error) =>
       sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
     )
+}
+
+export const getAllCategoryProviders = async (category: string) => {
+  const res = await axios
+    .get(`http://localhost:5432/services/providers/${category}`)
+    .then((response) => response.data)
+    .catch((error) =>
+      sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
+    )
+
+  return res
 }

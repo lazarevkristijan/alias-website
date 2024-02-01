@@ -3,7 +3,7 @@ import { useNavigate } from "react-router"
 import { getAllCarServices } from "../Utils/CarServicesUtils"
 import { ProviderServiceShowcaseTypes, ServiceTypes } from "../Types"
 import ServiceCard from "../components/Services/ServiceCard"
-import { getAllProviders } from "../Utils/SharedUtils"
+import { getAllCategoryProviders } from "../Utils/SharedUtils"
 import { getPfpLink } from "../Utils/SettingsUtils"
 
 const CarServices = () => {
@@ -16,7 +16,7 @@ const CarServices = () => {
 
   const { isLoading: areProvidersLoading, data: allProviders } = useQuery({
     queryKey: ["all-providers"],
-    queryFn: () => getAllProviders("коли"),
+    queryFn: () => getAllCategoryProviders("коли"),
   })
 
   return (

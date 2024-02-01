@@ -80,9 +80,9 @@ app.get("/services/all-service-categories", getAllServiceCategories)
 app.post("/services/add-service", verifyToken, postAddService)
 app.patch("/services/edit-service", verifyToken, patchEditService)
 app.delete("/services/delete-service", verifyToken, deleteService)
+
 app.get("/services/all-providers", getAllServiceProviders)
 app.get("/services/providers/:category", getCategoryServiceProviders)
-
 app.get("/provider/:id", getProvider)
 
 // LISTEN

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { useParams } from "react-router"
+import { useNavigate, useParams } from "react-router"
 import { getProvider } from "../Utils/SharedUtils"
 import { ProviderTypes } from "../Types"
 import { getPfpLink } from "../Utils/SettingsUtils"
@@ -7,6 +7,7 @@ import { defaultPfpURL } from "../constants"
 
 const ProviderProfile = () => {
   const { id } = useParams()
+  const navigate = useNavigate()
 
   const { isLoading: isProviderLoading, data: provider } =
     useQuery<ProviderTypes>({
@@ -20,6 +21,8 @@ const ProviderProfile = () => {
         <p>Зареждане...</p>
       ) : (
         <>
+          <button onClick={() => navigate("/служители")}>Към служители</button>
+          <br />
           <img
             src={getPfpLink(provider?.profile_picture || defaultPfpURL)}
             alt={`Профилна снимка на ${provider?.first_name}`}

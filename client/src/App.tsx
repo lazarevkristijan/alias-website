@@ -13,6 +13,7 @@ import PersonalServices from "./sections/PersonalServices"
 import HomeServices from "./sections/HomeServices"
 import SingleService from "./sections/SingleService"
 import ProviderProfile from "./sections/ProviderProfile"
+import ServiceProviders from "./sections/ServiceProviders"
 
 const App = () => {
   const dispatch = useDispatch()
@@ -75,6 +76,10 @@ const App = () => {
             <Route
               path="услуги/вкъщи"
               element={<HomeServices />}
+            />
+            <Route
+              path="служители"
+              element={<ServiceProviders />}
             />
             <Route
               path="служител/:id"

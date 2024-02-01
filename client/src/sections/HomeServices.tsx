@@ -4,7 +4,7 @@ import { getAllHomeServices } from "../Utils/HomeServicesUtils"
 import { useQuery } from "@tanstack/react-query"
 import ServiceCard from "../components/Services/ServiceCard"
 import { getPfpLink } from "../Utils/SettingsUtils"
-import { getAllProviders } from "../Utils/SharedUtils"
+import { getAllCategoryProviders } from "../Utils/SharedUtils"
 const HomeServices = () => {
   const navigate = useNavigate()
 
@@ -15,7 +15,7 @@ const HomeServices = () => {
 
   const { isLoading: areProvidersLoading, data: allProviders } = useQuery({
     queryKey: ["all-providers"],
-    queryFn: () => getAllProviders("вкъщи"),
+    queryFn: () => getAllCategoryProviders("вкъщи"),
   })
 
   return (

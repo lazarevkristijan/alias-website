@@ -106,10 +106,10 @@ export const getSingleService = async (req, res) => {
 
 export const getAllServiceProviders = async (req, res) => {
   try {
-    console.log("params: ", req.params)
-    console.log("body: ", req.body)
+    const providers = await sql`
+    SELECT * FROM service_providers`
 
-    return res.json(req.body)
+    return res.json(providers)
   } catch (error) {
     console.error("Error is: ", error)
     return res
