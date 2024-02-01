@@ -5,7 +5,7 @@ import {
   handleDeleteService,
 } from "../Utils/SharedUtils"
 import { useQuery } from "@tanstack/react-query"
-import { ServiceTypes, SingleServiceProviderTypes } from "../Types"
+import { ProviderServiceShowcaseTypes, ServiceTypes } from "../Types"
 import { useSelector } from "react-redux"
 import { RootState } from "../Store"
 import { useState } from "react"
@@ -30,14 +30,14 @@ const SingleService = () => {
   )
 
   const { isLoading: areServiceProvidersLoading, data: serviceProviders } =
-    useQuery({
+    useQuery<ProviderServiceShowcaseTypes[]>({
       queryKey: ["single-service-providers"],
       queryFn: () => getSingleServiceProviders(id),
     })
 
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
 
-  if (!service) return null
+  if (!service || !serviceProviders) return null
 
   return (
     <div>
@@ -54,8 +54,9 @@ const SingleService = () => {
           </p>
           <p>Цена: {service?.price}</p>
 
-          {serviceProviders.map((provider: SingleServiceProviderTypes) => (
+          {serviceProviders.map((provider: ProviderServiceShowcaseTypes) => (
             <div
+              key={provider.provider_id}
               style={{
                 border: "1px solid black",
                 width: "fit-content",
@@ -74,7 +75,7 @@ const SingleService = () => {
                 style={{ width: "50px", height: "50px", borderRadius: "50%" }}
               />
 
-              <p key={provider.id}>{provider.first_name}</p>
+              <p>{provider.first_name}</p>
             </div>
           ))}
           {user?.role === "админ" && (

@@ -38,10 +38,11 @@ export type ServiceTypes = {
   category: string
 }
 export type ModifyServiceTypes = {
+  id: number
   name: string
   price: string
   category: string
-  providers: number[]
+  providers: ProviderServiceShowcaseTypes[]
 }
 
 export type ServiceCategoryTypes = {
