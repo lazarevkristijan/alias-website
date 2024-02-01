@@ -35,7 +35,6 @@ const SingleService = () => {
       queryFn: () => getSingleServiceProviders(id),
     })
 
-  console.log("ser prov", serviceProviders)
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
 
   if (!service) return null
@@ -67,6 +66,7 @@ const SingleService = () => {
                 paddingTop: 10,
                 cursor: "pointer",
               }}
+              onClick={() => navigate(`/служител/${provider.provider_id}`)}
             >
               <img
                 src={getPfpLink(provider.profile_picture)}
@@ -94,7 +94,7 @@ const SingleService = () => {
               service={service}
               isOpen={isEditDialogOpen}
               setIsOpen={setIsEditDialogOpen}
-              // setIsEditDialogOpen={setIsEditDialogOpen}
+              serviceProviders={serviceProviders}
             />
           )}
 

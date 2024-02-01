@@ -301,6 +301,9 @@ const AddServiceDialog = ({
                   price: "",
                   providers: [],
                 })
+                setProviderSearchValue("")
+                setWaitedSearchValue("")
+                setSelectedProviders([])
               }}
             >
               Нулиране

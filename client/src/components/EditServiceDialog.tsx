@@ -1,38 +1,48 @@
 import { useState } from "react"
-import { ServiceCategoryTypes, ServiceTypes } from "../Types"
+import {
+  ServiceCategoryTypes,
+  ServiceTypes,
+  SingleServiceProviderTypes,
+} from "../Types"
 import {
   getAllServiceCategories,
   handleEditService,
 } from "../Utils/SharedUtils"
 import { priceRegex, serviceNameRegex } from "../Regex"
 import { useQuery } from "@tanstack/react-query"
+import { getPfpLink } from "../Utils/SettingsUtils"
 
 const EditServiceDialog = ({
   service,
   isOpen,
   setIsOpen,
+  serviceProviders,
 }: {
   service: ServiceTypes
   isOpen: boolean
   setIsOpen: (value: React.SetStateAction<boolean>) => void
+  serviceProviders: SingleServiceProviderTypes[]
 }) => {
   const [serviceData, setServiceData] = useState({
     id: service.id,
     name: service.name,
     price: service.price.split(".")[0],
     category: service.category,
+    providers: [...serviceProviders],
   })
 
   const initialServiceData = {
     name: service.name,
     price: service.price.split(".")[0],
     category: service.category,
+    providers: [...serviceProviders],
   }
 
   const [changedFields, setChangedFields] = useState({
     name: false,
     price: false,
     category: false,
+    providers: false,
   })
 
   const { isLoading: areServiceCategoriesLoading, data: allServiceCategories } =
@@ -40,6 +50,8 @@ const EditServiceDialog = ({
       queryKey: ["all-service-categories"],
       queryFn: () => getAllServiceCategories(),
     })
+
+  console.log(serviceData)
 
   return (
     <div
@@ -122,14 +134,49 @@ const EditServiceDialog = ({
                 : "#fff",
           }}
         />
+        {serviceData.providers.map((provider: SingleServiceProviderTypes) => (
+          <div
+            style={{
+              border: "1px solid black",
+              width: "fit-content",
+              height: "fit-content",
+              minWidth: 80,
+              minHeight: 80,
+              textAlign: "center",
+              paddingTop: 10,
+              cursor: "pointer",
+            }}
+            onClick={() => {
+              if (!changedFields.providers) {
+                setChangedFields({ ...changedFields, providers: true })
+              }
+
+              setServiceData({
+                ...serviceData,
+                providers: serviceData.providers.filter(
+                  (p) => p.id !== provider.id
+                ),
+              })
+            }}
+          >
+            <img
+              src={getPfpLink(provider.profile_picture)}
+              alt={`Профилна снимка на ${provider.first_name}`}
+              style={{ width: "50px", height: "50px", borderRadius: "50%" }}
+            />
+
+            <p key={provider.id}>{provider.first_name}</p>
+          </div>
+        ))}
         <button
           disabled={
             !serviceNameRegex.test(serviceData.name) ||
             !priceRegex.test(serviceData.price) ||
             serviceData.category === "" ||
+            changedFields.providers ||
             (serviceNameRegex.test(serviceData.name) &&
               initialServiceData.name === serviceData.name &&
-              priceRegex.test(String(serviceData.price)) &&
+              priceRegex.test(serviceData.price) &&
               initialServiceData.price === serviceData.price &&
               initialServiceData.category === serviceData.category)
           }
@@ -137,6 +184,20 @@ const EditServiceDialog = ({
           Спази
         </button>
       </form>
+
+      <button
+        onClick={() => {
+          setServiceData({
+            id: service.id,
+            name: initialServiceData.name,
+            price: initialServiceData.price,
+            category: initialServiceData.category,
+            providers: initialServiceData.providers,
+          })
+        }}
+      >
+        Нулиране
+      </button>
     </div>
   )
 }
