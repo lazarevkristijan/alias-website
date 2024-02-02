@@ -19,6 +19,7 @@ import {
   getProvider,
   getAllServiceProviders,
   getSingleServiceProviders,
+  getSingleProviderServices,
 } from "./Routes/getRoutes.js"
 import { postAddService, postLoginOrRegister } from "./Routes/postRoutes.js"
 import {
@@ -88,6 +89,7 @@ app.get("/services/all-providers", getAllServicesAndProviders)
 app.get("/all-providers", getAllServiceProviders)
 app.get("/services/providers/:category", getCategoryServiceProviders)
 app.get("/provider/:id", getProvider)
+app.get("/providers/single/services/:id", getSingleProviderServices)
 
 // LISTEN
 

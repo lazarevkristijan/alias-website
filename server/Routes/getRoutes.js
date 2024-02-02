@@ -194,3 +194,24 @@ export const getProvider = async (req, res) => {
     return res.status(500).json({ error: "Грешка при отваряне на профил" })
   }
 }
+
+export const getSingleProviderServices = async (req, res) => {
+  try {
+    const { id } = req.params
+
+    const services = await sql`
+    SELECT a.id, a.name, b.name as category, a.price FROM services as a
+    JOIN service_categories as b
+    ON a.category_id = b.id
+    JOIN service_providers as c
+    ON a.id = c.service_id
+    WHERE c.provider_id = ${id}`
+
+    return res.json(services)
+  } catch (error) {
+    console.error("Error is: ", error)
+    return res
+      .status(500)
+      .json({ error: "Грешка при получаване на услугите на служителя" })
+  }
+}

@@ -24,6 +24,7 @@ export const handleLogout = async (auth0logout: () => void) => {
 type LocalUserDataTypes = {
   firstName: string
   lastName: string
+  middleName: string
 }
 export const handleChangeCredentials = (
   e: React.FormEvent<HTMLFormElement>,

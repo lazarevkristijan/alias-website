@@ -81,3 +81,10 @@ export type SingleServiceProviderTypes = {
   service_id: number
   profile_picture: string
 }
+
+export type SingleServiceTypes = {
+  id: number
+  name: string
+  category: string
+  price: number
+}
