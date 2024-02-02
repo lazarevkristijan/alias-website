@@ -45,6 +45,13 @@ export type ModifyServiceTypes = {
   providers: ProviderServiceShowcaseTypes[]
 }
 
+export type AddServiceTypes = {
+  name: string
+  price: string
+  category: string
+  providers: number[]
+}
+
 export type ServiceCategoryTypes = {
   id: number
   name: string

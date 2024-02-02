@@ -4,7 +4,11 @@ import {
   handleAddService,
 } from "../../Utils/SharedUtils"
 import { useQuery } from "@tanstack/react-query"
-import { ProviderTypes, ServiceCategoryTypes } from "../../Types"
+import {
+  AddServiceTypes,
+  ProviderTypes,
+  ServiceCategoryTypes,
+} from "../../Types"
 import { priceRegex, serviceNameRegex } from "../../Regex"
 import { getAllServiceProviders } from "../../Utils/ServiceProvidersUtils"
 import { getPfpLink } from "../../Utils/SettingsUtils"
@@ -16,12 +20,7 @@ const AddServiceDialog = ({
   isOpen: boolean
   setIsOpen: (value: React.SetStateAction<boolean>) => void
 }) => {
-  const [serviceData, setServiceData] = useState<{
-    name: string
-    category: string
-    price: string
-    providers: number[]
-  }>({
+  const [serviceData, setServiceData] = useState<AddServiceTypes>({
     name: "",
     category: "",
     price: "",

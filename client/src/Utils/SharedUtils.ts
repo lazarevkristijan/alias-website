@@ -1,11 +1,11 @@
 import axios from "axios"
-import { ModifyServiceTypes, ServiceTypes } from "../Types"
+import { AddServiceTypes, ServiceTypes } from "../Types"
 import { errorNotifEnding } from "../constants"
 import React from "react"
 
 export const handleAddService = async (
   e: React.FormEvent<HTMLFormElement>,
-  data: ModifyServiceTypes
+  data: AddServiceTypes
 ) => {
   e.preventDefault()
 
