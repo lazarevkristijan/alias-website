@@ -66,7 +66,7 @@ const ProviderProfile = () => {
                 >
                   <p>Услуга: {service.name}</p>
                   <p>Категория: {service.category}</p>
-                  <p>Цена: {service.price}</p>
+                  <p>Цена: {service.price}лв.</p>
                   <button
                     onClick={() =>
                       navigate(`/услуги/${service.category}/${service.id}`)

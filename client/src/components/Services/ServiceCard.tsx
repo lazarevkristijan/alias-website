@@ -13,7 +13,7 @@ const ServiceCard = ({ service }: { service: ServiceTypes }) => {
           Категория:{" "}
           {service.category.charAt(0).toUpperCase() + service.category.slice(1)}
         </p>
-        <p>Цена: {service.price}</p>
+        <p>Цена: {service.price}лв.</p>
 
         <button onClick={() => navigate(`${service.id}`)}>Подробности</button>
       </div>

@@ -52,7 +52,7 @@ const SingleService = () => {
             {service?.category.charAt(0).toUpperCase() +
               service?.category.slice(1)}
           </p>
-          <p>Цена: {service?.price}</p>
+          <p>Цена: {service?.price}лв.</p>
 
           {serviceProviders.map((provider: ProviderServiceShowcaseTypes) => (
             <div
