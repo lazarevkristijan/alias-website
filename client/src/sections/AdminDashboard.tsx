@@ -29,7 +29,7 @@ const AdminDashboard = () => {
         <>
           <h2>Всички потребители:</h2>
           <div style={{ display: "flex", flexWrap: "wrap", gap: 30 }}>
-            {allUsers?.map((user) => (
+            {allUsers?.map((singleUser) => (
               <div
                 style={{
                   backgroundColor: "#f0f0f0",
@@ -37,12 +37,32 @@ const AdminDashboard = () => {
                   padding: 15,
                 }}
               >
-                <p>ID: {user?.id}</p>
-                <p>Име: {user?.first_name}</p>
-                <p>Фамилия: {user?.last_name}</p>
-                {user?.middle_name && <p>Презиме: {user?.middle_name}</p>}
-                <p>Имейл: {user?.email}</p>
-                <p>Роля: {user?.role}</p>
+                <p>ID: {singleUser?.id}</p>
+                <p>Име: {singleUser?.first_name}</p>
+                <p>Фамилия: {singleUser?.last_name}</p>
+                {singleUser?.middle_name && (
+                  <p>Презиме: {singleUser?.middle_name}</p>
+                )}
+                <p>Имейл: {singleUser?.email}</p>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    gap: 10,
+                  }}
+                >
+                  <p>Роля: </p>
+                  <select
+                    value={singleUser?.role}
+                    onChange={(e) => e.target.value}
+                    style={{ height: "fit-content" }}
+                  >
+                    <option value="клеинт">клиент</option>
+                    <option value="служител">служител</option>
+                    <option value="админ">админ</option>
+                  </select>
+                </div>
               </div>
             ))}
           </div>

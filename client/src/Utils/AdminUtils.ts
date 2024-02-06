@@ -13,3 +13,15 @@ export const getAllUsers = async () => {
 
   return res
 }
+
+export const getAllUserRoles = async () => {
+  const res = await axios
+    .get("http://localhost:5432/roles/all")
+    .then((response) => response.data)
+    .catch((error) =>
+      sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
+    )
+  console.log(res)
+
+  return res
+}

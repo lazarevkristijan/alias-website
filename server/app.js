@@ -20,6 +20,7 @@ import {
   getAllServiceProviders,
   getSingleServiceProviders,
   getSingleProviderServices,
+  getAllRoles,
 } from "./Routes/getRoutes.js"
 import { postAddService, postLoginOrRegister } from "./Routes/postRoutes.js"
 import {
@@ -91,6 +92,7 @@ app.get("/provider/:id", getProvider)
 app.get("/providers/single/services/:id", getSingleProviderServices)
 
 app.get("/users/all", getAllUsers)
+app.get("/roles/all", getAllRoles)
 // LISTEN
 
 const server = app.listen(port, () =>

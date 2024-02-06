@@ -219,3 +219,15 @@ export const getSingleProviderServices = async (req, res) => {
       .json({ error: "Грешка при получаване на услугите на служителя" })
   }
 }
+
+export const getAllRoles = async (req, res) => {
+  try {
+    const allRoles = await sql`
+    SELECT * FROM user_roles`
+
+    return res.json(allRoles)
+  } catch (error) {
+    console.error("Error is: ", error)
+    return res.status(500).json({ error: "Грешка при получаване на ролите" })
+  }
+}
