@@ -53,7 +53,6 @@ app.use(cookieParser())
 app.get("/", (req, res) => res.send("DB ROOT"))
 
 // GET DATA
-app.get("/all-users", getAllUsers)
 
 // AUTHENTICATION RELATED
 app.post("/user/login-or-register", postLoginOrRegister)
@@ -91,6 +90,7 @@ app.get("/services/providers/:category", getCategoryServiceProviders)
 app.get("/provider/:id", getProvider)
 app.get("/providers/single/services/:id", getSingleProviderServices)
 
+app.get("/users/all", getAllUsers)
 // LISTEN
 
 const server = app.listen(port, () =>

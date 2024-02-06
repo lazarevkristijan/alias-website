@@ -2,13 +2,17 @@ import sql from "../db.js"
 
 export const getAllUsers = async (req, res) => {
   try {
-    const users = await sql`
-        SELECT * FROM users`
+    const allUsers = await sql`
+    SELECT a.id, a.first_name, a.last_name, a.email, a.profile_picture, a.middle_name, b.name as role FROM users as a
+    JOIN user_roles as b
+    ON a.role_id = b.id`
 
-    return res.json(users)
+    return res.json(allUsers)
   } catch (error) {
     console.error("Error is: ", error)
-    return res.status(500).json({ error: "Error when getting all users" })
+    return res
+      .status(500)
+      .json({ error: "Грешка при получаване на всички потребители" })
   }
 }
 
