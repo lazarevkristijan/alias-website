@@ -14,8 +14,6 @@ const Providers = () => {
     queryFn: () => getAllServiceProviders(),
   })
 
-  console.log(providers)
-
   if (!providers) return
 
   return (

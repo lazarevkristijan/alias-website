@@ -14,6 +14,7 @@ import HomeServices from "./sections/HomeServices"
 import SingleService from "./sections/SingleService"
 import ProviderProfile from "./sections/ProviderProfile"
 import ServiceProviders from "./sections/ServiceProviders"
+import AdminDashboard from "./sections/AdminDashboard"
 
 const App = () => {
   const dispatch = useDispatch()
@@ -84,6 +85,10 @@ const App = () => {
             <Route
               path="служител/:id"
               element={<ProviderProfile />}
+            />
+            <Route
+              path="admin-dashboard"
+              element={<AdminDashboard />}
             />
             <Route
               path="*"

@@ -21,7 +21,7 @@ const ProviderProfile = () => {
     queryKey: ["provider-services"],
     queryFn: () => getSingleProviderServices(id || ""),
   })
-  console.log(services)
+
   if (!services) return
 
   return (
