@@ -30,6 +30,7 @@ import {
   deleteUserPfpByAdmin,
 } from "./Routes/deleteRoutes.js"
 import {
+  patchAdminChangeCreds,
   patchAdminChangeProfilePicture,
   patchChangeCreds,
   patchChangeProfilePicture,
@@ -105,6 +106,11 @@ app.delete(
   "/admin/user/delete-profile-picture/:id",
   verifyToken,
   deleteUserPfpByAdmin
+)
+app.patch(
+  "/admin/user/change-credentials/:id",
+  verifyToken,
+  patchAdminChangeCreds
 )
 
 // LISTEN

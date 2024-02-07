@@ -71,7 +71,7 @@ export const deleteUserPfpByAdmin = async (req, res) => {
       cloudinary.uploader.destroy(picturePath)
     }
 
-    return res.json({ success: "Успешно изтриена профилна картинка" })
+    return res.json({ success: "Успешно изтриена профилна картинка от админ" })
   } catch (error) {
     console.error("Error is: ", error)
     return res

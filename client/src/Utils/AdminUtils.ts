@@ -2,6 +2,7 @@ import axios from "axios"
 import { sendNotification } from "./SharedUtils"
 import { errorNotifEnding } from "../constants"
 import { getPfpFileName } from "./SettingsUtils"
+import { UserTypes } from "../Types"
 
 export const getAllUsers = async () => {
   const res = await axios
@@ -69,11 +70,36 @@ export const handleAdminChangeProfilePicture = async (
 
 export const handleAdminPfpDelete = async (userId: number, userPfp: string) => {
   const pfpFileName = getPfpFileName(userPfp)
-  await axios.delete(
-    `http://localhost:5432/admin/user/delete-profile-picture/${userId}`,
-    {
-      withCredentials: true,
-      data: JSON.stringify({ pfpFileName: pfpFileName }),
-    }
-  )
+  await axios
+    .delete(
+      `http://localhost:5432/admin/user/delete-profile-picture/${userId}`,
+      {
+        withCredentials: true,
+        data: JSON.stringify({ pfpFileName: pfpFileName }),
+      }
+    )
+    .then((response) => sendNotification(response.data.success, true))
+    .catch((error) =>
+      sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
+    )
+}
+
+export const handleAdminCredsChange = async (userData: UserTypes) => {
+  console.log(userData)
+
+  await axios
+    .patch(
+      `http://localhost:5432/admin/user/change-credentials/${userData?.id}`,
+      userData,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      }
+    )
+    .then((response) => sendNotification(response.data.success, true))
+    .catch((error) =>
+      sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
+    )
 }

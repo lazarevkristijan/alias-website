@@ -33,6 +33,7 @@ const AdminDashboard = () => {
           <div style={{ display: "flex", flexWrap: "wrap", gap: 30 }}>
             {allUsers?.map((singleUser) => (
               <div
+                key={singleUser?.id}
                 style={{
                   backgroundColor: "#f0f0f0",
                   textAlign: "center",

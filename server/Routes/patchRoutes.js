@@ -111,7 +111,7 @@ export const patchAdminChangeProfilePicture = async (req, res) => {
     SET profile_picture = ${stringedPfp}
     WHERE id = ${id}`
 
-    return res.json({ success: "Real success" })
+    return res.json({ success: "Успешна премна на профилна снимка от админ" })
   } catch (error) {
     console.error("Error is: ", error)
     return res
@@ -168,5 +168,25 @@ export const patchEditService = async (req, res) => {
   } catch (error) {
     console.error("Error is: ", error)
     return res.status(500).json({ error: "Грешка при редактиране услуга" })
+  }
+}
+
+export const patchAdminChangeCreds = async (req, res) => {
+  try {
+    const { id, first_name, last_name, middle_name, role } = req.body
+
+    await sql`
+    UPDATE users
+    SET first_name = ${first_name}, last_name = ${last_name}, middle_name = ${middle_name}, role_id = ${
+      role === "админ" ? 3 : role === "служител" ? 2 : 1
+    }
+    WHERE id = ${id}`
+
+    res.json({ success: "Успешно променени лични данни от админ" })
+  } catch (error) {
+    console.error("Error is: ", error)
+    return res
+      .status(500)
+      .json({ error: "Грешка при промяна на лични данни от админ" })
   }
 }

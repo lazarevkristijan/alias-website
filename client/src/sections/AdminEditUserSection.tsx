@@ -2,18 +2,23 @@ import { useEffect, useState } from "react"
 import { UserTypes } from "../Types"
 import { getPfpLink } from "../Utils/SettingsUtils"
 import { defaultPfpURL } from "../constants"
-import { handleAdminChangeProfilePicture } from "../Utils/AdminUtils"
+import {
+  handleAdminChangeProfilePicture,
+  handleAdminCredsChange,
+  handleAdminPfpDelete,
+} from "../Utils/AdminUtils"
 import { handleFileChange } from "../Utils/SharedUtils"
+import { middleNameRegex, nameRegex } from "../Regex"
 
 const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
   const [newUserData, setNewUserData] = useState({
-    id: fetchedUser?.id,
-    first_name: fetchedUser?.first_name,
-    last_name: fetchedUser?.last_name,
-    middle_name: fetchedUser?.middle_name,
-    email: fetchedUser?.email,
-    profile_picture: fetchedUser?.profile_picture,
-    role: fetchedUser?.role,
+    id: fetchedUser?.id || 0,
+    first_name: fetchedUser?.first_name || "",
+    last_name: fetchedUser?.last_name || "",
+    middle_name: fetchedUser?.middle_name || "",
+    email: fetchedUser?.email || "",
+    profile_picture: fetchedUser?.profile_picture || "",
+    role: fetchedUser?.role || "",
   })
 
   const [changedFields, setChangedFields] = useState({
@@ -66,6 +71,8 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
             width: 100,
             height: 100,
             borderRadius: "50%",
+            objectFit: "cover",
+            objectPosition: "center",
           }}
         />
 
@@ -137,7 +144,24 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
         >
           нулиране
         </button>
-        <button disabled={!profilePicture}>спази снимка</button>
+        <button
+          disabled={!profilePicture}
+          type="submit"
+        >
+          спази снимка
+        </button>
+        <button
+          type="button"
+          onClick={() =>
+            handleAdminPfpDelete(fetchedUser.id, fetchedUser.profile_picture)
+          }
+          disabled={
+            !fetchedUser.profile_picture ||
+            fetchedUser.profile_picture === defaultPfpURL
+          }
+        >
+          Изтрий
+        </button>
         {supportedError && (
           <p style={{ color: "red" }}>Файла не е от поддържан тип</p>
         )}
@@ -226,7 +250,23 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
       <p>Имейл: {fetchedUser?.email}</p>
 
       <button>Изтрий потребител</button>
-      <button>Спази</button>
+      <button
+        onClick={() => handleAdminCredsChange(newUserData)}
+        disabled={
+          !nameRegex.test(newUserData.first_name) ||
+          !nameRegex.test(newUserData.last_name) ||
+          !middleNameRegex.test(newUserData.middle_name) ||
+          (nameRegex.test(newUserData.first_name) &&
+            fetchedUser.first_name === newUserData.first_name &&
+            nameRegex.test(newUserData.last_name) &&
+            fetchedUser.last_name === newUserData.last_name &&
+            middleNameRegex.test(newUserData.middle_name) &&
+            fetchedUser.middle_name === newUserData.middle_name &&
+            fetchedUser.role === newUserData.role)
+        }
+      >
+        Спази
+      </button>
     </div>
   )
 }
