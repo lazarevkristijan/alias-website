@@ -5,6 +5,8 @@ import { useEffect } from "react"
 import { useQuery } from "@tanstack/react-query"
 import { getAllUsers } from "../Utils/AdminUtils"
 import { UserTypes } from "../Types"
+import { getPfpLink } from "../Utils/SettingsUtils"
+import { defaultPfpURL } from "../constants"
 
 const AdminDashboard = () => {
   const navigate = useNavigate()
@@ -37,6 +39,11 @@ const AdminDashboard = () => {
                   padding: 15,
                 }}
               >
+                <img
+                  src={getPfpLink(singleUser?.profile_picture || defaultPfpURL)}
+                  alt={`Профилна снимка на ${singleUser?.first_name}`}
+                  style={{ width: 100, height: 100, borderRadius: "50%" }}
+                />
                 <p>ID: {singleUser?.id}</p>
                 <p>Име: {singleUser?.first_name}</p>
                 <p>Фамилия: {singleUser?.last_name}</p>
