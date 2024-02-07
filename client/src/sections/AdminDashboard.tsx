@@ -44,25 +44,11 @@ const AdminDashboard = () => {
                   <p>Презиме: {singleUser?.middle_name}</p>
                 )}
                 <p>Имейл: {singleUser?.email}</p>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    gap: 10,
-                  }}
-                >
-                  <p>Роля: </p>
-                  <select
-                    value={singleUser?.role}
-                    onChange={(e) => e.target.value}
-                    style={{ height: "fit-content" }}
-                  >
-                    <option value="клеинт">клиент</option>
-                    <option value="служител">служител</option>
-                    <option value="админ">админ</option>
-                  </select>
-                </div>
+                <p>Роля: {singleUser?.role}</p>
+
+                <button onClick={() => navigate(`user/${singleUser?.id}`)}>
+                  Подробности
+                </button>
               </div>
             ))}
           </div>

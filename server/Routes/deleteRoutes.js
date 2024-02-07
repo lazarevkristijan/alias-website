@@ -56,3 +56,26 @@ export const deleteService = async (req, res) => {
     return res.status(500).json({ error: "Грешка при изтриване на услуга" })
   }
 }
+
+export const deleteUserPfpByAdmin = async (req, res) => {
+  try {
+    const { id } = req.params
+    const picturePath = req.body.pfpFileName
+
+    await sql`
+    UPDATE users
+    SET profile_picture = 'https://i.postimg.cc/7LzHDxQv/download.png'
+    WHERE id = ${id}`
+
+    if (picturePath) {
+      cloudinary.uploader.destroy(picturePath)
+    }
+
+    return res.json({ success: "Успешно изтриена профилна картинка" })
+  } catch (error) {
+    console.error("Error is: ", error)
+    return res
+      .status(500)
+      .json({ error: "Грешка при изтриване на профилна снимка от админ" })
+  }
+}

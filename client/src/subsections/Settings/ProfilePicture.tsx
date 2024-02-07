@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../../Store"
 import {
   getPfpLink,
-  handleFileChange,
   handlePfpDelete,
   handleProfilePictureChange,
 } from "../../Utils/SettingsUtils"
+import { handleFileChange } from "../../Utils/SharedUtils"
 import { defaultPfpURL } from "../../constants"
 
 const ProfilePicture = () => {

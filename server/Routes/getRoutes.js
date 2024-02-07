@@ -220,14 +220,21 @@ export const getSingleProviderServices = async (req, res) => {
   }
 }
 
-export const getAllRoles = async (req, res) => {
+export const getSingleUser = async (req, res) => {
   try {
-    const allRoles = await sql`
-    SELECT * FROM user_roles`
+    const { id } = req.params
 
-    return res.json(allRoles)
+    const user = await sql`
+    SELECT a.id, a.first_name, a.last_name, a.email, a.profile_picture, a.middle_name, b.name as role FROM users as a
+    JOIN user_roles as b
+    ON a.role_id = b.id
+    WHERE a.id = ${id}`
+
+    return res.json(user[0])
   } catch (error) {
     console.error("Error is: ", error)
-    return res.status(500).json({ error: "Грешка при получаване на ролите" })
+    return res
+      .status(500)
+      .json({ error: "Грешка при получаване на потребителя" })
   }
 }

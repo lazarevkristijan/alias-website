@@ -156,3 +156,13 @@ export const getSingleProviderServices = async (id: string) => {
 
   return res
 }
+
+export const handleFileChange = (
+  e: React.ChangeEvent<HTMLInputElement>,
+  setProfilePicture: (value: React.SetStateAction<File | null>) => void
+) => {
+  const file = e.target.files && e.target.files[0]
+  if (file !== undefined && file !== null) {
+    setProfilePicture(file)
+  }
+}

@@ -80,16 +80,6 @@ export const getPfpFileName = (linkString: string) => {
   }
 }
 
-export const handleFileChange = (
-  e: React.ChangeEvent<HTMLInputElement>,
-  setPrrofilePicture: (value: React.SetStateAction<File | null>) => void
-) => {
-  const file = e.target.files && e.target.files[0]
-  if (file !== undefined && file !== null) {
-    setPrrofilePicture(file)
-  }
-}
-
 export const handleChangeTheme = (theme: string, dispatch: AppDispatch) => {
   axios
     .patch(

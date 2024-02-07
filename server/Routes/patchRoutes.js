@@ -100,6 +100,26 @@ export const patchChangeProfilePicture = async (req, res) => {
   }
 }
 
+export const patchAdminChangeProfilePicture = async (req, res) => {
+  try {
+    const { id } = req.params
+    const pfpData = { url: req.file.path, fileName: req.file.filename }
+    const stringedPfp = JSON.stringify(pfpData)
+
+    await sql`
+    UPDATE users
+    SET profile_picture = ${stringedPfp}
+    WHERE id = ${id}`
+
+    return res.json({ success: "Real success" })
+  } catch (error) {
+    console.error("Error is: ", error)
+    return res
+      .status(500)
+      .json({ error: "Грешка при промяна на профилна снимка от админ" })
+  }
+}
+
 export const patchEditService = async (req, res) => {
   try {
     const {

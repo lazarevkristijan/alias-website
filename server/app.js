@@ -20,15 +20,17 @@ import {
   getAllServiceProviders,
   getSingleServiceProviders,
   getSingleProviderServices,
-  getAllRoles,
+  getSingleUser,
 } from "./Routes/getRoutes.js"
 import { postAddService, postLoginOrRegister } from "./Routes/postRoutes.js"
 import {
   deleteProfilePicture,
   deleteService,
   deleteUser,
+  deleteUserPfpByAdmin,
 } from "./Routes/deleteRoutes.js"
 import {
+  patchAdminChangeProfilePicture,
   patchChangeCreds,
   patchChangeProfilePicture,
   patchChangeTheme,
@@ -91,10 +93,21 @@ app.get("/services/providers/:category", getCategoryServiceProviders)
 app.get("/provider/:id", getProvider)
 app.get("/providers/single/services/:id", getSingleProviderServices)
 
-app.get("/users/all", getAllUsers)
-app.get("/roles/all", getAllRoles)
-// LISTEN
+app.get("/users/all", verifyToken, getAllUsers)
+app.get("/admin/get-user/:id", verifyToken, getSingleUser)
+app.patch(
+  "/admin/user/change-profile-picture/:id",
+  verifyToken,
+  upload.single("profilePicture"),
+  patchAdminChangeProfilePicture
+)
+app.delete(
+  "/admin/user/delete-profile-picture/:id",
+  verifyToken,
+  deleteUserPfpByAdmin
+)
 
+// LISTEN
 const server = app.listen(port, () =>
   console.log(`Alias is listening on port ${port}!`)
 )
