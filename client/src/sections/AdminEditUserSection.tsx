@@ -35,6 +35,7 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
 
   const [supportedError, setSupportedError] = useState(false)
   const [sizeError, setSizeError] = useState(false)
+  const [isChanging, setIsChanging] = useState(false)
 
   useEffect(() => {
     if (fetchedUser?.profile_picture) {
@@ -52,15 +53,18 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
           marginRight: "auto",
         }}
         encType="multipart/form-data"
-        onSubmit={(e) =>
+        onSubmit={(e) => {
+          setIsChanging(true)
+
           handleAdminChangeProfilePicture(
             e,
             profilePicture,
             setProfilePicture,
             newUserData,
-            setNewUserData
+            setNewUserData,
+            setIsChanging
           )
-        }
+        }}
       >
         <img
           src={getPfpLink(
@@ -148,7 +152,7 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
           disabled={!profilePicture}
           type="submit"
         >
-          спази снимка
+          спази
         </button>
         <button
           type="button"

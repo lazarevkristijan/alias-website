@@ -2,8 +2,9 @@ import axios from "axios"
 import { AppDispatch } from "../Store"
 import { UserTypes } from "../Types"
 import { changeProfilePicture } from "../features/session/sessionSlice"
-import { defaultPfpURL } from "../constants"
+import { defaultPfpURL, errorNotifEnding } from "../constants"
 import { changeTheme } from "../features/settings/settingsSlice"
+import { sendNotification } from "./SharedUtils"
 
 export const getPfpLink = (linkString: string) => {
   try {
@@ -28,8 +29,9 @@ export const handlePfpDelete = async (
       withCredentials: true,
       data: JSON.stringify({ pfpFileName: pfpFileName }),
     })
-    .then(() => {
+    .then((response) => {
       dispatch(changeProfilePicture(defaultPfpURL))
+      sendNotification(response.data.success, true)
     })
 }
 
@@ -38,7 +40,8 @@ export const handleProfilePictureChange = async (
   profilePicture: File | null,
   setPrrofilePicture: (value: React.SetStateAction<File | null>) => void,
   user: UserTypes,
-  dispatch: AppDispatch
+  dispatch: AppDispatch,
+  setIsChanging: (value: React.SetStateAction<boolean>) => void
 ) => {
   e.preventDefault()
 
@@ -61,9 +64,14 @@ export const handleProfilePictureChange = async (
           withCredentials: true,
         }
       )
-      .then((res) => {
-        dispatch(changeProfilePicture(res.data))
+      .then((response) => {
+        dispatch(changeProfilePicture(response.data.profilePicture))
+        sendNotification(response.data.success, true)
       })
+      .catch((error) =>
+        sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
+      )
+      .finally(() => setIsChanging(false))
   } else {
     console.error("No file selected")
   }

@@ -25,6 +25,7 @@ const ProfilePicture = () => {
 
   const [supportedError, setSupportedError] = useState(false)
   const [sizeError, setSizeError] = useState(false)
+  const [isChanging, setIsChanging] = useState(false)
 
   return (
     <div>
@@ -32,12 +33,14 @@ const ProfilePicture = () => {
 
       <form
         onSubmit={(e) => {
+          setIsChanging(true)
           handleProfilePictureChange(
             e,
             profilePicture,
             setProfilePicture,
             user,
-            dispatch
+            dispatch,
+            setIsChanging
           )
         }}
         style={{ position: "relative" }}
@@ -138,7 +141,7 @@ const ProfilePicture = () => {
           type="submit"
           disabled={!profilePicture}
         >
-          спази
+          {isChanging ? "Спазване..." : "Спази"}
         </button>
       </form>
 

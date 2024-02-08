@@ -33,7 +33,8 @@ export const handleAdminChangeProfilePicture = async (
   profilePicture: File | null,
   setProfilePicture: (value: React.SetStateAction<File | null>) => void,
   userData: AdminEditUserDataTypes,
-  setNewUserData: (value: React.SetStateAction<AdminEditUserDataTypes>) => void
+  setNewUserData: (value: React.SetStateAction<AdminEditUserDataTypes>) => void,
+  setIsChanging: (value: React.SetStateAction<boolean>) => void
 ) => {
   e.preventDefault()
 
@@ -66,6 +67,7 @@ export const handleAdminChangeProfilePicture = async (
       .catch((error) =>
         sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
       )
+      .finally(() => setIsChanging(false))
   } else {
     sendNotification("Не е избран файл")
   }

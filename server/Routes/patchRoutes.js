@@ -91,7 +91,10 @@ export const patchChangeProfilePicture = async (req, res) => {
     SET profile_picture = ${stringedPfp}
     WHERE id = ${userId}`
 
-    return res.json(stringedPfp)
+    return res.json({
+      success: "Успешна промяна на профилна снимка",
+      profilePicture: stringedPfp,
+    })
   } catch (error) {
     console.error("Error is: ", error)
     return res
