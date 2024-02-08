@@ -190,6 +190,15 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
             setNewUserData({ ...newUserData, first_name: e.target.value })
           }}
           id="admin-edit-user-first-name"
+          style={{
+            backgroundColor:
+              !nameRegex.test(newUserData.first_name) &&
+              changedFields.first_name
+                ? "red"
+                : "#fff",
+            textTransform: "capitalize",
+          }}
+          maxLength={50}
         />
       </div>
       <div
@@ -210,6 +219,14 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
             setNewUserData({ ...newUserData, last_name: e.target.value })
           }}
           id="admin-edit-user-last-name"
+          style={{
+            backgroundColor:
+              !nameRegex.test(newUserData.last_name) && changedFields.last_name
+                ? "red"
+                : "#fff",
+            textTransform: "capitalize",
+          }}
+          maxLength={50}
         />
       </div>
       <div
@@ -230,6 +247,15 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
             setNewUserData({ ...newUserData, middle_name: e.target.value })
           }}
           id="admin-edit-user-middle-name"
+          style={{
+            backgroundColor:
+              !middleNameRegex.test(newUserData.middle_name) &&
+              changedFields.middle_name
+                ? "red"
+                : "#fff",
+            textTransform: "capitalize",
+          }}
+          maxLength={50}
         />
       </div>
       <label htmlFor="admin-edit-user-role">Роля</label>
