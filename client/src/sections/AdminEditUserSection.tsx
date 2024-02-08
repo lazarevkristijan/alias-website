@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { UserTypes } from "../Types"
+import { AdminEditUserDataTypes, UserTypes } from "../Types"
 import { getPfpLink } from "../Utils/SettingsUtils"
 import { defaultPfpURL } from "../constants"
 import {
@@ -11,7 +11,7 @@ import { handleFileChange } from "../Utils/SharedUtils"
 import { middleNameRegex, nameRegex } from "../Regex"
 
 const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
-  const [newUserData, setNewUserData] = useState({
+  const [newUserData, setNewUserData] = useState<AdminEditUserDataTypes>({
     id: fetchedUser?.id || 0,
     first_name: fetchedUser?.first_name || "",
     last_name: fetchedUser?.last_name || "",
@@ -57,16 +57,16 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
             e,
             profilePicture,
             setProfilePicture,
-            fetchedUser?.id,
-            fetchedUser?.profile_picture
+            newUserData,
+            setNewUserData
           )
         }
       >
         <img
           src={getPfpLink(
-            fetchedUser?.profile_picture ? pfpURL : defaultPfpURL
+            newUserData?.profile_picture ? pfpURL : defaultPfpURL
           )}
-          alt={`Профилна снимка на ${fetchedUser?.first_name}`}
+          alt={`Профилна снимка на ${newUserData?.first_name}`}
           style={{
             width: 100,
             height: 100,
@@ -152,12 +152,18 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
         </button>
         <button
           type="button"
-          onClick={() =>
-            handleAdminPfpDelete(fetchedUser.id, fetchedUser.profile_picture)
-          }
+          onClick={() => {
+            handleAdminPfpDelete(
+              fetchedUser.id,
+              fetchedUser.profile_picture,
+              setNewUserData
+            )
+            setPfpURL(defaultPfpURL)
+            setProfilePicture(null)
+          }}
           disabled={
-            !fetchedUser.profile_picture ||
-            fetchedUser.profile_picture === defaultPfpURL
+            !newUserData.profile_picture ||
+            newUserData.profile_picture === defaultPfpURL
           }
         >
           Изтрий

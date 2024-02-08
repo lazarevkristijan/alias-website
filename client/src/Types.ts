@@ -88,3 +88,13 @@ export type SingleServiceTypes = {
   category: string
   price: number
 }
+
+export type AdminEditUserDataTypes = {
+  id: number
+  first_name: string
+  last_name: string
+  middle_name: string
+  email: string
+  profile_picture: string
+  role: string
+}

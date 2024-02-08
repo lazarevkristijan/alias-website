@@ -1,8 +1,8 @@
 import axios from "axios"
 import { sendNotification } from "./SharedUtils"
-import { errorNotifEnding } from "../constants"
+import { defaultPfpURL, errorNotifEnding } from "../constants"
 import { getPfpFileName } from "./SettingsUtils"
-import { UserTypes } from "../Types"
+import { AdminEditUserDataTypes, UserTypes } from "../Types"
 
 export const getAllUsers = async () => {
   const res = await axios
@@ -32,13 +32,13 @@ export const handleAdminChangeProfilePicture = async (
   e: React.FormEvent<HTMLFormElement>,
   profilePicture: File | null,
   setProfilePicture: (value: React.SetStateAction<File | null>) => void,
-  id: number,
-  userPfp: string
+  userData: AdminEditUserDataTypes,
+  setNewUserData: (value: React.SetStateAction<AdminEditUserDataTypes>) => void
 ) => {
   e.preventDefault()
 
-  if (userPfp) {
-    handleAdminPfpDelete(id, userPfp)
+  if (userData?.profile_picture) {
+    handleAdminPfpDelete(userData.id, userData.profile_picture, setNewUserData)
   }
 
   if (profilePicture) {
@@ -47,7 +47,7 @@ export const handleAdminChangeProfilePicture = async (
 
     await axios
       .patch(
-        `http://localhost:5432/admin/user/change-profile-picture/${id}`,
+        `http://localhost:5432/admin/user/change-profile-picture/${userData.id}`,
         formData,
         {
           headers: {
@@ -58,6 +58,10 @@ export const handleAdminChangeProfilePicture = async (
       )
       .then((response) => {
         sendNotification(response.data.success, true)
+        setNewUserData({
+          ...userData,
+          profile_picture: response.data.profilePicture,
+        })
       })
       .catch((error) =>
         sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
@@ -68,7 +72,11 @@ export const handleAdminChangeProfilePicture = async (
   setProfilePicture(null)
 }
 
-export const handleAdminPfpDelete = async (userId: number, userPfp: string) => {
+export const handleAdminPfpDelete = async (
+  userId: number,
+  userPfp: string,
+  setNewUserData: (value: React.SetStateAction<AdminEditUserDataTypes>) => void
+) => {
   const pfpFileName = getPfpFileName(userPfp)
 
   await axios
@@ -82,7 +90,13 @@ export const handleAdminPfpDelete = async (userId: number, userPfp: string) => {
         data: JSON.stringify({ pfpFileName: pfpFileName }),
       }
     )
-    .then((response) => sendNotification(response.data.success, true))
+    .then((response) => {
+      sendNotification(response.data.success, true)
+      setNewUserData((prev) => ({
+        ...prev,
+        profile_picture: defaultPfpURL,
+      }))
+    })
     .catch((error) =>
       sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
     )
