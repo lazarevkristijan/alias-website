@@ -70,10 +70,14 @@ export const handleAdminChangeProfilePicture = async (
 
 export const handleAdminPfpDelete = async (userId: number, userPfp: string) => {
   const pfpFileName = getPfpFileName(userPfp)
+
   await axios
     .delete(
       `http://localhost:5432/admin/user/delete-profile-picture/${userId}`,
       {
+        headers: {
+          "Content-Type": "application/json",
+        },
         withCredentials: true,
         data: JSON.stringify({ pfpFileName: pfpFileName }),
       }
@@ -85,8 +89,6 @@ export const handleAdminPfpDelete = async (userId: number, userPfp: string) => {
 }
 
 export const handleAdminCredsChange = async (userData: UserTypes) => {
-  console.log(userData)
-
   await axios
     .patch(
       `http://localhost:5432/admin/user/change-credentials/${userData?.id}`,
