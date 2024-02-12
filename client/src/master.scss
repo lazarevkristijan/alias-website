@@ -1,6 +1,5 @@
-@use "app";
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&display=swap");
-// LIGHT MODE
+
 $primary-text-light: #000;
 $priamry-text-dark: #fff;
 
@@ -9,8 +8,4 @@ body {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-}
-
-li:hover {
-  cursor: pointer;
 }

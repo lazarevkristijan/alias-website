@@ -1,1 +1,9 @@
-$blue: rgb(0, 0, 255);
+@use "master";
+
+main {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 30px;
+  padding-right: 30px;
+}

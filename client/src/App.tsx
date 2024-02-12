@@ -4,7 +4,7 @@ import { postLoginOrRegister } from "./Utils/HomeUtils"
 import { Route, Routes } from "react-router"
 import { useDispatch } from "react-redux"
 import { Home, Profile } from "./sections"
-import "./master.scss"
+import "./app.scss"
 import Settings from "./sections/Settings"
 import Navbar from "./sections/Navbar"
 import CarServices from "./sections/CarServices"
@@ -37,13 +37,7 @@ const App = () => {
       {isLoading ? (
         <p>Зареждане...</p>
       ) : (
-        <main
-          style={{
-            width: "1200px",
-            marginLeft: "auto",
-            marginRight: "auto",
-          }}
-        >
+        <main>
           <Navbar />
           <Routes>
             <Route
