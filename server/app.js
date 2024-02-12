@@ -12,7 +12,7 @@ import {
   getUserSettings,
   getLogout,
   getAllServiceCategories,
-  getAllServices,
+  getAllServicesByCategory,
   getSingleService,
   getAllServicesAndProviders,
   getCategoryServiceProviders,
@@ -21,6 +21,7 @@ import {
   getSingleServiceProviders,
   getSingleProviderServices,
   getSingleUser,
+  getAllServices,
 } from "./Routes/getRoutes.js"
 import { postAddService, postLoginOrRegister } from "./Routes/postRoutes.js"
 import {
@@ -79,8 +80,8 @@ app.delete(
   verifyToken,
   deleteProfilePicture
 )
-
-app.get("/services/all/:category", getAllServices)
+app.get("/services/all", getAllServices)
+app.get("/services/all/:category", getAllServicesByCategory)
 app.get("/service/info/:category/:id", getSingleService)
 app.get("/service/providers/all/:id", getSingleServiceProviders)
 app.get("/services/all-service-categories", getAllServiceCategories)

@@ -4,6 +4,8 @@ import { login } from "../features/session/sessionSlice"
 import { AppDispatch } from "../Store"
 import { UserSettingsTypes } from "../Types"
 import { changeTheme } from "../features/settings/settingsSlice"
+import { sendNotification } from "./SharedUtils"
+import { errorNotifEnding } from "../constants"
 
 export const postLoginOrRegister = (
   auth0user: User | undefined,
@@ -40,4 +42,15 @@ export const postLoginOrRegister = (
           setIsLoading(false)
         })
     })
+}
+
+export const getAllServices = async () => {
+  const res = await axios
+    .get("http://localhost:5432/services/all")
+    .then((response) => response.data)
+    .catch((error) =>
+      sendNotification(`${error.response.data.message}, ${errorNotifEnding}`)
+    )
+
+  return res
 }

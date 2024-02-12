@@ -1,11 +1,11 @@
-@use "../master";
+@use "../master.scss";
 
-.hero div {
+.hero {
   margin-left: 75px;
   margin-right: 75px;
   text-align: center;
-  background-color: #70ff00;
-  border-radius: 10px;
+  background-color: master.$primary-dark;
+  border-radius: 20px;
   height: 400px;
   box-sizing: border-box;
   position: relative;
@@ -13,28 +13,50 @@
   padding-top: 75px;
 }
 
-.hero div img {
+.hero img {
   width: 100px;
   height: 100px;
   position: absolute;
 }
 
-.hero div .hero-img1 {
+.hero .hero-img1 {
   top: 20px;
   left: 20px;
 }
 
-.hero div .hero-img2 {
+.hero .hero-img2 {
   top: 20px;
   right: 20px;
 }
 
-.hero div .hero-img3 {
+.hero .hero-img3 {
   bottom: 20px;
   right: 20px;
 }
 
-.hero div input {
+.hero input {
   width: 40%;
   margin-top: 50px;
+}
+
+.search-service-container {
+  position: relative;
+}
+
+.services-results-container {
+  max-height: 150px;
+  overflow-y: scroll;
+  width: 40%;
+  border: 1px solid black;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.service-result {
+  border: 1px solid black;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 10px;
+  padding: 5px;
 }
