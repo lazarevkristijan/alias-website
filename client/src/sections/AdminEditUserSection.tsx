@@ -6,11 +6,15 @@ import {
   handleAdminChangeProfilePicture,
   handleAdminCredsChange,
   handleAdminPfpDelete,
+  handleAdminUserDelete,
 } from "../Utils/AdminUtils"
 import { handleFileChange } from "../Utils/SharedUtils"
 import { middleNameRegex, nameRegex } from "../Regex"
+import { useNavigate } from "react-router"
 
 const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
+  const navigate = useNavigate()
+
   const [newUserData, setNewUserData] = useState<AdminEditUserDataTypes>({
     id: fetchedUser?.id || 0,
     first_name: fetchedUser?.first_name || "",
@@ -131,6 +135,7 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
             }
           }}
         />
+        {isChanging && <p>Спазване...</p>}
         <button
           type="button"
           disabled={!profilePicture}
@@ -285,7 +290,9 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
       </select>
       <p>Имейл: {fetchedUser?.email}</p>
 
-      <button>Изтрий потребител</button>
+      <button onClick={() => handleAdminUserDelete(fetchedUser.id, navigate)}>
+        Изтрий потребител
+      </button>
       <button
         onClick={() => handleAdminCredsChange(newUserData)}
         disabled={

@@ -3,6 +3,7 @@ import { sendNotification } from "./SharedUtils"
 import { defaultPfpURL, errorNotifEnding } from "../constants"
 import { getPfpFileName } from "./SettingsUtils"
 import { AdminEditUserDataTypes, UserTypes } from "../Types"
+import { NavigateFunction } from "react-router"
 
 export const getAllUsers = async () => {
   const res = await axios
@@ -119,5 +120,22 @@ export const handleAdminCredsChange = async (userData: UserTypes) => {
     .then((response) => sendNotification(response.data.success, true))
     .catch((error) =>
       sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
+    )
+}
+
+export const handleAdminUserDelete = async (
+  id: number,
+  navigate: NavigateFunction
+) => {
+  await axios
+    .delete(`http://localhost:5432/admin/user/delete/${id}`, {
+      withCredentials: true,
+    })
+    .then((response) => {
+      sendNotification(response.data.success, true)
+      navigate("/admin-dashboard")
+    })
+    .catch((error) =>
+      sendNotification(`${error.response.data.error}, ${errorNotifEnding}}`)
     )
 }

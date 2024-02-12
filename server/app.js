@@ -27,6 +27,7 @@ import {
   deleteProfilePicture,
   deleteService,
   deleteUser,
+  deleteUserByAdmin,
   deleteUserPfpByAdmin,
 } from "./Routes/deleteRoutes.js"
 import {
@@ -94,6 +95,7 @@ app.get("/services/providers/:category", getCategoryServiceProviders)
 app.get("/provider/:id", getProvider)
 app.get("/providers/single/services/:id", getSingleProviderServices)
 
+// ADMIN ROUTES
 app.get("/users/all", verifyToken, getAllUsers)
 app.get("/admin/get-user/:id", verifyToken, getSingleUser)
 app.patch(
@@ -112,6 +114,7 @@ app.patch(
   verifyToken,
   patchAdminChangeCreds
 )
+app.delete("/admin/user/delete/:id", verifyToken, deleteUserByAdmin)
 
 // LISTEN
 const server = app.listen(port, () =>

@@ -79,3 +79,20 @@ export const deleteUserPfpByAdmin = async (req, res) => {
       .json({ error: "Грешка при изтриване на профилна снимка от админ" })
   }
 }
+
+export const deleteUserByAdmin = async (req, res) => {
+  try {
+    const { id } = req.params
+
+    await sql`
+    DELETE FROM users
+    WHERE id = ${id}`
+
+    return res.json({ success: "Успешно изтрит потребител от админ" })
+  } catch (error) {
+    console.error("Error is: ", error)
+    return res
+      .status(500)
+      .json({ error: "Грешка при изтриване на потребител от админ" })
+  }
+}
