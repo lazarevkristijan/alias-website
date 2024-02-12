@@ -96,7 +96,7 @@ export const handleChangeTheme = (theme: string, dispatch: AppDispatch) => {
       { headers: { "Content-Type": "application/json" }, withCredentials: true }
     )
     .then(() => {
-      document.body.style.backgroundColor = theme === "dark" ? "#333" : "#ccc"
+      document.body.style.backgroundColor = theme === "dark" ? "#000" : "#fff"
       document.body.style.color = theme === "dark" ? "#fff" : "#000"
 
       dispatch(changeTheme(theme))

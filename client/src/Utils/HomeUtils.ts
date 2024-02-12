@@ -32,7 +32,7 @@ export const postLoginOrRegister = (
           )
 
           document.body.style.backgroundColor =
-            colorTheme[0].value === "dark" ? "#333" : "#ccc"
+            colorTheme[0].value === "dark" ? "#000" : "#fff"
           document.body.style.color =
             colorTheme[0].value === "dark" ? "#fff" : "#000"
           dispatch(changeTheme(colorTheme[0].value))

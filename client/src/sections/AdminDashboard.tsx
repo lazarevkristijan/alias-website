@@ -35,7 +35,6 @@ const AdminDashboard = () => {
               <div
                 key={singleUser?.id}
                 style={{
-                  backgroundColor: "#f0f0f0",
                   textAlign: "center",
                   padding: 15,
                 }}
