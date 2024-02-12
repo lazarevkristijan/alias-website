@@ -1,0 +1,40 @@
+@use "../master";
+
+.hero div {
+  margin-left: 75px;
+  margin-right: 75px;
+  text-align: center;
+  background-color: #70ff00;
+  border-radius: 10px;
+  height: 400px;
+  box-sizing: border-box;
+  position: relative;
+  padding: 30px;
+  padding-top: 75px;
+}
+
+.hero div img {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+}
+
+.hero div .hero-img1 {
+  top: 20px;
+  left: 20px;
+}
+
+.hero div .hero-img2 {
+  top: 20px;
+  right: 20px;
+}
+
+.hero div .hero-img3 {
+  bottom: 20px;
+  right: 20px;
+}
+
+.hero div input {
+  width: 40%;
+  margin-top: 50px;
+}
