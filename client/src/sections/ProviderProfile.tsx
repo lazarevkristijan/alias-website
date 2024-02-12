@@ -4,6 +4,7 @@ import { getProvider, getSingleProviderServices } from "../Utils/SharedUtils"
 import { ProviderTypes, SingleServiceTypes } from "../Types"
 import { getPfpLink } from "../Utils/SettingsUtils"
 import { defaultPfpURL } from "../constants"
+import React from "react"
 
 const ProviderProfile = () => {
   const { id } = useParams()
@@ -54,7 +55,7 @@ const ProviderProfile = () => {
             }}
           >
             {services.map((service) => (
-              <>
+              <React.Fragment key={service.id}>
                 <div
                   key={service.id}
                   style={{
@@ -75,7 +76,7 @@ const ProviderProfile = () => {
                     Към услуга
                   </button>
                 </div>
-              </>
+              </React.Fragment>
             ))}
           </div>
         </>

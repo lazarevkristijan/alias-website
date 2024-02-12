@@ -5,6 +5,7 @@ import { ProviderServiceShowcaseTypes, ServiceTypes } from "../Types"
 import ServiceCard from "../components/Services/ServiceCard"
 import { getPfpLink } from "../Utils/SettingsUtils"
 import { getAllCategoryProviders } from "../Utils/SharedUtils"
+import React from "react"
 
 const PersonalServices = () => {
   const navigate = useNavigate()
@@ -29,10 +30,10 @@ const PersonalServices = () => {
             <button onClick={() => navigate("/услуги")}>Към услуги</button>
             <br />
             <br />
-            <h2>Всички услуги за коли</h2>
+            <h2>Всички персонални услуги</h2>
             {allCarServices &&
               allCarServices.map((service: ServiceTypes) => (
-                <>
+                <React.Fragment key={service.id}>
                   <ServiceCard
                     service={service}
                     key={service.id}
@@ -43,7 +44,7 @@ const PersonalServices = () => {
                     (provider: ProviderServiceShowcaseTypes) => {
                       if (provider.service_id === service.id) {
                         return (
-                          <>
+                          <React.Fragment key={provider.provider_id}>
                             <img
                               src={getPfpLink(provider.profile_picture)}
                               alt={`Профилна снимка на ${provider.first_name}`}
@@ -54,12 +55,12 @@ const PersonalServices = () => {
                                 navigate(`/служител/${provider.provider_id}`)
                               }
                             />
-                          </>
+                          </React.Fragment>
                         )
                       }
                     }
                   )}
-                </>
+                </React.Fragment>
               ))}
           </>
         )}

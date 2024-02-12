@@ -117,7 +117,9 @@ export const handleAdminCredsChange = async (userData: UserTypes) => {
         withCredentials: true,
       }
     )
-    .then((response) => sendNotification(response.data.success, true))
+    .then((response) => {
+      sendNotification(response.data.success, true)
+    })
     .catch((error) =>
       sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
     )
