@@ -166,3 +166,7 @@ export const handleFileChange = (
     setProfilePicture(file)
   }
 }
+
+export const capitalizeString = (str: string) => {
+  return str.charAt(0).toUpperCase() + str.slice(1)
+}

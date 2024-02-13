@@ -60,3 +60,27 @@
   column-gap: 10px;
   padding: 5px;
 }
+
+.why-choose-us {
+  text-align: center;
+}
+
+.why-choose-us-boxes {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.why-choose-us-boxes h3 {
+  text-align: center;
+  height: 70px;
+}
+
+.why-choose-us-boxes div {
+  width: 200px;
+}
+
+.how-to-get-started {
+  background-color: master.$primary-dark;
+  padding: 20px;
+}
