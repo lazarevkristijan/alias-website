@@ -39,7 +39,9 @@ const Footer = () => {
         </div>
       </div>
 
-      <p>Copyright © 2024. All rights reserved.</p>
+      <p className="footer-legal">
+        Copyright © 2024 Alias Group. All rights reserved.
+      </p>
     </footer>
   )
 }

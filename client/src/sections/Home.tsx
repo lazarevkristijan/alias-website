@@ -55,12 +55,12 @@ const Home = () => {
               className="hero-img1"
             />
             <img
-              src="https://www.svgrepo.com/show/530572/accelerate.svg"
+              src="services-img2.png"
               alt="Service image 2"
               className="hero-img2"
             />
             <img
-              src="https://www.svgrepo.com/show/530572/accelerate.svg"
+              src="services-img3.png"
               alt="Service image 3"
               className="hero-img3"
             />

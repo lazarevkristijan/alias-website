@@ -26,9 +26,28 @@ button {
   padding-left: 15px;
   padding-right: 15px;
   border-radius: 5px;
+  cursor: pointer;
+  background-color: #fff;
 }
 
 ul {
   list-style: none;
   padding: 0;
+}
+
+li {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+section > section {
+  padding: 30px;
 }
