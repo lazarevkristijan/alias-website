@@ -6,6 +6,7 @@ import { ServiceCategoryTypes, ServiceTypes } from "../Types"
 import { useNavigate } from "react-router"
 import { useAuth0 } from "@auth0/auth0-react"
 import { capitalizeString, getAllServiceCategories } from "../Utils/SharedUtils"
+import Footer from "./Footer"
 
 const Home = () => {
   const navigate = useNavigate()
@@ -165,6 +166,8 @@ const Home = () => {
               </div>
             )}
           </section>
+
+          <Footer />
         </>
       )}
     </section>

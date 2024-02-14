@@ -1,0 +1,15 @@
+@use "../master";
+
+footer {
+  margin-top: 100px;
+  background-color: master.$primary-dark;
+  padding: 30px;
+}
+
+footer p {
+  margin-top: 100px;
+}
+
+footer a {
+  color: white;
+}
