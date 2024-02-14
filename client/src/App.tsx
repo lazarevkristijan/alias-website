@@ -16,6 +16,7 @@ import ProviderProfile from "./sections/ProviderProfile"
 import ServiceProviders from "./sections/ServiceProviders"
 import AdminDashboard from "./sections/AdminDashboard"
 import AdminUserView from "./sections/AdminUserView"
+import Footer from "./sections/Footer"
 
 const App = () => {
   const dispatch = useDispatch()
@@ -94,6 +95,7 @@ const App = () => {
               element={<h2>Не е намерено</h2>}
             />
           </Routes>
+          <Footer />
         </main>
       )}
     </>

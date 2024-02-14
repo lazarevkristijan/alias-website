@@ -3,7 +3,7 @@
 footer {
   margin-top: 100px;
   background-color: master.$primary-dark;
-  padding: 30px;
+  padding: 50px;
 }
 
 footer p {
@@ -12,4 +12,18 @@ footer p {
 
 footer a {
   color: white;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 50px;
+}
+
+.footer-links div {
+  text-align: left;
+}
+
+.footer-links div h4 {
+  text-align: center;
 }
