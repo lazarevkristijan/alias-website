@@ -1,0 +1,18 @@
+@use "../master";
+
+.services-main-category-card {
+  width: 150px;
+  height: 150px;
+  border: 1px solid master.$primary-text-dark;
+  border-radius: 10px;
+  text-align: center;
+  padding: 10px;
+  background-color: master.$primary-dark;
+}
+
+.services-main-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}

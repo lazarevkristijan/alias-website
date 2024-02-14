@@ -1,36 +1,58 @@
-import { useNavigate } from "react-router"
 import AddServiceDialog from "../components/Services/AddServiceDialog"
 import { useState } from "react"
 import { useSelector } from "react-redux"
 import { RootState } from "../Store"
+import { useQuery } from "@tanstack/react-query"
+import { getAllServiceCategories } from "../Utils/SharedUtils"
+import ServiceCategoryCard from "../subsections/ServicesMain/ServiceCategoryCard"
+import { ServiceCategoryTypes } from "../Types"
+import "./Services.scss"
 
 const ServicesMain = () => {
-  const navigate = useNavigate()
   const user = useSelector((state: RootState) => state.session.user)
+
+  const { isLoading: areCategoriesLoading, data: allServiceCategories } =
+    useQuery<ServiceCategoryTypes[]>({
+      queryKey: ["categories"],
+      queryFn: () => getAllServiceCategories(),
+    })
 
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false)
 
   return (
-    <div>
-      <button onClick={() => navigate("коли")}>Коли</button>
-      <button onClick={() => navigate("персонални")}>Персонални</button>
-      <button onClick={() => navigate("вкъщи")}>Вкъщи</button>
-      <br />
-      <br />
-      {user?.role === "админ" && (
+    <section>
+      {areCategoriesLoading ? (
+        <p>Зареждане...</p>
+      ) : (
         <>
-          <button
-            onClick={() => setIsAddDialogOpen(isAddDialogOpen ? false : true)}
-          >
-            Добави услуга
-          </button>
-          <AddServiceDialog
-            isOpen={isAddDialogOpen}
-            setIsOpen={setIsAddDialogOpen}
-          />
+          <section className="services-main-cards-container">
+            {allServiceCategories?.map((category: ServiceCategoryTypes) => (
+              <ServiceCategoryCard
+                key={category.id}
+                category={category}
+              />
+            ))}
+          </section>
+          <br />
+          <br />
+          {user?.role === "админ" && (
+            <>
+              <button
+                onClick={() =>
+                  setIsAddDialogOpen(isAddDialogOpen ? false : true)
+                }
+              >
+                Добави услуга
+              </button>
+              <AddServiceDialog
+                isOpen={isAddDialogOpen}
+                setIsOpen={setIsAddDialogOpen}
+              />
+            </>
+          )}
         </>
       )}
-    </div>
+    </section>
   )
 }
 
