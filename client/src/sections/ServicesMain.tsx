@@ -25,6 +25,7 @@ const ServicesMain = () => {
         <p>Зареждане...</p>
       ) : (
         <>
+          <h2>Категории на услуги</h2>
           <section className="services-main-cards-container">
             {allServiceCategories?.map((category: ServiceCategoryTypes) => (
               <ServiceCategoryCard
@@ -33,10 +34,10 @@ const ServicesMain = () => {
               />
             ))}
           </section>
-          <br />
-          <br />
           {user?.role === "админ" && (
             <>
+              <br />
+              <br />
               <button
                 onClick={() =>
                   setIsAddDialogOpen(isAddDialogOpen ? false : true)
