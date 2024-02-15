@@ -20,7 +20,7 @@ const ServicesMain = () => {
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false)
 
   return (
-    <section>
+    <section className="services">
       {areCategoriesLoading ? (
         <p>Зареждане...</p>
       ) : (

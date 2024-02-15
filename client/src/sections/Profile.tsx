@@ -6,13 +6,18 @@ import { useNavigate } from "react-router"
 import { handleLogout } from "../Utils/ProfileUtils"
 import { getPfpLink } from "../Utils/SettingsUtils"
 import { defaultPfpURL } from "../constants"
+import "./Profile.scss"
+import { capitalizeString } from "../Utils/SharedUtils"
 
 const Profile = () => {
   const navigate = useNavigate()
 
   const user = useSelector((state: RootState) => state.session.user)
-  const { isAuthenticated: auth0authenticated, logout: auth0logout } =
-    useAuth0()
+  const {
+    isLoading: auth0loading,
+    isAuthenticated: auth0authenticated,
+    logout: auth0logout,
+  } = useAuth0()
 
   useEffect(() => {
     !auth0authenticated && navigate("/")
@@ -21,33 +26,37 @@ const Profile = () => {
   if (!user) return
 
   return (
-    <div>
-      <div style={{ display: "flex", gap: 10 }}>
-        <p>{user?.first_name}</p>
-        {user.middle_name && <p>{user?.middle_name}</p>}
-        <p>{user?.last_name}</p>
-        <p>{user?.email}</p>
-        <p>{user?.role.charAt(0).toUpperCase() + user?.role.slice(1)}</p>
-      </div>
-      <br />
-      <img
-        src={getPfpLink(user?.profile_picture || defaultPfpURL)}
-        width={100}
-        height={100}
-        style={{
-          objectFit: "cover",
-          objectPosition: "center",
-          backgroundColor: "#fff",
-          borderRadius: "50%",
-          border: "2px solid #000",
-        }}
-        alt={`профилна картинка на ${user?.first_name}`}
-      />
-      <br />
-      <br />
+    <>
+      {auth0loading ? (
+        <p>Зареждане...</p>
+      ) : (
+        <section className="profile-section-1">
+          <section className="creds-container">
+            <img
+              src={getPfpLink(user?.profile_picture || defaultPfpURL)}
+              width={100}
+              height={100}
+              style={{
+                objectFit: "cover",
+                objectPosition: "center",
+                backgroundColor: "#fff",
+                borderRadius: "50%",
+                border: "2px solid #000",
+              }}
+              alt={`профилна картинка на ${user?.first_name}`}
+            />
 
-      <button onClick={() => handleLogout(auth0logout)}>изход</button>
-    </div>
+            <p>{user?.first_name}</p>
+            {user.middle_name && <p>{user?.middle_name}</p>}
+            <p>{user?.last_name}</p>
+            <p>{user?.email}</p>
+            <p>{capitalizeString(user?.role)}</p>
+          </section>
+          <button onClick={() => handleLogout(auth0logout)}>Изход</button>
+          <button onClick={() => navigate("/настройки")}>Настройки</button>
+        </section>
+      )}
+    </>
   )
 }
 
