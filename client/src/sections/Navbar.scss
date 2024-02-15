@@ -6,6 +6,11 @@ nav {
   align-items: center;
   margin-bottom: 30px;
   border-bottom: 1px solid master.$primary-light;
+  position: sticky;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.8);
+  top: 0;
+  left: 0;
 }
 
 nav img {
