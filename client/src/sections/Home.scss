@@ -79,4 +79,11 @@
 .how-to-get-started {
   background-color: master.$primary-dark;
   padding: 20px;
+  text-align: center;
+}
+
+.how-to-get-started .button-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }

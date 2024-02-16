@@ -1,7 +1,7 @@
 import { useAuth0 } from "@auth0/auth0-react"
 import { useEffect, useState } from "react"
 import { postLoginOrRegister } from "./Utils/HomeUtils"
-import { Route, Routes } from "react-router"
+import { Route, Routes, useLocation } from "react-router"
 import { useDispatch } from "react-redux"
 import { Home, Profile } from "./sections"
 import "./app.scss"
@@ -20,6 +20,12 @@ import Footer from "./sections/Footer"
 
 const App = () => {
   const dispatch = useDispatch()
+
+  const { pathname } = useLocation()
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
 
   const [isLoading, setIsLoading] = useState(true)
   const {

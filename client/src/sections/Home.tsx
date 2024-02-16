@@ -149,14 +149,16 @@ const Home = () => {
             {auth0Authenticated ? (
               <div>
                 <p> Избери категория на услуги които искаш да разглеждаш </p>
-                {allCategories.map((category: ServiceCategoryTypes) => (
-                  <button
-                    key={category.id}
-                    onClick={() => navigate(`/услуги/${category.name}`)}
-                  >
-                    {capitalizeString(category.name)}
-                  </button>
-                ))}
+                <div className="button-container">
+                  {allCategories.map((category: ServiceCategoryTypes) => (
+                    <button
+                      key={category.id}
+                      onClick={() => navigate(`/услуги/${category.name}`)}
+                    >
+                      {capitalizeString(category.name)}
+                    </button>
+                  ))}
+                </div>
               </div>
             ) : (
               <div>
