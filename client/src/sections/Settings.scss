@@ -1,11 +1,14 @@
+@use "../master.scss";
+
 section.settings .settings-content {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  background-color: master.$primary-dark;
+  border-radius: 10px;
 }
 
 section.settings h2 {
-  margin: 0px;
   text-align: center;
 }
 

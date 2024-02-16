@@ -26,11 +26,12 @@ const Profile = () => {
   if (!user) return
 
   return (
-    <>
+    <section className="profile">
       {auth0loading ? (
         <p>Зареждане...</p>
       ) : (
-        <section className="profile-section-1">
+        <>
+          <h2>Профил</h2>
           <section className="creds-container">
             <img
               src={getPfpLink(user?.profile_picture || defaultPfpURL)}
@@ -54,9 +55,9 @@ const Profile = () => {
           </section>
           <button onClick={() => handleLogout(auth0logout)}>Изход</button>
           <button onClick={() => navigate("/настройки")}>Настройки</button>
-        </section>
+        </>
       )}
-    </>
+    </section>
   )
 }
 
