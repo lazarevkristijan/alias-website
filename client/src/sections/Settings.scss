@@ -23,3 +23,16 @@ section.settings .settings-danger-zone h4 {
 section.settings .settings-change-creds div {
   width: 200px;
 }
+
+section.settings .settings-profile-picture input {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  opacity: 0;
+  left: 50%;
+  border-radius: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  background-color: red;
+  cursor: pointer;
+}

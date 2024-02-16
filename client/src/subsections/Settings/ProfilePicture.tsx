@@ -98,16 +98,6 @@ const ProfilePicture = () => {
               return console.error("Грешка при качване на файл")
             }
           }}
-          style={{
-            position: "absolute",
-            width: 100,
-            height: 100,
-            backgroundColor: "red",
-            opacity: 0,
-            top: 0,
-            left: 0,
-            cursor: "pointer",
-          }}
         />
 
         <div className="buttons-container">
