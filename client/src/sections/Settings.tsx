@@ -5,26 +5,34 @@ import ProfilePicture from "../subsections/Settings/ProfilePicture"
 import ChangeCredentials from "../subsections/Settings/ChangeCredentials"
 import ChangeTheme from "../subsections/Settings/ChangeTheme"
 import DangerZone from "../subsections/Settings/DangerZone"
+import "./Settings.scss"
 
 const Settings = () => {
   const navigate = useNavigate()
 
-  const { isAuthenticated: auth0authenticated } = useAuth0()
+  const { isLoading: auth0loading, isAuthenticated: auth0authenticated } =
+    useAuth0()
 
   useEffect(() => {
     !auth0authenticated && navigate("/")
   }, [auth0authenticated, navigate])
 
   return (
-    <div>
-      <ProfilePicture />
-      <br />
-      <ChangeTheme />
-      <br />
-      <ChangeCredentials />
-      <br />
-      <DangerZone />
-    </div>
+    <section className="settings">
+      {auth0loading ? (
+        <p>Зареждане...</p>
+      ) : (
+        <>
+          <h2>Настройки</h2>
+          <section className="settings-content">
+            <ProfilePicture />
+            <ChangeCredentials />
+            <ChangeTheme />
+            <DangerZone />
+          </section>
+        </>
+      )}
+    </section>
   )
 }
 

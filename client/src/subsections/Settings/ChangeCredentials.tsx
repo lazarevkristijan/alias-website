@@ -27,72 +27,77 @@ const ChangeCredentials = () => {
   })
 
   return (
-    <div>
-      <p>Промени имена</p>
+    <section className="settings-change-creds">
+      <h4>Промени имена</h4>
       <form
         onSubmit={(e) => {
           handleChangeCredentials(e, userData, user, dispatch)
         }}
       >
-        <label htmlFor="new_user_first_name">Име</label>
-        <input
-          type="text"
-          id="new_user_first_name"
-          value={userData.firstName}
-          onChange={(e) => {
-            if (!changedFields.firstName) {
-              setChangedFields({ ...changedFields, firstName: true })
-            }
-            setUserData({ ...userData, firstName: e.target.value })
-          }}
-          style={{
-            backgroundColor:
-              !nameRegex.test(userData.firstName) && changedFields.firstName
-                ? "red"
-                : "#fff",
-          }}
-        />
-        <br />
-        <br />
-        <label htmlFor="new_user_middle_name">Презиме</label>
-        <input
-          type="text"
-          id="new_user_middle_name"
-          value={userData.middleName}
-          onChange={(e) => {
-            if (!changedFields.middleName) {
-              setChangedFields({ ...changedFields, middleName: true })
-            }
-            setUserData({ ...userData, middleName: e.target.value })
-          }}
-          style={{
-            backgroundColor:
-              !middleNameRegex.test(userData.middleName) &&
-              changedFields.middleName
-                ? "red"
-                : "#fff",
-          }}
-        />
-        <br />
-        <br />
-        <label htmlFor="new_user_last_name">Фамилия</label>
-        <input
-          type="text"
-          id="new_user_last_name"
-          value={userData.lastName}
-          onChange={(e) => {
-            if (!changedFields.lastName) {
-              setChangedFields({ ...changedFields, lastName: true })
-            }
-            setUserData({ ...userData, lastName: e.target.value })
-          }}
-          style={{
-            backgroundColor:
-              !nameRegex.test(userData.lastName) && changedFields.lastName
-                ? "red"
-                : "#fff",
-          }}
-        />
+        <div>
+          <label htmlFor="new_user_first_name">Име</label>
+          <input
+            type="text"
+            id="new_user_first_name"
+            value={userData.firstName}
+            onChange={(e) => {
+              if (!changedFields.firstName) {
+                setChangedFields({ ...changedFields, firstName: true })
+              }
+              setUserData({ ...userData, firstName: e.target.value })
+            }}
+            style={{
+              backgroundColor:
+                !nameRegex.test(userData.firstName) && changedFields.firstName
+                  ? "red"
+                  : "#fff",
+            }}
+          />
+        </div>
+
+        <div>
+          <label htmlFor="new_user_middle_name">Презиме</label>
+          <input
+            type="text"
+            id="new_user_middle_name"
+            value={userData.middleName}
+            onChange={(e) => {
+              if (!changedFields.middleName) {
+                setChangedFields({ ...changedFields, middleName: true })
+              }
+              setUserData({ ...userData, middleName: e.target.value })
+            }}
+            style={{
+              backgroundColor:
+                !middleNameRegex.test(userData.middleName) &&
+                changedFields.middleName
+                  ? "red"
+                  : "#fff",
+            }}
+          />
+        </div>
+
+        <div>
+          <label htmlFor="new_user_last_name">Фамилия</label>
+          <input
+            type="text"
+            id="new_user_last_name"
+            value={userData.lastName}
+            onChange={(e) => {
+              if (!changedFields.lastName) {
+                setChangedFields({ ...changedFields, lastName: true })
+              }
+              setUserData({ ...userData, lastName: e.target.value })
+            }}
+            style={{
+              backgroundColor:
+                !nameRegex.test(userData.lastName) && changedFields.lastName
+                  ? "red"
+                  : "#fff",
+            }}
+          />
+        </div>
+
         <button
           disabled={
             !nameRegex.test(userData.firstName) ||
@@ -109,7 +114,7 @@ const ChangeCredentials = () => {
           Спази
         </button>
       </form>
-    </div>
+    </section>
   )
 }
 

@@ -28,8 +28,8 @@ const ProfilePicture = () => {
   const [isChanging, setIsChanging] = useState(false)
 
   return (
-    <div>
-      <p>Профилна картинка</p>
+    <section className="settings-profile-picture">
+      <h4>Профилна картинка</h4>
 
       <form
         onSubmit={(e) => {
@@ -110,39 +110,41 @@ const ProfilePicture = () => {
           }}
         />
 
-        <button
-          disabled={!profilePicture}
-          onClick={() => {
-            const inputEl = document.getElementById(
-              "pfpInput"
-            ) as HTMLInputElement
-            inputEl.value = ""
-            setProfilePicture(null)
+        <div className="buttons-container">
+          <button
+            disabled={!profilePicture}
+            onClick={() => {
+              const inputEl = document.getElementById(
+                "pfpInput"
+              ) as HTMLInputElement
+              inputEl.value = ""
+              setProfilePicture(null)
 
-            if (user?.profile_picture) {
-              setPfpURL(getPfpLink(user.profile_picture))
+              if (user?.profile_picture) {
+                setPfpURL(getPfpLink(user.profile_picture))
+              }
+            }}
+          >
+            Нулиране
+          </button>
+          <button
+            disabled={
+              !user?.profile_picture || user.profile_picture === defaultPfpURL
             }
-          }}
-        >
-          нулиране
-        </button>
-        <button
-          disabled={
-            !user?.profile_picture || user.profile_picture === defaultPfpURL
-          }
-          onClick={() =>
-            handlePfpDelete(user?.profile_picture || defaultPfpURL, dispatch)
-          }
-        >
-          истрий снимката
-        </button>
+            onClick={() =>
+              handlePfpDelete(user?.profile_picture || defaultPfpURL, dispatch)
+            }
+          >
+            Изтрий снимката
+          </button>
 
-        <button
-          type="submit"
-          disabled={!profilePicture}
-        >
-          {isChanging ? "Спазване..." : "Спази"}
-        </button>
+          <button
+            type="submit"
+            disabled={!profilePicture}
+          >
+            {isChanging ? "Спазване..." : "Спази"}
+          </button>
+        </div>
       </form>
 
       {supportedError && (
@@ -151,7 +153,7 @@ const ProfilePicture = () => {
       {sizeError && (
         <p style={{ color: "red" }}>Файла мора да бъде не по голям от 5мб</p>
       )}
-    </div>
+    </section>
   )
 }
 

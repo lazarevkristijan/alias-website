@@ -5,14 +5,12 @@ const DangerZone = () => {
   const { logout: auth0logout } = useAuth0()
 
   return (
-    <div>
-      <p style={{ color: "red", fontWeight: "bold", fontSize: "20px" }}>
-        Опасна зона
-      </p>
+    <section className="settings-danger-zone">
+      <h4>Опасна зона</h4>
       <button onDoubleClick={() => handleDeleteUser(auth0logout)}>
         Истрий профил
       </button>
-    </div>
+    </section>
   )
 }
 

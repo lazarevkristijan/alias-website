@@ -33,6 +33,19 @@ button {
   font-family: "Inter", sans-serif;
 }
 
+button:hover {
+  background: #ddd;
+}
+
+button:active {
+  background: #aaa;
+}
+
+button:disabled {
+  background: #666;
+  cursor: not-allowed;
+}
+
 ul {
   list-style: none;
   padding: 0;

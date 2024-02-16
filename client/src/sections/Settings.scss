@@ -1,0 +1,22 @@
+section.settings .settings-content {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+section.settings h2 {
+  margin: 0px;
+  text-align: center;
+}
+
+section.settings section {
+  text-align: center;
+}
+
+section.settings .settings-danger-zone h4 {
+  color: red;
+}
+
+section.settings .settings-change-creds div {
+  width: 200px;
+}
