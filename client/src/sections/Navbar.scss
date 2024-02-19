@@ -1,14 +1,33 @@
 @use "../master";
 
 nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   margin-bottom: 20px;
+  height: 50px;
   position: sticky;
   z-index: 1;
   top: 0;
   left: 0;
+}
+
+.nav-large {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+.nav-small {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .nav-large {
+    display: none;
+  }
+
+  .nav-small {
+    display: flex;
+  }
 }
 
 .dark-nav {

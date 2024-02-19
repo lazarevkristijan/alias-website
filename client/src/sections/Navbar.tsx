@@ -13,30 +13,36 @@ const Navbar = () => {
 
   return (
     <nav className={`${theme === "dark" ? "dark-nav" : "light-nav"}`}>
-      <ul>
-        <li onClick={() => navigate("/")}>Начало</li>
-        <li onClick={() => navigate("/услуги")}>Услуги</li>
-        <li onClick={() => navigate("/служители")}>Служители</li>
-      </ul>
+      <div className="nav-large">
+        <ul>
+          <li onClick={() => navigate("/")}>Начало</li>
+          <li onClick={() => navigate("/услуги")}>Услуги</li>
+          <li onClick={() => navigate("/служители")}>Служители</li>
+        </ul>
 
-      <img
-        src="alias.png"
-        alt="Logo"
-      />
+        <img
+          src="alias.png"
+          alt="Logo"
+        />
 
-      <ul className="right-part-nav">
-        {auth0authenticated ? (
-          <>
-            <li onClick={() => navigate("/профил")}>Профил</li>
-            <li onClick={() => navigate("/настройки")}>Настройки</li>
-          </>
-        ) : (
-          <li onClick={() => loginWithPopup()}>Вход</li>
-        )}
-        {user?.role === "админ" && (
-          <li onClick={() => navigate("/admin-dashboard")}>Админ панел</li>
-        )}
-      </ul>
+        <ul className="right-part-nav">
+          {auth0authenticated ? (
+            <>
+              <li onClick={() => navigate("/профил")}>Профил</li>
+              <li onClick={() => navigate("/настройки")}>Настройки</li>
+            </>
+          ) : (
+            <li onClick={() => loginWithPopup()}>Вход</li>
+          )}
+          {user?.role === "админ" && (
+            <li onClick={() => navigate("/admin-dashboard")}>Админ панел</li>
+          )}
+        </ul>
+      </div>
+
+      <div className="nav-small">
+        <p>hi</p>
+      </div>
     </nav>
   )
 }
