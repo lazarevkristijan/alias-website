@@ -5,12 +5,15 @@
 }
 
 .services-main-category-card {
-  width: 150px;
-  height: 150px;
-  border: 1px solid master.$primary-text-dark;
+  min-width: 150px;
+  height: 125px;
+  border: 1px solid red;
   border-radius: 10px;
   text-align: center;
   padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .services-main-cards-container {
