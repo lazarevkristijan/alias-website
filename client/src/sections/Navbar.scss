@@ -18,6 +18,16 @@ nav {
 
 .nav-small {
   display: none;
+  height: 100%;
+}
+
+.nav-small img {
+  margin-left: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  cursor: pointer;
+  background-color: #fff;
+  border-radius: 10px;
 }
 
 @media (max-width: 768px) {
@@ -30,13 +40,35 @@ nav {
   }
 }
 
+.nav-small-menu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  border-radius: 10px;
+  padding: 20px;
+}
+.nav-small-menu ul {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 5px;
+}
+.nav-small-menu ul li {
+  width: 70%;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  text-align: center;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
 .dark-nav {
-  border-bottom: 1px solid master.$primary-light;
   background-color: rgba(0, 0, 0, 0.8);
 }
 
 .light-nav {
-  border-bottom: 1px solid master.$primary-dark;
   background-color: rgba(255, 255, 255, 0.8);
 }
 
