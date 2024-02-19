@@ -46,61 +46,64 @@ const App = () => {
       ) : (
         <main>
           <Navbar />
-          <Routes>
-            <Route
-              path="/"
-              element={<Home />}
-            />
-            <Route
-              path="/профил"
-              element={<Profile />}
-            />
-            <Route
-              path="/настройки"
-              element={<Settings />}
-            />
-            <Route
-              path="/услуги"
-              element={<ServicesMain />}
-            />
-            <Route
-              path="услуги/коли"
-              element={<CarServices />}
-            />
-            <Route
-              path="услуги/:category/:id"
-              element={<SingleService />}
-            />
+          <div className="all-routes">
+            <Routes>
+              <Route
+                path="/"
+                element={<Home />}
+              />
+              <Route
+                path="/профил"
+                element={<Profile />}
+              />
+              <Route
+                path="/настройки"
+                element={<Settings />}
+              />
+              <Route
+                path="/услуги"
+                element={<ServicesMain />}
+              />
+              <Route
+                path="услуги/коли"
+                element={<CarServices />}
+              />
+              <Route
+                path="услуги/:category/:id"
+                element={<SingleService />}
+              />
 
-            <Route
-              path="услуги/персонални"
-              element={<PersonalServices />}
-            />
-            <Route
-              path="услуги/вкъщи"
-              element={<HomeServices />}
-            />
-            <Route
-              path="служители"
-              element={<ServiceProviders />}
-            />
-            <Route
-              path="служител/:id"
-              element={<ProviderProfile />}
-            />
-            <Route
-              path="admin-dashboard"
-              element={<AdminDashboard />}
-            />
-            <Route
-              path="admin-dashboard/user/:id"
-              element={<AdminUserView />}
-            />
-            <Route
-              path="*"
-              element={<h2>Не е намерено</h2>}
-            />
-          </Routes>
+              <Route
+                path="услуги/персонални"
+                element={<PersonalServices />}
+              />
+              <Route
+                path="услуги/вкъщи"
+                element={<HomeServices />}
+              />
+              <Route
+                path="служители"
+                element={<ServiceProviders />}
+              />
+              <Route
+                path="служител/:id"
+                element={<ProviderProfile />}
+              />
+              <Route
+                path="admin-dashboard"
+                element={<AdminDashboard />}
+              />
+              <Route
+                path="admin-dashboard/user/:id"
+                element={<AdminUserView />}
+              />
+              <Route
+                path="*"
+                element={<h2>Не е намерено</h2>}
+              />
+            </Routes>
+          </div>
+
           <Footer />
         </main>
       )}
