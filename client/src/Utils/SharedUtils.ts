@@ -48,7 +48,7 @@ export const sendNotification = (message: string, success: boolean = false) => {
   notification.style.height = "fit-content"
 
   notification.style.textAlign = "center"
-  notification.style.borderRadius = "2px"
+  notification.style.borderRadius = "5px"
 
   notification.style.position = "fixed"
   notification.style.bottom = "80px"

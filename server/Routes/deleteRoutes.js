@@ -10,7 +10,6 @@ export const deleteUser = async (req, res) => {
     WHERE id = ${userId}`
 
     res.clearCookie("user")
-    res.clearCookie("theme")
 
     return res.json({ success: "Успешно изтриен потребител" })
   } catch (error) {

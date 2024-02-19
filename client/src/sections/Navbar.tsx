@@ -7,10 +7,12 @@ import "./Navbar.scss"
 const Navbar = () => {
   const navigate = useNavigate()
   const { loginWithPopup, isAuthenticated: auth0authenticated } = useAuth0()
+
   const user = useSelector((state: RootState) => state.session.user)
+  const theme = useSelector((state: RootState) => state.theme.current)
 
   return (
-    <nav>
+    <nav className={`${theme === "dark" ? "dark-nav" : "light-nav"}`}>
       <ul>
         <li onClick={() => navigate("/")}>Начало</li>
         <li onClick={() => navigate("/услуги")}>Услуги</li>

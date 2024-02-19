@@ -7,6 +7,10 @@ export const handleDeleteUser = async (auth0logout: () => void) => {
   await axios
     .delete("http://localhost:5432/user/delete-user", { withCredentials: true })
     .then(() => {
+      localStorage.removeItem("theme")
+      document.body.style.backgroundColor = "#fff"
+      document.body.style.color = "#000"
+
       auth0logout()
     })
 }
@@ -17,6 +21,9 @@ export const handleLogout = async (auth0logout: () => void) => {
       withCredentials: true,
     })
     .then(() => {
+      localStorage.removeItem("theme")
+      document.body.style.backgroundColor = "#fff"
+      document.body.style.color = "#000"
       auth0logout()
     })
 }

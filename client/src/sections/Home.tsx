@@ -13,6 +13,8 @@ const Home = () => {
   const { loginWithPopup: auth0login, isAuthenticated: auth0Authenticated } =
     useAuth0()
 
+  const theme = localStorage.getItem("theme")
+
   const [searchValue, setSearchValue] = useState("")
   const [awaitedSearchValue, setAwaitedSearchValue] = useState("")
 
@@ -46,7 +48,9 @@ const Home = () => {
         <p>Зареждане...</p>
       ) : (
         <>
-          <section className="hero">
+          <section
+            className={`hero ${theme === "dark" ? "dark-bg" : "light-bg"}`}
+          >
             <h1>НАМЕРИ РЕШЕНИЕТО НА ТВОЯТ ПРОБЛЕМ ВЕДНАГА</h1>
 
             <img

@@ -3,7 +3,6 @@ import { AppDispatch } from "../Store"
 import { UserTypes } from "../Types"
 import { changeProfilePicture } from "../features/session/sessionSlice"
 import { defaultPfpURL, errorNotifEnding } from "../constants"
-import { changeTheme } from "../features/settings/settingsSlice"
 import { sendNotification } from "./SharedUtils"
 
 export const getPfpLink = (linkString: string) => {
@@ -86,19 +85,4 @@ export const getPfpFileName = (linkString: string) => {
   } catch {
     return linkString
   }
-}
-
-export const handleChangeTheme = (theme: string, dispatch: AppDispatch) => {
-  axios
-    .patch(
-      "http://localhost:5432/user-settings/change-theme",
-      JSON.stringify({ theme: theme }),
-      { headers: { "Content-Type": "application/json" }, withCredentials: true }
-    )
-    .then(() => {
-      document.body.style.backgroundColor = theme === "dark" ? "#000" : "#fff"
-      document.body.style.color = theme === "dark" ? "#fff" : "#000"
-
-      dispatch(changeTheme(theme))
-    })
 }

@@ -1,10 +1,10 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit"
 import sessionSlice from "./features/session/sessionSlice"
-import settingsSlice from "./features/settings/settingsSlice"
+import themeSlice from "./features/theme/themeSlice"
 
 const rootReducer = combineReducers({
   session: sessionSlice,
-  settings: settingsSlice,
+  theme: themeSlice,
 })
 
 export const store = configureStore({ reducer: rootReducer })

@@ -10,6 +10,10 @@ export type SessionSliceTypes = {
   } | null
 }
 
+export type ThemeSliceTypes = {
+  current: string
+}
+
 export type UserTypes = {
   id: number
   first_name: string | null
@@ -19,17 +23,6 @@ export type UserTypes = {
   profile_picture: string
   role: string
 } | null
-
-export type UserSettingsTypes = {
-  id: number
-  user_id: number
-  setting_id: number
-  value: string
-}
-
-export type SettingsSliceTypes = {
-  colorTheme: string
-}
 
 export type ServiceTypes = {
   id: number

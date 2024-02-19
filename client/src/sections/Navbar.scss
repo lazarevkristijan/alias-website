@@ -5,12 +5,20 @@ nav {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
-  border-bottom: 1px solid master.$primary-light;
   position: sticky;
   z-index: 1;
-  background-color: rgba(0, 0, 0, 0.8);
   top: 0;
   left: 0;
+}
+
+.dark-nav {
+  border-bottom: 1px solid master.$primary-light;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.light-nav {
+  border-bottom: 1px solid master.$primary-dark;
+  background-color: rgba(255, 255, 255, 0.8);
 }
 
 nav img {

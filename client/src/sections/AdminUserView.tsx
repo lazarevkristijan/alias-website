@@ -37,7 +37,6 @@ const AdminUserView = () => {
       ) : (
         <div
           style={{
-            backgroundColor: "#f0f0f0",
             width: "fit-content",
             padding: 10,
             textAlign: "center",

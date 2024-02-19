@@ -17,18 +17,9 @@ export const postLoginOrRegister = async (req, res) => {
     if (existingUser.length !== 0) {
       const token = jwt.sign({ userId: existingUser[0].id }, JWTsecret)
 
-      const userTheme = await sql`
-      SELECT value
-      FROM user_settings
-      WHERE user_id = ${existingUser[0].id} AND setting_id = 1`
-
       res.cookie("user", token, {
         ...cookieOptions,
         httpOnly: true,
-        maxAge: dayinMs * 7,
-      })
-      res.cookie("theme", userTheme[0].value, {
-        ...cookieOptions,
         maxAge: dayinMs * 7,
       })
 
@@ -49,20 +40,12 @@ export const postLoginOrRegister = async (req, res) => {
 
     const token = jwt.sign({ userId: newUser[0].id }, JWTsecret)
 
-    const userTheme = await sql`
-    SELECT value
-    FROM user_settings
-    WHERE user_id = ${newUser[0].id} AND setting_id = 1`
-
     res.cookie("user", token, {
       ...cookieOptions,
       httpOnly: true,
       maxAge: dayinMs * 7,
     })
-    res.cookie("theme", userTheme[0].value, {
-      ...cookieOptions,
-      maxAge: dayinMs * 7,
-    })
+
     return res.json(newUser[0])
   } catch (error) {
     console.error("Error is: ", error)

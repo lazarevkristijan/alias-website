@@ -9,7 +9,6 @@ const upload = multer({ storage })
 import { verifyToken } from "./utils/verifyToken.js"
 import {
   getAllUsers,
-  getUserSettings,
   getLogout,
   getAllServiceCategories,
   getAllServicesByCategory,
@@ -36,7 +35,6 @@ import {
   patchAdminChangeProfilePicture,
   patchChangeCreds,
   patchChangeProfilePicture,
-  patchChangeTheme,
   patchEditService,
 } from "./Routes/patchRoutes.js"
 
@@ -66,8 +64,6 @@ app.get("/user/logout", getLogout)
 app.delete("/user/delete-user", verifyToken, deleteUser)
 
 // USER SETTINGS
-app.get("/user-settings", verifyToken, getUserSettings)
-app.patch("/user-settings/change-theme", verifyToken, patchChangeTheme)
 app.patch("/user-settings/change-creds", verifyToken, patchChangeCreds)
 app.patch(
   "/user-settings/change-profile-picture",

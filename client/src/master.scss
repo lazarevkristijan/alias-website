@@ -64,6 +64,18 @@ a:hover {
   text-decoration: underline;
 }
 
+.dark-bg {
+  background-color: $primary-dark;
+}
+
+.light-bg {
+  background-color: $primary-light;
+}
+
 section > section {
   padding: 30px;
+}
+
+#root {
+  background-color: inherit;
 }

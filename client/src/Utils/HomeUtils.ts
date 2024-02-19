@@ -2,10 +2,9 @@ import { User } from "@auth0/auth0-react"
 import axios from "axios"
 import { login } from "../features/session/sessionSlice"
 import { AppDispatch } from "../Store"
-import { UserSettingsTypes } from "../Types"
-import { changeTheme } from "../features/settings/settingsSlice"
 import { sendNotification } from "./SharedUtils"
 import { errorNotifEnding } from "../constants"
+import { changeTheme } from "../features/theme/themeSlice"
 
 export const postLoginOrRegister = (
   auth0user: User | undefined,
@@ -24,23 +23,16 @@ export const postLoginOrRegister = (
     .then((response) => {
       dispatch(login(response.data))
 
-      axios
-        .get("http://localhost:5432/user-settings", {
-          withCredentials: true,
-        })
-        .then((innerResponse) => {
-          const colorTheme = innerResponse.data.filter(
-            (setting: UserSettingsTypes) => setting.setting_id === 1
-          )
+      const theme = localStorage.getItem("theme")
 
-          document.body.style.backgroundColor =
-            colorTheme[0].value === "dark" ? "#000" : "#fff"
-          document.body.style.color =
-            colorTheme[0].value === "dark" ? "#fff" : "#000"
-          dispatch(changeTheme(colorTheme[0].value))
+      document.body.style.transition = "background-color 0.5s ease"
 
-          setIsLoading(false)
-        })
+      dispatch(changeTheme(theme))
+
+      document.body.style.backgroundColor = theme === "dark" ? "#000" : "#fff"
+      document.body.style.color = theme === "dark" ? "#fff" : "#000"
+
+      setIsLoading(false)
     })
 }
 

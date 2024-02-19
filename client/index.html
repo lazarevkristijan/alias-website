@@ -21,28 +21,14 @@
     ></script>
 
     <script>
-      const getCookie = (name) => {
-        const cookies = document.cookie.split(";")
-        for (const cookie of cookies) {
-          const [cookieName, cookieValue] = cookie
-            .split("=")
-            .map((c) => c.trim())
-          if (cookieName === name) {
-            return cookieValue
-          }
-        }
-        return null
+      if (!localStorage.getItem("theme")) {
+        localStorage.setItem("theme", "light")
       }
 
-      const themeValue = getCookie("theme")
+      const theme = localStorage.getItem("theme")
 
-      if (themeValue === "dark") {
-        document.body.style.backgroundColor = "#000"
-        document.body.style.color = "#fff"
-      } else {
-        document.body.style.backgroundColor = "#fff"
-        document.body.style.color = "#000"
-      }
+      document.body.style.backgroundColor = theme === "dark" ? "#000" : "#fff"
+      document.body.style.color = theme === "dark" ? "#fff" : "#000"
     </script>
   </body>
 </html>
