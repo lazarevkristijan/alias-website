@@ -3,6 +3,8 @@ import "./Footer.scss"
 import { useQuery } from "@tanstack/react-query"
 import { ServiceCategoryTypes } from "../Types"
 import { capitalizeString, getAllServiceCategories } from "../Utils/SharedUtils"
+import { useSelector } from "react-redux"
+import { RootState } from "../Store"
 
 const Footer = () => {
   const { isLoading: areCategoriesLoading, data: allServiceCategories } =
@@ -10,9 +12,10 @@ const Footer = () => {
       queryKey: ["categories"],
       queryFn: () => getAllServiceCategories(),
     })
+  const theme = useSelector((state: RootState) => state.theme.current)
 
   return (
-    <footer>
+    <footer className={`${theme === "dark" ? "dark-bg" : "light-bg"}`}>
       {areCategoriesLoading ? (
         <p>Зареждане...</p>
       ) : (

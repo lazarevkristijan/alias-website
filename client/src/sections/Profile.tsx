@@ -23,6 +23,8 @@ const Profile = () => {
     !auth0authenticated && navigate("/")
   }, [auth0authenticated, navigate])
 
+  const theme = useSelector((state: RootState) => state.theme.current)
+
   if (!user) return
 
   return (
@@ -32,7 +34,11 @@ const Profile = () => {
       ) : (
         <>
           <h2>Профил</h2>
-          <section className="creds-container">
+          <section
+            className={`creds-container ${
+              theme === "dark" ? "dark-bg" : "light-bg"
+            }`}
+          >
             <img
               src={getPfpLink(user?.profile_picture || defaultPfpURL)}
               width={100}

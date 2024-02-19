@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query"
 import { getAllServiceCategories } from "../Utils/SharedUtils"
 import ServiceCategoryCard from "../subsections/ServicesMain/ServiceCategoryCard"
 import { ServiceCategoryTypes } from "../Types"
-import "./Services.scss"
+import "./ServicesMain.scss"
 
 const ServicesMain = () => {
   const user = useSelector((state: RootState) => state.session.user)

@@ -63,6 +63,7 @@
 .why-choose-us-boxes {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 20px;
 }
 
@@ -76,7 +77,6 @@
 }
 
 .how-to-get-started {
-  background-color: master.$primary-dark;
   padding: 20px;
   text-align: center;
 }

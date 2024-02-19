@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router"
 import { ServiceCategoryTypes } from "../../Types"
 import { capitalizeString } from "../../Utils/SharedUtils"
+import { useSelector } from "react-redux"
+import { RootState } from "../../Store"
 
 const ServiceCategoryCard = ({
   category,
@@ -8,9 +10,14 @@ const ServiceCategoryCard = ({
   category: ServiceCategoryTypes
 }) => {
   const navigate = useNavigate()
+  const theme = useSelector((state: RootState) => state.theme.current)
 
   return (
-    <div className="services-main-category-card">
+    <div
+      className={`services-main-category-card ${
+        theme === "dark" ? "dark-bg" : "light-bg"
+      }`}
+    >
       <p>{capitalizeString(category.name)}</p>
 
       <button onClick={() => navigate(`/услуги/${category.name}`)}>

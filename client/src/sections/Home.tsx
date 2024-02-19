@@ -148,7 +148,11 @@ const Home = () => {
             </div>
           </section>
 
-          <section className="how-to-get-started">
+          <section
+            className={`how-to-get-started ${
+              theme === "dark" ? "dark-bg" : "light-bg"
+            }`}
+          >
             <h2>КАК ДА ЗАПОЧНЕТЕ?</h2>
             {auth0Authenticated ? (
               <div>

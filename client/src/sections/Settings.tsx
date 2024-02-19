@@ -6,6 +6,8 @@ import ChangeCredentials from "../subsections/Settings/ChangeCredentials"
 import ChangeTheme from "../subsections/Settings/ChangeTheme"
 import DangerZone from "../subsections/Settings/DangerZone"
 import "./Settings.scss"
+import { useSelector } from "react-redux"
+import { RootState } from "../Store"
 
 const Settings = () => {
   const navigate = useNavigate()
@@ -17,6 +19,8 @@ const Settings = () => {
     !auth0authenticated && navigate("/")
   }, [auth0authenticated, navigate])
 
+  const theme = useSelector((state: RootState) => state.theme.current)
+
   return (
     <section className="settings">
       {auth0loading ? (
@@ -24,7 +28,11 @@ const Settings = () => {
       ) : (
         <>
           <h2>Настройки</h2>
-          <section className="settings-content">
+          <section
+            className={`settings-content ${
+              theme === "dark" ? "dark-bg" : "light-bg"
+            }`}
+          >
             <ProfilePicture />
             <ChangeCredentials />
             <ChangeTheme />
