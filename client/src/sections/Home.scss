@@ -1,11 +1,15 @@
 @use "../master.scss";
 
+.home {
+  border-radius: 10px;
+}
+
 .hero {
   text-align: center;
-  border-radius: 10px;
   position: relative;
-  height: 400px;
-  padding-top: 75px;
+  border-radius: 10px;
+  padding-top: 125px;
+  padding-bottom: 125px;
 }
 
 .hero img {

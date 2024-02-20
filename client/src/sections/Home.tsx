@@ -43,7 +43,7 @@ const Home = () => {
   if (!allCategories) return
 
   return (
-    <section>
+    <section className={`home`}>
       {areServicesLoading || areCategoriesLoading ? (
         <p>Зареждане...</p>
       ) : (

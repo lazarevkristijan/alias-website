@@ -16,11 +16,14 @@ const ServicesMain = () => {
       queryKey: ["categories"],
       queryFn: () => getAllServiceCategories(),
     })
+  const theme = localStorage.getItem("theme")
 
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false)
 
   return (
-    <section className="services">
+    <section
+      className={`services ${theme === "dark" ? "dark-bg" : "light-bg"}`}
+    >
       {areCategoriesLoading ? (
         <p>Зареждане...</p>
       ) : (
