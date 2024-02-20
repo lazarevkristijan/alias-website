@@ -22,23 +22,21 @@ const Settings = () => {
   const theme = useSelector((state: RootState) => state.theme.current)
 
   return (
-    <section className="settings">
+    <section
+      className={`settings ${theme === "dark" ? "dark-bg" : "light-bg"}`}
+    >
       {auth0loading ? (
         <p>Зареждане...</p>
       ) : (
-        <>
+        <section>
           <h2>Настройки</h2>
-          <section
-            className={`settings-content ${
-              theme === "dark" ? "dark-bg" : "light-bg"
-            }`}
-          >
+          <div className={`settings-content`}>
             <ProfilePicture />
             <ChangeCredentials />
             <ChangeTheme />
             <DangerZone />
-          </section>
-        </>
+          </div>
+        </section>
       )}
     </section>
   )

@@ -43,7 +43,7 @@ const Home = () => {
   if (!allCategories) return
 
   return (
-    <section className={`home`}>
+    <section>
       {areServicesLoading || areCategoriesLoading ? (
         <p>Зареждане...</p>
       ) : (
@@ -52,7 +52,6 @@ const Home = () => {
             className={`hero ${theme === "dark" ? "dark-bg" : "light-bg"}`}
           >
             <h1>НАМЕРИ РЕШЕНИЕТО НА ТВОЯТ ПРОБЛЕМ ВЕДНАГА</h1>
-
             <img
               src="https://www.pngall.com/wp-content/uploads/5/Car-Wash-PNG-Download-Image.png"
               alt="Service image 1"
@@ -106,7 +105,7 @@ const Home = () => {
             </div>
           </section>
 
-          <section className="why-choose-us">
+          <section>
             <h2>ЗАЩО ДА ИЗБЕРЕТЕ НАС?</h2>
 
             <div className="why-choose-us-boxes">

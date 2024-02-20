@@ -28,13 +28,13 @@ const Profile = () => {
   if (!user) return
 
   return (
-    <section className="profile">
+    <section className={`profile ${theme === "dark" ? "dark-bg" : "light-bg"}`}>
       {auth0loading ? (
         <p>Зареждане...</p>
       ) : (
-        <>
+        <section>
           <h2>Профил</h2>
-          <section
+          <div
             className={`creds-container ${
               theme === "dark" ? "dark-bg" : "light-bg"
             }`}
@@ -52,16 +52,16 @@ const Profile = () => {
               }}
               alt={`профилна картинка на ${user?.first_name}`}
             />
-
-            <p>{user?.first_name}</p>
-            {user.middle_name && <p>{user?.middle_name}</p>}
-            <p>{user?.last_name}</p>
-            <p>{user?.email}</p>
+            <div className="full-name-profile">
+              <p>{user?.first_name}</p>
+              {user.middle_name && <p>{user?.middle_name}</p>}
+              <p>{user?.last_name}</p>
+            </div>
             <p>{capitalizeString(user?.role)}</p>
-          </section>
+          </div>
           <button onClick={() => handleLogout(auth0logout)}>Изход</button>
           <button onClick={() => navigate("/настройки")}>Настройки</button>
-        </>
+        </section>
       )}
     </section>
   )

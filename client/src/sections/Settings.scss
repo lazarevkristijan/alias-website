@@ -1,29 +1,17 @@
 @use "../master.scss";
 
-section.settings .settings-content {
+.settings .settings-content {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   flex-wrap: wrap;
-  border-radius: 10px;
+  gap: 20px;
 }
 
-section.settings h2 {
-  text-align: center;
-}
-
-section.settings section {
-  text-align: center;
-}
-
-section.settings .settings-danger-zone h4 {
-  color: red;
-}
-
-section.settings .settings-change-creds div {
+.settings .settings-change-creds div {
   width: 200px;
 }
 
-section.settings .settings-profile-picture input {
+.settings .settings-profile-picture input {
   position: absolute;
   width: 100px;
   height: 100px;

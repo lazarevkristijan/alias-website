@@ -27,16 +27,16 @@ const ServicesMain = () => {
       {areCategoriesLoading ? (
         <p>Зареждане...</p>
       ) : (
-        <>
+        <section>
           <h2>Категории на услуги</h2>
-          <section className="services-main-cards-container">
+          <div className="services-main-cards-container">
             {allServiceCategories?.map((category: ServiceCategoryTypes) => (
               <ServiceCategoryCard
                 key={category.id}
                 category={category}
               />
             ))}
-          </section>
+          </div>
           {user?.role === "админ" && (
             <>
               <br />
@@ -54,7 +54,7 @@ const ServicesMain = () => {
               />
             </>
           )}
-        </>
+        </section>
       )}
     </section>
   )

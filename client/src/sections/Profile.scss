@@ -3,7 +3,6 @@
 .creds-container {
   min-width: 300px;
   max-width: fit-content;
-  text-align: center;
   margin-bottom: 1rem;
 }
 
@@ -15,6 +14,9 @@
   margin-right: auto;
 }
 
-.creds-container p:last-child {
-  margin-bottom: 0px;
+.full-name-profile {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 0.25rem;
 }
