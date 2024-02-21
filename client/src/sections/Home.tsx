@@ -51,7 +51,7 @@ const Home = () => {
           <section
             className={`hero ${theme === "dark" ? "dark-bg" : "light-bg"}`}
           >
-            <h1>ЗАЩОТО ВСЕКИ ПРОБЛЕМ СИ ИМА РЕШЕНИЕ, НАМЕРИ ТВОЕТО</h1>
+            <h1>ТВОЯТ ПРОБЛЕМ ИМА РЕШЕНИЕ, ПРИ НАС</h1>
             <img
               src="https://www.pngall.com/wp-content/uploads/5/Car-Wash-PNG-Download-Image.png"
               alt="Service image 1"
