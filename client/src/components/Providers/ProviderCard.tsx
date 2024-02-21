@@ -22,11 +22,12 @@ const ProviderCard = ({ provider }: { provider: ProviderTypes }) => {
       />
 
       <Button
-        text="Подробности"
         onClick={() => {
           navigate(`/служител/${provider.id}`)
         }}
-      />
+      >
+        Подробности
+      </Button>
     </div>
   )
 }

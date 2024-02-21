@@ -3,6 +3,7 @@ import { middleNameRegex, nameRegex } from "../../Regex"
 import { handleChangeCredentials } from "../../Utils/ProfileUtils"
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../../Store"
+import Button from "../../components/Shared/Button"
 
 const ChangeCredentials = () => {
   const user = useSelector((state: RootState) => state.session.user)
@@ -98,7 +99,8 @@ const ChangeCredentials = () => {
           />
         </div>
 
-        <button
+        <Button
+          type="submit"
           disabled={
             !nameRegex.test(userData.firstName) ||
             !nameRegex.test(userData.lastName) ||
@@ -112,7 +114,7 @@ const ChangeCredentials = () => {
           }
         >
           Спази
-        </button>
+        </Button>
       </form>
     </section>
   )

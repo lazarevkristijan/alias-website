@@ -75,11 +75,12 @@ const AddServiceDialog = ({
       ) : (
         <>
           <Button
-            text="Затвори"
             onClick={() => {
               setIsOpen(false)
             }}
-          />
+          >
+            Затвори
+          </Button>
 
           <form
             onSubmit={(e) =>
@@ -262,15 +263,16 @@ const AddServiceDialog = ({
             <br />
             <br />
             <Button
-              text="Добави"
+              type="submit"
               disabled={
                 !priceRegex.test(serviceData.price) ||
                 !serviceNameRegex.test(serviceData.name) ||
                 serviceData.category === ""
               }
-            />
-            <button
-              type="button"
+            >
+              Добави
+            </Button>
+            <Button
               onClick={() => {
                 setIsOpen(false)
 
@@ -289,9 +291,8 @@ const AddServiceDialog = ({
               }}
             >
               Отказ
-            </button>
-            <button
-              type="button"
+            </Button>
+            <Button
               onClick={() => {
                 setChangedFields({
                   name: false,
@@ -311,7 +312,7 @@ const AddServiceDialog = ({
               }}
             >
               Нулиране
-            </button>
+            </Button>
           </form>
         </>
       )}

@@ -6,6 +6,7 @@ import ServiceCard from "../components/Services/ServiceCard"
 import { getPfpLink } from "../Utils/SettingsUtils"
 import { getAllCategoryProviders } from "../Utils/SharedUtils"
 import React from "react"
+import Button from "../components/Shared/Button"
 
 const PersonalServices = () => {
   const navigate = useNavigate()
@@ -27,7 +28,7 @@ const PersonalServices = () => {
           <p>Зареждане...</p>
         ) : (
           <>
-            <button onClick={() => navigate("/услуги")}>Към услуги</button>
+            <Button onClick={() => navigate("/услуги")}>Към услуги</Button>
             <br />
             <br />
             <h2>Всички персонални услуги</h2>

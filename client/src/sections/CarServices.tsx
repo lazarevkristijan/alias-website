@@ -6,6 +6,7 @@ import ServiceCard from "../components/Services/ServiceCard"
 import { getAllCategoryProviders } from "../Utils/SharedUtils"
 import { getPfpLink } from "../Utils/SettingsUtils"
 import React from "react"
+import Button from "../components/Shared/Button"
 
 const CarServices = () => {
   const navigate = useNavigate()
@@ -27,7 +28,7 @@ const CarServices = () => {
           <p>Зареждане...</p>
         ) : (
           <>
-            <button onClick={() => navigate("/услуги")}>Към услуги</button>
+            <Button onClick={() => navigate("/услуги")}>Към услуги</Button>
             <br />
             <br />
             <h2>Всички услуги за коли</h2>

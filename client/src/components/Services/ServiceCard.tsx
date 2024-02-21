@@ -1,6 +1,7 @@
 import React from "react"
 import { ServiceTypes } from "../../Types"
 import { useNavigate } from "react-router"
+import Button from "../Shared/Button"
 
 const ServiceCard = ({ service }: { service: ServiceTypes }) => {
   const navigate = useNavigate()
@@ -15,7 +16,7 @@ const ServiceCard = ({ service }: { service: ServiceTypes }) => {
         </p>
         <p>Цена: {service.price}лв.</p>
 
-        <button onClick={() => navigate(`${service.id}`)}>Подробности</button>
+        <Button onClick={() => navigate(`${service.id}`)}>Подробности</Button>
       </div>
       <br />
     </React.Fragment>

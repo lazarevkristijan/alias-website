@@ -6,6 +6,7 @@ import { ServiceCategoryTypes, ServiceTypes } from "../Types"
 import { useNavigate } from "react-router"
 import { useAuth0 } from "@auth0/auth0-react"
 import { capitalizeString, getAllServiceCategories } from "../Utils/SharedUtils"
+import Button from "../components/Shared/Button"
 
 const Home = () => {
   const navigate = useNavigate()
@@ -89,7 +90,7 @@ const Home = () => {
                       >
                         <span>{service.name}</span>
                         <span>{service.price}лв.</span>
-                        <button
+                        <Button
                           onClick={() =>
                             navigate(
                               `/услуги/${service.category}/${service.id}`
@@ -97,7 +98,7 @@ const Home = () => {
                           }
                         >
                           Подробности
-                        </button>
+                        </Button>
                       </div>
                     ))}
                 </div>
@@ -158,19 +159,19 @@ const Home = () => {
                 <p> Избери категория на услуги които искаш да разглеждаш </p>
                 <div className="button-container">
                   {allCategories.map((category: ServiceCategoryTypes) => (
-                    <button
+                    <Button
                       key={category.id}
                       onClick={() => navigate(`/услуги/${category.name}`)}
                     >
                       {capitalizeString(category.name)}
-                    </button>
+                    </Button>
                   ))}
                 </div>
               </div>
             ) : (
               <div>
                 <p>Създай си профил или си влезни в същестуващия</p>
-                <button onClick={() => auth0login()}>Вход</button>
+                <Button onClick={() => auth0login()}>Вход</Button>
               </div>
             )}
           </section>

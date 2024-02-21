@@ -7,6 +7,7 @@ import { getAllServiceCategories } from "../Utils/SharedUtils"
 import ServiceCategoryCard from "../subsections/ServicesMain/ServiceCategoryCard"
 import { ServiceCategoryTypes } from "../Types"
 import "./ServicesMain.scss"
+import Button from "../components/Shared/Button"
 
 const ServicesMain = () => {
   const user = useSelector((state: RootState) => state.session.user)
@@ -41,13 +42,13 @@ const ServicesMain = () => {
             <>
               <br />
               <br />
-              <button
+              <Button
                 onClick={() =>
                   setIsAddDialogOpen(isAddDialogOpen ? false : true)
                 }
               >
                 Добави услуга
-              </button>
+              </Button>
               <AddServiceDialog
                 isOpen={isAddDialogOpen}
                 setIsOpen={setIsAddDialogOpen}

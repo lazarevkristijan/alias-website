@@ -8,6 +8,7 @@ import {
 } from "../../Utils/SettingsUtils"
 import { handleFileChange } from "../../Utils/SharedUtils"
 import { defaultPfpURL } from "../../constants"
+import Button from "../../components/Shared/Button"
 
 const ProfilePicture = () => {
   const dispatch = useDispatch()
@@ -101,7 +102,7 @@ const ProfilePicture = () => {
         />
 
         <div className="buttons-container">
-          <button
+          <Button
             disabled={!profilePicture}
             onClick={() => {
               const inputEl = document.getElementById(
@@ -116,8 +117,8 @@ const ProfilePicture = () => {
             }}
           >
             Нулиране
-          </button>
-          <button
+          </Button>
+          <Button
             disabled={
               !user?.profile_picture || user.profile_picture === defaultPfpURL
             }
@@ -126,14 +127,14 @@ const ProfilePicture = () => {
             }
           >
             Изтрий снимката
-          </button>
+          </Button>
 
-          <button
+          <Button
             type="submit"
             disabled={!profilePicture}
           >
             {isChanging ? "Спазване..." : "Спази"}
-          </button>
+          </Button>
         </div>
       </form>
 

@@ -7,6 +7,7 @@ import { getAllUsers } from "../Utils/AdminUtils"
 import { UserTypes } from "../Types"
 import { getPfpLink } from "../Utils/SettingsUtils"
 import { defaultPfpURL } from "../constants"
+import Button from "../components/Shared/Button"
 
 const AdminDashboard = () => {
   const navigate = useNavigate()
@@ -53,9 +54,9 @@ const AdminDashboard = () => {
                 <p>Имейл: {singleUser?.email}</p>
                 <p>Роля: {singleUser?.role}</p>
 
-                <button onClick={() => navigate(`user/${singleUser?.id}`)}>
+                <Button onClick={() => navigate(`user/${singleUser?.id}`)}>
                   Подробности
-                </button>
+                </Button>
               </div>
             ))}
           </div>

@@ -14,6 +14,7 @@ import { priceRegex, serviceNameRegex } from "../../Regex"
 import { useQuery } from "@tanstack/react-query"
 import { getPfpLink } from "../../Utils/SettingsUtils"
 import { getAllServiceProviders } from "../../Utils/ServiceProvidersUtils"
+import Button from "../Shared/Button"
 
 const EditServiceDialog = ({
   service,
@@ -90,8 +91,7 @@ const EditServiceDialog = ({
       ) : (
         <>
           <p>Меню за редактиране</p>
-
-          <button onClick={() => setIsOpen(false)}>Затвори</button>
+          <Button onClick={() => setIsOpen(false)}>Затвори</Button>
 
           <form
             onSubmit={(e) => {
@@ -313,7 +313,8 @@ const EditServiceDialog = ({
                   />
                 </div>
               ))}
-            <button
+            <Button
+              type="submit"
               disabled={
                 !serviceNameRegex.test(serviceData.name) ||
                 !priceRegex.test(serviceData.price) ||
@@ -327,10 +328,10 @@ const EditServiceDialog = ({
               }
             >
               Спази
-            </button>
+            </Button>
           </form>
 
-          <button
+          <Button
             onClick={() => {
               setServiceData({
                 id: service.id,
@@ -348,7 +349,7 @@ const EditServiceDialog = ({
             }}
           >
             Нулиране
-          </button>
+          </Button>
         </>
       )}
     </div>

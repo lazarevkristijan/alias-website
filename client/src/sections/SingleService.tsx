@@ -11,6 +11,7 @@ import { RootState } from "../Store"
 import { useState } from "react"
 import EditServiceDialog from "../components/Services/EditServiceDialog"
 import { getPfpLink } from "../Utils/SettingsUtils"
+import Button from "../components/Shared/Button"
 
 const SingleService = () => {
   const navigate = useNavigate()
@@ -45,7 +46,7 @@ const SingleService = () => {
         <p>Зареждане...</p>
       ) : (
         <>
-          <button onClick={() => navigate(`/услуги/${category}`)}>Назад</button>
+          <Button onClick={() => navigate(`/услуги/${category}`)}>Назад</Button>
           <p>Услуга: {service?.name}</p>
           <p>
             Категория:{" "}
@@ -80,13 +81,13 @@ const SingleService = () => {
           ))}
           {user?.role === "админ" && (
             <>
-              <button
+              <Button
                 onClick={() =>
                   setIsEditDialogOpen(isEditDialogOpen ? false : true)
                 }
               >
                 Редактирай
-              </button>
+              </Button>
             </>
           )}
           <br />
@@ -99,9 +100,9 @@ const SingleService = () => {
             />
           )}
 
-          <button onClick={() => handleDeleteService(service.id)}>
+          <Button onClick={() => handleDeleteService(service.id)}>
             Изтрий
-          </button>
+          </Button>
         </>
       )}
     </div>

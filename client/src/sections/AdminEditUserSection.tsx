@@ -11,6 +11,7 @@ import {
 import { handleFileChange } from "../Utils/SharedUtils"
 import { middleNameRegex, nameRegex } from "../Regex"
 import { useNavigate } from "react-router"
+import Button from "../components/Shared/Button"
 
 const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
   const navigate = useNavigate()
@@ -136,8 +137,7 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
           }}
         />
         {isChanging && <p>Спазване...</p>}
-        <button
-          type="button"
+        <Button
           disabled={!profilePicture}
           onClick={() => {
             const inputEl = document.getElementById(
@@ -152,15 +152,14 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
           }}
         >
           нулиране
-        </button>
-        <button
+        </Button>
+        <Button
           disabled={!profilePicture}
           type="submit"
         >
           спази
-        </button>
-        <button
-          type="button"
+        </Button>
+        <Button
           onClick={() => {
             handleAdminPfpDelete(
               fetchedUser.id,
@@ -176,7 +175,7 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
           }
         >
           Изтрий
-        </button>
+        </Button>
         {supportedError && (
           <p style={{ color: "red" }}>Файла не е от поддържан тип</p>
         )}
@@ -290,10 +289,10 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
       </select>
       <p>Имейл: {fetchedUser?.email}</p>
 
-      <button onClick={() => handleAdminUserDelete(fetchedUser.id, navigate)}>
+      <Button onClick={() => handleAdminUserDelete(fetchedUser.id, navigate)}>
         Изтрий потребител
-      </button>
-      <button
+      </Button>
+      <Button
         onClick={() => handleAdminCredsChange(newUserData)}
         disabled={
           !nameRegex.test(newUserData.first_name) ||
@@ -309,7 +308,7 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
         }
       >
         Спази
-      </button>
+      </Button>
     </div>
   )
 }

@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../../Store"
 import { changeTheme } from "../../features/theme/themeSlice"
+import Button from "../../components/Shared/Button"
 
 const ChangeTheme = () => {
   const dispatch = useDispatch()
@@ -9,7 +10,7 @@ const ChangeTheme = () => {
   return (
     <section className="settings-theme">
       <h4>Промени режим</h4>
-      <button
+      <Button
         onClick={() => {
           const root = document.getElementById("root")
           if (!root) return
@@ -23,8 +24,8 @@ const ChangeTheme = () => {
         disabled={theme === "dark"}
       >
         Тъмен
-      </button>
-      <button
+      </Button>
+      <Button
         onClick={() => {
           const root = document.getElementById("root")
           if (!root) return
@@ -38,7 +39,7 @@ const ChangeTheme = () => {
         disabled={theme === "light"}
       >
         Светъл
-      </button>
+      </Button>
     </section>
   )
 }

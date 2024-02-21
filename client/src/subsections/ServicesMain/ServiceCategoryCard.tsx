@@ -3,6 +3,7 @@ import { ServiceCategoryTypes, SingleServiceTypes } from "../../Types"
 import { capitalizeString } from "../../Utils/SharedUtils"
 import { getAllServicesByCategory } from "../../Utils/ServicesUtils"
 import { useQuery } from "@tanstack/react-query"
+import Button from "../../components/Shared/Button"
 
 const ServiceCategoryCard = ({
   category,
@@ -28,9 +29,9 @@ const ServiceCategoryCard = ({
           : `Налични ${allServices?.length} услуги`}
       </p>
 
-      <button onClick={() => navigate(`/услуги/${category.name}`)}>
+      <Button onClick={() => navigate(`/услуги/${category.name}`)}>
         Виж услугите
-      </button>
+      </Button>
     </div>
   )
 }

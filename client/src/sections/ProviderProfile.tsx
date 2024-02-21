@@ -5,6 +5,7 @@ import { ProviderTypes, SingleServiceTypes } from "../Types"
 import { getPfpLink } from "../Utils/SettingsUtils"
 import { defaultPfpURL } from "../constants"
 import React from "react"
+import Button from "../components/Shared/Button"
 
 const ProviderProfile = () => {
   const { id } = useParams()
@@ -31,7 +32,7 @@ const ProviderProfile = () => {
         <p>Зареждане...</p>
       ) : (
         <>
-          <button onClick={() => navigate("/служители")}>Към служители</button>
+          <Button onClick={() => navigate("/служители")}>Към служители</Button>
           <br />
           <img
             src={getPfpLink(provider?.profile_picture || defaultPfpURL)}
@@ -68,13 +69,13 @@ const ProviderProfile = () => {
                   <p>Услуга: {service.name}</p>
                   <p>Категория: {service.category}</p>
                   <p>Цена: {service.price}лв.</p>
-                  <button
+                  <Button
                     onClick={() =>
                       navigate(`/услуги/${service.category}/${service.id}`)
                     }
                   >
                     Към услуга
-                  </button>
+                  </Button>
                 </div>
               </React.Fragment>
             ))}

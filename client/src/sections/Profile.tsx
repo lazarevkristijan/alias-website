@@ -8,6 +8,7 @@ import { getPfpLink } from "../Utils/SettingsUtils"
 import { defaultPfpURL } from "../constants"
 import "./Profile.scss"
 import { capitalizeString } from "../Utils/SharedUtils"
+import Button from "../components/Shared/Button"
 
 const Profile = () => {
   const navigate = useNavigate()
@@ -55,8 +56,8 @@ const Profile = () => {
             </div>
             <p>{capitalizeString(user?.role)}</p>
           </div>
-          <button onClick={() => handleLogout(auth0logout)}>Изход</button>
-          <button onClick={() => navigate("/настройки")}>Настройки</button>
+          <Button onClick={() => handleLogout(auth0logout)}>Изход</Button>
+          <Button onClick={() => navigate("/настройки")}>Настройки</Button>
         </section>
       )}
     </section>

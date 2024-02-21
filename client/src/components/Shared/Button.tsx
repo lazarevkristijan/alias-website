@@ -1,15 +1,17 @@
 import "../../master.scss"
 
 const Button = ({
-  text,
   onClick,
   extraClasses,
   disabled = false,
+  type = "button",
+  children,
 }: {
-  text: string
   onClick?: () => void
   extraClasses?: string
   disabled?: boolean
+  type?: "button" | "submit"
+  children: React.ReactNode
 }) => {
   const theme = localStorage.getItem("theme")
   return (
@@ -19,8 +21,9 @@ const Button = ({
         theme === "dark" ? "btn-dark-bg" : "btn-light-bg"
       } ${extraClasses}`}
       disabled={disabled}
+      type={type}
     >
-      {text}
+      {children}
     </button>
   )
 }
