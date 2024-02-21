@@ -7,15 +7,14 @@ import { useSelector } from "react-redux"
 import { RootState } from "../Store"
 
 const Providers = () => {
-  
   const { isLoading: areProvidersLoading, data: providers } = useQuery<
-  ProviderTypes[]
+    ProviderTypes[]
   >({
     queryKey: ["providers"],
     queryFn: () => getAllServiceProviders(),
   })
   const theme = useSelector((state: RootState) => state.theme.current)
-  
+
   if (!providers) return
 
   return (
@@ -34,6 +33,7 @@ const Providers = () => {
               style={{
                 display: "flex",
                 flexWrap: "wrap",
+                justifyContent: "center",
                 gap: 50,
                 marginTop: 20,
               }}
