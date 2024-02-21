@@ -55,7 +55,9 @@ const Home = () => {
             className={`hero 
             `}
           >
-            <h1>ТВОЯТ ПРОБЛЕМ ИМА РЕШЕНИЕ, ПРИ НАС</h1>
+            <h1 className={`${theme === "dark" ? "black-bg" : "white-bg"}`}>
+              ТВОЯТ ПРОБЛЕМ ИМА РЕШЕНИЕ, ПРИ НАС
+            </h1>
 
             <div className="search-service-container">
               <input
@@ -64,7 +66,11 @@ const Home = () => {
                 placeholder="Услуга"
               />
               {searchValue !== "" && (
-                <div className="services-results-container box-shadow">
+                <div
+                  className={`services-results-container box-shadow ${
+                    theme === "dark" ? "black-bg" : "white-bg"
+                  }`}
+                >
                   {allServices
                     ?.filter((service) =>
                       service.name
