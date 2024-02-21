@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router"
 import { ProviderTypes } from "../../Types"
 import { getPfpLink } from "../../Utils/SettingsUtils"
+import Button from "../Shared/Button"
 
 const ProviderCard = ({ provider }: { provider: ProviderTypes }) => {
   const navigate = useNavigate()
@@ -20,13 +21,12 @@ const ProviderCard = ({ provider }: { provider: ProviderTypes }) => {
         }}
       />
 
-      <button
+      <Button
+        text="Подробности"
         onClick={() => {
           navigate(`/служител/${provider.id}`)
         }}
-      >
-        Подробности
-      </button>
+      />
     </div>
   )
 }

@@ -12,6 +12,7 @@ import {
 import { priceRegex, serviceNameRegex } from "../../Regex"
 import { getAllServiceProviders } from "../../Utils/ServiceProvidersUtils"
 import { getPfpLink } from "../../Utils/SettingsUtils"
+import Button from "../Shared/Button"
 
 const AddServiceDialog = ({
   isOpen,
@@ -73,7 +74,12 @@ const AddServiceDialog = ({
         <p>Loading...</p>
       ) : (
         <>
-          <button onClick={() => setIsOpen(false)}>Затвори</button>
+          <Button
+            text="Затвори"
+            onClick={() => {
+              setIsOpen(false)
+            }}
+          />
 
           <form
             onSubmit={(e) =>
@@ -255,15 +261,14 @@ const AddServiceDialog = ({
             ))}
             <br />
             <br />
-            <button
+            <Button
+              text="Добави"
               disabled={
                 !priceRegex.test(serviceData.price) ||
                 !serviceNameRegex.test(serviceData.name) ||
                 serviceData.category === ""
               }
-            >
-              Добави
-            </button>
+            />
             <button
               type="button"
               onClick={() => {

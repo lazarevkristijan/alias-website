@@ -51,6 +51,40 @@ button {
   box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.3);
 }
 
+.btn-dark-bg {
+  background-color: #444;
+  color: #fff;
+}
+.btn-dark-bg:hover {
+  background-color: #555;
+  color: #fff;
+}
+.btn-dark-bg:active {
+  background-color: #666;
+  color: #fff;
+}
+.btn-dark-bg:disabled {
+  background-color: #888;
+  color: #fff;
+}
+
+.btn-light-bg {
+  background-color: #fff;
+  color: #000;
+}
+.btn-light-bg:hover {
+  background-color: #eee;
+  color: #000;
+}
+.btn-light-bg:active {
+  background-color: #ddd;
+  color: #000;
+}
+.btn-light-bg:disabled {
+  background-color: #aaa;
+  color: #000;
+}
+
 button:hover {
   background-color: #ddd;
 }
