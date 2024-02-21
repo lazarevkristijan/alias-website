@@ -5,15 +5,15 @@ import {
   ProviderTypes,
   ServiceCategoryTypes,
   ServiceTypes,
-} from "../Types"
+} from "../../Types"
 import {
   getAllServiceCategories,
   handleEditService,
-} from "../Utils/SharedUtils"
-import { priceRegex, serviceNameRegex } from "../Regex"
+} from "../../Utils/SharedUtils"
+import { priceRegex, serviceNameRegex } from "../../Regex"
 import { useQuery } from "@tanstack/react-query"
-import { getPfpLink } from "../Utils/SettingsUtils"
-import { getAllServiceProviders } from "../Utils/ServiceProvidersUtils"
+import { getPfpLink } from "../../Utils/SettingsUtils"
+import { getAllServiceProviders } from "../../Utils/ServiceProvidersUtils"
 
 const EditServiceDialog = ({
   service,

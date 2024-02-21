@@ -19,7 +19,7 @@ const ServiceCategoryCard = ({
   })
 
   return (
-    <div className={`services-main-category-card`}>
+    <div className={`services-main-category-card box-shadow`}>
       <p>{capitalizeString(category.name)}</p>
 
       <p>

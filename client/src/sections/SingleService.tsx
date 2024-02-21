@@ -9,7 +9,7 @@ import { ProviderServiceShowcaseTypes, ServiceTypes } from "../Types"
 import { useSelector } from "react-redux"
 import { RootState } from "../Store"
 import { useState } from "react"
-import EditServiceDialog from "../components/EditServiceDialog"
+import EditServiceDialog from "../components/Services/EditServiceDialog"
 import { getPfpLink } from "../Utils/SettingsUtils"
 
 const SingleService = () => {
