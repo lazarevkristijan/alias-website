@@ -52,33 +52,19 @@ const Home = () => {
       ) : (
         <>
           <section
-            className={`hero ${theme === "dark" ? "dark-bg" : "light-bg"}`}
+            className={`hero 
+            `}
           >
             <h1>ТВОЯТ ПРОБЛЕМ ИМА РЕШЕНИЕ, ПРИ НАС</h1>
-            <img
-              src="https://www.pngall.com/wp-content/uploads/5/Car-Wash-PNG-Download-Image.png"
-              alt="Service image 1"
-              className="hero-img1"
-            />
-            <img
-              src="services-img2.png"
-              alt="Service image 2"
-              className="hero-img2"
-            />
-            <img
-              src="services-img3.png"
-              alt="Service image 3"
-              className="hero-img3"
-            />
+
             <div className="search-service-container">
               <input
-                type="text"
                 onChange={(e) => setAwaitedSearchValue(e.target.value)}
                 value={awaitedSearchValue}
-                placeholder="Услуга..."
+                placeholder="Услуга"
               />
               {searchValue !== "" && (
-                <div className="services-results-container">
+                <div className="services-results-container box-shadow">
                   {allServices
                     ?.filter((service) =>
                       service.name
@@ -158,7 +144,7 @@ const Home = () => {
             <h2>КАК ДА ЗАПОЧНЕТЕ?</h2>
             {auth0Authenticated ? (
               <div>
-                <p> Избери категория на услуги които искаш да разглеждаш </p>
+                <p> Избери категория на услуги от която се нуждаеш </p>
                 <div className="button-container">
                   {allCategories.map((category: ServiceCategoryTypes) => (
                     <Button

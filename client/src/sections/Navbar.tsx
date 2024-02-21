@@ -38,7 +38,7 @@ const Navbar = () => {
             <li onClick={() => loginWithPopup()}>Вход</li>
           )}
           {user?.role === "админ" && (
-            <li onClick={() => navigate("/admin-dashboard")}>Админ панел</li>
+            <li onClick={() => navigate("/admin-dashboard")}>Админ</li>
           )}
         </ul>
       </div>
@@ -121,7 +121,7 @@ const Navbar = () => {
                     setIsMenuOpen(false)
                   }}
                 >
-                  Админ панел
+                  Админ
                 </li>
               )}
             </ul>

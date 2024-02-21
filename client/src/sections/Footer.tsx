@@ -15,7 +15,9 @@ const Footer = () => {
   const theme = useSelector((state: RootState) => state.theme.current)
 
   return (
-    <footer className={`${theme === "dark" ? "dark-bg" : "light-bg"}`}>
+    <footer
+      className={`box-shadow ${theme === "dark" ? "dark-bg" : "light-bg"}`}
+    >
       {areCategoriesLoading ? (
         <p>Зареждане...</p>
       ) : (
