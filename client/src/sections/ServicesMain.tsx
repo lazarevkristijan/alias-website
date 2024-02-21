@@ -17,7 +17,7 @@ const ServicesMain = () => {
       queryKey: ["categories"],
       queryFn: () => getAllServiceCategories(),
     })
-  const theme = localStorage.getItem("theme")
+  const theme = useSelector((state: RootState) => state.theme.current)
 
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false)
 

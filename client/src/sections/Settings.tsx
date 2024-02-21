@@ -6,6 +6,8 @@ import ChangeCredentials from "../subsections/Settings/ChangeCredentials"
 import ChangeTheme from "../subsections/Settings/ChangeTheme"
 import DangerZone from "../subsections/Settings/DangerZone"
 import "./Settings.scss"
+import { RootState } from "../Store"
+import { useSelector } from "react-redux"
 
 const Settings = () => {
   const navigate = useNavigate()
@@ -17,7 +19,7 @@ const Settings = () => {
     !auth0authenticated && navigate("/")
   }, [auth0authenticated, navigate])
 
-  const theme = localStorage.getItem("theme")
+  const theme = useSelector((state: RootState) => state.theme.current)
 
   return (
     <section

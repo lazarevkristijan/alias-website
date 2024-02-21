@@ -24,7 +24,7 @@ const Profile = () => {
     !auth0authenticated && navigate("/")
   }, [auth0authenticated, navigate])
 
-  const theme = localStorage.getItem("theme")
+  const theme = useSelector((state: RootState) => state.theme.current)
 
   if (!user) return
 

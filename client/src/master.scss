@@ -64,8 +64,8 @@ button {
   color: #fff;
 }
 .btn-dark-bg:disabled {
-  background-color: #888;
-  color: #fff;
+  background-color: #555;
+  color: #999;
 }
 
 .btn-light-bg {
@@ -81,12 +81,16 @@ button {
   color: #000;
 }
 .btn-light-bg:disabled {
-  background-color: #aaa;
-  color: #000;
+  background-color: #ccc;
+  color: #999;
 }
 
 button:hover {
-  background-color: #ddd;
+  transition: all 0.25s ease;
+}
+
+button:not(:hover) {
+  transition: all 0.25s ease-in-out;
 }
 
 button:active {
@@ -94,7 +98,6 @@ button:active {
 }
 
 button:disabled {
-  background-color: #fff;
   cursor: not-allowed;
 }
 

@@ -12,7 +12,7 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   const user = useSelector((state: RootState) => state.session.user)
-  const theme = localStorage.getItem("theme")
+  const theme = useSelector((state: RootState) => state.theme.current)
 
   return (
     <nav className={`${theme === "dark" ? "dark-nav" : "light-nav"}`}>

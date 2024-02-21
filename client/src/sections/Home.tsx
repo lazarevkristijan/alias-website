@@ -7,6 +7,8 @@ import { useNavigate } from "react-router"
 import { useAuth0 } from "@auth0/auth0-react"
 import { capitalizeString, getAllServiceCategories } from "../Utils/SharedUtils"
 import Button from "../components/Shared/Button"
+import { useSelector } from "react-redux"
+import { RootState } from "../Store"
 
 const Home = () => {
   const navigate = useNavigate()
@@ -14,7 +16,7 @@ const Home = () => {
   const { loginWithPopup: auth0login, isAuthenticated: auth0Authenticated } =
     useAuth0()
 
-  const theme = localStorage.getItem("theme")
+  const theme = useSelector((state: RootState) => state.theme.current)
 
   const [searchValue, setSearchValue] = useState("")
   const [awaitedSearchValue, setAwaitedSearchValue] = useState("")

@@ -1,4 +1,6 @@
+import { useSelector } from "react-redux"
 import "../../master.scss"
+import { RootState } from "../../Store"
 
 const Button = ({
   onClick,
@@ -13,7 +15,7 @@ const Button = ({
   type?: "button" | "submit"
   children: React.ReactNode
 }) => {
-  const theme = localStorage.getItem("theme")
+  const theme = useSelector((state: RootState) => state.theme.current)
   return (
     <button
       onClick={onClick}

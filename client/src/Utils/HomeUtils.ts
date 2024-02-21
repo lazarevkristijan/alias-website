@@ -1,10 +1,11 @@
 import { User } from "@auth0/auth0-react"
 import axios from "axios"
 import { login } from "../features/session/sessionSlice"
-import { AppDispatch } from "../Store"
+import { AppDispatch, RootState } from "../Store"
 import { sendNotification } from "./SharedUtils"
 import { errorNotifEnding } from "../constants"
 import { changeTheme } from "../features/theme/themeSlice"
+import { useSelector } from "react-redux"
 
 export const postLoginOrRegister = (
   auth0user: User | undefined,
@@ -23,7 +24,7 @@ export const postLoginOrRegister = (
     .then((response) => {
       dispatch(login(response.data))
 
-      const theme = localStorage.getItem("theme")
+      const theme = useSelector((state: RootState) => state.theme.current)
 
       document.body.style.transition = "background-color 0.5s ease"
 

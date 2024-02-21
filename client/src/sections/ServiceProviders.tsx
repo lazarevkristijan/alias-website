@@ -3,17 +3,19 @@ import { getAllServiceProviders } from "../Utils/ServiceProvidersUtils"
 import { ProviderTypes } from "../Types"
 import ProviderCard from "../components/Providers/ProviderCard"
 import "./ServiceProviders.scss"
+import { useSelector } from "react-redux"
+import { RootState } from "../Store"
 
 const Providers = () => {
-  const theme = localStorage.getItem("theme")
-
+  
   const { isLoading: areProvidersLoading, data: providers } = useQuery<
-    ProviderTypes[]
+  ProviderTypes[]
   >({
     queryKey: ["providers"],
     queryFn: () => getAllServiceProviders(),
   })
-
+  const theme = useSelector((state: RootState) => state.theme.current)
+  
   if (!providers) return
 
   return (
