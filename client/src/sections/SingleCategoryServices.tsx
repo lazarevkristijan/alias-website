@@ -1,24 +1,25 @@
 import { useQuery } from "@tanstack/react-query"
-import { useNavigate } from "react-router"
-import { getAllPersonalServices } from "../Utils/PersonalServicesUtils"
+import { useNavigate, useParams } from "react-router"
+import { getAllCategoryServices } from "../Utils/SharedUtils"
 import { ProviderServiceShowcaseTypes, ServiceTypes } from "../Types"
 import ServiceCard from "../components/Services/ServiceCard"
-import { getPfpLink } from "../Utils/SettingsUtils"
 import { getAllCategoryProviders } from "../Utils/SharedUtils"
+import { getPfpLink } from "../Utils/SettingsUtils"
 import React from "react"
 import Button from "../components/Shared/Button"
 
-const PersonalServices = () => {
+const SingleCategoryServices = () => {
   const navigate = useNavigate()
+  const { category } = useParams()
 
   const { isLoading: areCarServicesLoading, data: allCarServices } = useQuery({
-    queryKey: ["all-car-services"],
-    queryFn: () => getAllPersonalServices(),
+    queryKey: [`all-${category}-services`],
+    queryFn: () => getAllCategoryServices(category || ""),
   })
 
   const { isLoading: areProvidersLoading, data: allProviders } = useQuery({
-    queryKey: ["all-providers"],
-    queryFn: () => getAllCategoryProviders("персонални"),
+    queryKey: [`all-${category}-providers`],
+    queryFn: () => getAllCategoryProviders(category || ""),
   })
 
   return (
@@ -31,14 +32,14 @@ const PersonalServices = () => {
             <Button onClick={() => navigate("/услуги")}>Към услуги</Button>
             <br />
             <br />
-            <h2>Всички персонални услуги</h2>
+            <h2>
+              Всички {category === "персонални" && category} услуги{" "}
+              {category !== "персонални" && `за ${category}`}
+            </h2>
             {allCarServices &&
               allCarServices.map((service: ServiceTypes) => (
                 <React.Fragment key={service.id}>
-                  <ServiceCard
-                    service={service}
-                    key={service.id}
-                  />
+                  <ServiceCard service={service} />
                   Служители на услугата:
                   <br />
                   {allProviders.map(
@@ -70,4 +71,4 @@ const PersonalServices = () => {
   )
 }
 
-export default PersonalServices
+export default SingleCategoryServices

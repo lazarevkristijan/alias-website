@@ -7,16 +7,14 @@ import { Home, Profile } from "./sections"
 import "./app.scss"
 import Settings from "./sections/Settings"
 import Navbar from "./sections/Navbar"
-import CarServices from "./sections/CarServices"
 import ServicesMain from "./sections/ServicesMain"
-import PersonalServices from "./sections/PersonalServices"
-import HomeServices from "./sections/HomeServices"
 import SingleService from "./sections/SingleService"
 import ProviderProfile from "./sections/ProviderProfile"
 import ServiceProviders from "./sections/ServiceProviders"
 import AdminDashboard from "./sections/AdminDashboard"
 import AdminUserView from "./sections/AdminUserView"
 import Footer from "./sections/Footer"
+import SingleCategoryServices from "./sections/SingleCategoryServices"
 
 const App = () => {
   const dispatch = useDispatch()
@@ -65,21 +63,12 @@ const App = () => {
                 element={<ServicesMain />}
               />
               <Route
-                path="услуги/коли"
-                element={<CarServices />}
+                path="услуги/:category"
+                element={<SingleCategoryServices />}
               />
               <Route
                 path="услуги/:category/:id"
                 element={<SingleService />}
-              />
-
-              <Route
-                path="услуги/персонални"
-                element={<PersonalServices />}
-              />
-              <Route
-                path="услуги/вкъщи"
-                element={<HomeServices />}
               />
               <Route
                 path="служители"
