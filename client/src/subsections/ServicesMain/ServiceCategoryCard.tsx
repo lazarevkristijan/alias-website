@@ -24,7 +24,7 @@ const ServiceCategoryCard = ({
 
   return (
     <div
-      className={`services-main-category-card box-shadow ${
+      className={`services-main-category-card card-padding box-shadow ${
         theme === "dark" ? "black-bg" : "white-bg"
       }`}
     >

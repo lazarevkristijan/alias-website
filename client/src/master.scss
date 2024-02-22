@@ -144,11 +144,16 @@ h2 {
 }
 
 .white-bg {
-  background-color: #fff;
+  background-color: #eee;
 }
 
 .all-routes > section {
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.card-padding {
+  padding: 10px;
+  border-radius: 10px;
 }
 
 section > section {
