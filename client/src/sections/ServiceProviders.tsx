@@ -30,13 +30,9 @@ const Providers = () => {
           <section>
             <h2>Всички служители:</h2>
             <div
-              style={{
-                display: "flex",
-                flexWrap: "wrap",
-                justifyContent: "center",
-                gap: 50,
-                marginTop: 20,
-              }}
+              className={`service-providers-container ${
+                theme === "dark" ? "dark-bg" : "light-bg"
+              }`}
             >
               {providers.map((provider: ProviderTypes) => (
                 <ProviderCard

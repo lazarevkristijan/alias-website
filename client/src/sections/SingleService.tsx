@@ -1,5 +1,6 @@
 import { useNavigate, useParams } from "react-router"
 import {
+  capitalizeString,
   getSingleService,
   getSingleServiceProviders,
   handleDeleteService,
@@ -12,6 +13,7 @@ import { useState } from "react"
 import EditServiceDialog from "../components/Services/EditServiceDialog"
 import { getPfpLink } from "../Utils/SettingsUtils"
 import Button from "../components/Shared/Button"
+import "./SingleService.scss"
 
 const SingleService = () => {
   const navigate = useNavigate()
@@ -22,6 +24,7 @@ const SingleService = () => {
   }>()
 
   const user = useSelector((state: RootState) => state.session.user)
+  const theme = useSelector((state: RootState) => state.theme.current)
 
   const { isLoading: isServiceLoading, data: service } = useQuery<ServiceTypes>(
     {
@@ -30,55 +33,76 @@ const SingleService = () => {
     }
   )
 
-  const { isLoading: areServiceProvidersLoading, data: serviceProviders } =
-    useQuery<ProviderServiceShowcaseTypes[]>({
-      queryKey: ["single-service-providers"],
-      queryFn: () => getSingleServiceProviders(id),
-    })
+  const {
+    isLoading: areServiceProvidersLoading,
+    data: singleServiceProviders,
+  } = useQuery<ProviderServiceShowcaseTypes[]>({
+    queryKey: ["single-service-providers"],
+    queryFn: () => getSingleServiceProviders(id),
+  })
 
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
 
-  if (!service || !serviceProviders) return null
+  if (!service || !singleServiceProviders) return null
 
   return (
-    <div>
+    <section>
       {isServiceLoading || areServiceProvidersLoading ? (
         <p>Зареждане...</p>
       ) : (
-        <>
-          <Button onClick={() => navigate(`/услуги/${category}`)}>Назад</Button>
-          <p>Услуга: {service?.name}</p>
-          <p>
-            Категория:{" "}
-            {service?.category.charAt(0).toUpperCase() +
-              service?.category.slice(1)}
+        <section
+          className={`${theme === "dark" ? "dark-bg" : "light-bg"} box-shadow`}
+        >
+          <p
+            className={`single-service-tag ${
+              theme === "dark" ? "black-bg" : "white-bg"
+            }`}
+          >
+            Услуга: {service?.name}
           </p>
-          <p>Цена: {service?.price}лв.</p>
+          <p
+            className={`single-service-tag ${
+              theme === "dark" ? "black-bg" : "white-bg"
+            }`}
+          >
+            Категория: {capitalizeString(service.category)}
+          </p>
+          <p
+            className={`single-service-tag ${
+              theme === "dark" ? "black-bg" : "white-bg"
+            }`}
+          >
+            Цена: {service?.price}лв.
+          </p>
 
-          {serviceProviders.map((provider: ProviderServiceShowcaseTypes) => (
-            <div
-              key={provider.provider_id}
-              style={{
-                border: "1px solid black",
-                width: "fit-content",
-                height: "fit-content",
-                minWidth: 80,
-                minHeight: 80,
-                textAlign: "center",
-                paddingTop: 10,
-                cursor: "pointer",
-              }}
-              onClick={() => navigate(`/служител/${provider.provider_id}`)}
-            >
-              <img
-                src={getPfpLink(provider.profile_picture)}
-                alt={`Профилна снимка на ${provider.first_name}`}
-                style={{ width: "50px", height: "50px", borderRadius: "50%" }}
-              />
+          <h3>Служители предлагащи услугата</h3>
+          <div className="service-providers-container">
+            {singleServiceProviders.map(
+              (provider: ProviderServiceShowcaseTypes) => (
+                <div
+                  className={`provider-card card-padding box-shadow ${
+                    theme === "dark" ? "black-bg" : "white-bg"
+                  }`}
+                  key={provider.provider_id}
+                  onClick={() => navigate(`/служител/${provider.provider_id}`)}
+                >
+                  <img
+                    src={getPfpLink(provider.profile_picture)}
+                    alt={`Профилна снимка на ${provider.first_name}`}
+                    style={{
+                      width: "50px",
+                      height: "50px",
+                      borderRadius: "50%",
+                    }}
+                  />
 
-              <p>{provider.first_name}</p>
-            </div>
-          ))}
+                  <p>{provider.first_name}</p>
+                  <Button>Виж служителя</Button>
+                </div>
+              )
+            )}
+          </div>
+
           {user?.role === "админ" && (
             <>
               <Button
@@ -96,16 +120,16 @@ const SingleService = () => {
               service={service}
               isOpen={isEditDialogOpen}
               setIsOpen={setIsEditDialogOpen}
-              serviceProviders={serviceProviders}
+              serviceProviders={singleServiceProviders}
             />
           )}
 
           <Button onClick={() => handleDeleteService(service.id)}>
             Изтрий
           </Button>
-        </>
+        </section>
       )}
-    </div>
+    </section>
   )
 }
 

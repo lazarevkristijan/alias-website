@@ -4,6 +4,14 @@
   min-height: 50vh;
 }
 
+.service-providers-container {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
 .provider-card {
   min-width: 200px;
   max-width: fit-content;
