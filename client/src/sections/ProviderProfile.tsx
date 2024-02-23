@@ -1,15 +1,24 @@
 import { useQuery } from "@tanstack/react-query"
 import { useNavigate, useParams } from "react-router"
-import { getProvider, getSingleProviderServices } from "../Utils/SharedUtils"
+import {
+  capitalizeString,
+  getProvider,
+  getSingleProviderServices,
+} from "../Utils/SharedUtils"
 import { ProviderTypes, SingleServiceTypes } from "../Types"
 import { getPfpLink } from "../Utils/SettingsUtils"
 import { defaultPfpURL } from "../constants"
 import React from "react"
 import Button from "../components/Shared/Button"
+import "./ProviderProfile.scss"
+import { useSelector } from "react-redux"
+import { RootState } from "../Store"
 
 const ProviderProfile = () => {
   const { id } = useParams()
   const navigate = useNavigate()
+
+  const theme = useSelector((state: RootState) => state.theme.current)
 
   const { isLoading: isProviderLoading, data: provider } =
     useQuery<ProviderTypes>({
@@ -27,47 +36,52 @@ const ProviderProfile = () => {
   if (!services) return
 
   return (
-    <div>
+    <section>
       {isProviderLoading || areServicesLoading ? (
         <p>Зареждане...</p>
       ) : (
-        <>
-          <Button onClick={() => navigate("/служители")}>Към служители</Button>
-          <br />
-          <img
-            src={getPfpLink(provider?.profile_picture || defaultPfpURL)}
-            alt={`Профилна снимка на ${provider?.first_name}`}
-            width={100}
-            height={100}
-            style={{ borderRadius: "50%" }}
-          />
-          <p>Име: {provider?.first_name}</p>
-          {provider?.middle_name && <p>Презиме: {provider?.middle_name}</p>}
-          <p>Фамилия: {provider?.last_name}</p>
-          <p>Имейл: {provider?.email}</p>
+        <section
+          className={`provider-profile ${
+            theme === "dark" ? "dark-bg" : "light-bg"
+          }`}
+        >
+          <h2>Преглед на служител</h2>
+
+          <div
+            className={`provider-creds-container box-shadow card-padding ${
+              theme === "dark" ? "black-bg" : "white-bg"
+            }`}
+          >
+            <img
+              src={getPfpLink(provider?.profile_picture || defaultPfpURL)}
+              alt={`Профилна снимка на ${provider?.first_name}`}
+              width={100}
+              height={100}
+              style={{ borderRadius: "50%" }}
+            />
+            <p>Име: {provider?.first_name}</p>
+            {provider?.middle_name && <p>Презиме: {provider?.middle_name}</p>}
+            <p>Фамилия: {provider?.last_name}</p>
+            <p>Имейл: {provider?.email}</p>
+          </div>
 
           <h2>Услуги които предлага {provider?.first_name}</h2>
-          <div
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              justifyContent: "space-around",
-              textAlign: "center",
-            }}
-          >
+          <div className="provider-services-container">
             {services.map((service) => (
               <React.Fragment key={service.id}>
                 <div
                   key={service.id}
                   style={{
-                    backgroundColor: "#f5f5f5",
                     padding: 10,
                     margin: 10,
                     width: 250,
                   }}
+                  className={`provider-service-card box-shadow card-padding ${
+                    theme === "dark" ? "black-bg" : "white-bg"
+                  }`}
                 >
                   <p>Услуга: {service.name}</p>
-                  <p>Категория: {service.category}</p>
+                  <p>Категория: {capitalizeString(service.category)}</p>
                   <p>Цена: {service.price}лв.</p>
                   <Button
                     onClick={() =>
@@ -80,9 +94,9 @@ const ProviderProfile = () => {
               </React.Fragment>
             ))}
           </div>
-        </>
+        </section>
       )}
-    </div>
+    </section>
   )
 }
 

@@ -16,8 +16,14 @@ h2 {
 
 h1,
 h2,
+h3,
 h4 {
   font-weight: 500;
+}
+
+h2,
+h3 {
+  margin-bottom: 1rem;
 }
 
 * {
@@ -116,10 +122,6 @@ a {
 
 a:hover {
   text-decoration: underline;
-}
-
-h2 {
-  margin-bottom: 1rem;
 }
 
 .dark-bg {

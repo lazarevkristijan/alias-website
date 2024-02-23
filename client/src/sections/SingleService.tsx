@@ -53,22 +53,23 @@ const SingleService = () => {
         <section
           className={`${theme === "dark" ? "dark-bg" : "light-bg"} box-shadow`}
         >
+          <h2>Преглед на услуга</h2>
           <p
-            className={`single-service-tag ${
+            className={`single-service-tag box-shadow ${
               theme === "dark" ? "black-bg" : "white-bg"
             }`}
           >
             Услуга: {service?.name}
           </p>
           <p
-            className={`single-service-tag ${
+            className={`single-service-tag box-shadow ${
               theme === "dark" ? "black-bg" : "white-bg"
             }`}
           >
             Категория: {capitalizeString(service.category)}
           </p>
           <p
-            className={`single-service-tag ${
+            className={`single-service-tag box-shadow ${
               theme === "dark" ? "black-bg" : "white-bg"
             }`}
           >
@@ -84,7 +85,6 @@ const SingleService = () => {
                     theme === "dark" ? "black-bg" : "white-bg"
                   }`}
                   key={provider.provider_id}
-                  onClick={() => navigate(`/служител/${provider.provider_id}`)}
                 >
                   <img
                     src={getPfpLink(provider.profile_picture)}
@@ -97,7 +97,13 @@ const SingleService = () => {
                   />
 
                   <p>{provider.first_name}</p>
-                  <Button>Виж служителя</Button>
+                  <Button
+                    onClick={() =>
+                      navigate(`/служител/${provider.provider_id}`)
+                    }
+                  >
+                    Виж служителя
+                  </Button>
                 </div>
               )
             )}
