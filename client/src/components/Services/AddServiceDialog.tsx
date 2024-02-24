@@ -38,13 +38,15 @@ const AddServiceDialog = ({
     price: false,
   })
 
-  const { isLoading: areServiceCategoriesLoading, data: allServiceCategories } =
-    useQuery({
-      queryKey: ["all-service-categories"],
-      queryFn: () => getAllServiceCategories(),
-    })
+  const {
+    isFetching: areServiceCategoriesFetching,
+    data: allServiceCategories,
+  } = useQuery({
+    queryKey: ["all-service-categories"],
+    queryFn: () => getAllServiceCategories(),
+  })
 
-  const { isLoading: areServiceProvidersLoading, data: allServiceProviders } =
+  const { isFetching: areServiceProvidersFetching, data: allServiceProviders } =
     useQuery<ProviderTypes[]>({
       queryKey: ["all-providers"],
       queryFn: () => getAllServiceProviders(),
@@ -70,7 +72,7 @@ const AddServiceDialog = ({
         backgroundColor: "red",
       }}
     >
-      {areServiceCategoriesLoading || areServiceProvidersLoading ? (
+      {areServiceCategoriesFetching || areServiceProvidersFetching ? (
         <p>Loading...</p>
       ) : (
         <>

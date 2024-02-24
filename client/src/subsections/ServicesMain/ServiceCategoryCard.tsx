@@ -31,9 +31,7 @@ const ServiceCategoryCard = ({
       <p>{capitalizeString(category.name)}</p>
 
       <p>
-        {areServicesLoading
-          ? "Зареждане..."
-          : `Налични ${allServices?.length} услуги`}
+        {areServicesLoading ? "..." : `Налични ${allServices?.length} услуги`}
       </p>
 
       <Button onClick={() => navigate(`/услуги/${category.name}`)}>

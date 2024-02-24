@@ -50,13 +50,15 @@ const EditServiceDialog = ({
     providers: false,
   })
 
-  const { isLoading: areServiceCategoriesLoading, data: allServiceCategories } =
-    useQuery({
-      queryKey: ["all-service-categories"],
-      queryFn: () => getAllServiceCategories(),
-    })
+  const {
+    isFetching: areServiceCategoriesFetching,
+    data: allServiceCategories,
+  } = useQuery({
+    queryKey: ["all-service-categories"],
+    queryFn: () => getAllServiceCategories(),
+  })
 
-  const { isLoading: areServiceProvidersLoading, data: allServiceProviders } =
+  const { isFetching: areServiceProvidersFetching, data: allServiceProviders } =
     useQuery<ProviderTypes[]>({
       queryKey: ["all-providers"],
       queryFn: () => getAllServiceProviders(),
@@ -86,7 +88,7 @@ const EditServiceDialog = ({
         backgroundColor: "red",
       }}
     >
-      {areServiceProvidersLoading || areServiceCategoriesLoading ? (
+      {areServiceProvidersFetching || areServiceCategoriesFetching ? (
         <p>Зареждане...</p>
       ) : (
         <>
@@ -126,7 +128,7 @@ const EditServiceDialog = ({
             <br />
             <br />
             <label htmlFor="new_service_category">Категория: </label>
-            {!areServiceCategoriesLoading && (
+            {!areServiceCategoriesFetching && (
               <select
                 id="new_service_category"
                 value={serviceData.category}

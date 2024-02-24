@@ -16,20 +16,20 @@ const SingleCategoryServices = () => {
 
   const theme = useSelector((state: RootState) => state.theme.current)
 
-  const { isLoading: areCategoryServicesLoading, data: allCategoryServices } =
+  const { isFetching: areCategoryServicesFetching, data: allCategoryServices } =
     useQuery<ServiceTypes[]>({
       queryKey: [`all-${category}-services`],
       queryFn: () => getAllCategoryServices(category || ""),
     })
 
-  const { isLoading: areProvidersLoading, data: allProviders } = useQuery<
+  const { isFetching: areProvidersFetching, data: allProviders } = useQuery<
     ProviderServiceShowcaseTypes[]
   >({
     queryKey: [`all-${category}-providers`],
     queryFn: () => getAllCategoryProviders(category || ""),
   })
 
-  if (allProviders === undefined) return
+  if (!allProviders) return
   return (
     <section
       className={`single-category-services ${
@@ -37,7 +37,7 @@ const SingleCategoryServices = () => {
       }`}
     >
       <>
-        {areCategoryServicesLoading || areProvidersLoading ? (
+        {areCategoryServicesFetching || areProvidersFetching ? (
           <p>Зареждане...</p>
         ) : (
           <section>

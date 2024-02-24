@@ -19,20 +19,18 @@ const AdminUserView = () => {
     }
   }, [user, navigate])
 
-  const {
-    isLoading: isUserLoading,
-    data: fetchedUser,
-    isFetching: isUserFetching,
-  } = useQuery<UserTypes>({
-    queryKey: ["single-user"],
-    queryFn: () => getSingleUser(Number(id)),
-  })
+  const { data: fetchedUser, isFetching: isUserFetching } = useQuery<UserTypes>(
+    {
+      queryKey: ["single-user"],
+      queryFn: () => getSingleUser(Number(id)),
+    }
+  )
 
   if (!fetchedUser) return
 
   return (
     <div>
-      {isUserLoading || isUserFetching ? (
+      {isUserFetching ? (
         <p>Loading...</p>
       ) : (
         <div

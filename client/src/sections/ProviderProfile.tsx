@@ -20,13 +20,13 @@ const ProviderProfile = () => {
 
   const theme = useSelector((state: RootState) => state.theme.current)
 
-  const { isLoading: isProviderLoading, data: provider } =
+  const { isFetching: isProviderFetching, data: provider } =
     useQuery<ProviderTypes>({
       queryKey: ["single-provider"],
       queryFn: () => getProvider(Number(id)),
     })
 
-  const { isLoading: areServicesLoading, data: services } = useQuery<
+  const { isFetching: areServicesFetching, data: services } = useQuery<
     SingleServiceTypes[]
   >({
     queryKey: ["provider-services"],
@@ -37,7 +37,7 @@ const ProviderProfile = () => {
 
   return (
     <section>
-      {isProviderLoading || areServicesLoading ? (
+      {isProviderFetching || areServicesFetching ? (
         <p>Зареждане...</p>
       ) : (
         <section
