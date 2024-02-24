@@ -30,6 +30,9 @@ const ChangeTheme = () => {
           const root = document.getElementById("root")
           if (!root) return
 
+          document.body.style.backgroundColor = "#fff"
+          document.body.style.color = "#000"
+
           root.style.backgroundColor = "#fff"
           root.style.color = "#000"
 

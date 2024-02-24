@@ -26,12 +26,14 @@ const SingleService = () => {
   const user = useSelector((state: RootState) => state.session.user)
   const theme = useSelector((state: RootState) => state.theme.current)
 
-  const { isLoading: isServiceLoading, data: service } = useQuery<ServiceTypes>(
-    {
-      queryKey: ["single-service"],
-      queryFn: () => getSingleService(category, id),
-    }
-  )
+  const {
+    isLoading: isServiceLoading,
+    data: service,
+    isFetching: isServiceFetching,
+  } = useQuery<ServiceTypes>({
+    queryKey: ["single-service"],
+    queryFn: () => getSingleService(category, id),
+  })
 
   const {
     isLoading: areServiceProvidersLoading,
@@ -47,7 +49,7 @@ const SingleService = () => {
 
   return (
     <section>
-      {isServiceLoading || areServiceProvidersLoading ? (
+      {isServiceLoading || areServiceProvidersLoading || isServiceFetching ? (
         <p>Зареждане...</p>
       ) : (
         <section
