@@ -51,10 +51,7 @@ const Home = () => {
         <p>Зареждане...</p>
       ) : (
         <>
-          <section
-            className={`hero 
-            `}
-          >
+          <section className={`hero`}>
             <h1 className={`${theme === "dark" ? "black-bg" : "white-bg"}`}>
               ТВОЯТ ПРОБЛЕМ ИМА РЕШЕНИЕ, ПРИ НАС
             </h1>

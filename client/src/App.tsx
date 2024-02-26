@@ -40,7 +40,13 @@ const App = () => {
   return (
     <>
       {isLoading ? (
-        <p>Зареждане...</p>
+        <div className="app-loading-container">
+          <img
+            src="alias.png"
+            alt="alias"
+          />
+          <p>Зареждане...</p>
+        </div>
       ) : (
         <main>
           <Navbar />
