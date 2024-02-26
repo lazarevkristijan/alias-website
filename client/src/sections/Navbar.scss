@@ -16,26 +16,37 @@ nav {
   height: 100%;
 }
 
-.nav-large li {
+.nav-large a {
   padding: 15px;
   padding-top: 7.5px;
   padding-bottom: 7.5px;
 }
 
-.dark-nav li:hover {
+.dark-nav a:hover {
   background-color: #444;
   border-radius: 5px;
   transition: all 0.3s ease;
 }
-.light-nav li:hover {
+.light-nav a:hover {
   background-color: #eee;
   border-radius: 5px;
   transition: all 0.3s ease;
 }
-.nav-large li:not(:hover) {
+.nav-large a:not(:hover) {
   background-color: transparent;
   border-radius: 0px;
   transition: all 0.3s ease;
+}
+
+.nav-link-white {
+  color: #fff;
+}
+.nav-link-black {
+  color: #000;
+}
+.nav-link-black:hover,
+.nav-link-white:hover {
+  text-decoration: none;
 }
 
 .nav-small {
@@ -106,10 +117,6 @@ nav img {
 nav ul {
   display: flex;
   width: 100%;
-}
-
-nav ul li {
-  cursor: pointer;
 }
 
 nav .right-part-nav {

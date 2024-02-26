@@ -4,6 +4,7 @@ import { useNavigate } from "react-router"
 import { RootState } from "../Store"
 import "./Navbar.scss"
 import { useState } from "react"
+import NavLink from "../components/Navbar/NavLink"
 
 const Navbar = () => {
   const navigate = useNavigate()
@@ -18,9 +19,9 @@ const Navbar = () => {
     <nav className={`${theme === "dark" ? "dark-nav" : "light-nav"}`}>
       <div className="nav-large">
         <ul>
-          <li onClick={() => navigate("/")}>Начало</li>
-          <li onClick={() => navigate("/услуги")}>Услуги</li>
-          <li onClick={() => navigate("/служители")}>Служители</li>
+          <NavLink to="начало" />
+          <NavLink to="услуги" />
+          <NavLink to="служители" />
         </ul>
 
         <img
@@ -31,14 +32,17 @@ const Navbar = () => {
         <ul className="right-part-nav">
           {auth0authenticated ? (
             <>
-              <li onClick={() => navigate("/профил")}>Профил</li>
-              <li onClick={() => navigate("/настройки")}>Настройки</li>
+              <NavLink to="профил" />
+              <NavLink to="настройки" />
             </>
           ) : (
-            <li onClick={() => loginWithPopup()}>Вход</li>
+            <a onClick={() => loginWithPopup}>Вход</a>
           )}
           {user?.role === "админ" && (
-            <li onClick={() => navigate("/admin-dashboard")}>Админ</li>
+            <NavLink
+              to="admin-dashboard"
+              title="админ"
+            />
           )}
         </ul>
       </div>
