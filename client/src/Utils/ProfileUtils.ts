@@ -54,3 +54,16 @@ export const handleChangeCredentials = (
       dispatch(login({ ...user, ...response.data }))
     })
 }
+
+export const displayPhoneNumber = (phoneNumber: string) => {
+  if (phoneNumber[0] === "0") {
+    return (
+      phoneNumber.slice(0, 3) +
+      " " +
+      phoneNumber.slice(3, 6) +
+      " " +
+      phoneNumber.slice(6)
+    )
+  }
+  return phoneNumber
+}

@@ -30,7 +30,7 @@ const Settings = () => {
       ) : (
         <section>
           <h2>Настройки</h2>
-          <div className={`settings-content`}>
+          <div className="settings-content">
             <ProfilePicture />
             <ChangeCredentials />
             <ChangeTheme />

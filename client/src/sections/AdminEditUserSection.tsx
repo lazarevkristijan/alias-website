@@ -9,7 +9,7 @@ import {
   handleAdminUserDelete,
 } from "../Utils/AdminUtils"
 import { handleFileChange } from "../Utils/SharedUtils"
-import { jobTitleRegex, middleNameRegex, nameRegex } from "../Regex"
+import { jobTitleRegex, middleNameRegex, nameRegex, phoneRegex } from "../Regex"
 import { useNavigate } from "react-router"
 import Button from "../components/Shared/Button"
 
@@ -25,6 +25,7 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
     profile_picture: fetchedUser?.profile_picture || "",
     role: fetchedUser?.role || "",
     job_title: fetchedUser?.job_title || "",
+    phone_number: fetchedUser?.phone_number || "",
   })
 
   const [changedFields, setChangedFields] = useState({
@@ -34,6 +35,7 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
     profile_picture: false,
     role: false,
     job_title: false,
+    phone_number: false,
   })
 
   const [profilePicture, setProfilePicture] = useState<File | null>(null)
@@ -305,6 +307,37 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
         />
       </div>
 
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: 5,
+        }}
+      >
+        <label htmlFor="admin-edit-user-phone-number">Номер</label>
+        <input
+          value={newUserData.phone_number}
+          onChange={(e) => {
+            if (!changedFields.phone_number) {
+              setChangedFields((prev) => ({ ...prev, phone_number: true }))
+            }
+            setNewUserData({ ...newUserData, phone_number: e.target.value })
+          }}
+          id="admin-edit-user-phone-number"
+          style={{
+            backgroundColor:
+              !phoneRegex.test(newUserData.phone_number) &&
+              changedFields.phone_number
+                ? "red"
+                : "#fff",
+            textTransform: "capitalize",
+          }}
+          maxLength={50}
+          placeholder="0899112233"
+        />
+      </div>
+
       <label htmlFor="admin-edit-user-role">Роля</label>
       <select
         value={newUserData.role || ""}
@@ -332,6 +365,7 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
           !nameRegex.test(newUserData.last_name) ||
           !middleNameRegex.test(newUserData.middle_name) ||
           !jobTitleRegex.test(newUserData.job_title) ||
+          !phoneRegex.test(newUserData.phone_number) ||
           (nameRegex.test(newUserData.first_name) &&
             fetchedUser.first_name === newUserData.first_name &&
             nameRegex.test(newUserData.last_name) &&
@@ -340,6 +374,8 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
             fetchedUser.middle_name === newUserData.middle_name &&
             jobTitleRegex.test(newUserData.job_title) &&
             fetchedUser.job_title === newUserData.job_title &&
+            phoneRegex.test(newUserData.phone_number) &&
+            fetchedUser.phone_number === newUserData.phone_number &&
             fetchedUser.role === newUserData.role)
         }
       >

@@ -1,5 +1,10 @@
 import { useState } from "react"
-import { jobTitleRegex, middleNameRegex, nameRegex } from "../../Regex"
+import {
+  jobTitleRegex,
+  middleNameRegex,
+  nameRegex,
+  phoneRegex,
+} from "../../Regex"
 import { handleChangeCredentials } from "../../Utils/ProfileUtils"
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../../Store"
@@ -14,6 +19,7 @@ const ChangeCredentials = () => {
     lastName: user?.last_name || "",
     middleName: user?.middle_name || "",
     jobTitle: user?.job_title || "",
+    phoneNumber: user?.phone_number || "",
   })
 
   const initialUserData = {
@@ -21,6 +27,7 @@ const ChangeCredentials = () => {
     lastName: user?.last_name || "",
     middleName: user?.middle_name || "",
     jobTitle: user?.job_title || "",
+    phoneNumber: user?.phone_number || "",
   }
 
   const [changedFields, setChangedFields] = useState({
@@ -28,11 +35,12 @@ const ChangeCredentials = () => {
     lastName: false,
     middleName: false,
     jobTitle: false,
+    phoneNumber: false,
   })
 
   return (
     <section className="settings-change-creds">
-      <h4>Промени детайли</h4>
+      <h4>Лични данни</h4>
       <form
         onSubmit={(e) => {
           handleChangeCredentials(e, userData, user, dispatch)
@@ -123,6 +131,29 @@ const ChangeCredentials = () => {
           />
         </div>
 
+        <div>
+          <label htmlFor="new_user_phone_number">Номер</label>
+          <input
+            type="text"
+            id="new_user_phone_number"
+            value={userData.phoneNumber}
+            onChange={(e) => {
+              if (!changedFields.phoneNumber) {
+                setChangedFields({ ...changedFields, phoneNumber: true })
+              }
+              setUserData({ ...userData, phoneNumber: e.target.value })
+            }}
+            style={{
+              backgroundColor:
+                !phoneRegex.test(userData.phoneNumber) &&
+                changedFields.phoneNumber
+                  ? "red"
+                  : "#fff",
+            }}
+            placeholder="0899112233"
+          />
+        </div>
+
         <Button
           type="submit"
           disabled={
@@ -130,13 +161,16 @@ const ChangeCredentials = () => {
             !nameRegex.test(userData.lastName) ||
             !middleNameRegex.test(userData.middleName) ||
             !jobTitleRegex.test(userData.jobTitle) ||
+            !phoneRegex.test(userData.phoneNumber) ||
             (nameRegex.test(userData.firstName) &&
               initialUserData.firstName === userData.firstName &&
               nameRegex.test(userData.lastName) &&
               initialUserData.lastName === userData.lastName &&
               middleNameRegex.test(userData.middleName) &&
               initialUserData.jobTitle === userData.jobTitle &&
-              jobTitleRegex.test(userData.jobTitle))
+              jobTitleRegex.test(userData.jobTitle) &&
+              initialUserData.phoneNumber === userData.phoneNumber &&
+              phoneRegex.test(userData.phoneNumber))
           }
         >
           Спази

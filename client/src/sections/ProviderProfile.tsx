@@ -13,6 +13,7 @@ import Button from "../components/Shared/Button"
 import "./ProviderProfile.scss"
 import { useSelector } from "react-redux"
 import { RootState } from "../Store"
+import { displayPhoneNumber } from "../Utils/ProfileUtils"
 
 const ProviderProfile = () => {
   const { id } = useParams()
@@ -62,7 +63,10 @@ const ProviderProfile = () => {
             <p>Име: {provider?.first_name}</p>
             {provider?.middle_name && <p>Презиме: {provider?.middle_name}</p>}
             <p>Фамилия: {provider?.last_name}</p>
-            <p>Специялност: {provider?.job_title}</p>
+            {provider?.job_title && <p>Специялност: {provider?.job_title}</p>}
+            {provider?.phone_number && (
+              <p>Номер: {displayPhoneNumber(provider?.phone_number)}</p>
+            )}
             <p>Имейл: {provider?.email}</p>
           </div>
 

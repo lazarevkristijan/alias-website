@@ -19,7 +19,10 @@ const Navbar = () => {
     <nav className={`${theme === "dark" ? "dark-nav" : "light-nav"}`}>
       <div className="nav-large">
         <ul>
-          <NavLink to="начало" />
+          <NavLink
+            to="/"
+            title="начало"
+          />
           <NavLink to="услуги" />
           <NavLink to="служители" />
         </ul>

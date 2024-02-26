@@ -3,7 +3,7 @@ import { RootState } from "../Store"
 import { useEffect } from "react"
 import { useAuth0 } from "@auth0/auth0-react"
 import { useNavigate } from "react-router"
-import { handleLogout } from "../Utils/ProfileUtils"
+import { displayPhoneNumber, handleLogout } from "../Utils/ProfileUtils"
 import { getPfpLink } from "../Utils/SettingsUtils"
 import { defaultPfpURL } from "../constants"
 import "./Profile.scss"
@@ -55,6 +55,9 @@ const Profile = () => {
               <p>{user?.last_name}</p>
             </div>
             {user.job_title && <p>{user.job_title}</p>}
+            {user.phone_number && (
+              <p>{displayPhoneNumber(user.phone_number)}</p>
+            )}
             <p>{capitalizeString(user?.role)}</p>
           </div>
           <Button onClick={() => handleLogout(auth0logout)}>Изход</Button>

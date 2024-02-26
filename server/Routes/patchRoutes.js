@@ -1,4 +1,9 @@
-import { jobTitleRegex, middleNameRegex, nameRegex } from "../Regex.js"
+import {
+  jobTitleRegex,
+  middleNameRegex,
+  nameRegex,
+  phoneRegex,
+} from "../Regex.js"
 import sql from "../db.js"
 
 export const patchChangeCreds = async (req, res) => {
@@ -11,16 +16,17 @@ export const patchChangeCreds = async (req, res) => {
     FROM users
     WHERE id = ${userId}`
 
-    const { firstName, lastName, middleName, jobTitle } = req.body
+    const { firstName, lastName, middleName, jobTitle, phoneNumber } = req.body
 
     if (
       !nameRegex.test(firstName) ||
       !nameRegex.test(lastName) ||
       !middleNameRegex.test(middleName) ||
-      !jobTitleRegex.test(jobTitle)
+      !jobTitleRegex.test(jobTitle) ||
+      !phoneRegex.test(phoneNumber)
     ) {
       return res.status(400).json({
-        error: "Име, презиме, фамилия или специялност са невалиден формат",
+        error: "Данните са с невалиден формат",
       })
     }
 
@@ -58,6 +64,15 @@ export const patchChangeCreds = async (req, res) => {
         WHERE id = ${userId}`
 
       updatedUser = { ...updatedUser, job_title: jobTitle }
+    }
+
+    if (user[0].phone_number !== phoneNumber) {
+      await sql`
+      UPDATE users
+      SET phone_number = ${phoneNumber}
+      WHERE id = ${userId}`
+
+      updatedUser = { ...updatedUser, phone_number: phoneNumber }
     }
 
     return res.json(updatedUser)
@@ -167,16 +182,25 @@ export const patchEditService = async (req, res) => {
 
 export const patchAdminChangeCreds = async (req, res) => {
   try {
-    const { id, first_name, last_name, middle_name, job_title, role } = req.body
+    const {
+      id,
+      first_name,
+      last_name,
+      middle_name,
+      job_title,
+      phone_number,
+      role,
+    } = req.body
 
     if (
       !nameRegex.test(first_name) ||
       !nameRegex.test(last_name) ||
       !middleNameRegex.test(middle_name) ||
-      !jobTitleRegex.test(job_title)
+      !jobTitleRegex.test(job_title) ||
+      !phoneRegex.test(phone_number)
     ) {
       return res.status(400).json({
-        error: "Име, презиме, фамилия или специялност са невалиден формат",
+        error: "Данните са с невалиден формат",
       })
     }
 
@@ -184,7 +208,7 @@ export const patchAdminChangeCreds = async (req, res) => {
     UPDATE users
     SET first_name = ${first_name}, last_name = ${last_name}, middle_name = ${middle_name},job_title = ${job_title}, role_id = ${
       role === "админ" ? 3 : role === "служител" ? 2 : 1
-    }
+    }, phone_number = ${phone_number}
     WHERE id = ${id}`
 
     res.json({ success: "Успешно променени лични данни от админ" })
