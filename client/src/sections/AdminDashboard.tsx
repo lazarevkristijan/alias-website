@@ -51,6 +51,9 @@ const AdminDashboard = () => {
                 {singleUser?.middle_name && (
                   <p>Презиме: {singleUser?.middle_name}</p>
                 )}
+                {singleUser?.job_title && (
+                  <p>Специялност: {singleUser?.job_title}</p>
+                )}
                 <p>Имейл: {singleUser?.email}</p>
                 <p>Роля: {singleUser?.role}</p>
 

@@ -7,6 +7,7 @@ export type SessionSliceTypes = {
     email: string
     profile_picture: string
     role: string
+    job_title: string
   } | null
 }
 
@@ -22,6 +23,7 @@ export type UserTypes = {
   email: string
   profile_picture: string
   role: string
+  job_title: string
 } | null
 
 export type ServiceTypes = {
@@ -55,6 +57,7 @@ export type ProviderServiceShowcaseTypes = {
   provider_id: number
   service_id: number
   profile_picture: string
+  job_title: string
 }
 
 export type ProviderTypes = {
@@ -65,14 +68,7 @@ export type ProviderTypes = {
   email: string
   role_id: number
   profile_picture: string
-}
-
-export type SingleServiceProviderTypes = {
-  id: number
-  first_name: string
-  provider_id: number
-  service_id: number
-  profile_picture: string
+  job_title: string
 }
 
 export type SingleServiceTypes = {
@@ -90,4 +86,5 @@ export type AdminEditUserDataTypes = {
   email: string
   profile_picture: string
   role: string
+  job_title: string
 }

@@ -96,6 +96,7 @@ const SingleService = () => {
                   />
 
                   <p>{provider.first_name}</p>
+                  <p>{provider.job_title}</p>
                   <Button
                     onClick={() =>
                       navigate(`/служител/${provider.provider_id}`)

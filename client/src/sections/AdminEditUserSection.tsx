@@ -9,7 +9,7 @@ import {
   handleAdminUserDelete,
 } from "../Utils/AdminUtils"
 import { handleFileChange } from "../Utils/SharedUtils"
-import { middleNameRegex, nameRegex } from "../Regex"
+import { jobTitleRegex, middleNameRegex, nameRegex } from "../Regex"
 import { useNavigate } from "react-router"
 import Button from "../components/Shared/Button"
 
@@ -24,6 +24,7 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
     email: fetchedUser?.email || "",
     profile_picture: fetchedUser?.profile_picture || "",
     role: fetchedUser?.role || "",
+    job_title: fetchedUser?.job_title || "",
   })
 
   const [changedFields, setChangedFields] = useState({
@@ -32,6 +33,7 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
     middle_name: false,
     profile_picture: false,
     role: false,
+    job_title: false,
   })
 
   const [profilePicture, setProfilePicture] = useState<File | null>(null)
@@ -196,7 +198,7 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
       >
         <label htmlFor="admin-edit-user-first-name">Име</label>
         <input
-          value={newUserData.first_name || ""}
+          value={newUserData.first_name}
           onChange={(e) => {
             if (!changedFields.first_name) {
               setChangedFields((prev) => ({ ...prev, first_name: true }))
@@ -225,7 +227,7 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
       >
         <label htmlFor="admin-edit-user-last-name">Фамилия</label>
         <input
-          value={newUserData.last_name || ""}
+          value={newUserData.last_name}
           onChange={(e) => {
             if (!changedFields.last_name) {
               setChangedFields((prev) => ({ ...prev, last_name: true }))
@@ -253,7 +255,7 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
       >
         <label htmlFor="admin-edit-user-middle-name">Презиме</label>
         <input
-          value={newUserData.middle_name || ""}
+          value={newUserData.middle_name}
           onChange={(e) => {
             if (!changedFields.middle_name) {
               setChangedFields((prev) => ({ ...prev, middle_name: true }))
@@ -272,6 +274,37 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
           maxLength={50}
         />
       </div>
+
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: 5,
+        }}
+      >
+        <label htmlFor="admin-edit-user-job-title">Специялност</label>
+        <input
+          value={newUserData.job_title}
+          onChange={(e) => {
+            if (!changedFields.job_title) {
+              setChangedFields((prev) => ({ ...prev, job_title: true }))
+            }
+            setNewUserData({ ...newUserData, job_title: e.target.value })
+          }}
+          id="admin-edit-user-job-title"
+          style={{
+            backgroundColor:
+              !jobTitleRegex.test(newUserData.job_title) &&
+              changedFields.job_title
+                ? "red"
+                : "#fff",
+            textTransform: "capitalize",
+          }}
+          maxLength={50}
+        />
+      </div>
+
       <label htmlFor="admin-edit-user-role">Роля</label>
       <select
         value={newUserData.role || ""}
@@ -298,12 +331,15 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
           !nameRegex.test(newUserData.first_name) ||
           !nameRegex.test(newUserData.last_name) ||
           !middleNameRegex.test(newUserData.middle_name) ||
+          !jobTitleRegex.test(newUserData.job_title) ||
           (nameRegex.test(newUserData.first_name) &&
             fetchedUser.first_name === newUserData.first_name &&
             nameRegex.test(newUserData.last_name) &&
             fetchedUser.last_name === newUserData.last_name &&
             middleNameRegex.test(newUserData.middle_name) &&
             fetchedUser.middle_name === newUserData.middle_name &&
+            jobTitleRegex.test(newUserData.job_title) &&
+            fetchedUser.job_title === newUserData.job_title &&
             fetchedUser.role === newUserData.role)
         }
       >

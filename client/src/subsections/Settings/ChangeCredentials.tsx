@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { middleNameRegex, nameRegex } from "../../Regex"
+import { jobTitleRegex, middleNameRegex, nameRegex } from "../../Regex"
 import { handleChangeCredentials } from "../../Utils/ProfileUtils"
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../../Store"
@@ -13,23 +13,26 @@ const ChangeCredentials = () => {
     firstName: user?.first_name || "",
     lastName: user?.last_name || "",
     middleName: user?.middle_name || "",
+    jobTitle: user?.job_title || "",
   })
 
   const initialUserData = {
     firstName: user?.first_name || "",
     lastName: user?.last_name || "",
     middleName: user?.middle_name || "",
+    jobTitle: user?.job_title || "",
   }
 
   const [changedFields, setChangedFields] = useState({
     firstName: false,
     lastName: false,
     middleName: false,
+    jobTitle: false,
   })
 
   return (
     <section className="settings-change-creds">
-      <h4>Промени имена</h4>
+      <h4>Промени детайли</h4>
       <form
         onSubmit={(e) => {
           handleChangeCredentials(e, userData, user, dispatch)
@@ -99,18 +102,41 @@ const ChangeCredentials = () => {
           />
         </div>
 
+        <div>
+          <label htmlFor="new_user_job_title">Специялност</label>
+          <input
+            type="text"
+            id="new_user_job_title"
+            value={userData.jobTitle}
+            onChange={(e) => {
+              if (!changedFields.jobTitle) {
+                setChangedFields({ ...changedFields, jobTitle: true })
+              }
+              setUserData({ ...userData, jobTitle: e.target.value })
+            }}
+            style={{
+              backgroundColor:
+                !jobTitleRegex.test(userData.jobTitle) && changedFields.jobTitle
+                  ? "red"
+                  : "#fff",
+            }}
+          />
+        </div>
+
         <Button
           type="submit"
           disabled={
             !nameRegex.test(userData.firstName) ||
             !nameRegex.test(userData.lastName) ||
             !middleNameRegex.test(userData.middleName) ||
+            !jobTitleRegex.test(userData.jobTitle) ||
             (nameRegex.test(userData.firstName) &&
               initialUserData.firstName === userData.firstName &&
               nameRegex.test(userData.lastName) &&
               initialUserData.lastName === userData.lastName &&
               middleNameRegex.test(userData.middleName) &&
-              initialUserData.middleName === userData.middleName)
+              initialUserData.jobTitle === userData.jobTitle &&
+              jobTitleRegex.test(userData.jobTitle))
           }
         >
           Спази

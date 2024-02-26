@@ -3,7 +3,7 @@ import sql from "../db.js"
 export const getAllUsers = async (req, res) => {
   try {
     const allUsers = await sql`
-    SELECT a.id, a.first_name, a.last_name, a.email, a.profile_picture, a.middle_name, b.name as role FROM users as a
+    SELECT a.id, a.first_name, a.last_name, a.email, a.profile_picture, a.middle_name, a.job_title, b.name as role FROM users as a
     JOIN user_roles as b
     ON a.role_id = b.id`
 
@@ -112,7 +112,7 @@ export const getSingleServiceProviders = async (req, res) => {
     const { id } = req.params
 
     const providers = await sql`
-    SELECT a.id, a.provider_id, a.service_id, b.first_name, b.profile_picture FROM service_providers as a
+    SELECT a.provider_id, a.service_id, b.first_name, b.job_title, b.profile_picture FROM service_providers as a
     JOIN users as b
     ON a.provider_id = b.id
     WHERE a.service_id = ${id}`
@@ -224,7 +224,7 @@ export const getSingleUser = async (req, res) => {
     const { id } = req.params
 
     const user = await sql`
-    SELECT a.id, a.first_name, a.last_name, a.email, a.profile_picture, a.middle_name, b.name as role FROM users as a
+    SELECT a.id, a.first_name, a.last_name, a.email, a.profile_picture, a.middle_name, a.job_title, b.name as role FROM users as a
     JOIN user_roles as b
     ON a.role_id = b.id
     WHERE a.id = ${id}`

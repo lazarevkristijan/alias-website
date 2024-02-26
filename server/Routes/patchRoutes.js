@@ -1,4 +1,4 @@
-import { middleNameRegex, nameRegex } from "../Regex.js"
+import { jobTitleRegex, middleNameRegex, nameRegex } from "../Regex.js"
 import sql from "../db.js"
 
 export const patchChangeCreds = async (req, res) => {
@@ -11,15 +11,17 @@ export const patchChangeCreds = async (req, res) => {
     FROM users
     WHERE id = ${userId}`
 
-    const { firstName, lastName, middleName } = req.body
+    const { firstName, lastName, middleName, jobTitle } = req.body
 
     if (
       !nameRegex.test(firstName) ||
-      !nameRegex.test(lastName || !middleNameRegex.test(middleName))
+      !nameRegex.test(lastName) ||
+      !middleNameRegex.test(middleName) ||
+      !jobTitleRegex.test(jobTitle)
     ) {
-      return res
-        .status(400)
-        .json({ error: "Име, презиме или фамилно име са невалиден формат" })
+      return res.status(400).json({
+        error: "Име, презиме, фамилия или специялност са невалиден формат",
+      })
     }
 
     if (user[0].first_name !== firstName) {
@@ -47,6 +49,15 @@ export const patchChangeCreds = async (req, res) => {
         WHERE id = ${userId}`
 
       updatedUser = { ...updatedUser, middle_name: middleName }
+    }
+
+    if (user[0].job_title !== jobTitle) {
+      await sql`
+        UPDATE users
+        SET job_title = ${jobTitle}
+        WHERE id = ${userId}`
+
+      updatedUser = { ...updatedUser, job_title: jobTitle }
     }
 
     return res.json(updatedUser)
@@ -156,11 +167,22 @@ export const patchEditService = async (req, res) => {
 
 export const patchAdminChangeCreds = async (req, res) => {
   try {
-    const { id, first_name, last_name, middle_name, role } = req.body
+    const { id, first_name, last_name, middle_name, job_title, role } = req.body
+
+    if (
+      !nameRegex.test(first_name) ||
+      !nameRegex.test(last_name) ||
+      !middleNameRegex.test(middle_name) ||
+      !jobTitleRegex.test(job_title)
+    ) {
+      return res.status(400).json({
+        error: "Име, презиме, фамилия или специялност са невалиден формат",
+      })
+    }
 
     await sql`
     UPDATE users
-    SET first_name = ${first_name}, last_name = ${last_name}, middle_name = ${middle_name}, role_id = ${
+    SET first_name = ${first_name}, last_name = ${last_name}, middle_name = ${middle_name},job_title = ${job_title}, role_id = ${
       role === "админ" ? 3 : role === "служител" ? 2 : 1
     }
     WHERE id = ${id}`

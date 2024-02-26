@@ -62,6 +62,7 @@ const ProviderProfile = () => {
             <p>Име: {provider?.first_name}</p>
             {provider?.middle_name && <p>Презиме: {provider?.middle_name}</p>}
             <p>Фамилия: {provider?.last_name}</p>
+            <p>Специялност: {provider?.job_title}</p>
             <p>Имейл: {provider?.email}</p>
           </div>
 

@@ -47,13 +47,14 @@ const Profile = () => {
                 borderRadius: "50%",
                 border: "2px solid #000",
               }}
-              alt={`профилна картинка на ${user?.first_name}`}
+              alt={`Профилна снимка на ${user?.first_name}`}
             />
             <div className="full-name-profile">
               <p>{user?.first_name}</p>
               {user.middle_name && <p>{user?.middle_name}</p>}
               <p>{user?.last_name}</p>
             </div>
+            {user.job_title && <p>{user.job_title}</p>}
             <p>{capitalizeString(user?.role)}</p>
           </div>
           <Button onClick={() => handleLogout(auth0logout)}>Изход</Button>

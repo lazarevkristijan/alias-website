@@ -28,6 +28,7 @@ const ProviderCard = ({ provider }: { provider: ProviderTypes }) => {
           borderRadius: "50%",
         }}
       />
+      {provider.job_title && <p>{provider.job_title}</p>}
 
       <Button
         onClick={() => {
