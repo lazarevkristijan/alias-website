@@ -11,3 +11,16 @@ p.single-service-tag {
   margin-bottom: 10px;
   border-radius: 10px;
 }
+
+.edit-service-dialog {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 350px;
+}
+
+.service-current-providers-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}

@@ -59,7 +59,6 @@ export type ProviderServiceShowcaseTypes = {
   provider_id: number
   service_id: number
   profile_picture: string
-  job_title: string
 }
 
 export type ProviderTypes = {

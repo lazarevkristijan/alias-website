@@ -44,6 +44,23 @@ input {
   outline: none;
 }
 
+.label-dark-bg {
+  background-color: #444;
+  color: #fff;
+}
+.label-light-bg {
+  background-color: #fff;
+  color: #000;
+}
+
+select {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 5px;
+}
+
 button {
   padding-top: 7.5px;
   padding-bottom: 7.5px;

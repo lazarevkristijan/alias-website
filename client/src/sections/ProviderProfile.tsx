@@ -60,14 +60,16 @@ const ProviderProfile = () => {
               height={100}
               style={{ borderRadius: "50%" }}
             />
-            <p>Име: {provider?.first_name}</p>
-            {provider?.middle_name && <p>Презиме: {provider?.middle_name}</p>}
-            <p>Фамилия: {provider?.last_name}</p>
-            {provider?.job_title && <p>Специялност: {provider?.job_title}</p>}
+            <p className="label-dark-bg">
+              {provider?.first_name}{" "}
+              {provider?.middle_name && provider?.middle_name + " "}
+              {provider?.last_name}
+            </p>
+            {provider?.job_title && <p>{provider?.job_title}</p>}
             {provider?.phone_number && (
-              <p>Номер: {displayPhoneNumber(provider?.phone_number)}</p>
+              <p>{displayPhoneNumber(provider?.phone_number)}</p>
             )}
-            <p>Имейл: {provider?.email}</p>
+            <p>{provider?.email}</p>
           </div>
 
           <h2>Услуги които предлага {provider?.first_name}</h2>

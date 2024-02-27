@@ -15,6 +15,8 @@ import { useQuery } from "@tanstack/react-query"
 import { getPfpLink } from "../../Utils/SettingsUtils"
 import { getAllServiceProviders } from "../../Utils/ServiceProvidersUtils"
 import Button from "../Shared/Button"
+import { useSelector } from "react-redux"
+import { RootState } from "../../Store"
 
 const EditServiceDialog = ({
   service,
@@ -79,13 +81,15 @@ const EditServiceDialog = ({
     return () => clearTimeout(addValueTimeout)
   }, [waitedSearchValue])
 
+  const theme = useSelector((state: RootState) => state.theme.current)
+
   return (
     <div
+      className={`edit-service-dialog card-padding ${
+        theme === "dark" ? "black-bg" : "white-bg"
+      }`}
       style={{
         display: isOpen ? "block" : "none",
-        width: "fit-content",
-        height: "fit-content",
-        backgroundColor: "red",
       }}
     >
       {areServiceProvidersFetching || areServiceCategoriesFetching ? (
@@ -152,7 +156,6 @@ const EditServiceDialog = ({
             )}
             <br />
             <br />
-
             <label htmlFor="new_service_price">Цена: </label>
             <input
               type="text"
@@ -172,149 +175,157 @@ const EditServiceDialog = ({
                     : "#fff",
               }}
             />
-
-            <p>CURRENT PROVIDERS</p>
-            {selectedProviders.map(
-              (serviceAndProvider: ProviderServiceShowcaseTypes) => (
-                <div
-                  key={serviceAndProvider.provider_id}
-                  style={{
-                    border: "1px solid black",
-                    width: "fit-content",
-                    height: "fit-content",
-                    minWidth: 80,
-                    minHeight: 80,
-                    textAlign: "center",
-                    paddingTop: 10,
-                    cursor: "pointer",
-                  }}
-                  onClick={() => {
-                    setChangedFields({ ...changedFields, providers: true })
-                    setServiceData({
-                      ...serviceData,
-                      providers: serviceData.providers.filter(
-                        (p) =>
-                          p.service_id !== serviceAndProvider.service_id &&
-                          p.provider_id !== serviceAndProvider.provider_id
-                      ),
-                    })
-
-                    setSelectedProviders(
-                      selectedProviders.filter(
-                        (p) =>
-                          p.service_id !== serviceAndProvider.service_id &&
-                          p.provider_id !== serviceAndProvider.provider_id
-                      )
-                    )
-                  }}
-                >
-                  <img
-                    src={getPfpLink(serviceAndProvider.profile_picture)}
-                    alt={`Профилна снимка на ${serviceAndProvider.first_name}`}
+            <p>Настоящи служители</p>
+            <div className="service-current-providers-container">
+              {selectedProviders.map(
+                (serviceAndProvider: ProviderServiceShowcaseTypes) => (
+                  <div
+                    key={serviceAndProvider.provider_id}
+                    className={`card-padding ${
+                      theme === "dark" ? "btn-dark-bg" : "btn-light-bg"
+                    }`}
                     style={{
-                      width: "50px",
-                      height: "50px",
-                      borderRadius: "50%",
+                      width: "fit-content",
+                      height: "fit-content",
+                      minWidth: 80,
+                      minHeight: 80,
+                      textAlign: "center",
+                      paddingTop: 10,
+                      cursor: "pointer",
                     }}
-                  />
+                    onClick={() => {
+                      setChangedFields({ ...changedFields, providers: true })
+                      setServiceData({
+                        ...serviceData,
+                        providers: serviceData.providers.filter(
+                          (p) =>
+                            p.service_id !== serviceAndProvider.service_id &&
+                            p.provider_id !== serviceAndProvider.provider_id
+                        ),
+                      })
 
-                  <p>{serviceAndProvider.first_name}</p>
-                </div>
-              )
-            )}
+                      setSelectedProviders(
+                        selectedProviders.filter(
+                          (p) =>
+                            p.service_id !== serviceAndProvider.service_id &&
+                            p.provider_id !== serviceAndProvider.provider_id
+                        )
+                      )
+                    }}
+                  >
+                    <img
+                      src={getPfpLink(serviceAndProvider.profile_picture)}
+                      alt={`Профилна снимка на ${serviceAndProvider.first_name}`}
+                      style={{
+                        width: "50px",
+                        height: "50px",
+                        borderRadius: "50%",
+                      }}
+                    />
 
-            <p>ADD PROVIDERS</p>
+                    <p>{serviceAndProvider.first_name}</p>
+                  </div>
+                )
+              )}
+            </div>
+
+            <p>Добави служители</p>
             <input
               type="text"
               value={waitedSearchValue}
               onChange={(e) => setWaitedSearchValue(e.target.value)}
             />
-            {allServiceProviders
-              ?.filter(
-                (provider) =>
-                  provider.first_name
-                    .toLowerCase()
-                    .includes(providerSearchValue.toLowerCase()) ||
-                  provider.last_name
-                    .toLowerCase()
-                    .includes(providerSearchValue.toLowerCase()) ||
-                  provider.middle_name
-                    .toLowerCase()
-                    .includes(providerSearchValue.toLowerCase()) ||
-                  provider.email
-                    .toLowerCase()
-                    .includes(providerSearchValue.toLowerCase())
-              )
-              .filter(
-                (provider) =>
-                  !selectedProviders
-                    .map((serviceAndProvider) => serviceAndProvider.provider_id)
-                    .includes(provider.id)
-              )
-              .map((provider) => (
-                <div
-                  key={provider.id}
-                  style={{
-                    border: "1px solid black",
-                    width: "fit-content",
-                    height: "fit-content",
-                    minWidth: 80,
-                    minHeight: 80,
-                    textAlign: "center",
-                    paddingTop: 10,
-                    cursor: "pointer",
-                  }}
-                  onClick={() => {
-                    if (
-                      serviceData.providers
-                        .map(
-                          (serviceAndProvider) => serviceAndProvider.provider_id
-                        )
-                        .includes(provider.id)
-                    )
-                      return
+            {waitedSearchValue !== "" &&
+              allServiceProviders
+                ?.filter(
+                  (provider) =>
+                    provider.first_name
+                      .toLowerCase()
+                      .includes(providerSearchValue.toLowerCase()) ||
+                    provider.last_name
+                      .toLowerCase()
+                      .includes(providerSearchValue.toLowerCase()) ||
+                    (provider.middle_name &&
+                      provider.middle_name
+                        .toLowerCase()
+                        .includes(providerSearchValue.toLowerCase())) ||
+                    provider.email
+                      .toLowerCase()
+                      .includes(providerSearchValue.toLowerCase())
+                )
+                .filter(
+                  (provider) =>
+                    !selectedProviders
+                      .map(
+                        (serviceAndProvider) => serviceAndProvider.provider_id
+                      )
+                      .includes(provider.id)
+                )
+                .map((provider) => (
+                  <div
+                    key={provider.id}
+                    style={{
+                      border: "1px solid black",
+                      width: "fit-content",
+                      height: "fit-content",
+                      minWidth: 80,
+                      minHeight: 80,
+                      textAlign: "center",
+                      paddingTop: 10,
+                      cursor: "pointer",
+                    }}
+                    onClick={() => {
+                      if (
+                        serviceData.providers
+                          .map(
+                            (serviceAndProvider) =>
+                              serviceAndProvider.provider_id
+                          )
+                          .includes(provider.id)
+                      )
+                        return
 
-                    setWaitedSearchValue("")
-                    setProviderSearchValue("")
+                      setWaitedSearchValue("")
+                      setProviderSearchValue("")
 
-                    setChangedFields({ ...changedFields, providers: true })
+                      setChangedFields({ ...changedFields, providers: true })
 
-                    setServiceData({
-                      ...serviceData,
-                      providers: [
-                        ...serviceData.providers,
+                      setServiceData({
+                        ...serviceData,
+                        providers: [
+                          ...serviceData.providers,
+                          {
+                            first_name: provider.first_name,
+                            profile_picture: provider.profile_picture,
+                            provider_id: provider.id,
+                            service_id: service.id,
+                          },
+                        ],
+                      })
+
+                      setSelectedProviders([
+                        ...selectedProviders,
                         {
                           first_name: provider.first_name,
                           profile_picture: provider.profile_picture,
                           provider_id: provider.id,
                           service_id: service.id,
                         },
-                      ],
-                    })
-
-                    setSelectedProviders([
-                      ...selectedProviders,
-                      {
-                        first_name: provider.first_name,
-                        profile_picture: provider.profile_picture,
-                        provider_id: provider.id,
-                        service_id: service.id,
-                      },
-                    ])
-                  }}
-                >
-                  {provider.first_name} <br style={{ paddingBottom: 2 }} />
-                  <img
-                    src={getPfpLink(provider.profile_picture)}
-                    alt={`${provider.first_name}'s profile picture`}
-                    style={{
-                      width: "50px",
-                      height: "50px",
-                      borderRadius: "50%",
+                      ])
                     }}
-                  />
-                </div>
-              ))}
+                  >
+                    <img
+                      src={getPfpLink(provider.profile_picture)}
+                      alt={`${provider.first_name}'s profile picture`}
+                      style={{
+                        width: "50px",
+                        height: "50px",
+                        borderRadius: "50%",
+                      }}
+                    />
+                    {provider.first_name} <br style={{ paddingBottom: 2 }} />
+                  </div>
+                ))}
             <Button
               type="submit"
               disabled={

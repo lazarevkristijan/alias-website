@@ -43,13 +43,19 @@ const Home = () => {
     return () => clearTimeout(timeout)
   }, [awaitedSearchValue])
 
+  const [isHeroBgLoading, setIsHeroBgLoading] = useState(true)
   if (!allCategories) return
+
+  const heroBg = new Image()
+  heroBg.onload = () => {
+    document.querySelector(".hero")?.classList.add("hero-bg")
+    setIsHeroBgLoading(false)
+  }
+  heroBg.src = "/hero.jpg"
 
   return (
     <section>
-      {areServicesLoading || areCategoriesLoading ? (
-        <p>Зареждане...</p>
-      ) : (
+      {!isHeroBgLoading && (
         <>
           <section className={`hero`}>
             <h1 className={`${theme === "dark" ? "black-bg" : "white-bg"}`}>
@@ -62,38 +68,48 @@ const Home = () => {
                 value={awaitedSearchValue}
                 placeholder="Услуга"
               />
-              {searchValue !== "" && (
-                <div
-                  className={`services-results-container box-shadow ${
-                    theme === "dark" ? "black-bg" : "white-bg"
-                  }`}
-                >
-                  {allServices
-                    ?.filter((service) =>
+              {searchValue !== "" &&
+                !areCategoriesLoading &&
+                !areServicesLoading && (
+                  <div
+                    className={`services-results-container box-shadow ${
+                      theme === "dark" ? "black-bg" : "white-bg"
+                    }`}
+                  >
+                    {allServices?.filter((service) =>
                       service.name
                         .toLowerCase()
                         .includes(searchValue.toLowerCase())
-                    )
-                    .map((service) => (
-                      <div
-                        className="service-result"
-                        key={service.id}
-                      >
-                        <span>{service.name}</span>
-                        <span>{service.price}лв.</span>
-                        <Button
-                          onClick={() =>
-                            navigate(
-                              `/услуги/${service.category}/${service.id}`
-                            )
-                          }
-                        >
-                          Подробности
-                        </Button>
-                      </div>
-                    ))}
-                </div>
-              )}
+                    ).length !== 0 ? (
+                      allServices
+                        ?.filter((service) =>
+                          service.name
+                            .toLowerCase()
+                            .includes(searchValue.toLowerCase())
+                        )
+                        .map((service) => (
+                          <div
+                            className="service-result"
+                            key={service.id}
+                          >
+                            <span>{service.name}</span>
+                            <span>{service.price}лв.</span>
+                            <Button
+                              onClick={() =>
+                                navigate(
+                                  `/услуги/${service.category}/${service.id}`
+                                )
+                              }
+                            >
+                              Подробности
+                            </Button>
+                          </div>
+                        ))
+                    ) : (
+                      <p>Няма такави усуги</p>
+                    )}
+                  </div>
+                )}
             </div>
           </section>
 
