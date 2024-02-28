@@ -26,23 +26,21 @@ const Providers = () => {
       {areProvidersLoading ? (
         "Зареждане..."
       ) : (
-        <>
-          <section>
-            <h2>Всички служители:</h2>
-            <div
-              className={`service-providers-container ${
-                theme === "dark" ? "dark-bg" : "light-bg"
-              }`}
-            >
-              {providers.map((provider: ProviderTypes) => (
-                <ProviderCard
-                  provider={provider}
-                  key={provider.id}
-                />
-              ))}
-            </div>
-          </section>
-        </>
+        <section>
+          <h2>Всички служители:</h2>
+          <div
+            className={`service-providers-container ${
+              theme === "dark" ? "dark-bg" : "light-bg"
+            }`}
+          >
+            {providers.map((provider: ProviderTypes) => (
+              <ProviderCard
+                provider={provider}
+                key={provider.id}
+              />
+            ))}
+          </div>
+        </section>
       )}
     </section>
   )

@@ -8,10 +8,12 @@ import { UserTypes } from "../Types"
 import { getPfpLink } from "../Utils/SettingsUtils"
 import { defaultPfpURL } from "../constants"
 import Button from "../components/Shared/Button"
+import "./AdminDashboard.scss"
 
 const AdminDashboard = () => {
   const navigate = useNavigate()
   const user = useSelector((state: RootState) => state.session.user)
+  const theme = useSelector((state: RootState) => state.theme.current)
 
   useEffect(() => {
     if (user?.role !== "админ") {
@@ -25,20 +27,19 @@ const AdminDashboard = () => {
   })
 
   return (
-    <div>
+    <section className={`${theme === "dark" ? "dark-bg" : "light-bg"}`}>
       {areUsersLoading ? (
         <p>Зареждане...</p>
       ) : (
-        <>
+        <section className="admin-dashboard">
           <h2>Всички потребители:</h2>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 30 }}>
+          <div className="admin-dashboard-users-container">
             {allUsers?.map((singleUser) => (
               <div
                 key={singleUser?.id}
-                style={{
-                  textAlign: "center",
-                  padding: 15,
-                }}
+                className={`admin-dashboard-single-user card-padding ${
+                  theme === "dark" ? "black-bg" : "white-bg"
+                }`}
               >
                 <img
                   src={getPfpLink(singleUser?.profile_picture || defaultPfpURL)}
@@ -46,7 +47,13 @@ const AdminDashboard = () => {
                   style={{ width: 100, height: 100, borderRadius: "50%" }}
                 />
                 <p>ID: {singleUser?.id}</p>
-                <p>Име: {singleUser?.first_name}</p>
+                <p
+                  className={`${
+                    theme === "dark" ? "label-dark-bg" : "label-white-bg"
+                  } `}
+                >
+                  Име: {singleUser?.first_name}
+                </p>
                 <p>Фамилия: {singleUser?.last_name}</p>
                 {singleUser?.middle_name && (
                   <p>Презиме: {singleUser?.middle_name}</p>
@@ -63,9 +70,9 @@ const AdminDashboard = () => {
               </div>
             ))}
           </div>
-        </>
+        </section>
       )}
-    </div>
+    </section>
   )
 }
 
