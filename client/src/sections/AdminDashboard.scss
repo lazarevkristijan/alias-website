@@ -8,3 +8,23 @@
 .admin-dashboard-single-user {
   text-align: center;
 }
+
+.admin-edit-user-section {
+  width: fit-content;
+  height: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.admin-edit-user-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 10px;
+}
+
+@media (max-width: 768px) {
+  .admin-edit-user-label {
+    flex-direction: column;
+  }
+}

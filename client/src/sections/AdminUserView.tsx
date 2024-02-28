@@ -12,6 +12,7 @@ const AdminUserView = () => {
   const { id } = useParams()
 
   const user = useSelector((state: RootState) => state.session.user)
+  const theme = useSelector((state: RootState) => state.theme.current)
 
   useEffect(() => {
     if (user?.role !== "админ") {
@@ -29,24 +30,15 @@ const AdminUserView = () => {
   if (!fetchedUser) return
 
   return (
-    <div>
+    <section className={` ${theme === "dark" ? "dark-bg" : "light-bg"}`}>
       {isUserFetching ? (
         <p>Loading...</p>
       ) : (
-        <div
-          style={{
-            width: "fit-content",
-            padding: 10,
-            textAlign: "center",
-            marginLeft: "auto",
-            marginRight: "auto",
-            marginTop: 10,
-          }}
-        >
+        <>
           <AdminEditUserSection fetchedUser={fetchedUser} />
-        </div>
+        </>
       )}
-    </div>
+    </section>
   )
 }
 
