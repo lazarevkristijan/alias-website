@@ -21,7 +21,7 @@ const Button = ({
       onClick={onClick}
       className={`${
         theme === "dark" ? "btn-dark-bg" : "btn-light-bg"
-      } ${extraClasses}`}
+      } ${extraClasses || ''}`}
       disabled={disabled}
       type={type}
     >

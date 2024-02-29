@@ -10,6 +10,7 @@ import { defaultPfpURL } from "../constants"
 import Button from "../components/Shared/Button"
 import "./AdminDashboard.scss"
 import { capitalizeString } from "../Utils/SharedUtils"
+import { displayPhoneNumber } from "../Utils/ProfileUtils"
 
 const AdminDashboard = () => {
   const navigate = useNavigate()
@@ -61,7 +62,11 @@ const AdminDashboard = () => {
                 <p>{singleUser?.job_title || "Няма Специялност"}</p>
                 <p>{singleUser?.email}</p>
                 <p>{capitalizeString(singleUser?.role || "")}</p>
-                <p>{singleUser?.phone_number || "Няма номер"}</p>
+
+                <p>
+                  {displayPhoneNumber(singleUser?.phone_number || "") ||
+                    "Няма номер"}
+                </p>
                 <Button onClick={() => navigate(`user/${singleUser?.id}`)}>
                   Подробности
                 </Button>

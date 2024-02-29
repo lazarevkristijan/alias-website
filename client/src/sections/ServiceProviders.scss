@@ -6,18 +6,13 @@
 
 .service-providers-container {
   display: flex;
-  align-items: stretch;
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
-  flex: 1;
 }
 
 .provider-card {
   min-width: 200px;
-  max-width: fit-content;
-  min-height: 100px;
-  max-height: fit-content;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
