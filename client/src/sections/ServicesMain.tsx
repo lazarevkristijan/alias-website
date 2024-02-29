@@ -49,10 +49,11 @@ const ServicesMain = () => {
               >
                 Добави услуга
               </Button>
-              <AddServiceDialog
-                isOpen={isAddDialogOpen}
-                setIsOpen={setIsAddDialogOpen}
-              />
+              {isAddDialogOpen && (
+                <AddServiceDialog
+                  setIsOpen={setIsAddDialogOpen}
+                />
+              )}
             </>
           )}
         </section>

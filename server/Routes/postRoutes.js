@@ -75,7 +75,7 @@ export const postAddService = async (req, res) => {
     providers.forEach(async (element) => {
       await sql`
       INSERT INTO service_providers(provider_id, service_id)
-      VALUES(${element}, ${newServiceId[0].id})`
+      VALUES(${element.id}, ${newServiceId[0].id})`
     })
 
     return res.json({ success: "Service added" })

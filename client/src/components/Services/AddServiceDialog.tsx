@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import {
+  capitalizeString,
   getAllServiceCategories,
   handleAddService,
 } from "../../Utils/SharedUtils"
@@ -17,10 +18,8 @@ import { useSelector } from "react-redux"
 import { RootState } from "../../Store"
 
 const AddServiceDialog = ({
-  isOpen,
   setIsOpen,
 }: {
-  isOpen: boolean
   setIsOpen: (value: React.SetStateAction<boolean>) => void
 }) => {
   const theme = useSelector((state: RootState) => state.theme.current)
@@ -31,10 +30,6 @@ const AddServiceDialog = ({
     price: "",
     providers: [],
   })
-
-  const [selectedProviders, setSelectedProviders] = useState<
-    { first_name: string; profile_picture: string; id: number }[]
-  >([])
 
   const [changedFields, setChangedFields] = useState({
     name: false,
@@ -72,12 +67,9 @@ const AddServiceDialog = ({
       className={`service-related-dialog card-padding ${
         theme === "dark" ? "black-bg" : "white-bg"
       }`}
-      style={{
-        display: isOpen ? "block" : "none",
-      }}
     >
       {areServiceCategoriesFetching || areServiceProvidersFetching ? (
-        <p>Loading...</p>
+        <p>Зареждане...</p>
       ) : (
         <>
           <Button
@@ -104,7 +96,6 @@ const AddServiceDialog = ({
                 })
                 setProviderSearchValue("")
                 setWaitedSearchValue("")
-                setSelectedProviders([])
               })
             }
           >
@@ -113,7 +104,7 @@ const AddServiceDialog = ({
               id="new_service_name"
               autoComplete="off"
               type="text"
-              placeholder="Пране..."
+              placeholder="Пране"
               value={serviceData.name}
               onChange={(e) => {
                 if (!changedFields.name) {
@@ -146,7 +137,7 @@ const AddServiceDialog = ({
                   key={cat.id}
                   value={cat.name}
                 >
-                  {cat.name.charAt(0).toUpperCase() + cat.name.slice(1)}
+                  {capitalizeString(cat.name)}
                 </option>
               ))}
             </select>
@@ -170,6 +161,7 @@ const AddServiceDialog = ({
                     : "#fff",
               }}
             />
+
             <p>Търси служители:</p>
             <input
               value={waitedSearchValue}
@@ -195,7 +187,7 @@ const AddServiceDialog = ({
                         .includes(providerSearchValue.toLowerCase())
                   )
                   .filter(
-                    (provider) => !serviceData.providers.includes(provider.id)
+                    (provider) => !serviceData.providers.includes(provider)
                   )
                   .map((provider) => (
                     <div
@@ -204,20 +196,15 @@ const AddServiceDialog = ({
                         theme === "dark" ? "btn-dark-bg" : "btn-light-bg"
                       }`}
                       onClick={() => {
-                        if (serviceData.providers.includes(provider.id)) return
-
                         setServiceData({
                           ...serviceData,
-                          providers: [...serviceData.providers, provider.id],
+                          providers: [...serviceData.providers, provider],
                         })
 
                         setWaitedSearchValue("")
                         setProviderSearchValue("")
-
-                        setSelectedProviders([...selectedProviders, provider])
                       }}
                     >
-                      {provider.first_name} <br style={{ paddingBottom: 2 }} />
                       <img
                         src={getPfpLink(provider.profile_picture)}
                         alt={`${provider.first_name}'s profile picture`}
@@ -227,33 +214,28 @@ const AddServiceDialog = ({
                           borderRadius: "50%",
                         }}
                       />
+                      <p>{provider.first_name}</p>
                     </div>
                   ))}
             </div>
 
             <p>Изберени служители:</p>
             <div className="service-related-providers-container">
-              {selectedProviders?.map((provider) => (
+              {serviceData.providers.map((provider) => (
                 <div
                   key={provider.id}
                   className={`service-related-provider card-padding ${
                     theme === "dark" ? "btn-dark-bg" : "btn-light-bg"
                   }`}
                   onClick={() => {
-                    if (serviceData.providers.includes(provider.id)) {
-                      setServiceData({
-                        ...serviceData,
-                        providers: serviceData.providers.filter(
-                          (id) => id !== provider.id
-                        ),
-                      })
-                      setSelectedProviders(
-                        selectedProviders.filter((p) => p.id !== provider.id)
-                      )
-                    }
+                    setServiceData({
+                      ...serviceData,
+                      providers: serviceData.providers.filter(
+                        (currentProvider) => currentProvider.id !== provider.id
+                      ),
+                    })
                   }}
                 >
-                  {provider.first_name} <br style={{ paddingBottom: 2 }} />
                   <img
                     src={getPfpLink(provider.profile_picture)}
                     alt={`${provider.first_name}'s profile picture`}
@@ -263,6 +245,7 @@ const AddServiceDialog = ({
                       borderRadius: "50%",
                     }}
                   />
+                  <p>{provider.first_name}</p>
                 </div>
               ))}
             </div>
@@ -277,6 +260,7 @@ const AddServiceDialog = ({
             >
               Добави
             </Button>
+
             <Button
               onClick={() => {
                 setIsOpen(false)
@@ -297,6 +281,7 @@ const AddServiceDialog = ({
             >
               Отказ
             </Button>
+
             <Button
               onClick={() => {
                 setChangedFields({
@@ -313,7 +298,6 @@ const AddServiceDialog = ({
                 })
                 setProviderSearchValue("")
                 setWaitedSearchValue("")
-                setSelectedProviders([])
               }}
             >
               Нулиране

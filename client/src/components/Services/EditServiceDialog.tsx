@@ -20,12 +20,10 @@ import { RootState } from "../../Store"
 
 const EditServiceDialog = ({
   service,
-  isOpen,
   setIsOpen,
   serviceProviders,
 }: {
   service: ServiceTypes
-  isOpen: boolean
   setIsOpen: (value: React.SetStateAction<boolean>) => void
   serviceProviders: ProviderServiceShowcaseTypes[]
 }) => {
@@ -84,9 +82,6 @@ const EditServiceDialog = ({
       className={`service-related-dialog card-padding ${
         theme === "dark" ? "black-bg" : "white-bg"
       }`}
-      style={{
-        display: isOpen ? "block" : "none",
-      }}
     >
       {areServiceProvidersFetching || areServiceCategoriesFetching ? (
         <p>Зареждане...</p>

@@ -123,7 +123,6 @@ const SingleService = () => {
           {isEditDialogOpen && (
             <EditServiceDialog
               service={service}
-              isOpen={isEditDialogOpen}
               setIsOpen={setIsEditDialogOpen}
               serviceProviders={singleServiceProviders}
             />

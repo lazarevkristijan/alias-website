@@ -46,7 +46,7 @@ export type AddServiceTypes = {
   name: string
   price: string
   category: string
-  providers: number[]
+  providers: ProviderTypes[]
 }
 
 export type ServiceCategoryTypes = {
