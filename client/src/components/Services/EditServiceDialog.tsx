@@ -22,10 +22,12 @@ const EditServiceDialog = ({
   service,
   setIsOpen,
   serviceProviders,
+  handleDelete,
 }: {
   service: ServiceTypes
   setIsOpen: (value: React.SetStateAction<boolean>) => void
   serviceProviders: ProviderServiceShowcaseTypes[]
+  handleDelete: (id: number) => void
 }) => {
   const [serviceData, setServiceData] = useState<ModifyServiceTypes>({
     id: service.id,
@@ -319,6 +321,9 @@ const EditServiceDialog = ({
             }}
           >
             Нулиране
+          </Button>
+          <Button onClick={() => handleDelete(service.id)}>
+            Изтрий
           </Button>
         </>
       )}

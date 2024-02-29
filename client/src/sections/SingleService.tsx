@@ -125,12 +125,9 @@ const SingleService = () => {
               service={service}
               setIsOpen={setIsEditDialogOpen}
               serviceProviders={singleServiceProviders}
+              handleDelete={handleDeleteService}
             />
           )}
-
-          <Button onClick={() => handleDeleteService(service.id)}>
-            Изтрий
-          </Button>
         </section>
       )}
     </section>
