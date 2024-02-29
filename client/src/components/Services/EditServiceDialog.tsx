@@ -37,13 +37,13 @@ const EditServiceDialog = ({
     providers: [...serviceProviders],
   })
 
-  const initialServiceData = {
+  const [initialServiceData, setInitialServiceData] = useState({
     id: service.id,
     name: service.name,
     price: service.price,
     category: service.category,
     providers: [...serviceProviders],
-  }
+  })
 
   const [changedFields, setChangedFields] = useState({
     name: false,
@@ -78,11 +78,7 @@ const EditServiceDialog = ({
   }, [waitedSearchValue])
 
   const theme = useSelector((state: RootState) => state.theme.current)
-  // console.log("----------")
-  // console.log(initialServiceData.providers)
-  // console.log("----")
-  // console.log(serviceData.providers)
-  // console.log("----------")
+
   return (
     <div
       className={`edit-service-dialog card-padding ${
@@ -102,6 +98,8 @@ const EditServiceDialog = ({
           <form
             onSubmit={(e) => {
               handleEditService(e, serviceData)
+
+              setInitialServiceData(serviceData)
 
               setChangedFields({
                 name: false,
@@ -175,12 +173,12 @@ const EditServiceDialog = ({
             )}
 
             <p>Настоящи служители</p>
-            <div className="service-current-providers-container">
+            <div className="service-edit-providers-container">
               {serviceData.providers.map(
                 (serviceAndProvider: ProviderServiceShowcaseTypes) => (
                   <div
                     key={serviceAndProvider.provider_id}
-                    className={`service-current-provider card-padding ${
+                    className={`service-edit-provider card-padding ${
                       theme === "dark" ? "btn-dark-bg" : "btn-light-bg"
                     }`}
                     onClick={() => {
@@ -218,78 +216,77 @@ const EditServiceDialog = ({
               value={waitedSearchValue}
               onChange={(e) => setWaitedSearchValue(e.target.value)}
             />
-            {providerSearchValue !== "" &&
-              allServiceProviders
-                ?.filter(
-                  (provider) =>
-                    provider.first_name
-                      .toLowerCase()
-                      .includes(providerSearchValue.toLowerCase()) ||
-                    provider.last_name
-                      .toLowerCase()
-                      .includes(providerSearchValue.toLowerCase()) ||
-                    (provider.middle_name &&
-                      provider.middle_name
+            <div className="service-edit-providers-container">
+              {providerSearchValue !== "" &&
+                allServiceProviders
+                  ?.filter(
+                    (provider) =>
+                      provider.first_name
                         .toLowerCase()
-                        .includes(providerSearchValue.toLowerCase())) ||
-                    provider.email
-                      .toLowerCase()
-                      .includes(providerSearchValue.toLowerCase())
-                )
-                .filter(
-                  (provider) =>
-                    !serviceData.providers
-                      .map(
-                        (serviceAndProvider) => serviceAndProvider.provider_id
-                      )
-                      .includes(provider.id)
-                )
-                .map((provider) => (
-                  <div
-                    key={provider.id}
-                    style={{
-                      border: "1px solid black",
-                      width: "fit-content",
-                      height: "fit-content",
-                      minWidth: 80,
-                      minHeight: 80,
-                      textAlign: "center",
-                      paddingTop: 10,
-                      cursor: "pointer",
-                    }}
-                    onClick={() => {
-                      if (!changedFields.providers) {
-                        setChangedFields({ ...changedFields, providers: true })
-                      }
+                        .includes(providerSearchValue.toLowerCase()) ||
+                      provider.last_name
+                        .toLowerCase()
+                        .includes(providerSearchValue.toLowerCase()) ||
+                      (provider.middle_name &&
+                        provider.middle_name
+                          .toLowerCase()
+                          .includes(providerSearchValue.toLowerCase())) ||
+                      provider.email
+                        .toLowerCase()
+                        .includes(providerSearchValue.toLowerCase())
+                  )
+                  .filter(
+                    (provider) =>
+                      !serviceData.providers
+                        .map(
+                          (serviceAndProvider) => serviceAndProvider.provider_id
+                        )
+                        .includes(provider.id)
+                  )
+                  .map((provider) => (
+                    <div
+                      key={provider.id}
+                      className={`service-edit-provider card-padding ${
+                        theme === "dark" ? "btn-dark-bg" : "btn-light-bg"
+                      }`}
+                      onClick={() => {
+                        if (!changedFields.providers) {
+                          setChangedFields({
+                            ...changedFields,
+                            providers: true,
+                          })
+                        }
 
-                      setServiceData({
-                        ...serviceData,
-                        providers: [
-                          ...serviceData.providers,
-                          {
-                            first_name: provider.first_name,
-                            profile_picture: provider.profile_picture,
-                            provider_id: provider.id,
-                            service_id: service.id,
-                          },
-                        ],
-                      })
-                      setWaitedSearchValue("")
-                      setProviderSearchValue("")
-                    }}
-                  >
-                    <img
-                      src={getPfpLink(provider.profile_picture)}
-                      alt={`${provider.first_name}'s profile picture`}
-                      style={{
-                        width: "50px",
-                        height: "50px",
-                        borderRadius: "50%",
+                        setServiceData({
+                          ...serviceData,
+                          providers: [
+                            ...serviceData.providers,
+                            {
+                              first_name: provider.first_name,
+                              profile_picture: provider.profile_picture,
+                              provider_id: provider.id,
+                              service_id: service.id,
+                            },
+                          ],
+                        })
+                        setWaitedSearchValue("")
+                        setProviderSearchValue("")
                       }}
-                    />
-                    {provider.first_name} <br style={{ paddingBottom: 2 }} />
-                  </div>
-                ))}
+                    >
+                      <img
+                        src={getPfpLink(provider.profile_picture)}
+                        alt={`Профилна снимка на ${provider.first_name}`}
+                        style={{
+                          width: "50px",
+                          height: "50px",
+                          borderRadius: "50%",
+                        }}
+                      />
+                      <p>{provider.first_name}</p>
+                    </div>
+                  ))}
+            </div>
+
             <Button
               type="submit"
               disabled={
