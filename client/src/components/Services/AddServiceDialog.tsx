@@ -13,6 +13,8 @@ import { priceRegex, serviceNameRegex } from "../../Regex"
 import { getAllServiceProviders } from "../../Utils/ServiceProvidersUtils"
 import { getPfpLink } from "../../Utils/SettingsUtils"
 import Button from "../Shared/Button"
+import { useSelector } from "react-redux"
+import { RootState } from "../../Store"
 
 const AddServiceDialog = ({
   isOpen,
@@ -21,6 +23,8 @@ const AddServiceDialog = ({
   isOpen: boolean
   setIsOpen: (value: React.SetStateAction<boolean>) => void
 }) => {
+  const theme = useSelector((state: RootState) => state.theme.current)
+
   const [serviceData, setServiceData] = useState<AddServiceTypes>({
     name: "",
     category: "",
@@ -65,11 +69,11 @@ const AddServiceDialog = ({
 
   return (
     <div
+      className={`service-related-dialog card-padding ${
+        theme === "dark" ? "black-bg" : "white-bg"
+      }`}
       style={{
         display: isOpen ? "block" : "none",
-        width: "fit-content",
-        height: "fit-content",
-        backgroundColor: "red",
       }}
     >
       {areServiceCategoriesFetching || areServiceProvidersFetching ? (
@@ -125,8 +129,6 @@ const AddServiceDialog = ({
                     : "#fff",
               }}
             />
-            <br />
-            <br />
             <label htmlFor="new_service_category">Категория:</label>
             <select
               id="new_service_category"
@@ -148,8 +150,6 @@ const AddServiceDialog = ({
                 </option>
               ))}
             </select>
-            <br />
-            <br />
             <label htmlFor="new_service_price">Цена в лв:</label>
             <input
               id="new_service_price"
@@ -170,43 +170,87 @@ const AddServiceDialog = ({
                     : "#fff",
               }}
             />
-            <br />
-            <br />
             <p>Търси служители:</p>
             <input
-              type="text"
               value={waitedSearchValue}
               onChange={(e) => setWaitedSearchValue(e.target.value)}
             />
-            {allServiceProviders
-              ?.filter(
-                (provider) => provider.first_name === providerSearchValue
-              )
-              .filter(
-                (provider) => !serviceData.providers.includes(provider.id)
-              )
-              .map((provider) => (
+            <div className="service-related-providers-container">
+              {providerSearchValue !== "" &&
+                allServiceProviders
+                  ?.filter(
+                    (provider) =>
+                      provider.first_name
+                        .toLowerCase()
+                        .includes(providerSearchValue.toLowerCase()) ||
+                      provider.last_name
+                        .toLowerCase()
+                        .includes(providerSearchValue.toLowerCase()) ||
+                      (provider.middle_name &&
+                        provider.middle_name
+                          .toLowerCase()
+                          .includes(providerSearchValue.toLowerCase())) ||
+                      provider.email
+                        .toLowerCase()
+                        .includes(providerSearchValue.toLowerCase())
+                  )
+                  .filter(
+                    (provider) => !serviceData.providers.includes(provider.id)
+                  )
+                  .map((provider) => (
+                    <div
+                      key={provider.id}
+                      className={`service-related-provider card-padding ${
+                        theme === "dark" ? "btn-dark-bg" : "btn-light-bg"
+                      }`}
+                      onClick={() => {
+                        if (serviceData.providers.includes(provider.id)) return
+
+                        setServiceData({
+                          ...serviceData,
+                          providers: [...serviceData.providers, provider.id],
+                        })
+
+                        setWaitedSearchValue("")
+                        setProviderSearchValue("")
+
+                        setSelectedProviders([...selectedProviders, provider])
+                      }}
+                    >
+                      {provider.first_name} <br style={{ paddingBottom: 2 }} />
+                      <img
+                        src={getPfpLink(provider.profile_picture)}
+                        alt={`${provider.first_name}'s profile picture`}
+                        style={{
+                          width: "50px",
+                          height: "50px",
+                          borderRadius: "50%",
+                        }}
+                      />
+                    </div>
+                  ))}
+            </div>
+
+            <p>Изберени служители:</p>
+            <div className="service-related-providers-container">
+              {selectedProviders?.map((provider) => (
                 <div
                   key={provider.id}
-                  style={{
-                    border: "1px solid black",
-                    width: "fit-content",
-                    height: "fit-content",
-                    minWidth: 80,
-                    minHeight: 80,
-                    textAlign: "center",
-                    paddingTop: 10,
-                    cursor: "pointer",
-                  }}
+                  className={`service-related-provider card-padding ${
+                    theme === "dark" ? "btn-dark-bg" : "btn-light-bg"
+                  }`}
                   onClick={() => {
-                    if (serviceData.providers.includes(provider.id)) return
-
-                    setServiceData({
-                      ...serviceData,
-                      providers: [...serviceData.providers, provider.id],
-                    })
-
-                    setSelectedProviders([...selectedProviders, provider])
+                    if (serviceData.providers.includes(provider.id)) {
+                      setServiceData({
+                        ...serviceData,
+                        providers: serviceData.providers.filter(
+                          (id) => id !== provider.id
+                        ),
+                      })
+                      setSelectedProviders(
+                        selectedProviders.filter((p) => p.id !== provider.id)
+                      )
+                    }
                   }}
                 >
                   {provider.first_name} <br style={{ paddingBottom: 2 }} />
@@ -221,49 +265,8 @@ const AddServiceDialog = ({
                   />
                 </div>
               ))}
-            <br />
-            Изберени служители:
-            {selectedProviders?.map((provider) => (
-              <div
-                key={provider.id}
-                style={{
-                  border: "1px solid black",
-                  width: "fit-content",
-                  height: "fit-content",
-                  minWidth: 80,
-                  minHeight: 80,
-                  textAlign: "center",
-                  paddingTop: 10,
-                  cursor: "pointer",
-                }}
-                onClick={() => {
-                  if (serviceData.providers.includes(provider.id)) {
-                    setServiceData({
-                      ...serviceData,
-                      providers: serviceData.providers.filter(
-                        (id) => id !== provider.id
-                      ),
-                    })
-                    setSelectedProviders(
-                      selectedProviders.filter((p) => p.id !== provider.id)
-                    )
-                  }
-                }}
-              >
-                {provider.first_name} <br style={{ paddingBottom: 2 }} />
-                <img
-                  src={getPfpLink(provider.profile_picture)}
-                  alt={`${provider.first_name}'s profile picture`}
-                  style={{
-                    width: "50px",
-                    height: "50px",
-                    borderRadius: "50%",
-                  }}
-                />
-              </div>
-            ))}
-            <br />
-            <br />
+            </div>
+
             <Button
               type="submit"
               disabled={

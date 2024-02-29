@@ -81,7 +81,7 @@ const EditServiceDialog = ({
 
   return (
     <div
-      className={`edit-service-dialog card-padding ${
+      className={`service-related-dialog card-padding ${
         theme === "dark" ? "black-bg" : "white-bg"
       }`}
       style={{
@@ -173,12 +173,12 @@ const EditServiceDialog = ({
             )}
 
             <p>Настоящи служители</p>
-            <div className="service-edit-providers-container">
+            <div className="service-related-providers-container">
               {serviceData.providers.map(
                 (serviceAndProvider: ProviderServiceShowcaseTypes) => (
                   <div
                     key={serviceAndProvider.provider_id}
-                    className={`service-edit-provider card-padding ${
+                    className={`service-related-provider card-padding ${
                       theme === "dark" ? "btn-dark-bg" : "btn-light-bg"
                     }`}
                     onClick={() => {
@@ -216,7 +216,7 @@ const EditServiceDialog = ({
               value={waitedSearchValue}
               onChange={(e) => setWaitedSearchValue(e.target.value)}
             />
-            <div className="service-edit-providers-container">
+            <div className="service-related-providers-container">
               {providerSearchValue !== "" &&
                 allServiceProviders
                   ?.filter(
@@ -246,7 +246,7 @@ const EditServiceDialog = ({
                   .map((provider) => (
                     <div
                       key={provider.id}
-                      className={`service-edit-provider card-padding ${
+                      className={`service-related-provider card-padding ${
                         theme === "dark" ? "btn-dark-bg" : "btn-light-bg"
                       }`}
                       onClick={() => {
