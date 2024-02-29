@@ -6,10 +6,11 @@
 
 .service-providers-container {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
+  flex: 1;
 }
 
 .provider-card {
@@ -20,7 +21,10 @@
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
   gap: 10px;
+}
+
+.provider-card :last-child {
+  margin-top: auto;
 }

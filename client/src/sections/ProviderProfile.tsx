@@ -60,7 +60,11 @@ const ProviderProfile = () => {
               height={100}
               style={{ borderRadius: "50%" }}
             />
-            <p className="label-dark-bg">
+            <p
+              className={`${
+                theme === "dark" ? "label-dark-bg" : "label-light-bg"
+              }`}
+            >
               {provider?.first_name}{" "}
               {provider?.middle_name && provider?.middle_name + " "}
               {provider?.last_name}

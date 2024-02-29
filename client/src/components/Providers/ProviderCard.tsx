@@ -30,6 +30,7 @@ const ProviderCard = ({ provider }: { provider: ProviderTypes }) => {
       />
 
       {provider.job_title && <p>{provider.job_title}</p>}
+
       <Button
         onClick={() => {
           navigate(`/служител/${provider.id}`)
