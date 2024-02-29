@@ -66,10 +66,6 @@ const EditServiceDialog = ({
       queryFn: () => getAllServiceProviders(),
     })
 
-  const [selectedProviders, setSelectedProviders] = useState<
-    ProviderServiceShowcaseTypes[]
-  >([...serviceProviders])
-
   const [waitedSearchValue, setWaitedSearchValue] = useState("")
   const [providerSearchValue, setProviderSearchValue] = useState("")
 
@@ -82,7 +78,11 @@ const EditServiceDialog = ({
   }, [waitedSearchValue])
 
   const theme = useSelector((state: RootState) => state.theme.current)
-
+  // console.log("----------")
+  // console.log(initialServiceData.providers)
+  // console.log("----")
+  // console.log(serviceData.providers)
+  // console.log("----------")
   return (
     <div
       className={`edit-service-dialog card-padding ${
@@ -129,8 +129,27 @@ const EditServiceDialog = ({
                     : "#fff",
               }}
             />
-            <br />
-            <br />
+
+            <label htmlFor="new_service_price">Цена: </label>
+            <input
+              type="text"
+              id="new_service_price"
+              value={serviceData.price}
+              onChange={(e) => {
+                if (!changedFields.price) {
+                  setChangedFields({ ...changedFields, price: true })
+                }
+                setServiceData({ ...serviceData, price: e.target.value })
+              }}
+              style={{
+                backgroundColor:
+                  !priceRegex.test(String(serviceData.price)) &&
+                  changedFields.price
+                    ? "red"
+                    : "#fff",
+              }}
+            />
+
             <label htmlFor="new_service_category">Категория: </label>
             {!areServiceCategoriesFetching && (
               <select
@@ -154,63 +173,28 @@ const EditServiceDialog = ({
                 ))}
               </select>
             )}
-            <br />
-            <br />
-            <label htmlFor="new_service_price">Цена: </label>
-            <input
-              type="text"
-              id="new_service_price"
-              value={serviceData.price}
-              onChange={(e) => {
-                if (!changedFields.price) {
-                  setChangedFields({ ...changedFields, price: true })
-                }
-                setServiceData({ ...serviceData, price: e.target.value })
-              }}
-              style={{
-                backgroundColor:
-                  !priceRegex.test(String(serviceData.price)) &&
-                  changedFields.price
-                    ? "red"
-                    : "#fff",
-              }}
-            />
+
             <p>Настоящи служители</p>
             <div className="service-current-providers-container">
-              {selectedProviders.map(
+              {serviceData.providers.map(
                 (serviceAndProvider: ProviderServiceShowcaseTypes) => (
                   <div
                     key={serviceAndProvider.provider_id}
-                    className={`card-padding ${
+                    className={`service-current-provider card-padding ${
                       theme === "dark" ? "btn-dark-bg" : "btn-light-bg"
                     }`}
-                    style={{
-                      width: "fit-content",
-                      height: "fit-content",
-                      minWidth: 80,
-                      minHeight: 80,
-                      textAlign: "center",
-                      paddingTop: 10,
-                      cursor: "pointer",
-                    }}
                     onClick={() => {
-                      setChangedFields({ ...changedFields, providers: true })
+                      if (!changedFields.providers) {
+                        setChangedFields({ ...changedFields, providers: true })
+                      }
                       setServiceData({
                         ...serviceData,
                         providers: serviceData.providers.filter(
-                          (p) =>
-                            p.service_id !== serviceAndProvider.service_id &&
-                            p.provider_id !== serviceAndProvider.provider_id
+                          (currentProvider) =>
+                            currentProvider.provider_id !==
+                            serviceAndProvider.provider_id
                         ),
                       })
-
-                      setSelectedProviders(
-                        selectedProviders.filter(
-                          (p) =>
-                            p.service_id !== serviceAndProvider.service_id &&
-                            p.provider_id !== serviceAndProvider.provider_id
-                        )
-                      )
                     }}
                   >
                     <img
@@ -231,11 +215,10 @@ const EditServiceDialog = ({
 
             <p>Добави служители</p>
             <input
-              type="text"
               value={waitedSearchValue}
               onChange={(e) => setWaitedSearchValue(e.target.value)}
             />
-            {waitedSearchValue !== "" &&
+            {providerSearchValue !== "" &&
               allServiceProviders
                 ?.filter(
                   (provider) =>
@@ -255,7 +238,7 @@ const EditServiceDialog = ({
                 )
                 .filter(
                   (provider) =>
-                    !selectedProviders
+                    !serviceData.providers
                       .map(
                         (serviceAndProvider) => serviceAndProvider.provider_id
                       )
@@ -275,20 +258,9 @@ const EditServiceDialog = ({
                       cursor: "pointer",
                     }}
                     onClick={() => {
-                      if (
-                        serviceData.providers
-                          .map(
-                            (serviceAndProvider) =>
-                              serviceAndProvider.provider_id
-                          )
-                          .includes(provider.id)
-                      )
-                        return
-
-                      setWaitedSearchValue("")
-                      setProviderSearchValue("")
-
-                      setChangedFields({ ...changedFields, providers: true })
+                      if (!changedFields.providers) {
+                        setChangedFields({ ...changedFields, providers: true })
+                      }
 
                       setServiceData({
                         ...serviceData,
@@ -302,16 +274,8 @@ const EditServiceDialog = ({
                           },
                         ],
                       })
-
-                      setSelectedProviders([
-                        ...selectedProviders,
-                        {
-                          first_name: provider.first_name,
-                          profile_picture: provider.profile_picture,
-                          provider_id: provider.id,
-                          service_id: service.id,
-                        },
-                      ])
+                      setWaitedSearchValue("")
+                      setProviderSearchValue("")
                     }}
                   >
                     <img
@@ -337,7 +301,8 @@ const EditServiceDialog = ({
                   priceRegex.test(serviceData.price) &&
                   initialServiceData.price === serviceData.price &&
                   initialServiceData.category === serviceData.category &&
-                  !changedFields.providers)
+                  JSON.stringify(initialServiceData.providers) ===
+                    JSON.stringify(serviceData.providers))
               }
             >
               Спази
