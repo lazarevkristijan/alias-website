@@ -56,6 +56,7 @@ export const handleChangeCredentials = (
 }
 
 export const displayPhoneNumber = (phoneNumber: string) => {
+  phoneNumber === phoneNumber.replace(" ", "")
   if (phoneNumber[0] === "0") {
     return (
       phoneNumber.slice(0, 3) +

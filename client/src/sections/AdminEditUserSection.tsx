@@ -30,6 +30,18 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
     phone_number: fetchedUser?.phone_number || "",
   })
 
+  const initialUSerData = {
+    id: fetchedUser?.id || 0,
+    first_name: fetchedUser?.first_name || "",
+    last_name: fetchedUser?.last_name || "",
+    middle_name: fetchedUser?.middle_name || "",
+    email: fetchedUser?.email || "",
+    profile_picture: fetchedUser?.profile_picture || "",
+    role: fetchedUser?.role || "",
+    job_title: fetchedUser?.job_title || "",
+    phone_number: fetchedUser?.phone_number || "",
+  }
+
   const [changedFields, setChangedFields] = useState({
     first_name: false,
     last_name: false,
@@ -57,6 +69,7 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
   const theme = useSelector((state: RootState) => state.theme.current)
 
   if (!fetchedUser) return
+
   return (
     <section className={`admin-edit-user-section `}>
       <h2>Преглед на профил</h2>
@@ -347,16 +360,15 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
             !jobTitleRegex.test(newUserData.job_title) ||
             !phoneRegex.test(newUserData.phone_number) ||
             (nameRegex.test(newUserData.first_name) &&
-              fetchedUser.first_name === newUserData.first_name &&
+              initialUSerData.first_name === newUserData.first_name &&
               nameRegex.test(newUserData.last_name) &&
-              fetchedUser.last_name === newUserData.last_name &&
+              initialUSerData.last_name === newUserData.last_name &&
               middleNameRegex.test(newUserData.middle_name) &&
-              fetchedUser.middle_name === newUserData.middle_name &&
+              initialUSerData.middle_name === newUserData.middle_name &&
               jobTitleRegex.test(newUserData.job_title) &&
-              fetchedUser.job_title === newUserData.job_title &&
-              phoneRegex.test(newUserData.phone_number) &&
-              fetchedUser.phone_number === newUserData.phone_number &&
-              fetchedUser.role === newUserData.role)
+              initialUSerData.job_title === newUserData.job_title &&
+              initialUSerData.phone_number === newUserData.phone_number &&
+              initialUSerData.role === newUserData.role)
           }
         >
           Спази
