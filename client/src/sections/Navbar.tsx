@@ -52,9 +52,12 @@ const Navbar = () => {
 
       <div className="nav-small">
         <img
-          src="https://www.svgrepo.com/show/522595/menu-2.svg"
+          src={`https://www.svgrepo.com/show/${
+            theme === "dark" ? "525439" : "524740"
+          }/menu-dots-circle.svg`}
           alt="navbar menu icon"
           onClick={() => setIsMenuOpen((isMenuOpen) => !isMenuOpen)}
+          className={`${isMenuOpen ? "rotate90" : ""}`}
         />
 
         {isMenuOpen && (

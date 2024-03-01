@@ -62,7 +62,10 @@ nav a:hover {
   margin-bottom: auto;
   cursor: pointer;
   background-color: #fff;
-  border-radius: 10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: all 0.3s;
 }
 
 @media (max-width: 768px) {
