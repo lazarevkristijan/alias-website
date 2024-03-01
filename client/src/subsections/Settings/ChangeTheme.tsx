@@ -15,8 +15,11 @@ const ChangeTheme = () => {
           const root = document.getElementById("root")
           if (!root) return
 
-          root.style.backgroundColor = "#000"
-          root.style.color = "#fff"
+          document.body.style.backgroundColor = "#121212"
+          document.body.style.color = "#f0f0f0"
+
+          root.style.backgroundColor = "#121212"
+          root.style.color = "#f0f0f0"
 
           localStorage.setItem("theme", "dark")
           dispatch(changeTheme("dark"))
@@ -30,11 +33,11 @@ const ChangeTheme = () => {
           const root = document.getElementById("root")
           if (!root) return
 
-          document.body.style.backgroundColor = "#fff"
-          document.body.style.color = "#000"
+          document.body.style.backgroundColor = "#f0f0f0"
+          document.body.style.color = "#121212"
 
-          root.style.backgroundColor = "#fff"
-          root.style.color = "#000"
+          root.style.backgroundColor = "#f0f0f0"
+          root.style.color = "#121212"
 
           localStorage.setItem("theme", "light")
           dispatch(changeTheme("light"))

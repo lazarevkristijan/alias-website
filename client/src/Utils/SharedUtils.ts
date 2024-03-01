@@ -37,7 +37,7 @@ export const sendNotification = (message: string, success: boolean = false) => {
   const notification = document.createElement("div")
 
   notification.style.backgroundColor = success ? "#cfffdb" : "#ffb3b3"
-  notification.style.color = "#000"
+  notification.style.color = "#121212"
   notification.style.padding = "10px"
 
   notification.style.minWidth = "150px"

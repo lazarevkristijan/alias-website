@@ -20,7 +20,9 @@ const Providers = () => {
   return (
     <section
       className={`service-providers ${
-        theme === "dark" ? "dark-bg" : "light-bg"
+        theme === "dark"
+          ? "dark-bg box-shadow-white"
+          : "light-bg box-shadow-black"
       }`}
     >
       {areProvidersLoading ? (
@@ -28,11 +30,7 @@ const Providers = () => {
       ) : (
         <section>
           <h2>Всички служители:</h2>
-          <div
-            className={`service-providers-container ${
-              theme === "dark" ? "dark-bg" : "light-bg"
-            }`}
-          >
+          <div className={`service-providers-container `}>
             {providers.map((provider: ProviderTypes) => (
               <ProviderCard
                 provider={provider}

@@ -67,15 +67,19 @@ const Home = () => {
   heroBg.src = "/hero.jpg"
 
   return (
-    <section>
+    <section style={{ boxShadow: "none" }}>
       {!isHeroBgLoading && (
         <>
-          <section className={`hero`}>
+          <section
+            className={`hero box-shadow-${
+              theme === "dark" ? "white" : "black"
+            }`}
+          >
             <h1 className={`${theme === "dark" ? "black-bg" : "white-bg"}`}>
               ТВОЯТ ПРОБЛЕМ ИМА РЕШЕНИЕ ПРИ НАС
             </h1>
 
-            <div className="search-service-container">
+            <div className={`search-service-container`}>
               <input
                 onChange={(e) => setAwaitedSearchValue(e.target.value)}
                 value={awaitedSearchValue}
@@ -85,9 +89,9 @@ const Home = () => {
                 !areCategoriesLoading &&
                 !areServicesLoading && (
                   <div
-                    className={`services-results-container box-shadow ${
-                      theme === "dark" ? "black-bg" : "white-bg"
-                    }`}
+                    className={`services-results-container box-shadow-${
+                      theme === "dark" ? "white" : "black"
+                    } ${theme === "dark" ? "black-bg" : "white-bg"}`}
                   >
                     {allServices?.filter((service) =>
                       service.name
@@ -169,9 +173,9 @@ const Home = () => {
           </section>
 
           <section
-            className={`how-to-get-started ${
-              theme === "dark" ? "dark-bg" : "light-bg"
-            }`}
+            className={`how-to-get-started box-shadow-${
+              theme === "dark" ? "white" : "black"
+            } ${theme === "dark" ? "dark-bg" : "light-bg"}`}
           >
             <h2>КАК ДА ЗАПОЧНЕТЕ?</h2>
             {auth0Authenticated ? (

@@ -16,7 +16,9 @@ const Footer = () => {
 
   return (
     <footer
-      className={`box-shadow ${theme === "dark" ? "dark-bg" : "light-bg"}`}
+      className={`box-shadow-${theme === "dark" ? "white" : "black"} ${
+        theme === "dark" ? "dark-bg" : "light-bg"
+      }`}
     >
       {areCategoriesLoading ? (
         <p>Зареждане...</p>

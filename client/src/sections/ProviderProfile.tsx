@@ -43,14 +43,18 @@ const ProviderProfile = () => {
       ) : (
         <section
           className={`provider-profile ${
-            theme === "dark" ? "dark-bg" : "light-bg"
+            theme === "dark"
+              ? "dark-bg box-shadow-white"
+              : "light-bg box-shadow-black"
           }`}
         >
           <h2>Преглед на служител</h2>
 
           <div
-            className={`provider-creds-container box-shadow card-padding ${
-              theme === "dark" ? "black-bg" : "white-bg"
+            className={`provider-creds-container card-padding ${
+              theme === "dark"
+                ? "card-black-bg box-shadow-white"
+                : "card-white-bg box-shadow-black"
             }`}
           >
             <img
@@ -88,7 +92,8 @@ const ProviderProfile = () => {
                     width: 250,
                   }}
                   className={`provider-service-card box-shadow card-padding ${
-                    theme === "dark" ? "black-bg" : "white-bg"
+                    theme === "dark"     ? "card-black-bg box-shadow-white"
+                    : "card-white-bg box-shadow-black"
                   }`}
                 >
                   <p>Услуга: {service.name}</p>

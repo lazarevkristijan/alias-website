@@ -18,7 +18,8 @@ const SingleCategoryServiceCard = ({
   return (
     <div
       className={`single-category-service-card card-padding ${
-        theme === "dark" ? "black-bg" : "white-bg"
+        theme === "dark"     ? "card-black-bg box-shadow-white"
+        : "card-white-bg box-shadow-black"
       } `}
     >
       <p>Услуга: {service.name}</p>

@@ -13,7 +13,9 @@ const ProviderCard = ({ provider }: { provider: ProviderTypes }) => {
   return (
     <div
       className={`provider-card card-padding box-shadow ${
-        theme === "dark" ? "black-bg" : "white-bg"
+        theme === "dark"
+          ? "card-black-bg box-shadow-white"
+          : "card-white-bg box-shadow-black"
       }`}
     >
       <p>{provider.first_name}</p>
@@ -26,6 +28,8 @@ const ProviderCard = ({ provider }: { provider: ProviderTypes }) => {
           width: "75px",
           height: "75px",
           borderRadius: "50%",
+          objectFit: "cover",
+          objectPosition: "center",
         }}
       />
 

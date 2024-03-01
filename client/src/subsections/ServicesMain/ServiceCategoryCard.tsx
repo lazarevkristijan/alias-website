@@ -25,7 +25,9 @@ const ServiceCategoryCard = ({
   return (
     <div
       className={`services-main-category-card card-padding box-shadow ${
-        theme === "dark" ? "black-bg" : "white-bg"
+        theme === "dark"
+          ? "card-black-bg box-shadow-white"
+          : "card-white-bg box-shadow-black"
       }`}
     >
       <p>{capitalizeString(category.name)}</p>

@@ -29,7 +29,13 @@ const Profile = () => {
   if (!user) return
 
   return (
-    <section className={`profile ${theme === "dark" ? "dark-bg" : "light-bg"}`}>
+    <section
+      className={`profile ${
+        theme === "dark"
+          ? "dark-bg box-shadow-white"
+          : "light-bg box-shadow-black"
+      }`}
+    >
       {auth0loading ? (
         <p>Зареждане...</p>
       ) : (

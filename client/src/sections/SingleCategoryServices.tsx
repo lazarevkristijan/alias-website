@@ -33,7 +33,9 @@ const SingleCategoryServices = () => {
   return (
     <section
       className={`single-category-services ${
-        theme === "dark" ? "dark-bg" : "light-bg"
+        theme === "dark"
+          ? "dark-bg box-shadow-white"
+          : "light-bg box-shadow-black"
       }`}
     >
       <>

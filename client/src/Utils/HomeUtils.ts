@@ -29,8 +29,9 @@ export const postLoginOrRegister = (
 
       dispatch(changeTheme(theme))
 
-      document.body.style.backgroundColor = theme === "dark" ? "#000" : "#fff"
-      document.body.style.color = theme === "dark" ? "#fff" : "#000"
+      document.body.style.backgroundColor =
+        theme === "dark" ? "#121212" : "#f0f0f0"
+      document.body.style.color = theme === "dark" ? "#f0f0f0" : "#121212"
 
       setIsLoading(false)
     })

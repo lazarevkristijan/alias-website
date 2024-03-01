@@ -65,7 +65,9 @@ const AddServiceDialog = ({
   return (
     <div
       className={`service-related-dialog card-padding ${
-        theme === "dark" ? "black-bg" : "white-bg"
+        theme === "dark"
+          ? "card-black-bg box-shadow-white"
+          : "card-white-bg box-shadow-black"
       }`}
     >
       {areServiceCategoriesFetching || areServiceProvidersFetching ? (

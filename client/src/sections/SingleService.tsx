@@ -50,26 +50,36 @@ const SingleService = () => {
         <p>Зареждане...</p>
       ) : (
         <section
-          className={`${theme === "dark" ? "dark-bg" : "light-bg"} box-shadow`}
+          className={`${
+            theme === "dark"
+              ? "dark-bg box-shadow-white"
+              : "light-bg box-shadow-black"
+          }`}
         >
           <h2>Преглед на услуга</h2>
           <p
             className={`single-service-tag box-shadow ${
-              theme === "dark" ? "black-bg" : "white-bg"
+              theme === "dark"
+                ? "card-black-bg box-shadow-white"
+                : "card-white-bg box-shadow-black"
             }`}
           >
             Услуга: {service?.name}
           </p>
           <p
             className={`single-service-tag box-shadow ${
-              theme === "dark" ? "black-bg" : "white-bg"
+              theme === "dark"
+                ? "card-black-bg box-shadow-white"
+                : "card-white-bg box-shadow-black"
             }`}
           >
             Категория: {capitalizeString(service.category)}
           </p>
           <p
             className={`single-service-tag box-shadow ${
-              theme === "dark" ? "black-bg" : "white-bg"
+              theme === "dark"
+                ? "card-black-bg box-shadow-white"
+                : "card-white-bg box-shadow-black"
             }`}
           >
             Цена: {service?.price}лв.
@@ -81,7 +91,9 @@ const SingleService = () => {
               (provider: ProviderServiceShowcaseTypes) => (
                 <div
                   className={`provider-card card-padding box-shadow ${
-                    theme === "dark" ? "black-bg" : "white-bg"
+                    theme === "dark"
+                      ? "card-black-bg box-shadow-white"
+                      : "card-white-bg box-shadow-black"
                   }`}
                   key={provider.provider_id}
                 >

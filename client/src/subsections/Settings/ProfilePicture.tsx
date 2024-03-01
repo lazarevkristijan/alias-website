@@ -54,7 +54,7 @@ const ProfilePicture = () => {
           style={{
             objectFit: "cover",
             objectPosition: "center",
-            backgroundColor: "#fff",
+            backgroundColor: "#f0f0f0",
             borderRadius: "50%",
             border: "2px solid #000",
           }}

@@ -29,7 +29,13 @@ const AdminDashboard = () => {
   })
 
   return (
-    <section className={`${theme === "dark" ? "dark-bg" : "light-bg"}`}>
+    <section
+      className={`${
+        theme === "dark"
+          ? "dark-bg box-shadow-white"
+          : "light-bg box-shadow-black"
+      }`}
+    >
       {areUsersLoading ? (
         <p>Зареждане...</p>
       ) : (
@@ -40,13 +46,21 @@ const AdminDashboard = () => {
               <div
                 key={singleUser?.id}
                 className={`admin-dashboard-single-user card-padding ${
-                  theme === "dark" ? "black-bg" : "white-bg"
+                  theme === "dark"
+                    ? "card-black-bg box-shadow-white"
+                    : "card-white-bg box-shadow-black"
                 }`}
               >
                 <img
                   src={getPfpLink(singleUser?.profile_picture || defaultPfpURL)}
                   alt={`Профилна снимка на ${singleUser?.first_name}`}
-                  style={{ width: 100, height: 100, borderRadius: "50%" }}
+                  style={{
+                    width: 100,
+                    height: 100,
+                    borderRadius: "50%",
+                    objectFit: "cover",
+                    objectPosition: "center",
+                  }}
                 />
                 <p>ID: {singleUser?.id}</p>
                 <p

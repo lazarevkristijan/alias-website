@@ -23,7 +23,11 @@ const ServicesMain = () => {
 
   return (
     <section
-      className={`services ${theme === "dark" ? "dark-bg" : "light-bg"}`}
+      className={`services ${
+        theme === "dark"
+          ? "dark-bg box-shadow-white"
+          : "light-bg box-shadow-black"
+      }`}
     >
       {areCategoriesLoading ? (
         <p>Зареждане...</p>
@@ -50,9 +54,7 @@ const ServicesMain = () => {
                 Добави услуга
               </Button>
               {isAddDialogOpen && (
-                <AddServiceDialog
-                  setIsOpen={setIsAddDialogOpen}
-                />
+                <AddServiceDialog setIsOpen={setIsAddDialogOpen} />
               )}
             </>
           )}

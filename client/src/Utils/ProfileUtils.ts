@@ -8,8 +8,8 @@ export const handleDeleteUser = async (auth0logout: () => void) => {
     .delete("http://localhost:5432/user/delete-user", { withCredentials: true })
     .then(() => {
       localStorage.removeItem("theme")
-      document.body.style.backgroundColor = "#fff"
-      document.body.style.color = "#000"
+      document.body.style.backgroundColor = "#f0f0f0"
+      document.body.style.color = "#121212"
 
       auth0logout()
     })
@@ -22,8 +22,8 @@ export const handleLogout = async (auth0logout: () => void) => {
     })
     .then(() => {
       localStorage.removeItem("theme")
-      document.body.style.backgroundColor = "#fff"
-      document.body.style.color = "#000"
+      document.body.style.backgroundColor = "#f0f0f0"
+      document.body.style.color = "#121212"
       auth0logout()
     })
 }

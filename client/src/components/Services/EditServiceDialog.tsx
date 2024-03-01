@@ -82,7 +82,9 @@ const EditServiceDialog = ({
   return (
     <div
       className={`service-related-dialog card-padding ${
-        theme === "dark" ? "black-bg" : "white-bg"
+        theme === "dark"
+          ? "card-black-bg box-shadow-white"
+          : "card-white-bg box-shadow-black"
       }`}
     >
       {areServiceProvidersFetching || areServiceCategoriesFetching ? (
@@ -322,9 +324,7 @@ const EditServiceDialog = ({
           >
             Нулиране
           </Button>
-          <Button onClick={() => handleDelete(service.id)}>
-            Изтрий
-          </Button>
+          <Button onClick={() => handleDelete(service.id)}>Изтрий</Button>
         </>
       )}
     </div>

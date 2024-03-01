@@ -16,8 +16,8 @@ const Navbar = () => {
   const theme = useSelector((state: RootState) => state.theme.current)
 
   return (
-    <nav className={`${theme === "dark" ? "dark-nav" : "light-nav"}`}>
-      <div className="nav-large">
+    <nav className={``}>
+      <div className={`nav-large ${theme === "dark" ? "dark-nav" : "light-nav"}`}>
         <ul>
           <NavLink
             to="/"
@@ -50,7 +50,9 @@ const Navbar = () => {
         </ul>
       </div>
 
-      <div className="nav-small">
+      <div
+        className={`nav-small ${theme === "dark" ? "black-bg" : "white-bg"}`}
+      >
         <img
           src={`https://www.svgrepo.com/show/${
             theme === "dark" ? "525439" : "524740"

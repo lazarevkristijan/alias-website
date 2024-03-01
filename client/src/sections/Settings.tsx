@@ -23,7 +23,11 @@ const Settings = () => {
 
   return (
     <section
-      className={`settings ${theme === "dark" ? "dark-bg" : "light-bg"}`}
+      className={`settings ${
+        theme === "dark"
+          ? "dark-bg box-shadow-white"
+          : "light-bg box-shadow-black"
+      }`}
     >
       {auth0loading ? (
         <p>Зареждане...</p>

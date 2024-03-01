@@ -74,7 +74,13 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
     <section className={`admin-edit-user-section `}>
       <h2>Преглед на профил</h2>
 
-      <section className={`${theme === "dark" ? "black-bg" : "white-bg"}`}>
+      <section
+        className={`${
+          theme === "dark"
+            ? "card-black-bg box-shadow-white"
+            : "card-white-bg box-shadow-black"
+        }`}
+      >
         <form
           encType="multipart/form-data"
           onSubmit={(e) => {
