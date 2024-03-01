@@ -10,6 +10,9 @@
 .hero-bg {
   background: url("/hero.jpg") center/cover;
 }
+.hero-mob-bg {
+  background: url("/hero-mob.jpg") center/cover;
+}
 
 .hero h1 {
   width: fit-content;
@@ -103,11 +106,11 @@
 
 .why-choose-us-boxes h3 {
   text-align: center;
-  height: 70px;
 }
 
 .why-choose-us-boxes div {
   width: 250px;
+  text-align: center;
 }
 
 .how-to-get-started p {

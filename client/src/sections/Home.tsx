@@ -48,7 +48,20 @@ const Home = () => {
 
   const heroBg = new Image()
   heroBg.onload = () => {
-    document.querySelector(".hero")?.classList.add("hero-bg")
+    if (window.innerWidth > 600) {
+      document.querySelector(".hero")?.classList.add("hero-bg")
+    } else {
+      document.querySelector(".hero")?.classList.add("hero-mob-bg")
+    }
+    window.addEventListener("resize", () => {
+      if (window.innerWidth < 600) {
+        document.querySelector(".hero")?.classList.remove("hero-bg")
+        document.querySelector(".hero")?.classList.add("hero-mob-bg")
+      } else {
+        document.querySelector(".hero")?.classList.add("hero-bg")
+        document.querySelector(".hero")?.classList.remove("hero-mob-bg")
+      }
+    })
     setIsHeroBgLoading(false)
   }
   heroBg.src = "/hero.jpg"
@@ -59,7 +72,7 @@ const Home = () => {
         <>
           <section className={`hero`}>
             <h1 className={`${theme === "dark" ? "black-bg" : "white-bg"}`}>
-              ТВОЯТ ПРОБЛЕМ ИМА РЕШЕНИЕ, ПРИ НАС
+              ТВОЯТ ПРОБЛЕМ ИМА РЕШЕНИЕ ПРИ НАС
             </h1>
 
             <div className="search-service-container">
@@ -118,7 +131,7 @@ const Home = () => {
 
             <div className="why-choose-us-boxes">
               <div>
-                <h3>Разнообразие от услуги:</h3>
+                <h3>Разнообразие от услуги за вас:</h3>
                 <p>
                   Широк спектър от услуги за всеки вкус и нужда. Покриваме
                   домакинство, здраве, красота, информационни технологии и още.

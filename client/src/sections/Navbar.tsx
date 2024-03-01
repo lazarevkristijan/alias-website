@@ -39,7 +39,7 @@ const Navbar = () => {
               <NavLink to="настройки" />
             </>
           ) : (
-            <a onClick={() => loginWithPopup}>Вход</a>
+            <a onClick={() => loginWithPopup()}>Вход</a>
           )}
           {user?.role === "админ" && (
             <NavLink

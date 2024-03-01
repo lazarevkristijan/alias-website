@@ -20,6 +20,7 @@ nav {
   padding: 15px;
   padding-top: 7.5px;
   padding-bottom: 7.5px;
+  cursor: pointer;
 }
 
 .dark-nav a:hover {
@@ -45,7 +46,8 @@ nav {
   color: #000;
 }
 .nav-link-black:hover,
-.nav-link-white:hover {
+.nav-link-white:hover,
+nav a:hover {
   text-decoration: none;
 }
 
