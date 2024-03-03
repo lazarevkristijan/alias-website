@@ -20,7 +20,7 @@ export const postLoginOrRegister = async (req, res) => {
       res.cookie("user", token, {
         ...cookieOptions,
         httpOnly: true,
-        maxAge: dayinMs * 7,
+        maxAge: dayinMs * 1,
       })
 
       return res.json(existingUser[0])
@@ -43,7 +43,7 @@ export const postLoginOrRegister = async (req, res) => {
     res.cookie("user", token, {
       ...cookieOptions,
       httpOnly: true,
-      maxAge: dayinMs * 7,
+      maxAge: dayinMs * 1,
     })
 
     return res.json(newUser[0])

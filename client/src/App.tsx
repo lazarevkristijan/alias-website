@@ -50,6 +50,7 @@ const App = () => {
       ) : (
         <main>
           <Navbar />
+
           <div className="all-routes">
             <Routes>
               <Route
@@ -97,9 +98,8 @@ const App = () => {
                 element={<h2>Не е намерено</h2>}
               />
             </Routes>
+            <Footer />
           </div>
-
-          <Footer />
         </main>
       )}
     </>
