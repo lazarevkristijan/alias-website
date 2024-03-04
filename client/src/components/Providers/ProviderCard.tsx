@@ -12,7 +12,7 @@ const ProviderCard = ({ provider }: { provider: ProviderTypes }) => {
 
   return (
     <div
-      className={`provider-card card-padding box-shadow ${
+      className={`provider-card card-padding ${
         theme === "dark"
           ? "card-black-bg box-shadow-white"
           : "card-white-bg box-shadow-black"

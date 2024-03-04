@@ -19,9 +19,9 @@ const Button = ({
   return (
     <button
       onClick={onClick}
-      className={`${
-        theme === "dark" ? "btn-dark-bg" : "btn-light-bg"
-      } ${extraClasses || ''}`}
+      className={`${theme === "dark" ? "btn-dark-bg" : "btn-light-bg"} ${
+        extraClasses || ""
+      }`}
       disabled={disabled}
       type={type}
     >
