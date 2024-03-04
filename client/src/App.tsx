@@ -98,8 +98,8 @@ const App = () => {
                 element={<h2>Не е намерено</h2>}
               />
             </Routes>
-            <Footer />
           </div>
+          <Footer />
         </main>
       )}
     </>
