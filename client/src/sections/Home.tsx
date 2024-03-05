@@ -109,8 +109,8 @@ const Home = () => {
                             className="service-result"
                             key={service.id}
                           >
-                            <span>{service.name}</span>
-                            <span>{service.price}лв.</span>
+                            <p>{service.name}</p>
+                            <p>{service.price}лв.</p>
                             <Button
                               onClick={() =>
                                 navigate(
