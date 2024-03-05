@@ -67,7 +67,7 @@ const Home = () => {
   heroBg.src = "/hero.jpg"
 
   return (
-    <section style={{ boxShadow: "none" }}>
+    <section>
       {!isHeroBgLoading && (
         <>
           <section
@@ -174,8 +174,8 @@ const Home = () => {
 
           <section
             className={`how-to-get-started box-shadow-${
-              theme === "dark" ? "white" : "black"
-            } ${theme === "dark" ? "dark-bg" : "light-bg"}`}
+              theme === "dark" ? "white dark-bg" : "black light-bg"
+            }`}
           >
             <h2>КАК ДА ЗАПОЧНЕТЕ?</h2>
             {auth0Authenticated ? (

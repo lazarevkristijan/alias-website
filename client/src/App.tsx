@@ -15,6 +15,7 @@ import AdminDashboard from "./sections/AdminDashboard"
 import AdminUserView from "./sections/AdminUserView"
 import Footer from "./sections/Footer"
 import SingleCategoryServices from "./sections/SingleCategoryServices"
+import NotFound from "./sections/NotFound"
 
 const App = () => {
   const dispatch = useDispatch()
@@ -95,7 +96,7 @@ const App = () => {
               />
               <Route
                 path="*"
-                element={<h2>Не е намерено</h2>}
+                element={<NotFound />}
               />
             </Routes>
           </div>
