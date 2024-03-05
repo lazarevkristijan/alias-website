@@ -251,59 +251,60 @@ const AddServiceDialog = ({
                 </div>
               ))}
             </div>
+            <div>
+              <Button
+                type="submit"
+                disabled={
+                  !priceRegex.test(serviceData.price) ||
+                  !serviceNameRegex.test(serviceData.name) ||
+                  serviceData.category === ""
+                }
+              >
+                Добави
+              </Button>
 
-            <Button
-              type="submit"
-              disabled={
-                !priceRegex.test(serviceData.price) ||
-                !serviceNameRegex.test(serviceData.name) ||
-                serviceData.category === ""
-              }
-            >
-              Добави
-            </Button>
+              <Button
+                onClick={() => {
+                  setIsOpen(false)
 
-            <Button
-              onClick={() => {
-                setIsOpen(false)
+                  setChangedFields({
+                    name: false,
+                    category: false,
+                    price: false,
+                  })
 
-                setChangedFields({
-                  name: false,
-                  category: false,
-                  price: false,
-                })
+                  setServiceData({
+                    name: "",
+                    category: "",
+                    price: "",
+                    providers: [],
+                  })
+                }}
+              >
+                Отказ
+              </Button>
 
-                setServiceData({
-                  name: "",
-                  category: "",
-                  price: "",
-                  providers: [],
-                })
-              }}
-            >
-              Отказ
-            </Button>
+              <Button
+                onClick={() => {
+                  setChangedFields({
+                    name: false,
+                    category: false,
+                    price: false,
+                  })
 
-            <Button
-              onClick={() => {
-                setChangedFields({
-                  name: false,
-                  category: false,
-                  price: false,
-                })
-
-                setServiceData({
-                  name: "",
-                  category: "",
-                  price: "",
-                  providers: [],
-                })
-                setProviderSearchValue("")
-                setWaitedSearchValue("")
-              }}
-            >
-              Нулиране
-            </Button>
+                  setServiceData({
+                    name: "",
+                    category: "",
+                    price: "",
+                    providers: [],
+                  })
+                  setProviderSearchValue("")
+                  setWaitedSearchValue("")
+                }}
+              >
+                Нулиране
+              </Button>
+            </div>
           </form>
         </>
       )}

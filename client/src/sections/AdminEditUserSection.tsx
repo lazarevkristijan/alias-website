@@ -14,6 +14,7 @@ import { useNavigate } from "react-router"
 import Button from "../components/Shared/Button"
 import { useSelector } from "react-redux"
 import { RootState } from "../Store"
+import ConfirmationDialog from "../components/Shared/ConfirmationDialog"
 
 const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
   const navigate = useNavigate()
@@ -67,6 +68,9 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
   }, [fetchedUser?.profile_picture])
 
   const theme = useSelector((state: RootState) => state.theme.current)
+
+  const [isDeletePfpDialogOpen, setIsDeletePfpDialogOpen] = useState(false)
+  const [isDeleteUserDialogOpen, setIsDeleteUserDialogOpen] = useState(false)
 
   if (!fetchedUser) return
 
@@ -181,24 +185,16 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
                 }
               }}
             >
-              нулиране
+              Нулиране
             </Button>
             <Button
               disabled={!profilePicture}
               type="submit"
             >
-              спази
+              Спази
             </Button>
             <Button
-              onClick={() => {
-                handleAdminPfpDelete(
-                  fetchedUser.id,
-                  fetchedUser.profile_picture,
-                  setNewUserData
-                )
-                setPfpURL(defaultPfpURL)
-                setProfilePicture(null)
-              }}
+              onClick={() => setIsDeletePfpDialogOpen(true)}
               disabled={
                 !newUserData.profile_picture ||
                 newUserData.profile_picture === defaultPfpURL
@@ -207,6 +203,20 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
               Изтрий
             </Button>
           </div>
+          {isDeletePfpDialogOpen && (
+            <ConfirmationDialog
+              cancelBtnEvent={() => setIsDeletePfpDialogOpen(false)}
+              deleteBtnEvent={() => {
+                handleAdminPfpDelete(
+                  fetchedUser.id,
+                  fetchedUser.profile_picture,
+                  setNewUserData
+                )
+                setPfpURL(defaultPfpURL)
+                setProfilePicture(null)
+              }}
+            />
+          )}
 
           {supportedError && (
             <p style={{ color: "red" }}>Файла не е от поддържан тип</p>
@@ -354,9 +364,17 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
         </div>
         <p>Имейл: {fetchedUser?.email}</p>
 
-        <Button onClick={() => handleAdminUserDelete(fetchedUser.id, navigate)}>
+        <Button onClick={() => setIsDeleteUserDialogOpen(true)}>
           Изтрий потребител
         </Button>
+        {isDeleteUserDialogOpen && (
+          <ConfirmationDialog
+            cancelBtnEvent={() => setIsDeleteUserDialogOpen(false)}
+            deleteBtnEvent={() =>
+              handleAdminUserDelete(fetchedUser.id, navigate)
+            }
+          />
+        )}
         <Button
           onClick={() => handleAdminCredsChange(newUserData)}
           disabled={

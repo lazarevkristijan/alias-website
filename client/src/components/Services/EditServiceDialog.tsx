@@ -17,6 +17,7 @@ import { getAllServiceProviders } from "../../Utils/ServiceProvidersUtils"
 import Button from "../Shared/Button"
 import { useSelector } from "react-redux"
 import { RootState } from "../../Store"
+import ConfirmationDialog from "../Shared/ConfirmationDialog"
 
 const EditServiceDialog = ({
   service,
@@ -78,6 +79,7 @@ const EditServiceDialog = ({
   }, [waitedSearchValue])
 
   const theme = useSelector((state: RootState) => state.theme.current)
+  const [isDelServDialogOpen, setIsDelServDialogOpen] = useState(false)
 
   return (
     <div
@@ -324,7 +326,13 @@ const EditServiceDialog = ({
           >
             Нулиране
           </Button>
-          <Button onClick={() => handleDelete(service.id)}>Изтрий</Button>
+          <Button onClick={() => setIsDelServDialogOpen(true)}>Изтрий</Button>
+          {isDelServDialogOpen && (
+            <ConfirmationDialog
+              cancelBtnEvent={() => setIsDelServDialogOpen(false)}
+              deleteBtnEvent={() => handleDelete(service.id)}
+            />
+          )}
         </>
       )}
     </div>
