@@ -21,6 +21,7 @@ import {
   getSingleProviderServices,
   getSingleUser,
   getAllServices,
+  getAllPurchases,
 } from "./Routes/getRoutes.js"
 import { postAddService, postLoginOrRegister } from "./Routes/postRoutes.js"
 import {
@@ -59,7 +60,7 @@ app.get("/", (req, res) => res.send("DB ROOT"))
 // GET DATA
 
 // AUTHENTICATION RELATED
-app.post("/user/login-or-register", postLoginOrRegister)
+app.post("/user/authenticate", postLoginOrRegister)
 app.get("/user/logout", getLogout)
 app.delete("/user/delete-user", verifyToken, deleteUser)
 
@@ -112,6 +113,9 @@ app.patch(
   patchAdminChangeCreds
 )
 app.delete("/admin/user/delete/:id", verifyToken, deleteUserByAdmin)
+
+// PURCHASES
+app.get("/purchases/all", getAllPurchases)
 
 // LISTEN
 const server = app.listen(port, () =>

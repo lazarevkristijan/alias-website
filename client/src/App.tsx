@@ -11,11 +11,13 @@ import ServicesMain from "./sections/ServicesMain"
 import SingleService from "./sections/SingleService"
 import ProviderProfile from "./sections/ProviderProfile"
 import ServiceProviders from "./sections/ServiceProviders"
-import AdminDashboard from "./sections/AdminDashboard"
 import AdminUserView from "./sections/AdminUserView"
 import Footer from "./sections/Footer"
 import SingleCategoryServices from "./sections/SingleCategoryServices"
 import NotFound from "./sections/NotFound"
+import AdminDashboardUsers from "./sections/AdminDashboardUsers"
+import AdminDashboardPurchases from "./sections/AdminDashboardPurchases"
+import AdminDashboard from "./sections/AdminDashboard"
 
 const App = () => {
   const dispatch = useDispatch()
@@ -87,12 +89,20 @@ const App = () => {
                 element={<ProviderProfile />}
               />
               <Route
-                path="admin-dashboard"
+                path="admin"
                 element={<AdminDashboard />}
               />
               <Route
-                path="admin-dashboard/user/:id"
+                path="admin/users"
+                element={<AdminDashboardUsers />}
+              />
+              <Route
+                path="admin/user/:id"
                 element={<AdminUserView />}
+              />
+              <Route
+                path="admin/purchases"
+                element={<AdminDashboardPurchases />}
               />
               <Route
                 path="*"

@@ -43,7 +43,7 @@ const Navbar = () => {
           )}
           {user?.role === "админ" && (
             <NavLink
-              to="admin-dashboard"
+              to="admin"
               title="админ"
             />
           )}
@@ -129,7 +129,7 @@ const Navbar = () => {
                 <li
                   className={`${theme === "dark" ? "dark-nav" : "light-nav"}`}
                   onClick={() => {
-                    navigate("/admin-dashboard")
+                    navigate("/admin")
                     setIsMenuOpen(false)
                   }}
                 >

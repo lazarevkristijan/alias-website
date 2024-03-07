@@ -135,9 +135,20 @@ export const handleAdminUserDelete = async (
     })
     .then((response) => {
       sendNotification(response.data.success, true)
-      navigate("/admin-dashboard")
+      navigate("/admin")
     })
     .catch((error) =>
       sendNotification(`${error.response.data.error}, ${errorNotifEnding}}`)
     )
+}
+
+export const getAllPurchases = async () => {
+  const res = await axios
+    .get("http://localhost:5432/purchases/all")
+    .then((response) => response.data)
+    .catch((error) =>
+      sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
+    )
+
+  return res
 }
