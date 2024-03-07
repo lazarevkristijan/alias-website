@@ -93,23 +93,27 @@ export type AdminEditUserDataTypes = {
 }
 
 export type Purchase = {
-  buyer_first_name: string
+  id: number
   buyer_id: number
+  buyer_first_name: string
   buyer_last_name: string
   buyer_middle_name: string
   buyer_profile_picture: string
-  date: string
-  id: number
-  provider_first_name: string
+  
   provider_id: number
-  provider_job_title: string
+  provider_first_name: string
   provider_last_name: string
   provider_middle_name: string
   provider_profile_picture: string
-  quantity: number
-  service_category: string
+  provider_job_title: string
+  
   service_id: number
   service_name: string
   service_price: string
+  service_category: string
+  date_finished: string
+  date_of_purchase: string
+  quantity: number
   total_paid: number
+  finished: number
 }
