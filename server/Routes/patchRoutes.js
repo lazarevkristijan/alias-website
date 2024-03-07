@@ -219,3 +219,22 @@ export const patchAdminChangeCreds = async (req, res) => {
       .json({ error: "Грешка при промяна на лични данни от админ" })
   }
 }
+
+export const patchChangePurchaseStatus = async (req, res) => {
+  try {
+    const { id: purchaseId } = req.params
+
+    await sql`
+    UPDATE purchases
+    SET finished = 1, date_finished = ${new Date()}
+
+    WHERE id = ${purchaseId}`
+
+    return res.json({ success: "Успешна промяна на статус на покупка" })
+  } catch (error) {
+    console.error("Error is: ", error)
+    return res
+      .status(500)
+      .json({ error: "Грешка при промяана на статус на покупка" })
+  }
+}

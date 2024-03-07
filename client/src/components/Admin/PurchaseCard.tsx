@@ -1,6 +1,8 @@
 import { Purchase } from "../../Types"
+import { handlePurchaseStatusChange } from "../../Utils/AdminUtils"
 import { getPfpLink } from "../../Utils/SettingsUtils"
 import { capitalizeString } from "../../Utils/SharedUtils"
+import Button from "../Shared/Button"
 
 const PurchaseCard = ({
   purchase,
@@ -57,8 +59,8 @@ const PurchaseCard = ({
         Служител: {purchase.provider_first_name}{" "}
         {purchase.provider_middle_name && purchase.provider_middle_name}{" "}
         {purchase.provider_last_name}
-        <p>Специялност: {purchase.provider_job_title || "Няма специялност"}</p>
       </p>
+      <p>Специялност: {purchase.provider_job_title || "Няма специялност"}</p>
 
       <br />
       <hr />
@@ -78,10 +80,27 @@ const PurchaseCard = ({
       </p>
       <p>Свършена: {purchase.finished ? "Да" : "Не"}</p>
       {purchase.finished ? (
-        <p>Дата на свършване: {purchase.date_of_purchase}</p>
+        <>
+          <p>Дата на свършване: {purchase.date_finished.split("T")[0]}</p>
+          <p>
+            Час на свършване:{" "}
+            {purchase.date_finished.split("T")[1].split(".")[0]}
+          </p>
+        </>
       ) : (
         ""
       )}
+
+      <br />
+      <hr />
+      <br />
+
+      <Button
+        onClick={() => handlePurchaseStatusChange(purchase.id)}
+        disabled={Boolean(purchase.finished)}
+      >
+        Маркирай свършена
+      </Button>
     </div>
   )
 }

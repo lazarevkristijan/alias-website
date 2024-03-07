@@ -37,6 +37,7 @@ import {
   patchChangeCreds,
   patchChangeProfilePicture,
   patchEditService,
+  patchChangePurchaseStatus,
 } from "./Routes/patchRoutes.js"
 
 dotenv.config()
@@ -115,7 +116,8 @@ app.patch(
 app.delete("/admin/user/delete/:id", verifyToken, deleteUserByAdmin)
 
 // PURCHASES
-app.get("/purchases/all", getAllPurchases)
+app.get("/purchases/all", verifyToken, getAllPurchases)
+app.patch("/purchase/mark-finished/:id", verifyToken, patchChangePurchaseStatus)
 
 // LISTEN
 const server = app.listen(port, () =>
