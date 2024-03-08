@@ -226,8 +226,7 @@ export const patchChangePurchaseStatus = async (req, res) => {
 
     await sql`
     UPDATE purchases
-    SET finished = 1, date_finished = ${new Date()}
-
+    SET finished = 1, date_finished = NOW() AT TIME ZONE 'Europe/Sofia'
     WHERE id = ${purchaseId}`
 
     return res.json({ success: "Успешна промяна на статус на покупка" })

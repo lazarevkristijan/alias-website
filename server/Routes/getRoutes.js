@@ -244,15 +244,15 @@ export const getAllPurchases = async (req, res) => {
     SELECT a.id, a.buyer_id, b.first_name as buyer_first_name, b.last_name as buyer_last_name, b.middle_name as buyer_middle_name, b.profile_picture as buyer_profile_picture,
     provider_id, d.first_name as provider_first_name, d.last_name as provider_last_name, d.middle_name as provider_middle_name, d.job_title as provider_job_title, d.profile_picture as provider_profile_picture,
     a.service_id, c.name as service_name, c.price as service_price, a.total_paid, a.quantity,e.name as service_category, a.date_of_purchase, a.finished, a.date_finished
-         FROM purchases as a
-JOIN users as b
-ON a.buyer_id = b.id
-JOIN services as c
-ON a.service_id = c.id
-JOIN users as d
-ON a.provider_id = d.id
-JOIN service_categories as e
-ON e.id = c.category_id`
+    FROM purchases as a
+    JOIN users as b
+    ON a.buyer_id = b.id
+    JOIN services as c
+    ON a.service_id = c.id
+    JOIN users as d
+    ON a.provider_id = d.id
+    JOIN service_categories as e
+    ON e.id = c.category_id`
 
     return res.json(purchases)
   } catch (error) {

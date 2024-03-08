@@ -11,6 +11,7 @@ const PurchaseCard = ({
   purchase: Purchase
   theme: string
 }) => {
+  console.log(purchase)
   return (
     <div
       className={`purchase-card card-padding ${
