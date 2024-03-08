@@ -84,7 +84,7 @@ const AdminDashboardUsers = () => {
                     {displayPhoneNumber(singleUser?.phone_number || "") ||
                       "Няма номер"}
                   </p>
-                  <Button onClick={() => navigate(`user/${singleUser?.id}`)}>
+                  <Button onClick={() => navigate(`/admin/user/${singleUser?.id}`)}>
                     Подробности
                   </Button>
                 </div>
