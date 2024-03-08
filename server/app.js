@@ -7,6 +7,7 @@ import multer from "multer"
 import { storage } from "./utils/cloudinary.js"
 const upload = multer({ storage })
 import { verifyToken } from "./utils/verifyToken.js"
+import { checkAccess } from "./utils/checkAccess.js"
 import {
   getAllUsers,
   getLogout,
@@ -54,6 +55,7 @@ app.use(
 )
 app.use(bodyParser.json())
 app.use(cookieParser())
+app.use(checkAccess)
 
 // GENERAL
 app.get("/", (req, res) => res.send("DB ROOT"))
