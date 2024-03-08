@@ -22,7 +22,8 @@ import {
   getSingleProviderServices,
   getSingleUser,
   getAllServices,
-  getAllPurchases,
+  getAllProviderOrders,
+  getAllOrders,
 } from "./Routes/getRoutes.js"
 import { postAddService, postLoginOrRegister } from "./Routes/postRoutes.js"
 import {
@@ -38,7 +39,7 @@ import {
   patchChangeCreds,
   patchChangeProfilePicture,
   patchEditService,
-  patchChangePurchaseStatus,
+  patchChangeOrderStatus,
 } from "./Routes/patchRoutes.js"
 
 dotenv.config()
@@ -59,8 +60,6 @@ app.use(checkAccess)
 
 // GENERAL
 app.get("/", (req, res) => res.send("DB ROOT"))
-
-// GET DATA
 
 // AUTHENTICATION RELATED
 app.post("/user/authenticate", postLoginOrRegister)
@@ -118,8 +117,9 @@ app.patch(
 app.delete("/admin/user/delete/:id", verifyToken, deleteUserByAdmin)
 
 // PURCHASES
-app.get("/purchases/all", verifyToken, getAllPurchases)
-app.patch("/purchase/mark-finished/:id", verifyToken, patchChangePurchaseStatus)
+app.get("/orders", verifyToken, getAllOrders)
+app.get("/orders/provider/:id", getAllProviderOrders)
+app.patch("/order/mark-finished/:id", verifyToken, patchChangeOrderStatus)
 
 // LISTEN
 const server = app.listen(port, () =>

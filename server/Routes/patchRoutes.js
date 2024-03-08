@@ -220,7 +220,7 @@ export const patchAdminChangeCreds = async (req, res) => {
   }
 }
 
-export const patchChangePurchaseStatus = async (req, res) => {
+export const patchChangeOrderStatus = async (req, res) => {
   try {
     const { id: purchaseId } = req.params
 

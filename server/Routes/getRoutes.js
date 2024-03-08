@@ -238,7 +238,7 @@ export const getSingleUser = async (req, res) => {
   }
 }
 
-export const getAllPurchases = async (req, res) => {
+export const getAllOrders = async (req, res) => {
   try {
     const purchases = await sql`
     SELECT a.id, a.buyer_id, b.first_name as buyer_first_name, b.last_name as buyer_last_name, b.middle_name as buyer_middle_name, b.profile_picture as buyer_profile_picture,
@@ -260,5 +260,21 @@ export const getAllPurchases = async (req, res) => {
     return res
       .status(500)
       .json({ error: "Грешка при получаване на всички покупки" })
+  }
+}
+
+export const getAllProviderOrders = async (req, res) => {
+  try {
+    const { id: providerId } = req.params
+
+    const orders = await sql`SELECT * FROM purchases
+    WHERE provider_id = ${providerId}`
+
+    return res.json(orders)
+  } catch (error) {
+    console.error("Error is: ", error)
+    return res
+      .status(500)
+      .json({ error: "Грешка при получаване на всички покупки за служител" })
   }
 }

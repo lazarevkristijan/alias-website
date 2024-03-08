@@ -8,12 +8,12 @@ import {
 import { ProviderTypes, SingleServiceTypes } from "../Types"
 import { getPfpLink } from "../Utils/SettingsUtils"
 import { defaultPfpURL } from "../constants"
-import React from "react"
 import Button from "../components/Shared/Button"
 import "./ProviderProfile.scss"
 import { useSelector } from "react-redux"
 import { RootState } from "../Store"
 import { displayPhoneNumber } from "../Utils/ProfileUtils"
+import { getProviderOrders } from "../Utils/AdminUtils"
 
 const ProviderProfile = () => {
   const { id } = useParams()
@@ -34,11 +34,16 @@ const ProviderProfile = () => {
     queryFn: () => getSingleProviderServices(id || ""),
   })
 
+  const { isFetching: areOrdersFetching, data: orders } = useQuery({
+    queryKey: ["provider-ordered-services"],
+    queryFn: () => getProviderOrders(Number(id)),
+  })
+
   if (!services) return
 
   return (
     <section>
-      {isProviderFetching || areServicesFetching ? (
+      {isProviderFetching || areServicesFetching || areOrdersFetching ? (
         <p>Зареждане...</p>
       ) : (
         <section
@@ -80,35 +85,39 @@ const ProviderProfile = () => {
             <p>{provider?.email}</p>
           </div>
 
-          <h2>Услуги които предлага {provider?.first_name}</h2>
+          <h3>Услуги които предлага {provider?.first_name}</h3>
           <div className="provider-services-container">
             {services.map((service) => (
-              <React.Fragment key={service.id}>
-                <div
-                  key={service.id}
-                  style={{
-                    padding: 10,
-                    margin: 10,
-                    width: 250,
-                  }}
-                  className={`provider-service-card box-shadow card-padding ${
-                    theme === "dark"     ? "card-black-bg box-shadow-white"
+              <div
+                key={service.id}
+                style={{
+                  padding: 10,
+                  margin: 10,
+                  width: 250,
+                }}
+                className={`provider-service-card box-shadow card-padding ${
+                  theme === "dark"
+                    ? "card-black-bg box-shadow-white"
                     : "card-white-bg box-shadow-black"
-                  }`}
+                }`}
+              >
+                <p>Услуга: {service.name}</p>
+                <p>Категория: {capitalizeString(service.category)}</p>
+                <p>Цена: {service.price}лв.</p>
+                <Button
+                  onClick={() =>
+                    navigate(`/услуги/${service.category}/${service.id}`)
+                  }
                 >
-                  <p>Услуга: {service.name}</p>
-                  <p>Категория: {capitalizeString(service.category)}</p>
-                  <p>Цена: {service.price}лв.</p>
-                  <Button
-                    onClick={() =>
-                      navigate(`/услуги/${service.category}/${service.id}`)
-                    }
-                  >
-                    Към услуга
-                  </Button>
-                </div>
-              </React.Fragment>
+                  Към услуга
+                </Button>
+              </div>
             ))}
+          </div>
+
+          <h3>Услуги които е услужил {provider?.first_name}</h3>
+          <div className="provider-services-container">
+            Предоставил {orders.length} услуг{orders.length === 1 ? "а" : "и"}
           </div>
         </section>
       )}

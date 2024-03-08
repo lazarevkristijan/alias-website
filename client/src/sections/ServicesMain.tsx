@@ -44,8 +44,6 @@ const ServicesMain = () => {
           </div>
           {user?.role === "админ" && (
             <>
-              <br />
-              <br />
               <Button
                 onClick={() =>
                   setIsAddDialogOpen(isAddDialogOpen ? false : true)

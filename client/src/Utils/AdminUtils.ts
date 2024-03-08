@@ -144,7 +144,7 @@ export const handleAdminUserDelete = async (
 
 export const getAllPurchases = async () => {
   const res = await axios
-    .get("http://localhost:5432/purchases/all", { withCredentials: true })
+    .get("http://localhost:5432/orders", { withCredentials: true })
     .then((response) => response.data)
     .catch((error) =>
       sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
@@ -156,7 +156,7 @@ export const getAllPurchases = async () => {
 export const handlePurchaseStatusChange = async (id: number) => {
   await axios
     .patch(
-      `http://localhost:5432/purchase/mark-finished/${id}`,
+      `http://localhost:5432/order/mark-finished/${id}`,
       {},
       {
         withCredentials: true,
@@ -168,4 +168,16 @@ export const handlePurchaseStatusChange = async (id: number) => {
     .catch((error) => {
       sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
     })
+}
+
+export const getProviderOrders = async (id: number) => {
+  const res = await axios
+    .get(`http://localhost:5432/orders/provider/${id}`)
+    .then((response) => response.data)
+    .catch((error) => {
+      sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
+    })
+
+  console.log(res)
+  return res
 }

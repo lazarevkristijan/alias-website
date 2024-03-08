@@ -18,7 +18,9 @@ const AdminDashboard = () => {
   return (
     <section>
       <section
-        className={`box-shadow-${theme === "dark" ? "white dark-bg" : "black"}`}
+        className={`box-shadow-${
+          theme === "dark" ? "white dark-bg" : "black light-bg"
+        }`}
       >
         <Button onClick={() => navigate("users")}>Потребители</Button>
         <Button onClick={() => navigate("purchases")}>Покупки</Button>
