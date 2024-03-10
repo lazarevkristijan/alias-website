@@ -20,3 +20,14 @@
   gap: 10px;
   margin-bottom: 0.25rem;
 }
+
+.user-orders {
+  margin-top: 2rem;
+}
+
+.user-orders-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}

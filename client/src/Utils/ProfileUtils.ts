@@ -2,6 +2,8 @@ import axios from "axios"
 import { AppDispatch } from "../Store"
 import { login } from "../features/session/sessionSlice"
 import { UserTypes } from "../Types"
+import { sendNotification } from "./SharedUtils"
+import { errorNotifEnding } from "../constants"
 
 export const handleDeleteUser = async (auth0logout: () => void) => {
   await axios
@@ -67,4 +69,15 @@ export const displayPhoneNumber = (phoneNumber: string) => {
     )
   }
   return phoneNumber
+}
+
+export const getAllUserOrders = async (id: number) => {
+  const res = await axios
+    .get(`http://localhost:5432/orders/user/${id}`, { withCredentials: true })
+    .then((response) => response.data)
+    .catch((error) =>
+      sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
+    )
+
+  return res
 }

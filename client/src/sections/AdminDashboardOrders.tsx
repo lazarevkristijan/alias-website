@@ -43,7 +43,6 @@ const AdminDashboardOrders = () => {
                 <OrderCard
                   key={order.id}
                   order={order}
-                  theme={theme}
                 />
               ))}
             </div>

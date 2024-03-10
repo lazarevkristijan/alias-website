@@ -1,17 +1,14 @@
+import { useSelector } from "react-redux"
 import { Order } from "../../Types"
 import { handleOrderStatusChange } from "../../Utils/AdminUtils"
 import { getPfpLink } from "../../Utils/SettingsUtils"
 import { capitalizeString } from "../../Utils/SharedUtils"
 import Button from "../Shared/Button"
+import { RootState } from "../../Store"
 
-const OrderCard = ({
-  order,
-  theme,
-}: {
-  order: Order
-  theme: string
-}) => {
-  console.log(order)
+const OrderCard = ({ order }: { order: Order }) => {
+  const theme = useSelector((state: RootState) => state.theme.current)
+
   return (
     <div
       className={`order-card card-padding ${
@@ -75,17 +72,13 @@ const OrderCard = ({
       <p>Общо: {order.total_paid}лв.</p>
       <br />
       <p>Дата на поръчване: {order.date_of_order.split("T")[0]}</p>
-      <p>
-        Час на поръчване:{" "}
-        {order.date_of_order.split("T")[1].split(".")[0]}
-      </p>
+      <p>Час на поръчване: {order.date_of_order.split("T")[1].split(".")[0]}</p>
       <p>Свършена: {order.finished ? "Да" : "Не"}</p>
       {order.finished ? (
         <>
           <p>Дата на свършване: {order.date_finished.split("T")[0]}</p>
           <p>
-            Час на свършване:{" "}
-            {order.date_finished.split("T")[1].split(".")[0]}
+            Час на свършване: {order.date_finished.split("T")[1].split(".")[0]}
           </p>
         </>
       ) : (

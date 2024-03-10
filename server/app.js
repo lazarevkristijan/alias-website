@@ -25,6 +25,7 @@ import {
   getAllProviderOrders,
   getAllOrders,
   getAllServiceOrders,
+  getAllUserOrders,
 } from "./Routes/getRoutes.js"
 import { postAddService, postLoginOrRegister } from "./Routes/postRoutes.js"
 import {
@@ -122,9 +123,9 @@ app.delete("/admin/user/delete/:id", verifyToken, deleteUserByAdmin)
 // ORDERS
 app.get("/orders", verifyToken, getAllOrders)
 app.get("/orders/provider/:id", getAllProviderOrders)
-app.get('/orders/service/:id', getAllServiceOrders)
+app.get("/orders/service/:id", getAllServiceOrders)
+app.get("/orders/user/:id", verifyToken, getAllUserOrders)
 app.patch("/order/mark-finished/:id", verifyToken, patchChangeOrderStatus)
-
 // LISTEN
 const server = app.listen(port, () =>
   console.log(`Alias is listening on port ${port}!`)
