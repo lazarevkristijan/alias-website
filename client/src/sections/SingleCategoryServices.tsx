@@ -2,9 +2,8 @@ import { useQuery } from "@tanstack/react-query"
 import { useNavigate, useParams } from "react-router"
 import { getAllCategoryServices } from "../Utils/SharedUtils"
 import { ProviderServiceShowcaseTypes, ServiceTypes } from "../Types"
-import ServiceCard from "../components/Services/SingleCategoryServiceCard"
+import SingleCategoryServiceCard from "../components/Services/SingleCategoryServiceCard"
 import { getAllCategoryProviders } from "../Utils/SharedUtils"
-import React from "react"
 import Button from "../components/Shared/Button"
 import "./SingleCategoryServices.scss"
 import { useSelector } from "react-redux"
@@ -38,29 +37,23 @@ const SingleCategoryServices = () => {
           : "light-bg box-shadow-black"
       }`}
     >
-      <>
-        {areCategoryServicesFetching || areProvidersFetching ? (
-          <p>Зареждане...</p>
-        ) : (
-          <section>
-            <Button onClick={() => navigate("/услуги")}>Към услуги</Button>
-            <h2>
-              Всички {category === "персонални" && category} услуги{" "}
-              {category !== "персонални" && `за ${category}`}
-            </h2>
-            <div className="category-services-container">
-              {allCategoryServices?.map((service) => (
-                <React.Fragment key={service.id}>
-                  <ServiceCard
-                    service={service}
-                    providers={allProviders}
-                  />
-                </React.Fragment>
-              ))}
-            </div>
-          </section>
-        )}
-      </>
+      {areCategoryServicesFetching || areProvidersFetching ? (
+        <p>Зареждане...</p>
+      ) : (
+        <section>
+          <Button onClick={() => navigate("/услуги")}>Към услуги</Button>
+          <h2>Услуги: {category}</h2>
+          <div className="category-services-container">
+            {allCategoryServices?.map((service) => (
+              <SingleCategoryServiceCard
+                key={service.id}
+                service={service}
+                providers={allProviders}
+              />
+            ))}
+          </div>
+        </section>
+      )}
     </section>
   )
 }

@@ -37,7 +37,7 @@ export const sendNotification = (message: string, success: boolean = false) => {
   const notification = document.createElement("div")
   notification.classList.add("notification")
   notification.style.backgroundColor = success ? "#cfffdb" : "#ffb3b3"
- 
+
   const textParagraph = document.createElement("p")
   textParagraph.textContent = message
 
@@ -127,6 +127,17 @@ export const getAllCategoryProviders = async (category: string) => {
     )
 
   return res
+}
+
+export const getAllServiceOrders = async (id: number) => {
+  const res = await axios
+    .get(`http://localhost:5432/orders/service/${id}`)
+    .then((response) => response.data)
+    .catch((error) => {
+      sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
+    })
+
+    return res
 }
 
 export const getAllCategoryServices = async (category: string) => {

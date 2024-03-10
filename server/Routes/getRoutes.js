@@ -278,3 +278,20 @@ export const getAllProviderOrders = async (req, res) => {
       .json({ error: "Грешка при получаване на всички покупки за служител" })
   }
 }
+
+export const getAllServiceOrders = async (req, res) => {
+  try {
+    const { id: serviceId } = req.params
+
+    const orders = await sql`
+    SELECT * FROM purchases
+    WHERE service_id = ${serviceId} AND finished = 1`
+
+    return res.json(orders)
+  } catch (error) {
+    console.error("Error is: ", error)
+    return res
+      .status(500)
+      .json({ error: "Грешка при получаване на всички покупки за услуга" })
+  }
+}

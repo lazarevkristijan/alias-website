@@ -99,14 +99,14 @@ export type Purchase = {
   buyer_last_name: string
   buyer_middle_name: string
   buyer_profile_picture: string
-  
+
   provider_id: number
   provider_first_name: string
   provider_last_name: string
   provider_middle_name: string
   provider_profile_picture: string
   provider_job_title: string
-  
+
   service_id: number
   service_name: string
   service_price: string
@@ -116,4 +116,16 @@ export type Purchase = {
   quantity: number
   total_paid: number
   finished: number
+}
+
+export type OrderGeneral = {
+  buyer_id: number
+  date_finished: string
+  date_of_purchase: string
+  finished: number
+  id: number
+  provider_id: number
+  quantity: number
+  service_id: number
+  total_paid: number
 }

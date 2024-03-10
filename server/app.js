@@ -24,6 +24,7 @@ import {
   getAllServices,
   getAllProviderOrders,
   getAllOrders,
+  getAllServiceOrders,
 } from "./Routes/getRoutes.js"
 import { postAddService, postLoginOrRegister } from "./Routes/postRoutes.js"
 import {
@@ -79,11 +80,13 @@ app.delete(
   verifyToken,
   deleteProfilePicture
 )
+
+// SERVICES
 app.get("/services/all", getAllServices)
 app.get("/services/all/:category", getAllServicesByCategory)
+app.get("/services/all-service-categories", getAllServiceCategories)
 app.get("/service/info/:category/:id", getSingleService)
 app.get("/service/providers/all/:id", getSingleServiceProviders)
-app.get("/services/all-service-categories", getAllServiceCategories)
 
 app.post("/services/add-service", verifyToken, postAddService)
 app.patch("/services/edit-service", verifyToken, patchEditService)
@@ -116,9 +119,10 @@ app.patch(
 )
 app.delete("/admin/user/delete/:id", verifyToken, deleteUserByAdmin)
 
-// PURCHASES
+// ORDERS
 app.get("/orders", verifyToken, getAllOrders)
 app.get("/orders/provider/:id", getAllProviderOrders)
+app.get('/orders/service/:id', getAllServiceOrders)
 app.patch("/order/mark-finished/:id", verifyToken, patchChangeOrderStatus)
 
 // LISTEN
