@@ -268,7 +268,7 @@ export const getAllProviderOrders = async (req, res) => {
     const { id: providerId } = req.params
 
     const orders = await sql`SELECT * FROM purchases
-    WHERE provider_id = ${providerId}`
+    WHERE provider_id = ${providerId} AND finished = 1`
 
     return res.json(orders)
   } catch (error) {

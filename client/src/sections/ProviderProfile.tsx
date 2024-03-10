@@ -83,6 +83,9 @@ const ProviderProfile = () => {
               <p>{displayPhoneNumber(provider?.phone_number)}</p>
             )}
             <p>{provider?.email}</p>
+            <p>
+              Предоставил {orders.length} услуг{orders.length === 1 ? "а" : "и"}
+            </p>
           </div>
 
           <h3>Услуги които предлага {provider?.first_name}</h3>
@@ -113,11 +116,6 @@ const ProviderProfile = () => {
                 </Button>
               </div>
             ))}
-          </div>
-
-          <h3>Услуги които е услужил {provider?.first_name}</h3>
-          <div className="provider-services-container">
-            Предоставил {orders.length} услуг{orders.length === 1 ? "а" : "и"}
           </div>
         </section>
       )}
