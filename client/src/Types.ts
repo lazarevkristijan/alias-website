@@ -92,7 +92,7 @@ export type AdminEditUserDataTypes = {
   phone_number: string
 }
 
-export type Purchase = {
+export type Order = {
   id: number
   buyer_id: number
   buyer_first_name: string
@@ -112,7 +112,7 @@ export type Purchase = {
   service_price: string
   service_category: string
   date_finished: string
-  date_of_purchase: string
+  date_of_order: string
   quantity: number
   total_paid: number
   finished: number
@@ -121,7 +121,7 @@ export type Purchase = {
 export type OrderGeneral = {
   buyer_id: number
   date_finished: string
-  date_of_purchase: string
+  date_of_order: string
   finished: number
   id: number
   provider_id: number

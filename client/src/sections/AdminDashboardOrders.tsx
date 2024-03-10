@@ -3,12 +3,12 @@ import { RootState } from "../Store"
 import { useNavigate } from "react-router"
 import { useEffect } from "react"
 import { useQuery } from "@tanstack/react-query"
-import { getAllPurchases } from "../Utils/AdminUtils"
-import { Purchase } from "../Types"
+import { getAllOrders } from "../Utils/AdminUtils"
+import { Order } from "../Types"
 import "./AdminDashboard.scss"
-import PurchaseCard from "../components/Admin/PurchaseCard"
+import OrderCard from "../components/Admin/OrderCard"
 
-const AdminDashboardPurchases = () => {
+const AdminDashboardOrders = () => {
   const navigate = useNavigate()
   const user = useSelector((state: RootState) => state.session.user)
   const theme = useSelector((state: RootState) => state.theme.current)
@@ -19,11 +19,9 @@ const AdminDashboardPurchases = () => {
     }
   }, [user, navigate])
 
-  const { isLoading: arePurchasesLoading, data: allPurchases } = useQuery<
-    Purchase[]
-  >({
-    queryKey: ["all-purchases"],
-    queryFn: () => getAllPurchases(),
+  const { isLoading: areOrdersLoading, data: allOrders } = useQuery<Order[]>({
+    queryKey: ["all-orders"],
+    queryFn: () => getAllOrders(),
   })
 
   return (
@@ -34,17 +32,17 @@ const AdminDashboardPurchases = () => {
           : "light-bg box-shadow-black"
       }`}
     >
-      {arePurchasesLoading ? (
+      {areOrdersLoading ? (
         <p>Зареждане...</p>
       ) : (
         <section className="admin-dashboard">
           <div>
             <h2>Всички покупки</h2>
             <div className="admin-dashboard-container">
-              {allPurchases?.map((purchase) => (
-                <PurchaseCard
-                  key={purchase.id}
-                  purchase={purchase}
+              {allOrders?.map((order) => (
+                <OrderCard
+                  key={order.id}
+                  order={order}
                   theme={theme}
                 />
               ))}
@@ -56,4 +54,4 @@ const AdminDashboardPurchases = () => {
   )
 }
 
-export default AdminDashboardPurchases
+export default AdminDashboardOrders

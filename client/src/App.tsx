@@ -16,7 +16,7 @@ import Footer from "./sections/Footer"
 import SingleCategoryServices from "./sections/SingleCategoryServices"
 import NotFound from "./sections/NotFound"
 import AdminDashboardUsers from "./sections/AdminDashboardUsers"
-import AdminDashboardPurchases from "./sections/AdminDashboardPurchases"
+import AdminDashboardOrders from "./sections/AdminDashboardOrders"
 import AdminDashboard from "./sections/AdminDashboard"
 
 const App = () => {
@@ -101,8 +101,8 @@ const App = () => {
                 element={<AdminUserView />}
               />
               <Route
-                path="admin/purchases"
-                element={<AdminDashboardPurchases />}
+                path="admin/orders"
+                element={<AdminDashboardOrders />}
               />
               <Route
                 path="*"

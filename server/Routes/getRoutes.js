@@ -240,11 +240,11 @@ export const getSingleUser = async (req, res) => {
 
 export const getAllOrders = async (req, res) => {
   try {
-    const purchases = await sql`
+    const orders = await sql`
     SELECT a.id, a.buyer_id, b.first_name as buyer_first_name, b.last_name as buyer_last_name, b.middle_name as buyer_middle_name, b.profile_picture as buyer_profile_picture,
     provider_id, d.first_name as provider_first_name, d.last_name as provider_last_name, d.middle_name as provider_middle_name, d.job_title as provider_job_title, d.profile_picture as provider_profile_picture,
-    a.service_id, c.name as service_name, c.price as service_price, a.total_paid, a.quantity,e.name as service_category, a.date_of_purchase, a.finished, a.date_finished
-    FROM purchases as a
+    a.service_id, c.name as service_name, c.price as service_price, a.total_paid, a.quantity,e.name as service_category, a.date_of_order, a.finished, a.date_finished
+    FROM orders as a
     JOIN users as b
     ON a.buyer_id = b.id
     JOIN services as c
@@ -254,7 +254,7 @@ export const getAllOrders = async (req, res) => {
     JOIN service_categories as e
     ON e.id = c.category_id`
 
-    return res.json(purchases)
+    return res.json(orders)
   } catch (error) {
     console.error("Error is: ", error)
     return res
@@ -267,7 +267,8 @@ export const getAllProviderOrders = async (req, res) => {
   try {
     const { id: providerId } = req.params
 
-    const orders = await sql`SELECT * FROM purchases
+    const orders = await sql`
+    SELECT * FROM orders
     WHERE provider_id = ${providerId} AND finished = 1`
 
     return res.json(orders)
@@ -284,7 +285,7 @@ export const getAllServiceOrders = async (req, res) => {
     const { id: serviceId } = req.params
 
     const orders = await sql`
-    SELECT * FROM purchases
+    SELECT * FROM orders
     WHERE service_id = ${serviceId} AND finished = 1`
 
     return res.json(orders)

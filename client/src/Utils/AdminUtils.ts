@@ -142,7 +142,7 @@ export const handleAdminUserDelete = async (
     )
 }
 
-export const getAllPurchases = async () => {
+export const getAllOrders = async () => {
   const res = await axios
     .get("http://localhost:5432/orders", { withCredentials: true })
     .then((response) => response.data)
@@ -153,7 +153,7 @@ export const getAllPurchases = async () => {
   return res
 }
 
-export const handlePurchaseStatusChange = async (id: number) => {
+export const handleOrderStatusChange = async (id: number) => {
   await axios
     .patch(
       `http://localhost:5432/order/mark-finished/${id}`,

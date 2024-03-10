@@ -222,12 +222,12 @@ export const patchAdminChangeCreds = async (req, res) => {
 
 export const patchChangeOrderStatus = async (req, res) => {
   try {
-    const { id: purchaseId } = req.params
+    const { id: orderId } = req.params
 
     await sql`
-    UPDATE purchases
+    UPDATE orders
     SET finished = 1, date_finished = NOW() AT TIME ZONE 'Europe/Sofia'
-    WHERE id = ${purchaseId}`
+    WHERE id = ${orderId}`
 
     return res.json({ success: "Успешна промяна на статус на покупка" })
   } catch (error) {
