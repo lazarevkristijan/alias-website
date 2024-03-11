@@ -2,7 +2,7 @@ import axios from "axios"
 import { sendNotification } from "./SharedUtils"
 import { defaultPfpURL, errorNotifEnding } from "../constants"
 import { getPfpFileName } from "./SettingsUtils"
-import { AdminEditUserDataTypes, UserTypes } from "../Types"
+import { AddCategory, AdminEditUserDataTypes, UserTypes } from "../Types"
 import { NavigateFunction } from "react-router"
 
 export const getAllUsers = async () => {
@@ -180,4 +180,16 @@ export const getProviderOrders = async (id: number) => {
 
   console.log(res)
   return res
+}
+
+export const handleAddCategory = async (data: AddCategory) => {
+  await axios
+    .post("http://localhost:5432/category/add", JSON.stringify(data), {
+      headers: { "Content-Type": "application/json" },
+      withCredentials: true,
+    })
+    .then((response) => sendNotification(response.data.success, true))
+    .catch((error) =>
+      sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
+    )
 }

@@ -81,6 +81,21 @@ export const postAddService = async (req, res) => {
     return res.json({ success: "Service added" })
   } catch (error) {
     console.error("Error is: ", error)
-    return res.status(500).json({ error: "Error when adding service" })
+    return res.status(500).json({ error: "Грешка при добавяне на услуга" })
+  }
+}
+
+export const postAddCategory = async (req, res) => {
+  try {
+    const { name } = req.body
+
+    await sql`
+    INSERT INTO service_categories(name)
+    VALUES (${name})`
+
+    return res.json({ success: "Успешно добавена категория" })
+  } catch (error) {
+    console.error("Error is: ", error)
+    return res.status(500).json({ error: "Грешка при добавяне на категория" })
   }
 }

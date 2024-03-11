@@ -7,3 +7,5 @@ export const phoneRegex = /^(?:\+?\d{8,16}|)$/
 
 export const priceRegex = /^[0-9]{1,4}$/
 export const serviceNameRegex = /^[a-zA-Zа-яА-Я ]{1,50}$/
+
+export const categoryNameRegex = /^[a-zA-Zа-яА-Я ]{1,30}$/

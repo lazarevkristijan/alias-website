@@ -8,6 +8,7 @@ import ServiceCategoryCard from "../subsections/ServicesMain/ServiceCategoryCard
 import { ServiceCategoryTypes } from "../Types"
 import "./ServicesMain.scss"
 import Button from "../components/Shared/Button"
+import AddCategoryDialog from "../components/Services/AddCategoryDialog"
 
 const ServicesMain = () => {
   const user = useSelector((state: RootState) => state.session.user)
@@ -19,7 +20,8 @@ const ServicesMain = () => {
     })
   const theme = useSelector((state: RootState) => state.theme.current)
 
-  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false)
+  const [isAddServiceDialogOpen, setIsAddServiceDialogOpen] = useState(false)
+  const [isAddCategoryDialogOpen, setIsAddCategoryDialogOpen] = useState(false)
 
   return (
     <section
@@ -46,13 +48,28 @@ const ServicesMain = () => {
             <>
               <Button
                 onClick={() =>
-                  setIsAddDialogOpen(isAddDialogOpen ? false : true)
+                  setIsAddServiceDialogOpen(
+                    isAddServiceDialogOpen ? false : true
+                  )
                 }
               >
                 Добави услуга
               </Button>
-              {isAddDialogOpen && (
-                <AddServiceDialog setIsOpen={setIsAddDialogOpen} />
+              {isAddServiceDialogOpen && (
+                <AddServiceDialog setIsOpen={setIsAddServiceDialogOpen} />
+              )}
+
+              <Button
+                onClick={() =>
+                  setIsAddCategoryDialogOpen(
+                    isAddCategoryDialogOpen ? false : true
+                  )
+                }
+              >
+                Добави категория
+              </Button>
+              {isAddCategoryDialogOpen && (
+                <AddCategoryDialog setIsOpen={setIsAddCategoryDialogOpen} />
               )}
             </>
           )}

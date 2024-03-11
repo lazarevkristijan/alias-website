@@ -105,7 +105,6 @@ const AddServiceDialog = ({
             <input
               id="new_service_name"
               autoComplete="off"
-              type="text"
               placeholder="Пране"
               value={serviceData.name}
               onChange={(e) => {

@@ -27,7 +27,11 @@ import {
   getAllServiceOrders,
   getAllUserOrders,
 } from "./Routes/getRoutes.js"
-import { postAddService, postLoginOrRegister } from "./Routes/postRoutes.js"
+import {
+  postAddCategory,
+  postAddService,
+  postLoginOrRegister,
+} from "./Routes/postRoutes.js"
 import {
   deleteProfilePicture,
   deleteService,
@@ -92,6 +96,8 @@ app.get("/service/providers/all/:id", getSingleServiceProviders)
 app.post("/services/add-service", verifyToken, postAddService)
 app.patch("/services/edit-service", verifyToken, patchEditService)
 app.delete("/services/delete-service", verifyToken, deleteService)
+
+app.post("/category/add", verifyToken, postAddCategory)
 
 app.get("/services/all-providers", getAllServicesAndProviders)
 app.get("/all-providers", getAllServiceProviders)
