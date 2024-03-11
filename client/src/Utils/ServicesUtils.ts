@@ -12,3 +12,6 @@ export const getAllServicesByCategory = async (category: string) => {
 
   return res
 }
+
+
+// export const get
