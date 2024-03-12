@@ -111,6 +111,7 @@ export type Order = {
   service_name: string
   service_price: string
   service_category: string
+  hidden: number
   date_finished: string
   date_of_order: string
   quantity: number

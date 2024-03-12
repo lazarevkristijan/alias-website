@@ -71,6 +71,7 @@ const OrderCard = ({ order }: { order: Order }) => {
       <p>Единична цена: {order.service_price}лв.</p>
       <p>Общо: {order.total_paid}лв.</p>
       <br />
+      <p>Скрита: {order.hidden ? "Да" : "Не"}</p>
       <p>Дата на поръчване: {order.date_of_order.split("T")[0]}</p>
       <p>Час на поръчване: {order.date_of_order.split("T")[1].split(".")[0]}</p>
       <p>Свършена: {order.finished ? "Да" : "Не"}</p>

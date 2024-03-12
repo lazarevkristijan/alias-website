@@ -32,7 +32,8 @@ export const getAllServices = async (req, res) => {
     const allServices = await sql`
     SELECT a.id, a.name, b.name as category, a.price FROM services as a
     JOIN service_categories as b
-    ON a.category_id = b.id`
+    ON a.category_id = b.id
+    WHERE a.hidden != 1`
 
     return res.json(allServices)
   } catch (error) {
@@ -50,7 +51,7 @@ export const getAllServicesByCategory = async (req, res) => {
     SELECT a.id, a.name, a.price, b.name as category FROM services as a
     JOIN service_categories as b
     ON a.category_id = b.id 
-    WHERE b.name = ${category}`
+    WHERE b.name = ${category} AND a.hidden != 1`
 
     return res.json(allServices)
   } catch (error) {
@@ -86,7 +87,9 @@ export const getSingleService = async (req, res) => {
     return res.json(service)
   } catch (error) {
     console.error("Error is: ", error)
-    return res.status(500).json({ error: "Error when getting single service" })
+    return res
+      .status(500)
+      .json({ error: "Грешка при получаване единечна услуга" })
   }
 }
 
@@ -150,7 +153,7 @@ export const getCategoryServiceProviders = async (req, res) => {
     ON b.category_id = c.id 
     JOIN users as d
     ON a.provider_id = d.id
-    WHERE c.name = ${category}`
+    WHERE c.name = ${category} AND b.hidden != 1`
 
     return res.json(providers)
   } catch (error) {
@@ -169,7 +172,7 @@ export const getProvider = async (req, res) => {
     SELECT * FROM users
     WHERE id = ${id} AND role_id = 2`
 
-    if (provider.length === 0)
+    if (!provider.length)
       return res
         .status(404)
         .json({ error: "Служителя не е намерен или не е служител" })
@@ -191,7 +194,7 @@ export const getSingleProviderServices = async (req, res) => {
     ON a.category_id = b.id
     JOIN service_providers as c
     ON a.id = c.service_id
-    WHERE c.provider_id = ${id}`
+    WHERE c.provider_id = ${id} AND a.hidden != 1`
 
     return res.json(services)
   } catch (error) {
@@ -226,7 +229,7 @@ export const getAllOrders = async (req, res) => {
     const orders = await sql`
     SELECT a.id, a.buyer_id, b.first_name as buyer_first_name, b.last_name as buyer_last_name, b.middle_name as buyer_middle_name, b.profile_picture as buyer_profile_picture,
     provider_id, d.first_name as provider_first_name, d.last_name as provider_last_name, d.middle_name as provider_middle_name, d.job_title as provider_job_title, d.profile_picture as provider_profile_picture,
-    a.service_id, c.name as service_name, c.price as service_price, a.total_paid, a.quantity,e.name as service_category, a.date_of_order, a.finished, a.date_finished
+    a.service_id, c.name as service_name, c.price as service_price, a.total_paid, a.quantity,e.name as service_category, a.date_of_order, a.finished, a.date_finished, c.hidden
     FROM orders as a
     JOIN users as b
     ON a.buyer_id = b.id
