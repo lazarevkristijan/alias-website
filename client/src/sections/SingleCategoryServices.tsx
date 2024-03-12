@@ -8,6 +8,9 @@ import Button from "../components/Shared/Button"
 import "./SingleCategoryServices.scss"
 import { useSelector } from "react-redux"
 import { RootState } from "../Store"
+import { useState } from "react"
+import ConfirmationDialog from "../components/Shared/ConfirmationDialog"
+import { handleCategoryDelete } from "../Utils/AdminUtils"
 
 const SingleCategoryServices = () => {
   const navigate = useNavigate()
@@ -27,6 +30,7 @@ const SingleCategoryServices = () => {
     queryKey: [`all-${category}-providers`],
     queryFn: () => getAllCategoryProviders(category || ""),
   })
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
 
   if (!allProviders) return
   return (
@@ -52,6 +56,16 @@ const SingleCategoryServices = () => {
               />
             ))}
           </div>
+
+          <Button onClick={() => setIsDeleteDialogOpen(true)}>
+            Изтрий категория
+          </Button>
+          {isDeleteDialogOpen && (
+            <ConfirmationDialog
+              cancelBtnEvent={() => setIsDeleteDialogOpen(false)}
+              deleteBtnEvent={() => handleCategoryDelete()}
+            />
+          )}
         </section>
       )}
     </section>

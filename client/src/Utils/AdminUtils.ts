@@ -178,7 +178,6 @@ export const getProviderOrders = async (id: number) => {
       sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
     })
 
-  console.log(res)
   return res
 }
 
@@ -193,3 +192,5 @@ export const handleAddCategory = async (data: AddCategory) => {
       sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
     )
 }
+
+export const handleCategoryDelete = async () => {}

@@ -61,15 +61,8 @@ export const postAddService = async (req, res) => {
 
     const newServiceId = await sql`
     INSERT INTO services(name, category_id, price)
-    VALUES(${name}, ${
-      category === "коли"
-        ? 1
-        : category === "вкъщи"
-        ? 2
-        : category === "персонални"
-        ? 3
-        : null
-    }, ${Number(price)})
+    VALUES(${name}, (SELECT id FROM service_categories WHERE name = ${category}),
+     ${Number(price)})
     RETURNING id`
 
     providers.forEach(async (element) => {
@@ -78,7 +71,7 @@ export const postAddService = async (req, res) => {
       VALUES(${element.id}, ${newServiceId[0].id})`
     })
 
-    return res.json({ success: "Service added" })
+    return res.json({ success: "Успешно добавена услуга" })
   } catch (error) {
     console.error("Error is: ", error)
     return res.status(500).json({ error: "Грешка при добавяне на услуга" })
@@ -88,10 +81,11 @@ export const postAddService = async (req, res) => {
 export const postAddCategory = async (req, res) => {
   try {
     const { name } = req.body
+    const nameLowCase = name.toUpperCase()
 
     await sql`
     INSERT INTO service_categories(name)
-    VALUES (${name})`
+    VALUES (${nameLowCase})`
 
     return res.json({ success: "Успешно добавена категория" })
   } catch (error) {
