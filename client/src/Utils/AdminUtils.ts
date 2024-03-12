@@ -193,4 +193,17 @@ export const handleAddCategory = async (data: AddCategory) => {
     )
 }
 
-export const handleCategoryDelete = async () => {}
+export const handleCategoryDelete = async () => {
+  console.log("UNIMPLEMENTED")
+}
+
+export const getAllHiddenServices = async () => {
+  const res = await axios
+    .get(`http://localhost:5432/services/all/hidden`, { withCredentials: true })
+    .then((response) => response.data)
+    .catch((error) => {
+      sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
+    })
+
+  return res
+}

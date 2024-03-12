@@ -4,7 +4,7 @@ import { errorNotifEnding } from "../constants"
 
 export const getAllServicesByCategory = async (category: string) => {
   const res = await axios
-    .get(`http://localhost:5432/services/all/${category}`)
+    .get(`http://localhost:5432/services/all/category/${category}`)
     .then((response) => response.data)
     .catch((error) =>
       sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
@@ -13,5 +13,3 @@ export const getAllServicesByCategory = async (category: string) => {
   return res
 }
 
-
-// export const get

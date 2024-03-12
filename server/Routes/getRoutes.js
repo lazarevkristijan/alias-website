@@ -29,13 +29,13 @@ export const getLogout = async (req, res) => {
 
 export const getAllServices = async (req, res) => {
   try {
-    const allServices = await sql`
+    const services = await sql`
     SELECT a.id, a.name, b.name as category, a.price FROM services as a
     JOIN service_categories as b
     ON a.category_id = b.id
     WHERE a.hidden != 1`
 
-    return res.json(allServices)
+    return res.json(services)
   } catch (error) {
     console.error("Error is: ", error)
     return res
@@ -43,6 +43,23 @@ export const getAllServices = async (req, res) => {
       .json({ error: "Грешка при получаване всички услуги" })
   }
 }
+export const getAllHiddenServices = async (req, res) => {
+  try {
+    const services = await sql`
+    SELECT a.id, a.name, b.name as category, a.price FROM services as a
+    JOIN service_categories as b
+    ON a.category_id = b.id
+    WHERE a.hidden = 1`
+
+    return res.json(services)
+  } catch (error) {
+    console.error("Error is: ", error)
+    return res
+      .status(500)
+      .json({ error: "Грешка при получаване всички скрити услуги" })
+  }
+}
+
 export const getAllServicesByCategory = async (req, res) => {
   try {
     const { category } = req.params

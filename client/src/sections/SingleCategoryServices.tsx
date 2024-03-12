@@ -1,9 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 import { useNavigate, useParams } from "react-router"
-import {
-  getAllCategoryOrders,
-  getAllCategoryServices,
-} from "../Utils/SharedUtils"
+import { getAllCategoryOrders } from "../Utils/SharedUtils"
 import {
   OrderCount,
   ProviderServiceShowcaseTypes,
@@ -11,6 +8,7 @@ import {
 } from "../Types"
 import SingleCategoryServiceCard from "../components/Services/SingleCategoryServiceCard"
 import { getAllCategoryProviders } from "../Utils/SharedUtils"
+import { getAllServicesByCategory } from "../Utils/ServicesUtils"
 import Button from "../components/Shared/Button"
 import "./SingleCategoryServices.scss"
 import { useSelector } from "react-redux"
@@ -28,7 +26,7 @@ const SingleCategoryServices = () => {
   const { isFetching: areCategoryServicesFetching, data: allCategoryServices } =
     useQuery<ServiceTypes[]>({
       queryKey: [`all-${category}-services`],
-      queryFn: () => getAllCategoryServices(category || ""),
+      queryFn: () => getAllServicesByCategory(category || ""),
     }) as { isFetching: boolean; data: ServiceTypes[] }
 
   const { isFetching: areProvidersFetching, data: allProviders } = useQuery<
@@ -69,7 +67,9 @@ const SingleCategoryServices = () => {
                 key={service.id}
                 service={service}
                 providers={allProviders}
-                orders={allOrders.filter((s) => s.service_id === service.id).length}
+                orders={
+                  allOrders.filter((s) => s.service_id === service.id).length
+                }
               />
             ))}
           </div>

@@ -39,7 +39,7 @@ const AdminDashboardUsers = () => {
       {areUsersLoading ? (
         <p>Зареждане...</p>
       ) : (
-        <section className="admin-dashboard">
+        <section>
           <div>
             <h2>Всички потребители:</h2>
             <div className="admin-dashboard-container">

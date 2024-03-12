@@ -24,6 +24,9 @@ const AdminDashboard = () => {
       >
         <Button onClick={() => navigate("users")}>Потребители</Button>
         <Button onClick={() => navigate("orders")}>Покупки</Button>
+        <Button onClick={() => navigate("hidden-services")}>
+          Скрити услуги
+        </Button>
       </section>
     </section>
   )

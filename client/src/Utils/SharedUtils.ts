@@ -140,17 +140,6 @@ export const getAllCategoryOrders = async (category: string) => {
   return res
 }
 
-export const getAllCategoryServices = async (category: string) => {
-  const res = await axios
-    .get(`http://localhost:5432/services/all/${category}`)
-    .then((response) => response.data)
-    .catch((error) =>
-      sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
-    )
-
-  return res
-}
-
 export const getSingleProviderServices = async (id: string) => {
   const res = await axios
     .get(`http://localhost:5432/providers/single/services/${id}`)

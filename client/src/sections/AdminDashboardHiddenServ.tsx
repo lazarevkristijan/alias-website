@@ -3,12 +3,11 @@ import { RootState } from "../Store"
 import { useNavigate } from "react-router"
 import { useEffect } from "react"
 import { useQuery } from "@tanstack/react-query"
-import { getAllOrders } from "../Utils/AdminUtils"
-import { Order } from "../Types"
+import { getAllHiddenServices } from "../Utils/AdminUtils"
+import { ServiceTypes } from "../Types"
 import "./AdminDashboard.scss"
-import OrderCard from "../components/Admin/OrderCard"
 
-const AdminDashboardOrders = () => {
+const AdminDashboardHiddenServ = () => {
   const navigate = useNavigate()
   const user = useSelector((state: RootState) => state.session.user)
   const theme = useSelector((state: RootState) => state.theme.current)
@@ -19,10 +18,11 @@ const AdminDashboardOrders = () => {
     }
   }, [user, navigate])
 
-  const { isLoading: areOrdersLoading, data: allOrders } = useQuery<Order[]>({
-    queryKey: ["all-orders"],
-    queryFn: () => getAllOrders(),
-  })
+  const { isLoading: areHiddenServicesLoading, data: hiddenServices } =
+    useQuery<ServiceTypes[]>({
+      queryKey: ["all-hidden-services"],
+      queryFn: () => getAllHiddenServices(),
+    })
 
   return (
     <section
@@ -32,18 +32,20 @@ const AdminDashboardOrders = () => {
           : "light-bg box-shadow-black"
       }`}
     >
-      {areOrdersLoading ? (
+      {areHiddenServicesLoading ? (
         <p>Зареждане...</p>
       ) : (
         <section>
           <div>
-            <h2>Всички покупки</h2>
+            <h2>Всички скрити услуги</h2>
             <div className="admin-dashboard-container">
-              {allOrders?.map((order) => (
-                <OrderCard
-                  key={order.id}
-                  order={order}
-                />
+              {hiddenServices?.map((hs) => (
+                <div>
+                  <p>{hs.id}</p>
+                  <p>{hs.category}</p>
+                  <p>{hs.name}</p>
+                  <p>{hs.price}</p>
+                </div>
               ))}
             </div>
           </div>
@@ -53,4 +55,4 @@ const AdminDashboardOrders = () => {
   )
 }
 
-export default AdminDashboardOrders
+export default AdminDashboardHiddenServ
