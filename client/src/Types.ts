@@ -130,6 +130,10 @@ export type OrderGeneral = {
   total_paid: number
 }
 
+export type OrderCount = {
+  service_id: number
+}
+
 export type AddCategory = {
   name: string
 }

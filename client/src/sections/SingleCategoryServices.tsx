@@ -1,7 +1,14 @@
 import { useQuery } from "@tanstack/react-query"
 import { useNavigate, useParams } from "react-router"
-import { getAllCategoryServices } from "../Utils/SharedUtils"
-import { ProviderServiceShowcaseTypes, ServiceTypes } from "../Types"
+import {
+  getAllCategoryOrders,
+  getAllCategoryServices,
+} from "../Utils/SharedUtils"
+import {
+  OrderCount,
+  ProviderServiceShowcaseTypes,
+  ServiceTypes,
+} from "../Types"
 import SingleCategoryServiceCard from "../components/Services/SingleCategoryServiceCard"
 import { getAllCategoryProviders } from "../Utils/SharedUtils"
 import Button from "../components/Shared/Button"
@@ -22,17 +29,24 @@ const SingleCategoryServices = () => {
     useQuery<ServiceTypes[]>({
       queryKey: [`all-${category}-services`],
       queryFn: () => getAllCategoryServices(category || ""),
-    })
+    }) as { isFetching: boolean; data: ServiceTypes[] }
 
   const { isFetching: areProvidersFetching, data: allProviders } = useQuery<
     ProviderServiceShowcaseTypes[]
   >({
     queryKey: [`all-${category}-providers`],
     queryFn: () => getAllCategoryProviders(category || ""),
-  })
+  }) as { isFetching: boolean; data: ProviderServiceShowcaseTypes[] }
+
+  const { isFetching: areServiceOrdersFetching, data: allOrders } = useQuery<
+    OrderCount[]
+  >({
+    queryKey: ["service-orders"],
+    queryFn: () => getAllCategoryOrders(category || ""),
+  }) as { isFetching: boolean; data: OrderCount[] }
+
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
 
-  if (!allProviders) return
   return (
     <section
       className={`single-category-services ${
@@ -41,7 +55,9 @@ const SingleCategoryServices = () => {
           : "light-bg box-shadow-black"
       }`}
     >
-      {areCategoryServicesFetching || areProvidersFetching ? (
+      {areCategoryServicesFetching ||
+      areProvidersFetching ||
+      areServiceOrdersFetching ? (
         <p>Зареждане...</p>
       ) : (
         <section>
@@ -53,6 +69,7 @@ const SingleCategoryServices = () => {
                 key={service.id}
                 service={service}
                 providers={allProviders}
+                orders={allOrders.filter((s) => s.service_id === service.id).length}
               />
             ))}
           </div>

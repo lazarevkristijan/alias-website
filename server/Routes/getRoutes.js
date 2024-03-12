@@ -27,23 +27,6 @@ export const getLogout = async (req, res) => {
   }
 }
 
-export const getAllCarServices = async (req, res) => {
-  try {
-    const allCarServices = await sql`
-    SELECT a.id, a.name, a.price, b.name as category FROM services as a
-    JOIN service_categories as b
-    ON a.category_id = b.id 
-    WHERE b.name = 'Car'`
-
-    return res.json(allCarServices)
-  } catch (error) {
-    console.error("Error is: ", error)
-    return res
-      .status(500)
-      .json({ error: "Error when getting all car services" })
-  }
-}
-
 export const getAllServices = async (req, res) => {
   try {
     const allServices = await sql`
@@ -280,13 +263,17 @@ export const getAllProviderOrders = async (req, res) => {
   }
 }
 
-export const getAllServiceOrders = async (req, res) => {
+export const getAllCategoryOrders = async (req, res) => {
   try {
-    const { id: serviceId } = req.params
+    const { category } = req.params
 
     const orders = await sql`
-    SELECT * FROM orders
-    WHERE service_id = ${serviceId} AND finished = 1`
+    SELECT a.service_id FROM orders as a
+    JOIN services as b
+    ON a.service_id = b.id
+    JOIN service_categories as c
+    ON b.category_id = c.id
+    WHERE c.name = ${category}`
 
     return res.json(orders)
   } catch (error) {

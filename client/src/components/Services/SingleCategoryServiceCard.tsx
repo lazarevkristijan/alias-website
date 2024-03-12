@@ -1,39 +1,21 @@
-import {
-  OrderGeneral,
-  ProviderServiceShowcaseTypes,
-  ServiceTypes,
-} from "../../Types"
+import { ProviderServiceShowcaseTypes, ServiceTypes } from "../../Types"
 import { useNavigate } from "react-router"
 import Button from "../Shared/Button"
 import { getPfpLink } from "../../Utils/SettingsUtils"
 import { useSelector } from "react-redux"
 import { RootState } from "../../Store"
-import { useQuery } from "@tanstack/react-query"
-import { getAllServiceOrders } from "../../Utils/SharedUtils"
 
 const SingleCategoryServiceCard = ({
   service,
   providers,
+  orders,
 }: {
   service: ServiceTypes
   providers: ProviderServiceShowcaseTypes[]
+  orders: number
 }) => {
   const navigate = useNavigate()
   const theme = useSelector((state: RootState) => state.theme.current)
-
-  const { isFetching: areServiceOrdersFetching, data: allOrders } = useQuery<
-    OrderGeneral[]
-  >({
-    queryKey: ["service-orders"],
-    queryFn: () => getAllServiceOrders(service.id),
-  })
-
-  let timesOrdered = 0
-  allOrders?.forEach((element) => {
-    if (element.service_id === service.id) {
-      timesOrdered = timesOrdered + 1
-    }
-  })
 
   return (
     <div
@@ -46,9 +28,7 @@ const SingleCategoryServiceCard = ({
       <p>Услуга: {service.name}</p>
       <p>Цена: {service.price}лв.</p>
       <Button onClick={() => navigate(`${service.id}`)}>Подробности</Button>
-      <p>
-        {areServiceOrdersFetching ? "..." : ` Поръчана ${timesOrdered} пъти`}
-      </p>
+      <p>Поръчана {orders} пъти</p>
       Служители на услугата:
       <br />
       <div className="providers-container">

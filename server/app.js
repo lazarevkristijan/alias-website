@@ -24,7 +24,7 @@ import {
   getAllServices,
   getAllProviderOrders,
   getAllOrders,
-  getAllServiceOrders,
+  getAllCategoryOrders,
   getAllUserOrders,
 } from "./Routes/getRoutes.js"
 import {
@@ -129,7 +129,7 @@ app.delete("/admin/user/delete/:id", verifyToken, deleteUserByAdmin)
 // ORDERS
 app.get("/orders", verifyToken, getAllOrders)
 app.get("/orders/provider/:id", getAllProviderOrders)
-app.get("/orders/service/:id", getAllServiceOrders)
+app.get("/orders/category/:category", getAllCategoryOrders)
 app.get("/orders/user/:id", verifyToken, getAllUserOrders)
 app.patch("/order/mark-finished/:id", verifyToken, patchChangeOrderStatus)
 // LISTEN

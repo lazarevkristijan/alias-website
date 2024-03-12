@@ -43,11 +43,27 @@ export const deleteProfilePicture = async (req, res) => {
 
 export const deleteService = async (req, res) => {
   try {
-    const { id } = req.body
+    const { id: serviceId } = req.body
+
+    const serviceOrders = await sql`
+    SELECT * FROM orders
+    WHERE service_id = ${serviceId}`
+
+    if (serviceOrders.length) {
+      await sql`
+      UPDATE services 
+      SET hidden = 1 
+      WHERE id = ${serviceId}`
+
+      return res.json({
+        success:
+          "Услугата има поръчки, сега е скрита, но съществува в системата",
+      })
+    }
 
     await sql`
     DELETE FROM services
-    WHERE id = ${id}`
+    WHERE id = ${serviceId}`
 
     return res.json({ success: "Успешно изтриена услуга" })
   } catch (error) {
