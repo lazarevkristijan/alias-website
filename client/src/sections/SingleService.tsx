@@ -30,7 +30,7 @@ const SingleService = () => {
   const { isFetching: isServiceFetching, data: service } =
     useQuery<ServiceTypes>({
       queryKey: ["single-service"],
-      queryFn: () => getSingleService(category, id),
+      queryFn: () => getSingleService(category, id, navigate),
     })
 
   const {

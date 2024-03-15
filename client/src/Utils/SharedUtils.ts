@@ -2,6 +2,7 @@ import axios from "axios"
 import { AddServiceTypes, ServiceTypes } from "../Types"
 import { errorNotifEnding } from "../constants"
 import React from "react"
+import { NavigateFunction } from "react-router"
 
 export const handleAddService = async (
   e: React.FormEvent<HTMLFormElement>,
@@ -49,12 +50,13 @@ export const sendNotification = (message: string, success: boolean = false) => {
   }, 4000)
 }
 
-export const getSingleService = async (category: string, id: string) => {
+export const getSingleService = async (category: string, id: string, navigate: NavigateFunction) => {
   const res = await axios
     .get(`http://localhost:5432/service/info/${category}/${id}`)
     .then((response) => {
       if (!response.data.length) {
         sendNotification("Услугата не е налична")
+        navigate('/')
         return
       }
       return response.data
