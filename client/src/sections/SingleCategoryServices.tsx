@@ -80,7 +80,7 @@ const SingleCategoryServices = () => {
           {isDeleteDialogOpen && (
             <ConfirmationDialog
               cancelBtnEvent={() => setIsDeleteDialogOpen(false)}
-              deleteBtnEvent={() => handleCategoryDelete()}
+              deleteBtnEvent={() => handleCategoryDelete(category || "")}
             />
           )}
         </section>

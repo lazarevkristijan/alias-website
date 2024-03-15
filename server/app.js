@@ -34,6 +34,7 @@ import {
   postLoginOrRegister,
 } from "./Routes/postRoutes.js"
 import {
+  deleteCategory,
   deleteProfilePicture,
   deleteService,
   deleteUser,
@@ -100,6 +101,7 @@ app.patch("/services/edit-service", verifyToken, patchEditService)
 app.delete("/services/delete-service", verifyToken, deleteService)
 
 app.post("/category/add", verifyToken, postAddCategory)
+app.delete("/category/delete/:name", verifyToken, deleteCategory)
 
 app.get("/services/all-providers", getAllServicesAndProviders)
 app.get("/all-providers", getAllServiceProviders)

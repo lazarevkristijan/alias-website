@@ -193,8 +193,15 @@ export const handleAddCategory = async (data: AddCategory) => {
     )
 }
 
-export const handleCategoryDelete = async () => {
-  console.log("UNIMPLEMENTED")
+export const handleCategoryDelete = async (name: string) => {
+  await axios
+    .delete(`http://localhost:5432/category/delete/${name}`, {
+      withCredentials: true,
+    })
+    .then((response) => sendNotification(response.data.success, true))
+    .catch((error) =>
+      sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
+    )
 }
 
 export const getAllHiddenServices = async () => {

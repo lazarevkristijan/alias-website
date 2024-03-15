@@ -111,3 +111,97 @@ export const deleteUserByAdmin = async (req, res) => {
       .json({ error: "Грешка при изтриване на потребител от админ" })
   }
 }
+
+export const deleteCategory = async (req, res) => {
+  try {
+    const { name: categoryName } = req.params
+
+    const services = await sql`
+    SELECT a.id, b.name FROM services as a 
+    JOIN service_categories as b
+    ON a.category_id = b.id 
+    WHERE b.name = ${categoryName} AND a.hidden != 1`
+
+    let hasOrders = false
+
+    for (const s of services) {
+      const orders = await sql`
+      SELECT * FROM orders
+      WHERE service_id = ${s.id}`
+
+      if (orders.length) {
+        hasOrders = true
+        break
+      }
+    }
+
+    if (hasOrders) {
+      await sql`
+          UPDATE services
+          SET hidden = 1
+          WHERE id IN (
+            SELECT b.id FROM orders as a
+            JOIN services as b
+            ON a.service_id = b.id
+            JOIN service_categories as c
+            ON b.category_id = c.id
+            WHERE c.name = ${categoryName} AND b.hidden != 1      
+          )`
+
+      await sql`
+        DELETE FROM services
+        WHERE id IN (
+          SELECT a.id FROM services as a
+          LEFT JOIN orders as b
+          ON a.id = b.service_id
+          JOIN service_categories as c
+          ON a.category_id = c.id
+          WHERE b.id IS NULL AND c.name = ${categoryName}
+        )`
+
+      await sql`
+        DELETE FROM service_providers
+        WHERE service_id IN (
+          SELECT id FROM services
+          WHERE id IN (
+            SELECT a.id FROM services as a
+            LEFT JOIN orders as b
+            ON a.id = b.service_id
+            JOIN service_categories as c
+            ON a.category_id = c.id
+            WHERE c.name = ${categoryName}
+          )
+        )`
+
+      await sql`
+      UPDATE service_categories
+      SET hidden = 1
+      WHERE name = ${categoryName}`
+
+      return res.json({
+        success:
+          "Съществуват поръчки в категорията, услугите с поръчки и категорията са скрити, а услугите които нямат поръчки са изтрити.",
+      })
+    }
+
+    await sql`
+    DELETE FROM services
+    WHERE id IN (
+      SELECT a.id FROM services as a
+      JOIN service_categories as b
+      ON a.category_id = b.id
+      WHERE b.name = ${categoryName}
+    )`
+
+    await sql`
+    DELETE FROM service_categories
+    WHERE name = ${categoryName}`
+
+    return res.json({
+      success: `Успешно изтрита категорията "${categoryName}" и услугите и`,
+    })
+  } catch (error) {
+    console.error("Error is: ", error)
+    return res.status(500).json({ error: "Грешка при изтриване на категория" })
+  }
+}

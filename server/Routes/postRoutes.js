@@ -84,8 +84,8 @@ export const postAddCategory = async (req, res) => {
     const nameLowCase = name.toUpperCase()
 
     await sql`
-    INSERT INTO service_categories(name)
-    VALUES (${nameLowCase})`
+    INSERT INTO service_categories(name, hidden)
+    VALUES (${nameLowCase}, 0)`
 
     return res.json({ success: "Успешно добавена категория" })
   } catch (error) {

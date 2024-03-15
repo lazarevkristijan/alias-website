@@ -33,7 +33,7 @@ export const getAllServices = async (req, res) => {
     SELECT a.id, a.name, b.name as category, a.price FROM services as a
     JOIN service_categories as b
     ON a.category_id = b.id
-    WHERE a.hidden != 1`
+    WHERE a.hidden != 1 AND b.hidden != 1`
 
     return res.json(services)
   } catch (error) {
@@ -68,26 +68,29 @@ export const getAllServicesByCategory = async (req, res) => {
     SELECT a.id, a.name, a.price, b.name as category FROM services as a
     JOIN service_categories as b
     ON a.category_id = b.id 
-    WHERE b.name = ${category} AND a.hidden != 1`
+    WHERE b.name = ${category} AND a.hidden != 1 AND b.hidden != 1`
 
     return res.json(allServices)
   } catch (error) {
     console.error("Error is: ", error)
-    return res.status(500).json({ error: "Error when getting all services" })
+    return res.status(500).json({
+      error: `Грешка при получаване на всички услуги от категория ${category}`,
+    })
   }
 }
 
 export const getAllServiceCategories = async (req, res) => {
   try {
     const allServiceCategories = await sql`
-    SELECT * FROM service_categories`
+    SELECT * FROM service_categories
+    WHERE hidden != 1`
 
     return res.json(allServiceCategories)
   } catch (error) {
     console.error("Error is: ", error)
     return res
       .status(500)
-      .json({ error: "Error when getting all service categories" })
+      .json({ error: "Грешка при получаване на всички категории на услуги" })
   }
 }
 
@@ -177,7 +180,9 @@ export const getCategoryServiceProviders = async (req, res) => {
     console.error("Error is: ", error)
     return res
       .status(500)
-      .json({ error: "Error when getting categorized service providers" })
+      .json({
+        error: `Грешка при получаване на служители от категория ${category}`,
+      })
   }
 }
 
