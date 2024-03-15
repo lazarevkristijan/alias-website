@@ -1,7 +1,5 @@
 import { useSelector } from "react-redux"
 import { RootState } from "../Store"
-import { useNavigate } from "react-router"
-import { useEffect } from "react"
 import { useQuery } from "@tanstack/react-query"
 import { getAllHiddenServices } from "../Utils/AdminUtils"
 import { ServiceTypes } from "../Types"
@@ -9,15 +7,7 @@ import "./AdminDashboard.scss"
 import HiddenServiceCard from "../components/Admin/HiddenServiceCard"
 
 const AdminDashboardHiddenServ = () => {
-  const navigate = useNavigate()
-  const user = useSelector((state: RootState) => state.session.user)
   const theme = useSelector((state: RootState) => state.theme.current)
-
-  useEffect(() => {
-    if (user?.role !== "админ") {
-      navigate("/")
-    }
-  }, [user, navigate])
 
   const { isLoading: areHiddenServicesLoading, data: hiddenServices } =
     useQuery<ServiceTypes[]>({

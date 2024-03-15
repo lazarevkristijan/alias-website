@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux"
 import { RootState } from "../Store"
 import { useNavigate } from "react-router"
-import { useEffect } from "react"
 import { useQuery } from "@tanstack/react-query"
 import { getAllUsers } from "../Utils/AdminUtils"
 import { UserTypes } from "../Types"
@@ -14,14 +13,7 @@ import { displayPhoneNumber } from "../Utils/ProfileUtils"
 
 const AdminDashboardUsers = () => {
   const navigate = useNavigate()
-  const user = useSelector((state: RootState) => state.session.user)
   const theme = useSelector((state: RootState) => state.theme.current)
-
-  useEffect(() => {
-    if (user?.role !== "админ") {
-      navigate("/")
-    }
-  }, [user, navigate])
 
   const { isLoading: areUsersLoading, data: allUsers } = useQuery<UserTypes[]>({
     queryKey: ["all-users"],
@@ -84,7 +76,9 @@ const AdminDashboardUsers = () => {
                     {displayPhoneNumber(singleUser?.phone_number || "") ||
                       "Няма номер"}
                   </p>
-                  <Button onClick={() => navigate(`/admin/user/${singleUser?.id}`)}>
+                  <Button
+                    onClick={() => navigate(`/admin/user/${singleUser?.id}`)}
+                  >
                     Подробности
                   </Button>
                 </div>

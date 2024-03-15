@@ -20,6 +20,7 @@ import AdminDashboardOrders from "./sections/AdminDashboardOrders"
 import AdminDashboard from "./sections/AdminDashboard"
 import AdminDashboardHiddenServ from "./sections/AdminDashboardHiddenServ"
 import AdminDashboardHiddenCats from "./sections/AdminDashboardHiddenCats"
+import AdminRoute from "./components/Admin/AdminRoute"
 
 const App = () => {
   const dispatch = useDispatch()
@@ -48,7 +49,7 @@ const App = () => {
         <div className="app-loading-container">
           <img
             src="alias.png"
-            alt="alias"
+            alt="alias logo"
           />
           <p>Зареждане...</p>
         </div>
@@ -92,27 +93,51 @@ const App = () => {
               />
               <Route
                 path="admin"
-                element={<AdminDashboard />}
+                element={
+                  <AdminRoute>
+                    <AdminDashboard />
+                  </AdminRoute>
+                }
               />
               <Route
                 path="admin/users"
-                element={<AdminDashboardUsers />}
+                element={
+                  <AdminRoute>
+                    <AdminDashboardUsers />
+                  </AdminRoute>
+                }
               />
               <Route
                 path="admin/user/:id"
-                element={<AdminUserView />}
+                element={
+                  <AdminRoute>
+                    <AdminUserView />
+                  </AdminRoute>
+                }
               />
               <Route
                 path="admin/orders"
-                element={<AdminDashboardOrders />}
+                element={
+                  <AdminRoute>
+                    <AdminDashboardOrders />
+                  </AdminRoute>
+                }
               />
               <Route
                 path="admin/hidden-services"
-                element={<AdminDashboardHiddenServ />}
+                element={
+                  <AdminRoute>
+                    <AdminDashboardHiddenServ />
+                  </AdminRoute>
+                }
               />
               <Route
                 path="admin/hidden-categories"
-                element={<AdminDashboardHiddenCats />}
+                element={
+                  <AdminRoute>
+                    <AdminDashboardHiddenCats />
+                  </AdminRoute>
+                }
               />
               <Route
                 path="*"

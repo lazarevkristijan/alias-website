@@ -8,12 +8,12 @@ export const verifyToken = (req, res, next) => {
   const token = req.cookies.user
 
   if (!token) {
-    return res.status(401).json({ error: "Unauthorized: No token priovided" })
+    return res.status(401).json({ error: "Нямате достъп" })
   }
 
   jwt.verify(token, JWTsecret, (err, decoded) => {
     if (err) {
-      return res.status(401).json({ error: "Unauthorized: Invalid token" })
+      return res.status(401).json({ error: "Невалиден токен" })
     }
 
     req.userId = decoded.userId

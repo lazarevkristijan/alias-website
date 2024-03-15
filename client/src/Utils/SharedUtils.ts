@@ -50,13 +50,17 @@ export const sendNotification = (message: string, success: boolean = false) => {
   }, 4000)
 }
 
-export const getSingleService = async (category: string, id: string, navigate: NavigateFunction) => {
+export const getSingleService = async (
+  category: string,
+  id: string,
+  navigate: NavigateFunction
+) => {
   const res = await axios
     .get(`http://localhost:5432/service/info/${category}/${id}`)
     .then((response) => {
       if (!response.data.length) {
         sendNotification("Услугата не е налична")
-        navigate('/')
+        navigate("/")
         return
       }
       return response.data
