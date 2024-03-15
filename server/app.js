@@ -50,6 +50,7 @@ import {
   patchEditService,
   patchChangeOrderStatus,
   patchUnhideCategory,
+  patchUnhideService,
 } from "./Routes/patchRoutes.js"
 
 dotenv.config()
@@ -101,11 +102,12 @@ app.get("/service/providers/all/:id", getSingleServiceProviders)
 app.post("/services/add-service", verifyToken, postAddService)
 app.patch("/services/edit-service", verifyToken, patchEditService)
 app.delete("/services/delete-service", verifyToken, deleteService)
+app.patch("/service/unhide/:id", verifyToken, patchUnhideService)
 
 app.post("/category/add", verifyToken, postAddCategory)
 app.delete("/category/delete/:name", verifyToken, deleteCategory)
 app.get("/categories/hidden", verifyToken, getAllHiddenCategories)
-app.patch('/category/unhide/:id', verifyToken, patchUnhideCategory)
+app.patch("/category/unhide/:id", verifyToken, patchUnhideCategory)
 
 app.get("/services/all-providers", getAllServicesAndProviders)
 app.get("/all-providers", getAllServiceProviders)

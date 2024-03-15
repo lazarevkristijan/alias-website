@@ -238,3 +238,16 @@ export const handleUnhideCategory = async (id: number) => {
       sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
     })
 }
+
+export const handleUnhideService = async (id: number) => {
+  await axios
+    .patch(
+      `http://localhost:5432/service/unhide/${id}`,
+      {},
+      { withCredentials: true }
+    )
+    .then((response) => sendNotification(response.data.success, true))
+    .catch((error) => {
+      sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
+    })
+}

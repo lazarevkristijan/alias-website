@@ -253,3 +253,19 @@ export const patchUnhideCategory = async (req, res) => {
     return res.status(500).json({ error: "Грешка при разкриване на категория" })
   }
 }
+
+export const patchUnhideService = async (req, res) => {
+  try {
+    const { id } = req.params
+
+    await sql`
+    UPDATE services
+    SET hidden = 0
+    WHERE id = ${id}`
+
+    return res.json({ success: "Успешно разкрита услуга" })
+  } catch (error) {
+    console.error("Error is: ", error)
+    return res.status(500).json({ error: "Грешка при разкриване на услуга" })
+  }
+}

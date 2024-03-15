@@ -139,7 +139,7 @@ export type AddCategory = {
   name: string
 }
 
-export type HiddenCategory = {
+export type Category = {
   id: number
   name: string
   hidden: number

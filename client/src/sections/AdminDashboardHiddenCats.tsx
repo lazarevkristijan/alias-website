@@ -4,7 +4,7 @@ import { useNavigate } from "react-router"
 import { useEffect } from "react"
 import { useQuery } from "@tanstack/react-query"
 import { getAllHiddenCategories } from "../Utils/AdminUtils"
-import { HiddenCategory } from "../Types"
+import { Category } from "../Types"
 import "./AdminDashboard.scss"
 import HiddenCategoryCard from "../components/Admin/HiddenCategoryCard"
 
@@ -20,7 +20,7 @@ const AdminDashboardHiddenCats = () => {
   }, [user, navigate])
 
   const { isLoading: areCategoriesLoading, data: allCategories } = useQuery<
-    HiddenCategory[]
+    Category[]
   >({
     queryKey: ["all-hidden-categories"],
     queryFn: () => getAllHiddenCategories(),

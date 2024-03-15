@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux"
 import { RootState } from "../../Store"
-import { Category } from "../../Types"
 import Button from "../Shared/Button"
-import { handleUnhideCategory } from "../../Utils/AdminUtils"
+import { ServiceTypes } from "../../Types"
+import { handleUnhideService } from "../../Utils/AdminUtils"
 
-const HiddenCategoryCard = ({ category }: { category: Category }) => {
+const HiddenServiceCard = ({ service }: { service: ServiceTypes }) => {
   const theme = useSelector((state: RootState) => state.theme.current)
 
   return (
@@ -15,13 +15,15 @@ const HiddenCategoryCard = ({ category }: { category: Category }) => {
           : "card-white-bg box-shadow-black"
       }`}
     >
-      <p>ID: {category.id}</p>
-      <p>Име: {category.name}</p>
-      <Button onClick={() => handleUnhideCategory(category.id)}>
+      <p>ID: {service.id}</p>
+      <p>Име: {service.name}</p>
+      <p>Цена: {service.price}лв.</p>
+      <p>Категория: {service.category}</p>
+      <Button onClick={() => handleUnhideService(service.id)}>
         Направи видима
       </Button>
     </div>
   )
 }
 
-export default HiddenCategoryCard
+export default HiddenServiceCard

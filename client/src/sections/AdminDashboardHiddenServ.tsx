@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query"
 import { getAllHiddenServices } from "../Utils/AdminUtils"
 import { ServiceTypes } from "../Types"
 import "./AdminDashboard.scss"
+import HiddenServiceCard from "../components/Admin/HiddenServiceCard"
 
 const AdminDashboardHiddenServ = () => {
   const navigate = useNavigate()
@@ -40,12 +41,10 @@ const AdminDashboardHiddenServ = () => {
             <h2>Всички скрити услуги</h2>
             <div className="admin-dashboard-container">
               {hiddenServices?.map((hs) => (
-                <div>
-                  <p>{hs.id}</p>
-                  <p>{hs.category}</p>
-                  <p>{hs.name}</p>
-                  <p>{hs.price}</p>
-                </div>
+                <HiddenServiceCard
+                  key={hs.id}
+                  service={hs}
+                />
               ))}
             </div>
           </div>
