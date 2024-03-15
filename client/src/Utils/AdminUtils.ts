@@ -214,3 +214,19 @@ export const getAllHiddenServices = async () => {
 
   return res
 }
+
+export const getAllHiddenCategories = async () => {
+  const res = await axios
+    .get(`http://localhost:5432/categories/hidden`, { withCredentials: true })
+    .then((response) => response.data)
+    .catch((error) => {
+      sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
+    })
+  console.log(res)
+  return res
+}
+
+export const handleMakeCategoryVisible = async (id: number) => {
+  // await axios.patch(``)
+  console.log(id)
+}

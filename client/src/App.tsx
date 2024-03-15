@@ -19,6 +19,7 @@ import AdminDashboardUsers from "./sections/AdminDashboardUsers"
 import AdminDashboardOrders from "./sections/AdminDashboardOrders"
 import AdminDashboard from "./sections/AdminDashboard"
 import AdminDashboardHiddenServ from "./sections/AdminDashboardHiddenServ"
+import AdminDashboardHiddenCats from "./sections/AdminDashboardHiddenCats"
 
 const App = () => {
   const dispatch = useDispatch()
@@ -108,6 +109,10 @@ const App = () => {
               <Route
                 path="admin/hidden-services"
                 element={<AdminDashboardHiddenServ />}
+              />
+              <Route
+                path="admin/hidden-categories"
+                element={<AdminDashboardHiddenCats />}
               />
               <Route
                 path="*"

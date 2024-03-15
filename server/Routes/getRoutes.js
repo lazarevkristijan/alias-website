@@ -178,11 +178,9 @@ export const getCategoryServiceProviders = async (req, res) => {
     return res.json(providers)
   } catch (error) {
     console.error("Error is: ", error)
-    return res
-      .status(500)
-      .json({
-        error: `Грешка при получаване на служители от категория ${category}`,
-      })
+    return res.status(500).json({
+      error: `Грешка при получаване на служители от категория ${category}`,
+    })
   }
 }
 
@@ -334,5 +332,22 @@ export const getAllUserOrders = async (req, res) => {
     return res
       .status(500)
       .json({ error: "Грешка при получаване на всички покупки на потребител" })
+  }
+}
+
+export const getAllHiddenCategories = async (req, res) => {
+  try {
+    const hiddenCategories = await sql`
+    SELECT * FROM service_categories
+    WHERE hidden = 1`
+
+    return res.json(hiddenCategories)
+  } catch (error) {
+    console.error("Error is: ", error)
+    return res
+      .status(500)
+      .json({
+        error: "Грешка при получаване на всички скрити категории на услуги",
+      })
   }
 }

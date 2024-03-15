@@ -27,6 +27,7 @@ import {
   getAllCategoryOrders,
   getAllUserOrders,
   getAllHiddenServices,
+  getAllHiddenCategories,
 } from "./Routes/getRoutes.js"
 import {
   postAddCategory,
@@ -102,6 +103,7 @@ app.delete("/services/delete-service", verifyToken, deleteService)
 
 app.post("/category/add", verifyToken, postAddCategory)
 app.delete("/category/delete/:name", verifyToken, deleteCategory)
+app.get("/categories/hidden", verifyToken, getAllHiddenCategories)
 
 app.get("/services/all-providers", getAllServicesAndProviders)
 app.get("/all-providers", getAllServiceProviders)

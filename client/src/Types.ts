@@ -138,3 +138,9 @@ export type OrderCount = {
 export type AddCategory = {
   name: string
 }
+
+export type HiddenCategory = {
+  id: number
+  name: string
+  hidden: number
+}

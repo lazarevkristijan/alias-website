@@ -27,6 +27,9 @@ const AdminDashboard = () => {
         <Button onClick={() => navigate("hidden-services")}>
           Скрити услуги
         </Button>
+        <Button onClick={() => navigate("hidden-categories")}>
+          Скрити категории
+        </Button>
       </section>
     </section>
   )
