@@ -102,7 +102,7 @@ export const getSingleService = async (req, res) => {
     SELECT a.id, a.name, a.price, b.name as category FROM services as a
     JOIN service_categories as b
     ON a.category_id = b.id 
-    WHERE a.id = ${id} AND b.name = ${category}`
+    WHERE a.id = ${id} AND b.name = ${category} AND a.hidden != 1`
 
     return res.json(service)
   } catch (error) {
@@ -344,10 +344,8 @@ export const getAllHiddenCategories = async (req, res) => {
     return res.json(hiddenCategories)
   } catch (error) {
     console.error("Error is: ", error)
-    return res
-      .status(500)
-      .json({
-        error: "Грешка при получаване на всички скрити категории на услуги",
-      })
+    return res.status(500).json({
+      error: "Грешка при получаване на всички скрити категории на услуги",
+    })
   }
 }

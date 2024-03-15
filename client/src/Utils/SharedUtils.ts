@@ -52,7 +52,13 @@ export const sendNotification = (message: string, success: boolean = false) => {
 export const getSingleService = async (category: string, id: string) => {
   const res = await axios
     .get(`http://localhost:5432/service/info/${category}/${id}`)
-    .then((response) => response.data)
+    .then((response) => {
+      if (!response.data.length) {
+        sendNotification("Услугата не е налична")
+        return
+      }
+      return response.data
+    })
     .catch((error) => {
       sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
     })
