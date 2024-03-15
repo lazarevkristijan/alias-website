@@ -120,7 +120,7 @@ export const deleteCategory = async (req, res) => {
     SELECT a.id, b.name FROM services as a 
     JOIN service_categories as b
     ON a.category_id = b.id 
-    WHERE b.name = ${categoryName} AND a.hidden != 1`
+    WHERE b.name = ${categoryName}`
 
     let hasOrders = false
 

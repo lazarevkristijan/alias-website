@@ -49,6 +49,7 @@ import {
   patchChangeProfilePicture,
   patchEditService,
   patchChangeOrderStatus,
+  patchUnhideCategory,
 } from "./Routes/patchRoutes.js"
 
 dotenv.config()
@@ -104,6 +105,7 @@ app.delete("/services/delete-service", verifyToken, deleteService)
 app.post("/category/add", verifyToken, postAddCategory)
 app.delete("/category/delete/:name", verifyToken, deleteCategory)
 app.get("/categories/hidden", verifyToken, getAllHiddenCategories)
+app.patch('/category/unhide/:id', verifyToken, patchUnhideCategory)
 
 app.get("/services/all-providers", getAllServicesAndProviders)
 app.get("/all-providers", getAllServiceProviders)

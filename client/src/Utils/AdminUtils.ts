@@ -222,11 +222,19 @@ export const getAllHiddenCategories = async () => {
     .catch((error) => {
       sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
     })
-  console.log(res)
+
   return res
 }
 
-export const handleMakeCategoryVisible = async (id: number) => {
-  // await axios.patch(``)
-  console.log(id)
+export const handleUnhideCategory = async (id: number) => {
+  await axios
+    .patch(
+      `http://localhost:5432/category/unhide/${id}`,
+      {},
+      { withCredentials: true }
+    )
+    .then((response) => sendNotification(response.data.success, true))
+    .catch((error) => {
+      sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
+    })
 }

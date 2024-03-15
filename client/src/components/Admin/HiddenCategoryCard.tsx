@@ -2,6 +2,7 @@ import { useSelector } from "react-redux"
 import { RootState } from "../../Store"
 import { HiddenCategory } from "../../Types"
 import Button from "../Shared/Button"
+import { handleUnhideCategory } from "../../Utils/AdminUtils"
 
 const HiddenCategoryCard = ({ category }: { category: HiddenCategory }) => {
   const theme = useSelector((state: RootState) => state.theme.current)
@@ -16,7 +17,9 @@ const HiddenCategoryCard = ({ category }: { category: HiddenCategory }) => {
     >
       <p>ID: {category.id}</p>
       <p>Име: {category.name}</p>
-      <Button onClick={()=> {}}>Направи видима</Button>
+      <Button onClick={() => handleUnhideCategory(category.id)}>
+        Направи видима
+      </Button>
     </div>
   )
 }

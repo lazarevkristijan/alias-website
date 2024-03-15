@@ -237,3 +237,19 @@ export const patchChangeOrderStatus = async (req, res) => {
       .json({ error: "Грешка при промяана на статус на покупка" })
   }
 }
+
+export const patchUnhideCategory = async (req, res) => {
+  try {
+    const { id } = req.params
+
+    await sql`
+    UPDATE service_categories
+    SET hidden = 0
+    WHERE id = ${id}`
+
+    return res.json({ success: "Успешно разкрита категория" })
+  } catch (error) {
+    console.error("Error is: ", error)
+    return res.status(500).json({ error: "Грешка при разкриване на категория" })
+  }
+}

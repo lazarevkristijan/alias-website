@@ -42,7 +42,10 @@ const AdminDashboardHiddenCats = () => {
             <h2>Всички скрити категории</h2>
             <div className="admin-dashboard-container">
               {allCategories?.map((c) => (
-                <HiddenCategoryCard category={c} />
+                <HiddenCategoryCard
+                  key={c.id}
+                  category={c}
+                />
               ))}
             </div>
           </div>
