@@ -15,6 +15,7 @@ import { capitalizeString } from "../Utils/SharedUtils"
 import Button from "../components/Shared/Button"
 import { useQuery } from "@tanstack/react-query"
 import { Order } from "../Types"
+import displayBio from "../components/Shared/DisplayBio"
 
 const Profile = () => {
   const navigate = useNavigate()
@@ -78,7 +79,9 @@ const Profile = () => {
               )}
               <p>{capitalizeString(user?.role)}</p>
 
-              <p className="profile-bio label-dark-bg ">{user.bio}</p>
+              <p className="profile-bio label-dark-bg">
+                {displayBio(user.bio)}
+              </p>
             </div>
             <Button onClick={() => handleLogout(auth0logout)}>Изход</Button>
             <Button onClick={() => navigate("/настройки")}>Настройки</Button>

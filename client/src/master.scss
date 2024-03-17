@@ -52,6 +52,10 @@ input {
   outline: none;
 }
 
+textarea {
+  resize: none;
+}
+
 .label-dark-bg {
   background-color: #444;
   color: $white;

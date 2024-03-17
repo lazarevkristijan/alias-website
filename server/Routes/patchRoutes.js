@@ -190,6 +190,7 @@ export const patchAdminChangeCreds = async (req, res) => {
       job_title,
       phone_number,
       role,
+      bio,
     } = req.body
 
     if (
@@ -208,10 +209,10 @@ export const patchAdminChangeCreds = async (req, res) => {
     UPDATE users
     SET first_name = ${first_name}, last_name = ${last_name}, middle_name = ${middle_name},job_title = ${job_title}, role_id = ${
       role === "админ" ? 3 : role === "служител" ? 2 : 1
-    }, phone_number = ${phone_number}
+    }, phone_number = ${phone_number}, bio = ${bio}
     WHERE id = ${id}`
 
-    res.json({ success: "Успешно променени лични данни от админ" })
+    res.json({ success: `Успешно променени лични данни на ${first_name} от админ` })
   } catch (error) {
     console.error("Error is: ", error)
     return res

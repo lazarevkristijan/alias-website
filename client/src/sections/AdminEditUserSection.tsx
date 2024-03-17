@@ -29,9 +29,10 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
     role: fetchedUser?.role || "",
     job_title: fetchedUser?.job_title || "",
     phone_number: fetchedUser?.phone_number || "",
+    bio: fetchedUser?.bio || "",
   })
 
-  const initialUSerData = {
+  const initialUserData = {
     id: fetchedUser?.id || 0,
     first_name: fetchedUser?.first_name || "",
     last_name: fetchedUser?.last_name || "",
@@ -41,6 +42,7 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
     role: fetchedUser?.role || "",
     job_title: fetchedUser?.job_title || "",
     phone_number: fetchedUser?.phone_number || "",
+    bio: fetchedUser?.bio || "",
   }
 
   const [changedFields, setChangedFields] = useState({
@@ -51,6 +53,7 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
     role: false,
     job_title: false,
     phone_number: false,
+    bio: false,
   })
 
   const [profilePicture, setProfilePicture] = useState<File | null>(null)
@@ -346,6 +349,24 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
         </div>
 
         <div className="admin-edit-user-label">
+          <label htmlFor="admin-edit-user-bio">
+            За {newUserData.first_name}
+          </label>
+          <textarea
+            id="admin-edit-user-bio"
+            value={newUserData.bio}
+            rows={3}
+            className="card-padding"
+            onChange={(e) => {
+              if (!changedFields.bio) {
+                setChangedFields((prev) => ({ ...prev, bio: true }))
+              }
+              setNewUserData({ ...newUserData, bio: e.target.value })
+            }}
+          />
+        </div>
+
+        <div className="admin-edit-user-label">
           <label htmlFor="admin-edit-user-role">Роля</label>
           <select
             value={newUserData.role || ""}
@@ -362,6 +383,7 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
             <option value="админ">Админ</option>
           </select>
         </div>
+
         <p>Имейл: {fetchedUser?.email}</p>
 
         <Button onClick={() => setIsDeleteUserDialogOpen(true)}>
@@ -384,15 +406,16 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
             !jobTitleRegex.test(newUserData.job_title) ||
             !phoneRegex.test(newUserData.phone_number) ||
             (nameRegex.test(newUserData.first_name) &&
-              initialUSerData.first_name === newUserData.first_name &&
+              initialUserData.first_name === newUserData.first_name &&
               nameRegex.test(newUserData.last_name) &&
-              initialUSerData.last_name === newUserData.last_name &&
+              initialUserData.last_name === newUserData.last_name &&
               middleNameRegex.test(newUserData.middle_name) &&
-              initialUSerData.middle_name === newUserData.middle_name &&
+              initialUserData.middle_name === newUserData.middle_name &&
               jobTitleRegex.test(newUserData.job_title) &&
-              initialUSerData.job_title === newUserData.job_title &&
-              initialUSerData.phone_number === newUserData.phone_number &&
-              initialUSerData.role === newUserData.role)
+              initialUserData.job_title === newUserData.job_title &&
+              initialUserData.phone_number === newUserData.phone_number &&
+              initialUserData.bio === newUserData.bio &&
+              initialUserData.role === newUserData.role)
           }
         >
           Спази
