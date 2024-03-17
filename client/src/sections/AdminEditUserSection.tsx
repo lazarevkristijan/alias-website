@@ -363,8 +363,15 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
               }
               setNewUserData({ ...newUserData, bio: e.target.value })
             }}
+            style={{
+              backgroundColor: newUserData.bio.length > 150 ? "red" : "#fff",
+            }}
+            maxLength={150}
           />
         </div>
+        {changedFields.bio && (
+          <p style={{ textAlign: "right" }}>{newUserData.bio.length}/150</p>
+        )}
 
         <div className="admin-edit-user-label">
           <label htmlFor="admin-edit-user-role">Роля</label>
@@ -405,6 +412,7 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
             !middleNameRegex.test(newUserData.middle_name) ||
             !jobTitleRegex.test(newUserData.job_title) ||
             !phoneRegex.test(newUserData.phone_number) ||
+            newUserData.bio.length > 150 ||
             (nameRegex.test(newUserData.first_name) &&
               initialUserData.first_name === newUserData.first_name &&
               nameRegex.test(newUserData.last_name) &&

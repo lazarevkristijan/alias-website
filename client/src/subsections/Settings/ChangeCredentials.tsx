@@ -20,6 +20,7 @@ const ChangeCredentials = () => {
     middleName: user?.middle_name || "",
     jobTitle: user?.job_title || "",
     phoneNumber: user?.phone_number || "",
+    bio: user?.bio || "",
   })
 
   const initialUserData = {
@@ -28,6 +29,7 @@ const ChangeCredentials = () => {
     middleName: user?.middle_name || "",
     jobTitle: user?.job_title || "",
     phoneNumber: user?.phone_number || "",
+    bio: user?.bio || "",
   }
 
   const [changedFields, setChangedFields] = useState({
@@ -36,6 +38,7 @@ const ChangeCredentials = () => {
     middleName: false,
     jobTitle: false,
     phoneNumber: false,
+    bio: false,
   })
 
   return (
@@ -154,6 +157,27 @@ const ChangeCredentials = () => {
           />
         </div>
 
+        <div>
+          <label htmlFor="new_user_bio">За теб</label>
+          <textarea
+            id="new_user_bio"
+            value={userData.bio}
+            rows={3}
+            className="card-padding"
+            onChange={(e) => {
+              if (!changedFields.bio) {
+                setChangedFields((prev) => ({ ...prev, bio: true }))
+              }
+              setUserData({ ...userData, bio: e.target.value })
+            }}
+            style={{
+              backgroundColor: userData.bio.length > 150 ? "red" : "#fff",
+            }}
+            maxLength={150}
+          />
+          {changedFields.bio && <p>{userData.bio.length}/150</p>}
+        </div>
+
         <Button
           type="submit"
           disabled={
@@ -162,6 +186,7 @@ const ChangeCredentials = () => {
             !middleNameRegex.test(userData.middleName) ||
             !jobTitleRegex.test(userData.jobTitle) ||
             !phoneRegex.test(userData.phoneNumber) ||
+            userData.bio.length > 150 ||
             (nameRegex.test(userData.firstName) &&
               initialUserData.firstName === userData.firstName &&
               nameRegex.test(userData.lastName) &&
@@ -170,6 +195,7 @@ const ChangeCredentials = () => {
               initialUserData.jobTitle === userData.jobTitle &&
               jobTitleRegex.test(userData.jobTitle) &&
               initialUserData.phoneNumber === userData.phoneNumber &&
+              initialUserData.bio === userData.bio &&
               phoneRegex.test(userData.phoneNumber))
           }
         >
