@@ -25,9 +25,7 @@ const AdminUserView = () => {
       {isUserFetching ? (
         <p>Loading...</p>
       ) : (
-        <>
-          <AdminEditUserSection fetchedUser={fetchedUser} />
-        </>
+        <AdminEditUserSection fetchedUser={fetchedUser} />
       )}
     </section>
   )

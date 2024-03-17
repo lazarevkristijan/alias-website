@@ -14,6 +14,7 @@ import { useSelector } from "react-redux"
 import { RootState } from "../Store"
 import { displayPhoneNumber } from "../Utils/ProfileUtils"
 import { getProviderOrders } from "../Utils/AdminUtils"
+import displayBio from "../components/Shared/DisplayBio"
 
 const ProviderProfile = () => {
   const { id } = useParams()
@@ -67,7 +68,7 @@ const ProviderProfile = () => {
               alt={`Профилна снимка на ${provider?.first_name}`}
               width={100}
               height={100}
-              style={{ borderRadius: "50%" }}
+              className="cover-center-img"
             />
             <p
               className={`${
@@ -83,6 +84,9 @@ const ProviderProfile = () => {
               <p>{displayPhoneNumber(provider?.phone_number)}</p>
             )}
             <p>{provider?.email}</p>
+            {provider?.bio && (
+              <p className="profile-bio">{displayBio(provider?.bio)}</p>
+            )}
             <p>
               Предоставил {orders.length} услуг{orders.length === 1 ? "а" : "и"}
             </p>

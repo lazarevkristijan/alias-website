@@ -73,6 +73,7 @@ export type ProviderTypes = {
   profile_picture: string
   job_title: string
   phone_number: string
+  bio: string
 }
 
 export type SingleServiceTypes = {

@@ -32,7 +32,7 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
     bio: fetchedUser?.bio || "",
   })
 
-  const initialUserData = {
+  const [initialUserData, setInitialUserData] = useState({
     id: fetchedUser?.id || 0,
     first_name: fetchedUser?.first_name || "",
     last_name: fetchedUser?.last_name || "",
@@ -43,7 +43,7 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
     job_title: fetchedUser?.job_title || "",
     phone_number: fetchedUser?.phone_number || "",
     bio: fetchedUser?.bio || "",
-  }
+  })
 
   const [changedFields, setChangedFields] = useState({
     first_name: false,
@@ -405,7 +405,31 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
           />
         )}
         <Button
-          onClick={() => handleAdminCredsChange(newUserData)}
+          onClick={() => {
+            handleAdminCredsChange(newUserData)
+
+            setChangedFields({
+              first_name: false,
+              last_name: false,
+              middle_name: false,
+              profile_picture: false,
+              role: false,
+              job_title: false,
+              phone_number: false,
+              bio: false,
+            })
+
+            setInitialUserData((prev) => ({
+              ...prev,
+              first_name: newUserData.first_name,
+              last_name: newUserData.last_name,
+              middle_name: newUserData.middle_name,
+              role: newUserData.role,
+              job_title: newUserData.job_title,
+              phone_number: newUserData.phone_number,
+              bio: newUserData.bio,
+            }))
+          }}
           disabled={
             !nameRegex.test(newUserData.first_name) ||
             !nameRegex.test(newUserData.last_name) ||

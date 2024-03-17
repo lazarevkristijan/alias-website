@@ -263,3 +263,9 @@ section {
   left: 30px;
   z-index: 2;
 }
+
+.cover-center-img {
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+}
