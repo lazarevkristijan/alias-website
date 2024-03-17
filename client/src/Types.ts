@@ -9,6 +9,7 @@ export type SessionSliceTypes = {
     role: string
     job_title: string
     phone_number: string
+    bio: string
   } | null
 }
 
@@ -26,6 +27,7 @@ export type UserTypes = {
   role: string
   job_title: string
   phone_number: string
+  bio: string
 } | null
 
 export type ServiceTypes = {
@@ -90,6 +92,7 @@ export type AdminEditUserDataTypes = {
   role: string
   job_title: string
   phone_number: string
+  bio: string
 }
 
 export type Order = {

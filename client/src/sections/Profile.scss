@@ -17,7 +17,7 @@
 .full-name-profile {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  gap: 5px;
   margin-bottom: 0.25rem;
 }
 
@@ -30,4 +30,9 @@
   justify-content: center;
   flex-wrap: wrap;
   gap: 20px;
+}
+
+.profile-bio {
+  margin-top: 1rem;
+  width: 300px;
 }

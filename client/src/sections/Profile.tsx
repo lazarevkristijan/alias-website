@@ -53,7 +53,7 @@ const Profile = () => {
             }`}
           >
             <h2>Профил</h2>
-            <div className={`creds-container`}>
+            <div className="creds-container">
               <img
                 src={getPfpLink(user?.profile_picture || defaultPfpURL)}
                 width={100}
@@ -77,6 +77,8 @@ const Profile = () => {
                 <p>{displayPhoneNumber(user.phone_number)}</p>
               )}
               <p>{capitalizeString(user?.role)}</p>
+
+              <p className="profile-bio label-dark-bg ">{user.bio}</p>
             </div>
             <Button onClick={() => handleLogout(auth0logout)}>Изход</Button>
             <Button onClick={() => navigate("/настройки")}>Настройки</Button>

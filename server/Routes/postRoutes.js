@@ -8,7 +8,7 @@ export const postLoginOrRegister = async (req, res) => {
     const { given_name, family_name, picture, email } = req.body
 
     const existingUser = await sql`
-    SELECT a.id, a.first_name, a.middle_name, a.last_name, a.email, a.profile_picture, a.job_title, a.phone_number, b.name as role
+    SELECT a.id, a.first_name, a.middle_name, a.last_name, a.email, a.profile_picture, a.job_title, a.phone_number, a.bio, b.name as role
     FROM users as a
     JOIN user_roles as b
     ON a.role_id = b.id
@@ -32,7 +32,7 @@ export const postLoginOrRegister = async (req, res) => {
     }, ${email}, ${picture}, 1)`
 
     const newUser = await sql`
-    SELECT a.id, a.first_name, a.middle_name, a.last_name, a.email, a.profile_picture, a.job_title, a.phone_number, b.name as role
+    SELECT a.id, a.first_name, a.middle_name, a.last_name, a.email, a.profile_picture, a.job_title, a.phone_number, a.bio, b.name as role
     FROM users as a
     JOIN user_roles as b
     ON a.role_id = b.id
