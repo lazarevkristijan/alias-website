@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux"
 import { RootState } from "../../Store"
 import Button from "../Shared/Button"
-import { ProviderServiceShowcaseTypes } from "../../Types"
+import { ProviderServiceShowcase } from "../../Types"
 import { getPfpLink } from "../../Utils/SettingsUtils"
 import { useState } from "react"
 
@@ -10,7 +10,7 @@ const BuyServiceDialog = ({
   providers,
 }: {
   setIsBuyDialogOpen: (value: React.SetStateAction<boolean>) => void
-  providers: ProviderServiceShowcaseTypes[]
+  providers: ProviderServiceShowcase[]
 }) => {
   const theme = useSelector((state: RootState) => state.theme.current)
 

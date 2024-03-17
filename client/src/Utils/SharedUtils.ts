@@ -1,12 +1,12 @@
 import axios from "axios"
-import { AddServiceTypes, ServiceTypes } from "../Types"
+import { AddService, Service } from "../Types"
 import { errorNotifEnding } from "../constants"
 import React from "react"
 import { NavigateFunction } from "react-router"
 
 export const handleAddService = async (
   e: React.FormEvent<HTMLFormElement>,
-  data: AddServiceTypes
+  data: AddService
 ) => {
   e.preventDefault()
 
@@ -85,7 +85,7 @@ export const getSingleServiceProviders = async (id: string) => {
 
 export const handleEditService = async (
   e: React.FormEvent<HTMLFormElement>,
-  data: ServiceTypes
+  data: Service
 ) => {
   e.preventDefault()
 

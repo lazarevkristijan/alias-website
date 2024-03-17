@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import "./Home.scss"
 import { useQuery } from "@tanstack/react-query"
 import { getAllServices } from "../Utils/HomeUtils"
-import { ServiceCategoryTypes, ServiceTypes } from "../Types"
+import { ServiceCategory, Service } from "../Types"
 import { useNavigate } from "react-router"
 import { useAuth0 } from "@auth0/auth0-react"
 import { capitalizeString, getAllServiceCategories } from "../Utils/SharedUtils"
@@ -22,14 +22,14 @@ const Home = () => {
   const [awaitedSearchValue, setAwaitedSearchValue] = useState("")
 
   const { isLoading: areServicesLoading, data: allServices } = useQuery<
-    ServiceTypes[]
+    Service[]
   >({
     queryKey: ["all-services"],
     queryFn: () => getAllServices(),
   })
 
   const { isLoading: areCategoriesLoading, data: allCategories } = useQuery<
-    ServiceCategoryTypes[]
+    ServiceCategory[]
   >({
     queryKey: ["all-categories"],
     queryFn: () => getAllServiceCategories(),
@@ -182,7 +182,7 @@ const Home = () => {
               <div>
                 <p> Избери категория на услуги от която се нуждаеш </p>
                 <div className="button-container">
-                  {allCategories.map((category: ServiceCategoryTypes) => (
+                  {allCategories.map((category: ServiceCategory) => (
                     <Button
                       key={category.id}
                       onClick={() => navigate(`/услуги/${category.name}`)}

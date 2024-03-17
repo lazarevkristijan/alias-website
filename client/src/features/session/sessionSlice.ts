@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { SessionSliceTypes } from "../../Types"
+import { SessionSlice } from "../../Types"
 
-const initialState: SessionSliceTypes = {
+const initialState: SessionSlice = {
   user: null,
 }
 

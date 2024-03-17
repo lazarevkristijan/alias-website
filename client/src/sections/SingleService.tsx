@@ -6,7 +6,7 @@ import {
   handleDeleteService,
 } from "../Utils/SharedUtils"
 import { useQuery } from "@tanstack/react-query"
-import { ProviderServiceShowcaseTypes, ServiceTypes } from "../Types"
+import { ProviderServiceShowcase, Service } from "../Types"
 import { useSelector } from "react-redux"
 import { RootState } from "../Store"
 import { useState } from "react"
@@ -28,7 +28,7 @@ const SingleService = () => {
   const theme = useSelector((state: RootState) => state.theme.current)
 
   const { isFetching: isServiceFetching, data: service } =
-    useQuery<ServiceTypes>({
+    useQuery<Service>({
       queryKey: ["single-service"],
       queryFn: () => getSingleService(category, id, navigate),
     })
@@ -36,7 +36,7 @@ const SingleService = () => {
   const {
     isFetching: areServiceProvidersFetching,
     data: singleServiceProviders,
-  } = useQuery<ProviderServiceShowcaseTypes[]>({
+  } = useQuery<ProviderServiceShowcase[]>({
     queryKey: ["single-service-providers"],
     queryFn: () => getSingleServiceProviders(id),
   })

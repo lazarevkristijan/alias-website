@@ -1,6 +1,6 @@
 import axios from "axios"
 import { AppDispatch } from "../Store"
-import { UserTypes } from "../Types"
+import { User } from "../Types"
 import { changeProfilePicture } from "../features/session/sessionSlice"
 import { defaultPfpURL, errorNotifEnding } from "../constants"
 import { sendNotification } from "./SharedUtils"
@@ -38,7 +38,7 @@ export const handleProfilePictureChange = async (
   e: React.FormEvent<HTMLFormElement>,
   profilePicture: File | null,
   setPrrofilePicture: (value: React.SetStateAction<File | null>) => void,
-  user: UserTypes,
+  user: User,
   dispatch: AppDispatch,
   setIsChanging: (value: React.SetStateAction<boolean>) => void
 ) => {

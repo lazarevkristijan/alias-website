@@ -1,4 +1,4 @@
-import { ProviderServiceShowcaseTypes, ServiceTypes } from "../../Types"
+import { ProviderServiceShowcase, Service } from "../../Types"
 import { useNavigate } from "react-router"
 import Button from "../Shared/Button"
 import { getPfpLink } from "../../Utils/SettingsUtils"
@@ -10,8 +10,8 @@ const SingleCategoryServiceCard = ({
   providers,
   orders,
 }: {
-  service: ServiceTypes
-  providers: ProviderServiceShowcaseTypes[]
+  service: Service
+  providers: ProviderServiceShowcase[]
   orders: number
 }) => {
   const navigate = useNavigate()

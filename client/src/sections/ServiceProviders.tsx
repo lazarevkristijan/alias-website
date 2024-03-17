@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 import { getAllServiceProviders } from "../Utils/ServiceProvidersUtils"
-import { ProviderTypes } from "../Types"
+import { Provider } from "../Types"
 import ProviderCard from "../components/Providers/ProviderCard"
 import "./ServiceProviders.scss"
 import { useSelector } from "react-redux"
@@ -8,7 +8,7 @@ import { RootState } from "../Store"
 
 const Providers = () => {
   const { isLoading: areProvidersLoading, data: providers } = useQuery<
-    ProviderTypes[]
+    Provider[]
   >({
     queryKey: ["providers"],
     queryFn: () => getAllServiceProviders(),
@@ -31,7 +31,7 @@ const Providers = () => {
         <section>
           <h2>Всички служители:</h2>
           <div className={`service-providers-container `}>
-            {providers.map((provider: ProviderTypes) => (
+            {providers.map((provider: Provider) => (
               <ProviderCard
                 provider={provider}
                 key={provider.id}

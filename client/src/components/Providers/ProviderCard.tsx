@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router"
-import { ProviderTypes } from "../../Types"
+import { Provider } from "../../Types"
 import { getPfpLink } from "../../Utils/SettingsUtils"
 import Button from "../Shared/Button"
 import { RootState } from "../../Store"
 import { useSelector } from "react-redux"
 
-const ProviderCard = ({ provider }: { provider: ProviderTypes }) => {
+const ProviderCard = ({ provider }: { provider: Provider }) => {
   const navigate = useNavigate()
 
   const theme = useSelector((state: RootState) => state.theme.current)

@@ -5,11 +5,7 @@ import {
   handleAddService,
 } from "../../Utils/SharedUtils"
 import { useQuery } from "@tanstack/react-query"
-import {
-  AddServiceTypes,
-  ProviderTypes,
-  ServiceCategoryTypes,
-} from "../../Types"
+import { AddService, Provider, ServiceCategory } from "../../Types"
 import { priceRegex, serviceNameRegex } from "../../Regex"
 import { getAllServiceProviders } from "../../Utils/ServiceProvidersUtils"
 import { getPfpLink } from "../../Utils/SettingsUtils"
@@ -24,7 +20,7 @@ const AddServiceDialog = ({
 }) => {
   const theme = useSelector((state: RootState) => state.theme.current)
 
-  const [serviceData, setServiceData] = useState<AddServiceTypes>({
+  const [serviceData, setServiceData] = useState<AddService>({
     name: "",
     category: "",
     price: "",
@@ -46,7 +42,7 @@ const AddServiceDialog = ({
   })
 
   const { isFetching: areServiceProvidersFetching, data: allServiceProviders } =
-    useQuery<ProviderTypes[]>({
+    useQuery<Provider[]>({
       queryKey: ["all-providers"],
       queryFn: () => getAllServiceProviders(),
     })
@@ -133,7 +129,7 @@ const AddServiceDialog = ({
               }}
             >
               <option value="">Избери</option>
-              {allServiceCategories.map((cat: ServiceCategoryTypes) => (
+              {allServiceCategories.map((cat: ServiceCategory) => (
                 <option
                   key={cat.id}
                   value={cat.name}

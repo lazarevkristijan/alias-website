@@ -1,7 +1,7 @@
 import axios from "axios"
 import { AppDispatch } from "../Store"
 import { login } from "../features/session/sessionSlice"
-import { UserTypes } from "../Types"
+import { User } from "../Types"
 import { sendNotification } from "./SharedUtils"
 import { errorNotifEnding } from "../constants"
 
@@ -30,15 +30,15 @@ export const handleLogout = async (auth0logout: () => void) => {
     })
 }
 
-type LocalUserDataTypes = {
+type LocalUserData = {
   firstName: string
   lastName: string
   middleName: string
 }
 export const handleChangeCredentials = (
   e: React.FormEvent<HTMLFormElement>,
-  userData: LocalUserDataTypes,
-  user: UserTypes,
+  userData: LocalUserData,
+  user: User,
   dispatch: AppDispatch
 ) => {
   e.preventDefault()

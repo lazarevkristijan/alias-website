@@ -2,7 +2,7 @@ import { useSelector } from "react-redux"
 import { RootState } from "../Store"
 import { useQuery } from "@tanstack/react-query"
 import { getAllHiddenServices } from "../Utils/AdminUtils"
-import { ServiceTypes } from "../Types"
+import { Service } from "../Types"
 import "./AdminDashboard.scss"
 import HiddenServiceCard from "../components/Admin/HiddenServiceCard"
 
@@ -10,7 +10,7 @@ const AdminDashboardHiddenServ = () => {
   const theme = useSelector((state: RootState) => state.theme.current)
 
   const { isLoading: areHiddenServicesLoading, data: hiddenServices } =
-    useQuery<ServiceTypes[]>({
+    useQuery<Service[]>({
       queryKey: ["all-hidden-services"],
       queryFn: () => getAllHiddenServices(),
     })

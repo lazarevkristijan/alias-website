@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { AdminEditUserDataTypes, UserTypes } from "../Types"
+import { AdminEditUserData, User } from "../Types"
 import { getPfpLink } from "../Utils/SettingsUtils"
 import { defaultPfpURL } from "../constants"
 import {
@@ -16,10 +16,10 @@ import { useSelector } from "react-redux"
 import { RootState } from "../Store"
 import ConfirmationDialog from "../components/Shared/ConfirmationDialog"
 
-const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: UserTypes }) => {
+const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: User }) => {
   const navigate = useNavigate()
 
-  const [newUserData, setNewUserData] = useState<AdminEditUserDataTypes>({
+  const [newUserData, setNewUserData] = useState<AdminEditUserData>({
     id: fetchedUser?.id || 0,
     first_name: fetchedUser?.first_name || "",
     last_name: fetchedUser?.last_name || "",

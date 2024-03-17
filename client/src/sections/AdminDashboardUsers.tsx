@@ -3,7 +3,7 @@ import { RootState } from "../Store"
 import { useNavigate } from "react-router"
 import { useQuery } from "@tanstack/react-query"
 import { getAllUsers } from "../Utils/AdminUtils"
-import { UserTypes } from "../Types"
+import { User } from "../Types"
 import { getPfpLink } from "../Utils/SettingsUtils"
 import { defaultPfpURL } from "../constants"
 import Button from "../components/Shared/Button"
@@ -15,7 +15,7 @@ const AdminDashboardUsers = () => {
   const navigate = useNavigate()
   const theme = useSelector((state: RootState) => state.theme.current)
 
-  const { isLoading: areUsersLoading, data: allUsers } = useQuery<UserTypes[]>({
+  const { isLoading: areUsersLoading, data: allUsers } = useQuery<User[]>({
     queryKey: ["all-users"],
     queryFn: () => getAllUsers(),
   })

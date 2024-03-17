@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router"
-import { ServiceCategoryTypes, SingleServiceTypes } from "../../Types"
+import { ServiceCategory, SingleService } from "../../Types"
 import { capitalizeString } from "../../Utils/SharedUtils"
 import { getAllServicesByCategory } from "../../Utils/ServicesUtils"
 import { useQuery } from "@tanstack/react-query"
@@ -10,12 +10,12 @@ import { useSelector } from "react-redux"
 const ServiceCategoryCard = ({
   category,
 }: {
-  category: ServiceCategoryTypes
+  category: ServiceCategory
 }) => {
   const navigate = useNavigate()
 
   const { isLoading: areServicesLoading, data: allServices } = useQuery<
-    SingleServiceTypes[]
+    SingleService[]
   >({
     queryKey: [`all-${category.name}-services`],
     queryFn: () => getAllServicesByCategory(category.name),

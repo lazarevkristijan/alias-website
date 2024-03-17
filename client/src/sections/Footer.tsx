@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom"
 import "./Footer.scss"
 import { useQuery } from "@tanstack/react-query"
-import { ServiceCategoryTypes } from "../Types"
+import { ServiceCategory } from "../Types"
 import { capitalizeString, getAllServiceCategories } from "../Utils/SharedUtils"
 import { useSelector } from "react-redux"
 import { RootState } from "../Store"
 
 const Footer = () => {
   const { isLoading: areCategoriesLoading, data: allServiceCategories } =
-    useQuery<ServiceCategoryTypes[]>({
+    useQuery<ServiceCategory[]>({
       queryKey: ["categories"],
       queryFn: () => getAllServiceCategories(),
     })

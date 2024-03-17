@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
 import {
-  ModifyServiceTypes,
-  ProviderServiceShowcaseTypes,
-  ProviderTypes,
-  ServiceCategoryTypes,
-  ServiceTypes,
+  ModifyService,
+  ProviderServiceShowcase,
+  Provider,
+  ServiceCategory,
+  Service,
 } from "../../Types"
 import {
   getAllServiceCategories,
@@ -25,12 +25,12 @@ const EditServiceDialog = ({
   serviceProviders,
   handleDelete,
 }: {
-  service: ServiceTypes
+  service: Service
   setIsOpen: (value: React.SetStateAction<boolean>) => void
-  serviceProviders: ProviderServiceShowcaseTypes[]
+  serviceProviders: ProviderServiceShowcase[]
   handleDelete: (id: number) => void
 }) => {
-  const [serviceData, setServiceData] = useState<ModifyServiceTypes>({
+  const [serviceData, setServiceData] = useState<ModifyService>({
     id: service.id,
     name: service.name,
     category: service.category,
@@ -62,7 +62,7 @@ const EditServiceDialog = ({
   })
 
   const { isFetching: areServiceProvidersFetching, data: allServiceProviders } =
-    useQuery<ProviderTypes[]>({
+    useQuery<Provider[]>({
       queryKey: ["all-providers"],
       queryFn: () => getAllServiceProviders(),
     })
@@ -162,7 +162,7 @@ const EditServiceDialog = ({
                 }}
               >
                 <option value="">Избери</option>
-                {allServiceCategories.map((cat: ServiceCategoryTypes) => (
+                {allServiceCategories.map((cat: ServiceCategory) => (
                   <option
                     key={cat.id}
                     value={cat.name}
@@ -176,7 +176,7 @@ const EditServiceDialog = ({
             <p>Настоящи служители</p>
             <div className="service-related-providers-container">
               {serviceData.providers.map(
-                (serviceAndProvider: ProviderServiceShowcaseTypes) => (
+                (serviceAndProvider: ProviderServiceShowcase) => (
                   <div
                     key={serviceAndProvider.provider_id}
                     className={`service-related-provider card-padding ${

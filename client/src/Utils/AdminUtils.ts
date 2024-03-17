@@ -2,7 +2,7 @@ import axios from "axios"
 import { sendNotification } from "./SharedUtils"
 import { defaultPfpURL, errorNotifEnding } from "../constants"
 import { getPfpFileName } from "./SettingsUtils"
-import { AddCategory, AdminEditUserDataTypes, UserTypes } from "../Types"
+import { AddCategory, AdminEditUserData, User } from "../Types"
 import { NavigateFunction } from "react-router"
 
 export const getAllUsers = async () => {
@@ -33,8 +33,8 @@ export const handleAdminChangeProfilePicture = async (
   e: React.FormEvent<HTMLFormElement>,
   profilePicture: File | null,
   setProfilePicture: (value: React.SetStateAction<File | null>) => void,
-  userData: AdminEditUserDataTypes,
-  setNewUserData: (value: React.SetStateAction<AdminEditUserDataTypes>) => void,
+  userData: AdminEditUserData,
+  setNewUserData: (value: React.SetStateAction<AdminEditUserData>) => void,
   setIsChanging: (value: React.SetStateAction<boolean>) => void
 ) => {
   e.preventDefault()
@@ -78,7 +78,7 @@ export const handleAdminChangeProfilePicture = async (
 export const handleAdminPfpDelete = async (
   userId: number,
   userPfp: string,
-  setNewUserData: (value: React.SetStateAction<AdminEditUserDataTypes>) => void
+  setNewUserData: (value: React.SetStateAction<AdminEditUserData>) => void
 ) => {
   const pfpFileName = getPfpFileName(userPfp)
 
@@ -105,7 +105,7 @@ export const handleAdminPfpDelete = async (
     )
 }
 
-export const handleAdminCredsChange = async (userData: UserTypes) => {
+export const handleAdminCredsChange = async (userData: User) => {
   await axios
     .patch(
       `http://localhost:5432/admin/user/change-credentials/${userData?.id}`,

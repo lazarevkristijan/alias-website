@@ -1,4 +1,4 @@
-export type SessionSliceTypes = {
+export type SessionSlice = {
   user: {
     id: number
     first_name: string | null
@@ -13,11 +13,11 @@ export type SessionSliceTypes = {
   } | null
 }
 
-export type ThemeSliceTypes = {
+export type ThemeSlice = {
   current: string
 }
 
-export type UserTypes = {
+export type User = {
   id: number
   first_name: string | null
   middle_name: string | null
@@ -30,40 +30,40 @@ export type UserTypes = {
   bio: string
 } | null
 
-export type ServiceTypes = {
+export type Service = {
   id: number
   name: string
   price: string
   category: string
 }
-export type ModifyServiceTypes = {
+export type ModifyService = {
   id: number
   name: string
   price: string
   category: string
-  providers: ProviderServiceShowcaseTypes[]
+  providers: ProviderServiceShowcase[]
 }
 
-export type AddServiceTypes = {
+export type AddService = {
   name: string
   price: string
   category: string
-  providers: ProviderTypes[]
+  providers: Provider[]
 }
 
-export type ServiceCategoryTypes = {
+export type ServiceCategory = {
   id: number
   name: string
 }
 
-export type ProviderServiceShowcaseTypes = {
+export type ProviderServiceShowcase = {
   first_name: string
   provider_id: number
   service_id: number
   profile_picture: string
 }
 
-export type ProviderTypes = {
+export type Provider = {
   id: number
   first_name: string
   middle_name: string
@@ -76,14 +76,14 @@ export type ProviderTypes = {
   bio: string
 }
 
-export type SingleServiceTypes = {
+export type SingleService = {
   id: number
   name: string
   category: string
   price: number
 }
 
-export type AdminEditUserDataTypes = {
+export type AdminEditUserData = {
   id: number
   first_name: string
   last_name: string

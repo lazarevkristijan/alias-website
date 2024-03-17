@@ -1,10 +1,10 @@
 import { useSelector } from "react-redux"
 import { RootState } from "../../Store"
 import Button from "../Shared/Button"
-import { ServiceTypes } from "../../Types"
+import { Service } from "../../Types"
 import { handleUnhideService } from "../../Utils/AdminUtils"
 
-const HiddenServiceCard = ({ service }: { service: ServiceTypes }) => {
+const HiddenServiceCard = ({ service }: { service: Service }) => {
   const theme = useSelector((state: RootState) => state.theme.current)
 
   return (

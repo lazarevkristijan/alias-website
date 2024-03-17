@@ -3,8 +3,8 @@ import { useNavigate, useParams } from "react-router"
 import { getAllCategoryOrders } from "../Utils/SharedUtils"
 import {
   OrderCount,
-  ProviderServiceShowcaseTypes,
-  ServiceTypes,
+  ProviderServiceShowcase,
+  Service,
 } from "../Types"
 import SingleCategoryServiceCard from "../components/Services/SingleCategoryServiceCard"
 import { getAllCategoryProviders } from "../Utils/SharedUtils"
@@ -24,17 +24,17 @@ const SingleCategoryServices = () => {
   const theme = useSelector((state: RootState) => state.theme.current)
 
   const { isFetching: areCategoryServicesFetching, data: allCategoryServices } =
-    useQuery<ServiceTypes[]>({
+    useQuery<Service[]>({
       queryKey: [`all-${category}-services`],
       queryFn: () => getAllServicesByCategory(category || ""),
-    }) as { isFetching: boolean; data: ServiceTypes[] }
+    }) as { isFetching: boolean; data: Service[] }
 
   const { isFetching: areProvidersFetching, data: allProviders } = useQuery<
-    ProviderServiceShowcaseTypes[]
+    ProviderServiceShowcase[]
   >({
     queryKey: [`all-${category}-providers`],
     queryFn: () => getAllCategoryProviders(category || ""),
-  }) as { isFetching: boolean; data: ProviderServiceShowcaseTypes[] }
+  }) as { isFetching: boolean; data: ProviderServiceShowcase[] }
 
   const { isFetching: areServiceOrdersFetching, data: allOrders } = useQuery<
     OrderCount[]

@@ -5,7 +5,7 @@ import {
   getProvider,
   getSingleProviderServices,
 } from "../Utils/SharedUtils"
-import { ProviderTypes, SingleServiceTypes } from "../Types"
+import { Provider, SingleService } from "../Types"
 import { getPfpLink } from "../Utils/SettingsUtils"
 import { defaultPfpURL } from "../constants"
 import Button from "../components/Shared/Button"
@@ -23,13 +23,13 @@ const ProviderProfile = () => {
   const theme = useSelector((state: RootState) => state.theme.current)
 
   const { isFetching: isProviderFetching, data: provider } =
-    useQuery<ProviderTypes>({
+    useQuery<Provider>({
       queryKey: ["single-provider"],
       queryFn: () => getProvider(Number(id)),
     })
 
   const { isFetching: areServicesFetching, data: services } = useQuery<
-    SingleServiceTypes[]
+    SingleService[]
   >({
     queryKey: ["provider-services"],
     queryFn: () => getSingleProviderServices(id || ""),

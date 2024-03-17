@@ -5,7 +5,7 @@ import { RootState } from "../Store"
 import { useQuery } from "@tanstack/react-query"
 import { getAllServiceCategories } from "../Utils/SharedUtils"
 import ServiceCategoryCard from "../subsections/ServicesMain/ServiceCategoryCard"
-import { ServiceCategoryTypes } from "../Types"
+import { ServiceCategory } from "../Types"
 import "./ServicesMain.scss"
 import Button from "../components/Shared/Button"
 import AddCategoryDialog from "../components/Services/AddCategoryDialog"
@@ -14,7 +14,7 @@ const ServicesMain = () => {
   const user = useSelector((state: RootState) => state.session.user)
 
   const { isLoading: areCategoriesLoading, data: allServiceCategories } =
-    useQuery<ServiceCategoryTypes[]>({
+    useQuery<ServiceCategory[]>({
       queryKey: ["categories"],
       queryFn: () => getAllServiceCategories(),
     })
@@ -37,7 +37,7 @@ const ServicesMain = () => {
         <section>
           <h2>Категории на услуги</h2>
           <div className="services-main-cards-container">
-            {allServiceCategories?.map((category: ServiceCategoryTypes) => (
+            {allServiceCategories?.map((category: ServiceCategory) => (
               <ServiceCategoryCard
                 key={category.id}
                 category={category}
