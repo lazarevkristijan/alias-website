@@ -37,6 +37,8 @@ const Profile = () => {
     queryKey: ["user-orders"],
     queryFn: () => getAllUserOrders(user?.id || 0),
   })
+  console.log('hostname: ',window.location.hostname);
+  console.log('host: ',window.location.host);
 
   if (!user) return
 
