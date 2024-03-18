@@ -1,5 +1,5 @@
 export const cookieOptions = {
-  domain: "alias-test",
+  domain: ".alias-test.vercel.app",
   path: "/",
 }
 
