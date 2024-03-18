@@ -1,7 +1,7 @@
 import axios from "axios"
 import { AppDispatch } from "../Store"
 import { login } from "../features/session/sessionSlice"
-import { User } from "../Types"
+import { SendRatingData, User } from "../Types"
 import { sendNotification } from "./SharedUtils"
 import { errorNotifEnding } from "../constants"
 
@@ -80,4 +80,8 @@ export const getAllUserOrders = async (id: number) => {
     )
 
   return res
+}
+
+export const handleSendRating = async (data: SendRatingData) => {
+  console.log(data)
 }

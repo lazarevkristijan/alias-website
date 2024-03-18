@@ -174,7 +174,9 @@ const Profile = () => {
                   >
                     Оцени
                   </Button>
-                  {openDialogId === order.id && <RatingBox />}
+                  {openDialogId === order.id && (
+                    <RatingBox orderId={order.id} />
+                  )}
                 </div>
               ))}
             </div>

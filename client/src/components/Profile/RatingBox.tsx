@@ -1,20 +1,24 @@
 import { useState } from "react"
 import { FaStar } from "react-icons/fa"
 import Button from "../Shared/Button"
+import { handleSendRating } from "../../Utils/ProfileUtils"
+import { SendRatingData } from "../../Types"
 
-const RatingBox = () => {
-  const [rating, setRating] = useState<number | null>(null)
+const RatingBox = ({ orderId }: { orderId: number }) => {
   const [hover, setHover] = useState<number | null>(null)
-  const [ratingText, setRatingText] = useState("")
+
+  const [ratingData, setRatingData] = useState<SendRatingData>({
+    orderId,
+    rating: 0,
+    text: "",
+  })
 
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault()
 
-        console.log("form submitted")
-        console.log("star value: ", rating)
-        console.log("text: ", ratingText)
+        handleSendRating(ratingData)
       }}
       className="rating-box"
     >
@@ -26,29 +30,41 @@ const RatingBox = () => {
               type="radio"
               name="rating"
               value={currentrating}
-              onClick={() => setRating(currentrating)}
+              onClick={() => {
+                setRatingData((prev) => ({ ...prev, rating: currentrating }))
+                setHover(currentrating)
+              }}
               style={{ display: "none" }}
             />
             <FaStar
               className="star"
               size={40}
               color={
-                currentrating <= (hover || rating || 0) ? "#ffc107" : "#e4e5e9"
+                currentrating <= (hover || ratingData.rating)
+                  ? "#ffc107"
+                  : "#e4e5e9"
               }
-              onMouseEnter={() => setHover(currentrating)}
+              onMouseEnter={() => {
+                if (ratingData.rating !== 0) {
+                  return
+                }
+                setHover(currentrating)
+              }}
             />
           </label>
         )
       })}
-      {rating && <p>Оценката ви е {rating}</p>}
+      {ratingData.rating !== 0 && <p>Оценката ви е {ratingData.rating}</p>}
 
       <br />
 
       <textarea
         rows={3}
         cols={30}
-        value={ratingText}
-        onChange={(e) => setRatingText(e.target.value)}
+        value={ratingData.text}
+        onChange={(e) =>
+          setRatingData((prev) => ({ ...prev, text: e.target.value }))
+        }
         className="rating-textbox card-padding"
       />
 

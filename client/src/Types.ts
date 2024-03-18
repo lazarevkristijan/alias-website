@@ -148,3 +148,9 @@ export type Category = {
   name: string
   hidden: number
 }
+
+export type SendRatingData = {
+  orderId: number
+  rating: number
+  text: string
+}
