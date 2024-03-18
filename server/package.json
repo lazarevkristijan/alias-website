@@ -1,12 +1,11 @@
 {
-  "name": "express-hello-world",
+  "name": "alias-server",
   "version": "1.0.0",
-  "description": "Express Hello World on Render",
+  "description": "Alias server for db",
   "main": "app.js",
-  "type": "module",
-  "repository": "https://github.com/render-examples/express-hello-world",
-  "author": "Render Developers",
+  "author": "Alias",
   "license": "MIT",
+  "type": "module",
   "private": false,
   "scripts": {
     "start": "node app.js"
