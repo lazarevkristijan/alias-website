@@ -83,5 +83,13 @@ export const getAllUserOrders = async (id: number) => {
 }
 
 export const handleSendRating = async (data: SendRatingData) => {
-  console.log(data)
+  await axios
+    .post("http://localhost:5432/order/rate", JSON.stringify(data), {
+      headers: { "Content-Type": "application/json" },
+      withCredentials: true,
+    })
+    .then((response) => sendNotification(response.data.success, true))
+    .catch((error) =>
+      sendNotification(`${error.response.data.message}, ${errorNotifEnding}`)
+    )
 }

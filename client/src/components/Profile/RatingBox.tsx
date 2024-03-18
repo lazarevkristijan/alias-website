@@ -66,11 +66,22 @@ const RatingBox = ({ orderId }: { orderId: number }) => {
           setRatingData((prev) => ({ ...prev, text: e.target.value }))
         }
         className="rating-textbox card-padding"
+        maxLength={200}
+        style={{ backgroundColor: ratingData.text.length > 200 ? "red" : "" }}
       />
-
+      <p>{ratingData.text.length}/200</p>
       <br />
 
-      <Button type="submit">Изпрати</Button>
+      <Button
+        type="submit"
+        disabled={
+          ratingData.text.length > 200 ||
+          ratingData.rating < 1 ||
+          ratingData.rating > 5
+        }
+      >
+        Изпрати
+      </Button>
     </form>
   )
 }
