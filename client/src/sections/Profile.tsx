@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux"
 import { RootState } from "../Store"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useAuth0 } from "@auth0/auth0-react"
 import { useNavigate } from "react-router"
 import {
@@ -16,6 +16,7 @@ import Button from "../components/Shared/Button"
 import { useQuery } from "@tanstack/react-query"
 import { Order } from "../Types"
 import displayBio from "../components/Shared/DisplayBio"
+import RatingBox from "../components/Profile/RatingBox"
 
 const Profile = () => {
   const navigate = useNavigate()
@@ -37,6 +38,8 @@ const Profile = () => {
     queryKey: ["user-orders"],
     queryFn: () => getAllUserOrders(user?.id || 0),
   })
+
+  const [openDialogId, setOpenDialogId] = useState(0)
 
   if (!user) return
 
@@ -164,6 +167,14 @@ const Profile = () => {
                   ) : (
                     ""
                   )}
+                  <Button
+                    onClick={() =>
+                      setOpenDialogId(openDialogId === order.id ? 0 : order.id)
+                    }
+                  >
+                    Оцени
+                  </Button>
+                  {openDialogId === order.id && <RatingBox />}
                 </div>
               ))}
             </div>
