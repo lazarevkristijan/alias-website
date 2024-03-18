@@ -93,3 +93,18 @@ export const postAddCategory = async (req, res) => {
     return res.status(500).json({ error: "Грешка при добавяне на категория" })
   }
 }
+
+export const postRateOrder = async (req, res) => {
+  try {
+    const { rating, text, orderId } = req.body
+
+    await sql`
+    INSERT INTO ratings (order_id, rating, text)
+    VALUES(${orderId},${rating}, ${text})`
+
+    return res.json({ success: "Успешно изпратена оценка" })
+  } catch (error) {
+    console.error("Error is: ", error)
+    return res.status(500).json({ error: "Грешка при спазване на оценка" })
+  }
+}

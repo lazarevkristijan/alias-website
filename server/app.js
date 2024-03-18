@@ -33,6 +33,7 @@ import {
   postAddCategory,
   postAddService,
   postLoginOrRegister,
+  postRateOrder,
 } from "./Routes/postRoutes.js"
 import {
   deleteCategory,
@@ -142,6 +143,7 @@ app.get("/orders/provider/:id", getAllProviderOrders)
 app.get("/orders/category/:category", getAllCategoryOrders)
 app.get("/orders/user/:id", verifyToken, getAllUserOrders)
 app.patch("/order/mark-finished/:id", verifyToken, patchChangeOrderStatus)
+app.post("/order/rate", verifyToken, postRateOrder)
 
 // LISTEN
 const server = app.listen(port, () =>
