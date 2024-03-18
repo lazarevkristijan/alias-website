@@ -1,7 +1,7 @@
 export const checkAccess = (req, res, next) => {
   const clientDomain = req.get("origin")
 
-  const allowedDomains = ["http://localhost:5173"]
+  const allowedDomains = ["https://alias-test.vercel.app"]
 
   if (allowedDomains.includes(clientDomain)) {
     next()
