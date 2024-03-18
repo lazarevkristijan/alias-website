@@ -4,7 +4,7 @@ import { errorNotifEnding } from "../constants"
 
 export const getAllServicesAndProviders = async () => {
   const res = await axios
-    .get("http://localhost:5432/services/all-providers")
+    .get("https://alias-server-3sme.onrender.com/services/all-providers")
     .then((response) => response.data)
     .catch((error) =>
       sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
@@ -15,7 +15,7 @@ export const getAllServicesAndProviders = async () => {
 
 export const getAllServiceProviders = async () => {
   const res = await axios
-    .get("http://localhost:5432/all-providers")
+    .get("https://alias-server-3sme.onrender.com/all-providers")
     .then((response) => response.data)
     .catch((error) =>
       sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)

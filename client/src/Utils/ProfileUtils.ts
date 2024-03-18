@@ -7,7 +7,9 @@ import { errorNotifEnding } from "../constants"
 
 export const handleDeleteUser = async (auth0logout: () => void) => {
   await axios
-    .delete("http://localhost:5432/user/delete-user", { withCredentials: true })
+    .delete("https://alias-server-3sme.onrender.com/user/delete-user", {
+      withCredentials: true,
+    })
     .then(() => {
       localStorage.removeItem("theme")
       document.body.style.backgroundColor = "#f0f0f0"
@@ -19,7 +21,7 @@ export const handleDeleteUser = async (auth0logout: () => void) => {
 
 export const handleLogout = async (auth0logout: () => void) => {
   await axios
-    .get("http://localhost:5432/user/logout", {
+    .get("https://alias-server-3sme.onrender.com/user/logout", {
       withCredentials: true,
     })
     .then(() => {
@@ -45,7 +47,7 @@ export const handleChangeCredentials = (
 
   axios
     .patch(
-      "http://localhost:5432/user-settings/change-creds",
+      "https://alias-server-3sme.onrender.com/user-settings/change-creds",
       JSON.stringify(userData),
       {
         headers: { "Content-Type": "application/json" },
@@ -73,7 +75,9 @@ export const displayPhoneNumber = (phoneNumber: string) => {
 
 export const getAllUserOrders = async (id: number) => {
   const res = await axios
-    .get(`http://localhost:5432/orders/user/${id}`, { withCredentials: true })
+    .get(`https://alias-server-3sme.onrender.com/orders/user/${id}`, {
+      withCredentials: true,
+    })
     .then((response) => response.data)
     .catch((error) =>
       sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)

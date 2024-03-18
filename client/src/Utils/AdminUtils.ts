@@ -7,7 +7,9 @@ import { NavigateFunction } from "react-router"
 
 export const getAllUsers = async () => {
   const res = await axios
-    .get("http://localhost:5432/users/all", { withCredentials: true })
+    .get("https://alias-server-3sme.onrender.com/users/all", {
+      withCredentials: true,
+    })
     .then((response) => response.data)
     .catch((error) =>
       sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
@@ -18,7 +20,7 @@ export const getAllUsers = async () => {
 
 export const getSingleUser = async (id: number) => {
   const res = await axios
-    .get(`http://localhost:5432/admin/get-user/${id}`, {
+    .get(`https://alias-server-3sme.onrender.com/admin/get-user/${id}`, {
       withCredentials: true,
     })
     .then((response) => response.data)
@@ -49,7 +51,7 @@ export const handleAdminChangeProfilePicture = async (
 
     await axios
       .patch(
-        `http://localhost:5432/admin/user/change-profile-picture/${userData.id}`,
+        `https://alias-server-3sme.onrender.com/admin/user/change-profile-picture/${userData.id}`,
         formData,
         {
           headers: {
@@ -84,7 +86,7 @@ export const handleAdminPfpDelete = async (
 
   await axios
     .delete(
-      `http://localhost:5432/admin/user/delete-profile-picture/${userId}`,
+      `https://alias-server-3sme.onrender.com/admin/user/delete-profile-picture/${userId}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -108,7 +110,7 @@ export const handleAdminPfpDelete = async (
 export const handleAdminCredsChange = async (userData: User) => {
   await axios
     .patch(
-      `http://localhost:5432/admin/user/change-credentials/${userData?.id}`,
+      `https://alias-server-3sme.onrender.com/admin/user/change-credentials/${userData?.id}`,
       userData,
       {
         headers: {
@@ -130,7 +132,7 @@ export const handleAdminUserDelete = async (
   navigate: NavigateFunction
 ) => {
   await axios
-    .delete(`http://localhost:5432/admin/user/delete/${id}`, {
+    .delete(`https://alias-server-3sme.onrender.com/admin/user/delete/${id}`, {
       withCredentials: true,
     })
     .then((response) => {
@@ -144,7 +146,9 @@ export const handleAdminUserDelete = async (
 
 export const getAllOrders = async () => {
   const res = await axios
-    .get("http://localhost:5432/orders", { withCredentials: true })
+    .get("https://alias-server-3sme.onrender.com/orders", {
+      withCredentials: true,
+    })
     .then((response) => response.data)
     .catch((error) =>
       sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
@@ -156,7 +160,7 @@ export const getAllOrders = async () => {
 export const handleOrderStatusChange = async (id: number) => {
   await axios
     .patch(
-      `http://localhost:5432/order/mark-finished/${id}`,
+      `https://alias-server-3sme.onrender.com/order/mark-finished/${id}`,
       {},
       {
         withCredentials: true,
@@ -172,7 +176,7 @@ export const handleOrderStatusChange = async (id: number) => {
 
 export const getProviderOrders = async (id: number) => {
   const res = await axios
-    .get(`http://localhost:5432/orders/provider/${id}`)
+    .get(`https://alias-server-3sme.onrender.com/orders/provider/${id}`)
     .then((response) => response.data)
     .catch((error) => {
       sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
@@ -183,10 +187,14 @@ export const getProviderOrders = async (id: number) => {
 
 export const handleAddCategory = async (data: AddCategory) => {
   await axios
-    .post("http://localhost:5432/category/add", JSON.stringify(data), {
-      headers: { "Content-Type": "application/json" },
-      withCredentials: true,
-    })
+    .post(
+      "https://alias-server-3sme.onrender.com/category/add",
+      JSON.stringify(data),
+      {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      }
+    )
     .then((response) => sendNotification(response.data.success, true))
     .catch((error) =>
       sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
@@ -195,7 +203,7 @@ export const handleAddCategory = async (data: AddCategory) => {
 
 export const handleCategoryDelete = async (name: string) => {
   await axios
-    .delete(`http://localhost:5432/category/delete/${name}`, {
+    .delete(`https://alias-server-3sme.onrender.com/category/delete/${name}`, {
       withCredentials: true,
     })
     .then((response) => sendNotification(response.data.success, true))
@@ -206,7 +214,9 @@ export const handleCategoryDelete = async (name: string) => {
 
 export const getAllHiddenServices = async () => {
   const res = await axios
-    .get(`http://localhost:5432/services/all/hidden`, { withCredentials: true })
+    .get(`https://alias-server-3sme.onrender.com/services/all/hidden`, {
+      withCredentials: true,
+    })
     .then((response) => response.data)
     .catch((error) => {
       sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
@@ -217,7 +227,9 @@ export const getAllHiddenServices = async () => {
 
 export const getAllHiddenCategories = async () => {
   const res = await axios
-    .get(`http://localhost:5432/categories/hidden`, { withCredentials: true })
+    .get(`https://alias-server-3sme.onrender.com/categories/hidden`, {
+      withCredentials: true,
+    })
     .then((response) => response.data)
     .catch((error) => {
       sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
@@ -229,7 +241,7 @@ export const getAllHiddenCategories = async () => {
 export const handleUnhideCategory = async (id: number) => {
   await axios
     .patch(
-      `http://localhost:5432/category/unhide/${id}`,
+      `https://alias-server-3sme.onrender.com/category/unhide/${id}`,
       {},
       { withCredentials: true }
     )
@@ -242,7 +254,7 @@ export const handleUnhideCategory = async (id: number) => {
 export const handleUnhideService = async (id: number) => {
   await axios
     .patch(
-      `http://localhost:5432/service/unhide/${id}`,
+      `https://alias-server-3sme.onrender.com/service/unhide/${id}`,
       {},
       { withCredentials: true }
     )

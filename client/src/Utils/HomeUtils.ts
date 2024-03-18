@@ -13,7 +13,7 @@ export const postLoginOrRegister = (
 ) => {
   axios
     .post(
-      "http://localhost:5432/user/authenticate",
+      "https://alias-server-3sme.onrender.com/user/authenticate",
       JSON.stringify(auth0user),
       {
         headers: { "Content-Type": "application/json" },
@@ -39,7 +39,7 @@ export const postLoginOrRegister = (
 
 export const getAllServices = async () => {
   const res = await axios
-    .get("http://localhost:5432/services/all")
+    .get("https://alias-server-3sme.onrender.com/services/all")
     .then((response) => response.data)
     .catch((error) =>
       sendNotification(`${error.response.data.message}, ${errorNotifEnding}`)

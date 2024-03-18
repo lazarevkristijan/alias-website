@@ -21,13 +21,16 @@ export const handlePfpDelete = async (
 ) => {
   const pfpFileName = getPfpFileName(userPfp)
   await axios
-    .delete("http://localhost:5432/user-settings/delete-profile-picture", {
-      headers: {
-        "Content-Type": "application/json",
-      },
-      withCredentials: true,
-      data: JSON.stringify({ pfpFileName: pfpFileName }),
-    })
+    .delete(
+      "https://alias-server-3sme.onrender.com/user-settings/delete-profile-picture",
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+        data: JSON.stringify({ pfpFileName: pfpFileName }),
+      }
+    )
     .then((response) => {
       dispatch(changeProfilePicture(defaultPfpURL))
       sendNotification(response.data.success, true)
@@ -54,7 +57,7 @@ export const handleProfilePictureChange = async (
 
     await axios
       .patch(
-        "http://localhost:5432/user-settings/change-profile-picture",
+        "https://alias-server-3sme.onrender.com/user-settings/change-profile-picture",
         formData,
         {
           headers: {

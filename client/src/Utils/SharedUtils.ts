@@ -11,10 +11,14 @@ export const handleAddService = async (
   e.preventDefault()
 
   await axios
-    .post("http://localhost:5432/services/add-service", JSON.stringify(data), {
-      headers: { "Content-Type": "application/json" },
-      withCredentials: true,
-    })
+    .post(
+      "https://alias-server-3sme.onrender.com/services/add-service",
+      JSON.stringify(data),
+      {
+        headers: { "Content-Type": "application/json" },
+        withCredentials: true,
+      }
+    )
     .then((response) => {
       sendNotification(response.data.success, true)
     })
@@ -25,7 +29,9 @@ export const handleAddService = async (
 
 export const getAllServiceCategories = async () => {
   const res = await axios
-    .get("http://localhost:5432/services/all-service-categories")
+    .get(
+      "https://alias-server-3sme.onrender.com/services/all-service-categories"
+    )
     .then((response) => response.data)
     .catch((error) =>
       sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
@@ -56,7 +62,9 @@ export const getSingleService = async (
   navigate: NavigateFunction
 ) => {
   const res = await axios
-    .get(`http://localhost:5432/service/info/${category}/${id}`)
+    .get(
+      `https://alias-server-3sme.onrender.com/service/info/${category}/${id}`
+    )
     .then((response) => {
       if (!response.data.length) {
         sendNotification("Услугата не е налична")
@@ -74,7 +82,7 @@ export const getSingleService = async (
 
 export const getSingleServiceProviders = async (id: string) => {
   const res = await axios
-    .get(`http://localhost:5432/service/providers/all/${id}`)
+    .get(`https://alias-server-3sme.onrender.com/service/providers/all/${id}`)
     .then((response) => response.data)
     .catch((error) => {
       sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
@@ -91,7 +99,7 @@ export const handleEditService = async (
 
   await axios
     .patch(
-      "http://localhost:5432/services/edit-service",
+      "https://alias-server-3sme.onrender.com/services/edit-service",
       JSON.stringify(data),
       { headers: { "Content-Type": "application/json" }, withCredentials: true }
     )
@@ -105,7 +113,7 @@ export const handleEditService = async (
 
 export const getProvider = async (id: number) => {
   const res = await axios
-    .get(`http://localhost:5432/provider/${id}`)
+    .get(`https://alias-server-3sme.onrender.com/provider/${id}`)
     .then((response) => response.data)
     .catch((error) =>
       sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
@@ -116,7 +124,7 @@ export const getProvider = async (id: number) => {
 
 export const handleDeleteService = async (id: number) => {
   await axios
-    .delete(`http://localhost:5432/services/delete-service`, {
+    .delete(`https://alias-server-3sme.onrender.com/services/delete-service`, {
       headers: { "Content-Type": "application/json" },
       data: { id },
       withCredentials: true,
@@ -132,7 +140,9 @@ export const handleDeleteService = async (id: number) => {
 
 export const getAllCategoryProviders = async (category: string) => {
   const res = await axios
-    .get(`http://localhost:5432/services/providers/${category}`)
+    .get(
+      `https://alias-server-3sme.onrender.com/services/providers/${category}`
+    )
     .then((response) => response.data)
     .catch((error) =>
       sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
@@ -143,7 +153,7 @@ export const getAllCategoryProviders = async (category: string) => {
 
 export const getAllCategoryOrders = async (category: string) => {
   const res = await axios
-    .get(`http://localhost:5432/orders/category/${category}`)
+    .get(`https://alias-server-3sme.onrender.com/orders/category/${category}`)
     .then((response) => response.data)
     .catch((error) => {
       sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
@@ -154,7 +164,9 @@ export const getAllCategoryOrders = async (category: string) => {
 
 export const getSingleProviderServices = async (id: string) => {
   const res = await axios
-    .get(`http://localhost:5432/providers/single/services/${id}`)
+    .get(
+      `https://alias-server-3sme.onrender.com/providers/single/services/${id}`
+    )
     .then((response) => response.data)
     .catch((error) =>
       sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
