@@ -6,6 +6,6 @@ export const checkAccess = (req, res, next) => {
   if (allowedDomains.includes(clientDomain)) {
     next()
   } else {
-    return res.status(401).send("Unauthorized")
+    return res.status(401).send("Unauthorized!")
   }
 }
