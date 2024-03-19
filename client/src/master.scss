@@ -30,10 +30,6 @@ h2 {
   margin-bottom: 1rem;
 }
 
-h3 {
-  margin-top: 1rem;
-}
-
 * {
   box-sizing: border-box;
   padding: 0;
@@ -162,7 +158,7 @@ a:hover {
 }
 
 .light-bg {
-  background: linear-gradient(90deg, #228b22, #2BB02B, #228b22);
+  background: linear-gradient(90deg, #228b22, #2bb02b, #228b22);
 }
 
 .box-shadow-black {
@@ -268,4 +264,13 @@ section {
   object-fit: cover;
   object-position: center;
   border-radius: 50%;
+}
+
+.mt1rem,
+h3 {
+  margin-top: 1rem;
+}
+
+.w300 {
+  width: 300px;
 }

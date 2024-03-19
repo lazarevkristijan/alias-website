@@ -84,7 +84,7 @@ export const getAllUserOrders = async (id: number) => {
 
 export const handleSendRating = async (data: SendRatingData) => {
   await axios
-    .post("http://localhost:5432/order/rate", JSON.stringify(data), {
+    .post("http://localhost:5432/rating/submit", JSON.stringify(data), {
       headers: { "Content-Type": "application/json" },
       withCredentials: true,
     })
@@ -92,4 +92,15 @@ export const handleSendRating = async (data: SendRatingData) => {
     .catch((error) =>
       sendNotification(`${error.response.data.message}, ${errorNotifEnding}`)
     )
+}
+
+export const getUserRatings = async (id: number) => {
+  const res = await axios
+    .get(`http://localhost:5432/ratings/user/${id}`, { withCredentials: true })
+    .then((response) => response.data)
+    .catch((error) =>
+      sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
+    )
+
+  return res
 }

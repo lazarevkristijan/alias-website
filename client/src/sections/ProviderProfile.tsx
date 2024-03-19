@@ -85,7 +85,7 @@ const ProviderProfile = () => {
             )}
             <p>{provider?.email}</p>
             {provider?.bio && (
-              <p className="profile-bio">{displayBio(provider?.bio)}</p>
+              <p className="mt1rem w300">{displayBio(provider?.bio)}</p>
             )}
             <p>
               Предоставил {orders.length} услуг{orders.length === 1 ? "а" : "и"}

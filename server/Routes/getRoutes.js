@@ -350,3 +350,23 @@ export const getAllHiddenCategories = async (req, res) => {
     })
   }
 }
+
+export const getUserRatings = async (req, res) => {
+  try {
+    const { id } = req.params
+
+    const ratings = await sql`
+    SELECT a.* FROM ratings as a
+    JOIN orders as b
+    ON a.order_id = b.id
+    WHERE b.buyer_id = 21`
+    // WHERE b.buyer_id = ${id}`
+    
+    return res.json(ratings)
+  } catch (error) {
+    console.error("Error is: ", error)
+    return res.status(500).json({
+      error: "Грешка при получаване на всички оценки на потребител",
+    })
+  }
+}

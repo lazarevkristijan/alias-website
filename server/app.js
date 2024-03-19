@@ -28,6 +28,7 @@ import {
   getAllUserOrders,
   getAllHiddenServices,
   getAllHiddenCategories,
+  getUserRatings,
 } from "./Routes/getRoutes.js"
 import {
   postAddCategory,
@@ -143,7 +144,10 @@ app.get("/orders/provider/:id", getAllProviderOrders)
 app.get("/orders/category/:category", getAllCategoryOrders)
 app.get("/orders/user/:id", verifyToken, getAllUserOrders)
 app.patch("/order/mark-finished/:id", verifyToken, patchChangeOrderStatus)
-app.post("/order/rate", verifyToken, postRateOrder)
+
+// RATINGS
+app.get("/ratings/user/:id", verifyToken, getUserRatings)
+app.post("/rating/submit", verifyToken, postRateOrder)
 
 // LISTEN
 const server = app.listen(port, () =>

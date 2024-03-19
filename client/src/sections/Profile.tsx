@@ -6,6 +6,7 @@ import { useNavigate } from "react-router"
 import {
   displayPhoneNumber,
   getAllUserOrders,
+  getUserRatings,
   handleLogout,
 } from "../Utils/ProfileUtils"
 import { getPfpLink } from "../Utils/SettingsUtils"
@@ -14,7 +15,7 @@ import "./Profile.scss"
 import { capitalizeString } from "../Utils/SharedUtils"
 import Button from "../components/Shared/Button"
 import { useQuery } from "@tanstack/react-query"
-import { Order } from "../Types"
+import { Order, Rating } from "../Types"
 import displayBio from "../components/Shared/DisplayBio"
 import RatingBox from "../components/Profile/RatingBox"
 
@@ -39,9 +40,14 @@ const Profile = () => {
     queryFn: () => getAllUserOrders(user?.id || 0),
   })
 
+  const { isLoading: areRatingsLoading, data: ratings } = useQuery<Rating[]>({
+    queryKey: ["user-orders-ratings"],
+    queryFn: () => getUserRatings(user?.id || 0),
+  })
+
   const [openDialogId, setOpenDialogId] = useState(0)
 
-  if (!user) return
+  if (!user || !ratings) return
 
   return (
     <section>
@@ -82,7 +88,7 @@ const Profile = () => {
               )}
               <p>{capitalizeString(user?.role)}</p>
 
-              <p className="profile-bio label-dark-bg">
+              <p className="mt1rem w300 label-dark-bg">
                 {displayBio(user.bio)}
               </p>
             </div>
@@ -167,15 +173,20 @@ const Profile = () => {
                   ) : (
                     ""
                   )}
-                  <Button
-                    onClick={() =>
-                      setOpenDialogId(openDialogId === order.id ? 0 : order.id)
-                    }
-                  >
-                    Оцени
-                  </Button>
-                  {openDialogId === order.id && (
-                    <RatingBox orderId={order.id} />
+
+                  <br />
+                  <hr />
+                  <br />
+
+                  {!areRatingsLoading && !areOrdersLoading && (
+                    <>
+                      <RatingBox
+                        orderId={order.id}
+                        ratings={ratings}
+                        openDialogId={openDialogId}
+                        setOpenDialogId={setOpenDialogId}
+                      />
+                    </>
                   )}
                 </div>
               ))}
