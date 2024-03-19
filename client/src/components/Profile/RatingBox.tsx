@@ -3,6 +3,7 @@ import { FaStar } from "react-icons/fa"
 import Button from "../Shared/Button"
 import { handleSendRating } from "../../Utils/ProfileUtils"
 import { Rating, SendRatingData } from "../../Types"
+import RatingStarsShow from "../Shared/RatingStarsShow"
 
 const RatingBox = ({
   orderId,
@@ -30,13 +31,7 @@ const RatingBox = ({
     <>
       {ratingOrderIds.includes(orderId) ? (
         <>
-          {[...Array(5)].map((_, index) => (
-            <FaStar
-              key={index}
-              size={40}
-              color={thisRating[0]?.rating >= index + 1 ? "#ffc107" : "#e4e5e9"}
-            />
-          ))}
+          <RatingStarsShow rating={thisRating[0].rating} />
           <p className="w300">{thisRating[0]?.text}</p>
         </>
       ) : (

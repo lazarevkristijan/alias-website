@@ -356,17 +356,40 @@ export const getUserRatings = async (req, res) => {
     const { id } = req.params
 
     const ratings = await sql`
-    SELECT a.* FROM ratings as a
+    SELECT a.order_id, a.rating, a.text FROM ratings as a
     JOIN orders as b
     ON a.order_id = b.id
     WHERE b.buyer_id = 21`
     // WHERE b.buyer_id = ${id}`
-    
+
     return res.json(ratings)
   } catch (error) {
     console.error("Error is: ", error)
     return res.status(500).json({
       error: "Грешка при получаване на всички оценки на потребител",
+    })
+  }
+}
+
+export const getCategoryServicesRatings = async (req, res) => {
+  try {
+    const { name: category } = req.params
+
+    const ratings = await sql`
+    SELECT a.rating, b.service_id FROM ratings as a
+    JOIN orders as b
+    ON a.order_id = b.id
+    JOIN services as c
+    ON b.service_id = c.id
+    JOIN service_categories as d
+    ON c.category_id = d.id
+    WHERE d.name = ${category}`
+
+    return res.json(ratings)
+  } catch (error) {
+    console.error("Error is: ", error)
+    return res.status(500).json({
+      error: "Грешка при получаване на всички оценки на услугите",
     })
   }
 }

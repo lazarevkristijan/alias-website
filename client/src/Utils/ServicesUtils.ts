@@ -13,3 +13,16 @@ export const getAllServicesByCategory = async (category: string) => {
   return res
 }
 
+export const getCategoryServicesRatings = async (category: string) => {
+  const res = await axios
+    .get(`http://localhost:5432/ratings/category/${category}`)
+    .then((response) => response.data)
+    .catch((error) =>
+      sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
+    )
+
+  return res
+}
+
+
+

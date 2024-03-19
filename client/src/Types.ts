@@ -156,8 +156,12 @@ export type SendRatingData = {
 }
 
 export type Rating = {
-  id: number
   order_id: number
   rating: number
   text: string
+}
+
+export type RatingLength = {
+  rating: number
+  service_id: number
 }

@@ -4,11 +4,15 @@ import { getAllCategoryOrders } from "../Utils/SharedUtils"
 import {
   OrderCount,
   ProviderServiceShowcase,
+  RatingLength,
   Service,
 } from "../Types"
 import SingleCategoryServiceCard from "../components/Services/SingleCategoryServiceCard"
 import { getAllCategoryProviders } from "../Utils/SharedUtils"
-import { getAllServicesByCategory } from "../Utils/ServicesUtils"
+import {
+  getAllServicesByCategory,
+  getCategoryServicesRatings,
+} from "../Utils/ServicesUtils"
 import Button from "../components/Shared/Button"
 import "./SingleCategoryServices.scss"
 import { useSelector } from "react-redux"
@@ -24,27 +28,27 @@ const SingleCategoryServices = () => {
   const theme = useSelector((state: RootState) => state.theme.current)
 
   const { isFetching: areCategoryServicesFetching, data: allCategoryServices } =
-    useQuery<Service[]>({
+    useQuery({
       queryKey: [`all-${category}-services`],
       queryFn: () => getAllServicesByCategory(category || ""),
     }) as { isFetching: boolean; data: Service[] }
 
-  const { isFetching: areProvidersFetching, data: allProviders } = useQuery<
-    ProviderServiceShowcase[]
-  >({
+  const { isFetching: areProvidersFetching, data: allProviders } = useQuery({
     queryKey: [`all-${category}-providers`],
     queryFn: () => getAllCategoryProviders(category || ""),
   }) as { isFetching: boolean; data: ProviderServiceShowcase[] }
 
-  const { isFetching: areServiceOrdersFetching, data: allOrders } = useQuery<
-    OrderCount[]
-  >({
+  const { isFetching: areServiceOrdersFetching, data: allOrders } = useQuery({
     queryKey: ["service-orders"],
     queryFn: () => getAllCategoryOrders(category || ""),
   }) as { isFetching: boolean; data: OrderCount[] }
 
-  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
+  const { isFetching: areRatingsFetching, data: ratings } = useQuery({
+    queryKey: ["category-service-ratings"],
+    queryFn: () => getCategoryServicesRatings(category || ""),
+  }) as { isFetching: boolean; data: RatingLength[] }
 
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false)
   return (
     <section
       className={`single-category-services ${
@@ -55,7 +59,8 @@ const SingleCategoryServices = () => {
     >
       {areCategoryServicesFetching ||
       areProvidersFetching ||
-      areServiceOrdersFetching ? (
+      areServiceOrdersFetching ||
+      areRatingsFetching ? (
         <p>Зареждане...</p>
       ) : (
         <section>
@@ -70,6 +75,9 @@ const SingleCategoryServices = () => {
                 orders={
                   allOrders.filter((s) => s.service_id === service.id).length
                 }
+                ratings={ratings?.map((r) =>
+                  r.service_id === service.id ? r.rating : 0
+                )}
               />
             ))}
           </div>

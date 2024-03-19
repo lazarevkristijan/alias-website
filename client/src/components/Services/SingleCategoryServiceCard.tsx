@@ -4,18 +4,23 @@ import Button from "../Shared/Button"
 import { getPfpLink } from "../../Utils/SettingsUtils"
 import { useSelector } from "react-redux"
 import { RootState } from "../../Store"
+import RatingStarsShow from "../Shared/RatingStarsShow"
 
 const SingleCategoryServiceCard = ({
   service,
   providers,
   orders,
+  ratings,
 }: {
   service: Service
   providers: ProviderServiceShowcase[]
   orders: number
+  ratings: number[]
 }) => {
   const navigate = useNavigate()
   const theme = useSelector((state: RootState) => state.theme.current)
+
+  ratings = ratings.filter((r) => r !== 0)
 
   return (
     <div
@@ -29,6 +34,16 @@ const SingleCategoryServiceCard = ({
       <p>Цена: {service.price}лв.</p>
       <Button onClick={() => navigate(`${service.id}`)}>Подробности</Button>
       <p>Поръчана {orders} пъти</p>
+      <RatingStarsShow
+        rating={
+          !ratings.length
+            ? 0
+            : ratings.length === 1
+            ? ratings[0]
+            : Math.round(ratings.reduce((a, b) => a + b) / ratings.length)
+        }
+        size={20}
+      />
       Служители на услугата:
       <br />
       <div className="providers-container">
