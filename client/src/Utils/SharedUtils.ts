@@ -176,3 +176,14 @@ export const handleFileChange = (
 export const capitalizeString = (str: string) => {
   return str.charAt(0).toUpperCase() + str.slice(1)
 }
+
+export const getRatings = async () => {
+  const res = await axios
+    .get("http://localhost:5432/ratings")
+    .then((response) => response.data)
+    .catch((error) =>
+      sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
+    )
+
+  return res
+}

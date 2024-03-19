@@ -393,3 +393,19 @@ export const getCategoryServicesRatings = async (req, res) => {
     })
   }
 }
+
+export const getRatings = async (req, res) => {
+  try {
+    const ratings = await sql`
+    SELECT a.rating, b.service_id FROM ratings as a
+    JOIN orders as b
+    ON a.order_id = b.id`
+
+    return res.json(ratings)
+  } catch (error) {
+    console.error("Error is: ", error)
+    return res.status(500).json({
+      error: "Грешка при получаване на всички оценки на услугите",
+    })
+  }
+}

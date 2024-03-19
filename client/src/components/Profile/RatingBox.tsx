@@ -26,7 +26,7 @@ const RatingBox = ({
 
   const ratingOrderIds = ratings.map((r) => r.order_id)
   const thisRating = ratings.filter((r) => r.order_id === orderId)
-  console.log(thisRating[0]?.rating || "none")
+
   return (
     <>
       {ratingOrderIds.includes(orderId) ? (

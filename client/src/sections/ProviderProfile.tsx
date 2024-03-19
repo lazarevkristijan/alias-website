@@ -3,9 +3,10 @@ import { useNavigate, useParams } from "react-router"
 import {
   capitalizeString,
   getProvider,
+  getRatings,
   getSingleProviderServices,
 } from "../Utils/SharedUtils"
-import { Provider, SingleService } from "../Types"
+import { Provider, RatingLength, SingleService } from "../Types"
 import { getPfpLink } from "../Utils/SettingsUtils"
 import { defaultPfpURL } from "../constants"
 import Button from "../components/Shared/Button"
@@ -15,6 +16,7 @@ import { RootState } from "../Store"
 import { displayPhoneNumber } from "../Utils/ProfileUtils"
 import { getProviderOrders } from "../Utils/AdminUtils"
 import displayBio from "../components/Shared/DisplayBio"
+import RatingStarsShow from "../components/Shared/RatingStarsShow"
 
 const ProviderProfile = () => {
   const { id } = useParams()
@@ -22,25 +24,27 @@ const ProviderProfile = () => {
 
   const theme = useSelector((state: RootState) => state.theme.current)
 
-  const { isFetching: isProviderFetching, data: provider } =
-    useQuery<Provider>({
+  const { isFetching: isProviderFetching, data: provider } = useQuery<Provider>(
+    {
       queryKey: ["single-provider"],
       queryFn: () => getProvider(Number(id)),
-    })
+    }
+  )
 
-  const { isFetching: areServicesFetching, data: services } = useQuery<
-    SingleService[]
-  >({
+  const { isFetching: areServicesFetching, data: services } = useQuery({
     queryKey: ["provider-services"],
     queryFn: () => getSingleProviderServices(id || ""),
-  })
+  }) as { isFetching: boolean; data: SingleService[] }
 
   const { isFetching: areOrdersFetching, data: orders } = useQuery({
     queryKey: ["provider-ordered-services"],
     queryFn: () => getProviderOrders(Number(id)),
   })
 
-  if (!services) return
+  const { isFetching: areRatingsFetching, data: ratings } = useQuery({
+    queryKey: ["all-ratings"],
+    queryFn: () => getRatings(),
+  }) as { isFetching: boolean; data: RatingLength[] }
 
   return (
     <section>
@@ -83,9 +87,8 @@ const ProviderProfile = () => {
             {provider?.phone_number && (
               <p>{displayPhoneNumber(provider?.phone_number)}</p>
             )}
-            <p>{provider?.email}</p>
             {provider?.bio && (
-              <p className="mt1rem w300">{displayBio(provider?.bio)}</p>
+              <p className="profile-bio">{displayBio(provider?.bio)}</p>
             )}
             <p>
               Предоставил {orders.length} услуг{orders.length === 1 ? "а" : "и"}
@@ -94,32 +97,49 @@ const ProviderProfile = () => {
 
           <h3>Услуги които предлага {provider?.first_name}</h3>
           <div className="provider-services-container">
-            {services.map((service) => (
-              <div
-                key={service.id}
-                style={{
-                  padding: 10,
-                  margin: 10,
-                  width: 250,
-                }}
-                className={`provider-service-card box-shadow card-padding ${
-                  theme === "dark"
-                    ? "card-black-bg box-shadow-white"
-                    : "card-white-bg box-shadow-black"
-                }`}
-              >
-                <p>Услуга: {service.name}</p>
-                <p>Категория: {capitalizeString(service.category)}</p>
-                <p>Цена: {service.price}лв.</p>
-                <Button
-                  onClick={() =>
-                    navigate(`/услуги/${service.category}/${service.id}`)
-                  }
-                >
-                  Към услуга
-                </Button>
-              </div>
-            ))}
+            {!areRatingsFetching && (
+              <>
+                {services.map((service) => {
+                  const rs = ratings
+                    .map((r) => (r.service_id === service.id ? r.rating : 0))
+                    .filter((r) => r !== 0)
+
+                  return (
+                    <div
+                      key={service.id}
+                      className={`provider-service-card card-padding ${
+                        theme === "dark"
+                          ? "card-black-bg box-shadow-white"
+                          : "card-white-bg box-shadow-black"
+                      }`}
+                    >
+                      <p>Услуга: {service.name}</p>
+                      <p>Категория: {capitalizeString(service.category)}</p>
+                      <p>Цена: {service.price}лв.</p>
+
+                      <RatingStarsShow
+                        rating={
+                          !rs.length
+                            ? 0
+                            : rs.length === 1
+                            ? rs[0]
+                            : rs.reduce((a, b) => a + b) / rs.length
+                        }
+                        size={20}
+                      />
+
+                      <Button
+                        onClick={() =>
+                          navigate(`/услуги/${service.category}/${service.id}`)
+                        }
+                      >
+                        Към услуга
+                      </Button>
+                    </div>
+                  )
+                })}
+              </>
+            )}
           </div>
         </section>
       )}

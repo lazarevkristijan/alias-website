@@ -4,13 +4,15 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  gap: 10px;
 }
 
 .provider-service-card {
   display: flex;
   flex-direction: column;
   align-items: center;
-  row-gap: 0.5rem;
+  min-width: 250;
+  max-width: fit-content;
 }
 
 .provider-creds-container {

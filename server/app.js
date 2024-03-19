@@ -30,6 +30,7 @@ import {
   getAllHiddenCategories,
   getUserRatings,
   getCategoryServicesRatings,
+  getRatings,
 } from "./Routes/getRoutes.js"
 import {
   postAddCategory,
@@ -147,6 +148,7 @@ app.get("/orders/user/:id", verifyToken, getAllUserOrders)
 app.patch("/order/mark-finished/:id", verifyToken, patchChangeOrderStatus)
 
 // RATINGS
+app.get("/ratings", getRatings)
 app.get("/ratings/category/:name", getCategoryServicesRatings)
 app.get("/ratings/user/:id", verifyToken, getUserRatings)
 app.post("/rating/submit", verifyToken, postRateOrder)
