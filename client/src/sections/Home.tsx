@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react"
 import "./Home.scss"
 import { useQuery } from "@tanstack/react-query"
-import { getAllServices } from "../Utils/HomeUtils"
 import { ServiceCategory, Service } from "../Types"
 import { useNavigate } from "react-router"
 import { useAuth0 } from "@auth0/auth0-react"
-import { capitalizeString, getAllServiceCategories } from "../Utils/SharedUtils"
+import {
+  capitalizeString,
+  getAllServiceCategories,
+  getAllServices,
+} from "../Utils/SharedUtils"
 import Button from "../components/Shared/Button"
 import { useSelector } from "react-redux"
 import { RootState } from "../Store"

@@ -81,7 +81,7 @@ export const postAddService = async (req, res) => {
 export const postAddCategory = async (req, res) => {
   try {
     const { name } = req.body
-    const nameLowCase = name.toUpperCase()
+    const nameLowCase = name.toLowerCase()
 
     await sql`
     INSERT INTO service_categories(name, hidden)

@@ -2,10 +2,11 @@ import { useEffect, useState } from "react"
 import {
   capitalizeString,
   getAllServiceCategories,
+  getAllServices,
   handleAddService,
 } from "../../Utils/SharedUtils"
 import { useQuery } from "@tanstack/react-query"
-import { AddService, Provider, ServiceCategory } from "../../Types"
+import { AddService, Provider, Service, ServiceCategory } from "../../Types"
 import { priceRegex, serviceNameRegex } from "../../Regex"
 import { getAllServiceProviders } from "../../Utils/ServiceProvidersUtils"
 import { getPfpLink } from "../../Utils/SettingsUtils"
@@ -46,6 +47,13 @@ const AddServiceDialog = ({
       queryKey: ["all-providers"],
       queryFn: () => getAllServiceProviders(),
     })
+
+  const { isFetching: areServicesFetching, data: services } = useQuery<
+    Service[]
+  >({
+    queryKey: ["all-services"],
+    queryFn: () => getAllServices(),
+  })
 
   const [waitedSearchValue, setWaitedSearchValue] = useState("")
   const [providerSearchValue, setProviderSearchValue] = useState("")
@@ -112,11 +120,17 @@ const AddServiceDialog = ({
               }}
               style={{
                 backgroundColor:
-                  !serviceNameRegex.test(serviceData.name) && changedFields.name
+                  (!serviceNameRegex.test(serviceData.name) &&
+                    changedFields.name) ||
+                  services?.map((s) => s.name).includes(serviceData.name)
                     ? "red"
                     : "#fff",
               }}
             />
+            {services?.map((s) => s.name).includes(serviceData.name) && (
+              <p>Тази услуга вече съществува</p>
+            )}
+
             <label htmlFor="new_service_category">Категория:</label>
             <select
               id="new_service_category"
@@ -255,6 +269,8 @@ const AddServiceDialog = ({
                 disabled={
                   !priceRegex.test(serviceData.price) ||
                   !serviceNameRegex.test(serviceData.name) ||
+                  areServicesFetching ||
+                  services?.map((s) => s.name).includes(serviceData.name) ||
                   serviceData.category === ""
                 }
               >

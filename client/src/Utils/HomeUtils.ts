@@ -2,8 +2,6 @@ import { User } from "@auth0/auth0-react"
 import axios from "axios"
 import { login } from "../features/session/sessionSlice"
 import { AppDispatch } from "../Store"
-import { sendNotification } from "./SharedUtils"
-import { errorNotifEnding } from "../constants"
 import { changeTheme } from "../features/theme/themeSlice"
 
 export const postLoginOrRegister = (
@@ -37,13 +35,3 @@ export const postLoginOrRegister = (
     })
 }
 
-export const getAllServices = async () => {
-  const res = await axios
-    .get("http://localhost:5432/services/all")
-    .then((response) => response.data)
-    .catch((error) =>
-      sendNotification(`${error.response.data.message}, ${errorNotifEnding}`)
-    )
-
-  return res
-}

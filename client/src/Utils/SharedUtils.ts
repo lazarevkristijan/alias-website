@@ -187,3 +187,14 @@ export const getRatings = async () => {
 
   return res
 }
+
+export const getAllServices = async () => {
+  const res = await axios
+    .get("http://localhost:5432/services/all")
+    .then((response) => response.data)
+    .catch((error) =>
+      sendNotification(`${error.response.data.message}, ${errorNotifEnding}`)
+    )
+
+  return res
+}

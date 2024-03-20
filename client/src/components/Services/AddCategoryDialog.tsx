@@ -4,7 +4,12 @@ import Button from "../Shared/Button"
 import { useState } from "react"
 import { categoryNameRegex } from "../../Regex"
 import { handleAddCategory } from "../../Utils/AdminUtils"
-import { capitalizeString } from "../../Utils/SharedUtils"
+import {
+  capitalizeString,
+  getAllServiceCategories,
+} from "../../Utils/SharedUtils"
+import { ServiceCategory } from "../../Types"
+import { useQuery } from "@tanstack/react-query"
 
 const AddCategoryDialog = ({
   setIsOpen,
@@ -19,6 +24,13 @@ const AddCategoryDialog = ({
 
   const [changedFields, setChangedFields] = useState({
     name: false,
+  })
+
+  const { isLoading: areCategoriesLoading, data: categories } = useQuery<
+    ServiceCategory[]
+  >({
+    queryKey: ["all-categories"],
+    queryFn: () => getAllServiceCategories(),
   })
 
   return (
@@ -55,19 +67,40 @@ const AddCategoryDialog = ({
             }
 
             setCategoryData((prev) => ({
-              ...prev,
+              prev,
               name: capitalizeString(e.target.value),
             }))
           }}
           style={{
             backgroundColor:
-              !categoryNameRegex.test(categoryData.name) && changedFields.name
+              (!categoryNameRegex.test(categoryData.name) &&
+                changedFields.name) ||
+              categories
+                ?.map((c) => c.name)
+                .includes(categoryData.name.toLowerCase())
                 ? "red"
                 : "#fff",
           }}
         />
 
-        <Button type="submit">Добави</Button>
+        {categories
+          ?.map((c) => c.name)
+          .includes(categoryData.name.toLowerCase()) && (
+          <p>Тази категория вече съществува</p>
+        )}
+
+        <Button
+          type="submit"
+          disabled={
+            !categoryData.name ||
+            categories
+              ?.map((c) => c.name)
+              .includes(categoryData.name.toLowerCase()) ||
+            areCategoriesLoading
+          }
+        >
+          Добави
+        </Button>
       </form>
     </div>
   )
