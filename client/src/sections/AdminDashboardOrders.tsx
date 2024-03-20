@@ -1,10 +1,11 @@
 import { useSelector } from "react-redux"
 import { RootState } from "../Store"
 import { useQuery } from "@tanstack/react-query"
-import { getAllOrders } from "../Utils/AdminUtils"
+import { getAllOrders, handleOrderStatusChange } from "../Utils/AdminUtils"
 import { Order } from "../Types"
 import "./AdminDashboard.scss"
-import OrderCard from "../components/Admin/OrderCard"
+import OrderCard from "../components/Shared/OrderCard"
+import Button from "../components/Shared/Button"
 
 const AdminDashboardOrders = () => {
   const theme = useSelector((state: RootState) => state.theme.current)
@@ -33,7 +34,14 @@ const AdminDashboardOrders = () => {
                 <OrderCard
                   key={order.id}
                   order={order}
-                />
+                >
+                  <Button
+                    onClick={() => handleOrderStatusChange(order.id)}
+                    disabled={Boolean(order.finished)}
+                  >
+                    Маркирай свършена
+                  </Button>
+                </OrderCard>
               ))}
             </div>
           </div>

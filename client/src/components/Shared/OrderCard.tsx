@@ -1,12 +1,16 @@
 import { useSelector } from "react-redux"
+import { RootState } from "../../Store"
 import { Order } from "../../Types"
-import { handleOrderStatusChange } from "../../Utils/AdminUtils"
 import { getPfpLink } from "../../Utils/SettingsUtils"
 import { capitalizeString } from "../../Utils/SharedUtils"
-import Button from "../Shared/Button"
-import { RootState } from "../../Store"
 
-const OrderCard = ({ order }: { order: Order }) => {
+const OrderCard = ({
+  order,
+  children,
+}: {
+  order: Order
+  children: React.ReactNode
+}) => {
   const theme = useSelector((state: RootState) => state.theme.current)
 
   return (
@@ -18,24 +22,6 @@ const OrderCard = ({ order }: { order: Order }) => {
       }`}
     >
       <p>ID покупка: {order.id}</p>
-
-      <br />
-      <hr />
-      <br />
-
-      <img
-        src={getPfpLink(order.buyer_profile_picture)}
-        alt={`Профилна снимка на покупил: ${order.buyer_first_name}`}
-        width={100}
-        height={100}
-        style={{ borderRadius: "50%", border: "2px solid black" }}
-      />
-      <p>ID купувач: {order.buyer_id}</p>
-      <p>
-        Купувач: {order.buyer_first_name}{" "}
-        {order.buyer_middle_name && order.buyer_middle_name}{" "}
-        {order.buyer_last_name}
-      </p>
 
       <br />
       <hr />
@@ -71,7 +57,6 @@ const OrderCard = ({ order }: { order: Order }) => {
       <p>Единична цена: {order.service_price}лв.</p>
       <p>Общо: {order.total_paid}лв.</p>
       <br />
-      <p>Скрита: {order.hidden ? "Да" : "Не"}</p>
       <p>Дата на поръчване: {order.date_of_order.split("T")[0]}</p>
       <p>Час на поръчване: {order.date_of_order.split("T")[1].split(".")[0]}</p>
       <p>Свършена: {order.finished ? "Да" : "Не"}</p>
@@ -90,12 +75,7 @@ const OrderCard = ({ order }: { order: Order }) => {
       <hr />
       <br />
 
-      <Button
-        onClick={() => handleOrderStatusChange(order.id)}
-        disabled={Boolean(order.finished)}
-      >
-        Маркирай свършена
-      </Button>
+      {children}
     </div>
   )
 }
