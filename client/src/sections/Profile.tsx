@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux"
 import { RootState } from "../Store"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { useAuth0 } from "@auth0/auth0-react"
 import { useNavigate } from "react-router"
 import {
@@ -23,15 +23,7 @@ const Profile = () => {
   const navigate = useNavigate()
 
   const user = useSelector((state: RootState) => state.session.user)
-  const {
-    isLoading: auth0loading,
-    isAuthenticated: auth0authenticated,
-    logout: auth0logout,
-  } = useAuth0()
-
-  useEffect(() => {
-    !auth0authenticated && navigate("/")
-  }, [auth0authenticated, navigate])
+  const { isLoading: auth0loading, logout: auth0logout } = useAuth0()
 
   const theme = useSelector((state: RootState) => state.theme.current)
 

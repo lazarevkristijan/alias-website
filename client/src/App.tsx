@@ -21,6 +21,7 @@ import AdminDashboard from "./sections/AdminDashboard"
 import AdminDashboardHiddenServ from "./sections/AdminDashboardHiddenServ"
 import AdminDashboardHiddenCats from "./sections/AdminDashboardHiddenCats"
 import AdminRoute from "./components/Admin/AdminRoute"
+import AuthRoute from "./components/Admin/AuthRoute"
 
 const App = () => {
   const dispatch = useDispatch()
@@ -65,11 +66,19 @@ const App = () => {
               />
               <Route
                 path="/профил"
-                element={<Profile />}
+                element={
+                  <AuthRoute>
+                    <Profile />
+                  </AuthRoute>
+                }
               />
               <Route
                 path="/настройки"
-                element={<Settings />}
+                element={
+                  <AuthRoute>
+                    <Settings />
+                  </AuthRoute>
+                }
               />
               <Route
                 path="/услуги"
