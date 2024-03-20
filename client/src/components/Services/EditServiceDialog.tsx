@@ -117,9 +117,9 @@ const EditServiceDialog = ({
               value={serviceData.name}
               onChange={(e) => {
                 if (!changedFields.name) {
-                  setChangedFields({ ...changedFields, name: true })
+                  setChangedFields(prev => ({ ...prev, name: true }))
                 }
-                setServiceData({ ...serviceData, name: e.target.value })
+                setServiceData(prev => ({ ...prev, name: e.target.value }))
               }}
               style={{
                 backgroundColor:
@@ -136,9 +136,9 @@ const EditServiceDialog = ({
               value={serviceData.price}
               onChange={(e) => {
                 if (!changedFields.price) {
-                  setChangedFields({ ...changedFields, price: true })
+                  setChangedFields(prev => ({ ...prev, price: true }))
                 }
-                setServiceData({ ...serviceData, price: e.target.value })
+                setServiceData(prev => ({ ...prev, price: e.target.value }))
               }}
               style={{
                 backgroundColor:
@@ -156,9 +156,9 @@ const EditServiceDialog = ({
                 value={serviceData.category}
                 onChange={(e) => {
                   if (!changedFields.category) {
-                    setChangedFields({ ...changedFields, category: true })
+                    setChangedFields(prev => ({ ...prev, category: true }))
                   }
-                  setServiceData({ ...serviceData, category: e.target.value })
+                  setServiceData(prev => ({ ...prev, category: e.target.value }))
                 }}
               >
                 <option value="">Избери</option>
@@ -184,16 +184,16 @@ const EditServiceDialog = ({
                     }`}
                     onClick={() => {
                       if (!changedFields.providers) {
-                        setChangedFields({ ...changedFields, providers: true })
+                        setChangedFields(prev => ({ ...prev, providers: true }))
                       }
-                      setServiceData({
-                        ...serviceData,
+                      setServiceData(prev => ({
+                        ...prev,
                         providers: serviceData.providers.filter(
                           (currentProvider) =>
                             currentProvider.provider_id !==
                             serviceAndProvider.provider_id
                         ),
-                      })
+                      }))
                     }}
                   >
                     <img
@@ -254,14 +254,14 @@ const EditServiceDialog = ({
                       }`}
                       onClick={() => {
                         if (!changedFields.providers) {
-                          setChangedFields({
-                            ...changedFields,
+                          setChangedFields(prev => ({
+                            ...prev,
                             providers: true,
-                          })
+                          }))
                         }
 
-                        setServiceData({
-                          ...serviceData,
+                        setServiceData(prev => ({
+                          ...prev,
                           providers: [
                             ...serviceData.providers,
                             {
@@ -271,7 +271,7 @@ const EditServiceDialog = ({
                               service_id: service.id,
                             },
                           ],
-                        })
+                        }))
                         setWaitedSearchValue("")
                         setProviderSearchValue("")
                       }}

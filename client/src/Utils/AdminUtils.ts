@@ -60,10 +60,10 @@ export const handleAdminChangeProfilePicture = async (
       )
       .then((response) => {
         sendNotification(response.data.success, true)
-        setNewUserData({
-          ...userData,
+        setNewUserData(prev =>({
+          ...prev,
           profile_picture: response.data.profilePicture,
-        })
+        }))
       })
       .catch((error) =>
         sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)

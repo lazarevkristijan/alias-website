@@ -51,13 +51,13 @@ const AddCategoryDialog = ({
           value={categoryData.name}
           onChange={(e) => {
             if (!changedFields.name) {
-              setChangedFields({ ...changedFields, name: true })
+              setChangedFields((prev) => ({ ...prev, name: true }))
             }
 
-            setCategoryData({
-              ...categoryData,
+            setCategoryData((prev) => ({
+              ...prev,
               name: capitalizeString(e.target.value),
-            })
+            }))
           }}
           style={{
             backgroundColor:

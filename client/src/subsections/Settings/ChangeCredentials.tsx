@@ -57,9 +57,9 @@ const ChangeCredentials = () => {
             value={userData.firstName}
             onChange={(e) => {
               if (!changedFields.firstName) {
-                setChangedFields({ ...changedFields, firstName: true })
+                setChangedFields(prev => ({ ...prev, firstName: true }))
               }
-              setUserData({ ...userData, firstName: e.target.value })
+              setUserData(prev => ({ ...prev, firstName: e.target.value }))
             }}
             style={{
               backgroundColor:
@@ -78,9 +78,9 @@ const ChangeCredentials = () => {
             value={userData.middleName}
             onChange={(e) => {
               if (!changedFields.middleName) {
-                setChangedFields({ ...changedFields, middleName: true })
+                setChangedFields(prev => ({ ...prev, middleName: true }))
               }
-              setUserData({ ...userData, middleName: e.target.value })
+              setUserData(prev => ({ ...prev, middleName: e.target.value }))
             }}
             style={{
               backgroundColor:
@@ -100,9 +100,9 @@ const ChangeCredentials = () => {
             value={userData.lastName}
             onChange={(e) => {
               if (!changedFields.lastName) {
-                setChangedFields({ ...changedFields, lastName: true })
+                setChangedFields(prev => ({ ...prev, lastName: true }))
               }
-              setUserData({ ...userData, lastName: e.target.value })
+              setUserData(prev => ({ ...prev, lastName: e.target.value }))
             }}
             style={{
               backgroundColor:
@@ -121,9 +121,9 @@ const ChangeCredentials = () => {
             value={userData.jobTitle}
             onChange={(e) => {
               if (!changedFields.jobTitle) {
-                setChangedFields({ ...changedFields, jobTitle: true })
+                setChangedFields(prev => ({ ...prev, jobTitle: true }))
               }
-              setUserData({ ...userData, jobTitle: e.target.value })
+              setUserData(prev => ({ ...prev, jobTitle: e.target.value }))
             }}
             style={{
               backgroundColor:
@@ -142,9 +142,10 @@ const ChangeCredentials = () => {
             value={userData.phoneNumber}
             onChange={(e) => {
               if (!changedFields.phoneNumber) {
-                setChangedFields({ ...changedFields, phoneNumber: true })
+                setChangedFields(prev => ({ ...prev, phoneNumber: true }))
               }
-              setUserData({ ...userData, phoneNumber: e.target.value })
+              setUserData(prev => ({ ...prev, phoneNumber: e.target.value })
+              )
             }}
             style={{
               backgroundColor:
@@ -168,7 +169,7 @@ const ChangeCredentials = () => {
               if (!changedFields.bio) {
                 setChangedFields((prev) => ({ ...prev, bio: true }))
               }
-              setUserData({ ...userData, bio: e.target.value })
+              setUserData(prev => ({ ...prev, bio: e.target.value }))
             }}
             style={{
               backgroundColor: userData.bio.length > 150 ? "red" : "#fff",

@@ -241,7 +241,10 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: User }) => {
               if (!changedFields.first_name) {
                 setChangedFields((prev) => ({ ...prev, first_name: true }))
               }
-              setNewUserData({ ...newUserData, first_name: e.target.value })
+              setNewUserData((prev) => ({
+                ...prev,
+                first_name: e.target.value,
+              }))
             }}
             id="admin-edit-user-first-name"
             style={{
@@ -263,7 +266,7 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: User }) => {
               if (!changedFields.last_name) {
                 setChangedFields((prev) => ({ ...prev, last_name: true }))
               }
-              setNewUserData({ ...newUserData, last_name: e.target.value })
+              setNewUserData((prev) => ({ ...prev, last_name: e.target.value }))
             }}
             id="admin-edit-user-last-name"
             style={{
@@ -286,7 +289,10 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: User }) => {
               if (!changedFields.middle_name) {
                 setChangedFields((prev) => ({ ...prev, middle_name: true }))
               }
-              setNewUserData({ ...newUserData, middle_name: e.target.value })
+              setNewUserData((prev) => ({
+                ...prev,
+                middle_name: e.target.value,
+              }))
             }}
             id="admin-edit-user-middle-name"
             style={{
@@ -309,7 +315,7 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: User }) => {
               if (!changedFields.job_title) {
                 setChangedFields((prev) => ({ ...prev, job_title: true }))
               }
-              setNewUserData({ ...newUserData, job_title: e.target.value })
+              setNewUserData((prev) => ({ ...prev, job_title: e.target.value }))
             }}
             id="admin-edit-user-job-title"
             style={{
@@ -332,7 +338,10 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: User }) => {
               if (!changedFields.phone_number) {
                 setChangedFields((prev) => ({ ...prev, phone_number: true }))
               }
-              setNewUserData({ ...newUserData, phone_number: e.target.value })
+              setNewUserData((prev) => ({
+                ...prev,
+                phone_number: e.target.value,
+              }))
             }}
             id="admin-edit-user-phone-number"
             style={{
@@ -361,7 +370,7 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: User }) => {
               if (!changedFields.bio) {
                 setChangedFields((prev) => ({ ...prev, bio: true }))
               }
-              setNewUserData({ ...newUserData, bio: e.target.value })
+              setNewUserData((prev) => ({ ...prev, bio: e.target.value }))
             }}
             style={{
               backgroundColor: newUserData.bio.length > 150 ? "red" : "#fff",
@@ -381,7 +390,7 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: User }) => {
               if (!changedFields.role) {
                 setChangedFields((prev) => ({ ...prev, role: true }))
               }
-              setNewUserData({ ...newUserData, role: e.target.value })
+              setNewUserData((prev) => ({ ...prev, role: e.target.value }))
             }}
             id="admin-edit-user-role"
           >

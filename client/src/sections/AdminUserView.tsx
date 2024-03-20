@@ -21,7 +21,7 @@ const AdminUserView = () => {
   return (
     <section className={` ${theme === "dark" ? "dark-bg" : "light-bg"}`}>
       {isUserFetching ? (
-        <p>Loading...</p>
+        <p>Зареждане...</p>
       ) : (
         <AdminEditUserSection fetchedUser={fetchedUser} />
       )}
