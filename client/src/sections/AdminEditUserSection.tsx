@@ -233,188 +233,10 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: User }) => {
 
         <p>ID: {fetchedUser?.id}</p>
 
-        <div className="admin-edit-user-label">
-          <label htmlFor="admin-edit-user-first-name">Име</label>
-          <input
-            value={newUserData.first_name}
-            onChange={(e) => {
-              if (!changedFields.first_name) {
-                setChangedFields((prev) => ({ ...prev, first_name: true }))
-              }
-              setNewUserData((prev) => ({
-                ...prev,
-                first_name: e.target.value,
-              }))
-            }}
-            id="admin-edit-user-first-name"
-            style={{
-              backgroundColor:
-                !nameRegex.test(newUserData.first_name) &&
-                changedFields.first_name
-                  ? "red"
-                  : "#fff",
-              textTransform: "capitalize",
-            }}
-            maxLength={50}
-          />
-        </div>
-        <div className="admin-edit-user-label">
-          <label htmlFor="admin-edit-user-last-name">Фамилия</label>
-          <input
-            value={newUserData.last_name}
-            onChange={(e) => {
-              if (!changedFields.last_name) {
-                setChangedFields((prev) => ({ ...prev, last_name: true }))
-              }
-              setNewUserData((prev) => ({ ...prev, last_name: e.target.value }))
-            }}
-            id="admin-edit-user-last-name"
-            style={{
-              backgroundColor:
-                !nameRegex.test(newUserData.last_name) &&
-                changedFields.last_name
-                  ? "red"
-                  : "#fff",
-              textTransform: "capitalize",
-            }}
-            maxLength={50}
-          />
-        </div>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault()
 
-        <div className="admin-edit-user-label">
-          <label htmlFor="admin-edit-user-middle-name">Презиме</label>
-          <input
-            value={newUserData.middle_name}
-            onChange={(e) => {
-              if (!changedFields.middle_name) {
-                setChangedFields((prev) => ({ ...prev, middle_name: true }))
-              }
-              setNewUserData((prev) => ({
-                ...prev,
-                middle_name: e.target.value,
-              }))
-            }}
-            id="admin-edit-user-middle-name"
-            style={{
-              backgroundColor:
-                !middleNameRegex.test(newUserData.middle_name) &&
-                changedFields.middle_name
-                  ? "red"
-                  : "#fff",
-              textTransform: "capitalize",
-            }}
-            maxLength={50}
-          />
-        </div>
-
-        <div className="admin-edit-user-label">
-          <label htmlFor="admin-edit-user-job-title">Специялност</label>
-          <input
-            value={newUserData.job_title}
-            onChange={(e) => {
-              if (!changedFields.job_title) {
-                setChangedFields((prev) => ({ ...prev, job_title: true }))
-              }
-              setNewUserData((prev) => ({ ...prev, job_title: e.target.value }))
-            }}
-            id="admin-edit-user-job-title"
-            style={{
-              backgroundColor:
-                !jobTitleRegex.test(newUserData.job_title) &&
-                changedFields.job_title
-                  ? "red"
-                  : "#fff",
-              textTransform: "capitalize",
-            }}
-            maxLength={50}
-          />
-        </div>
-
-        <div className="admin-edit-user-label">
-          <label htmlFor="admin-edit-user-phone-number">Номер</label>
-          <input
-            value={newUserData.phone_number}
-            onChange={(e) => {
-              if (!changedFields.phone_number) {
-                setChangedFields((prev) => ({ ...prev, phone_number: true }))
-              }
-              setNewUserData((prev) => ({
-                ...prev,
-                phone_number: e.target.value,
-              }))
-            }}
-            id="admin-edit-user-phone-number"
-            style={{
-              backgroundColor:
-                !phoneRegex.test(newUserData.phone_number) &&
-                changedFields.phone_number
-                  ? "red"
-                  : "#fff",
-              textTransform: "capitalize",
-            }}
-            maxLength={50}
-            placeholder="0899112233"
-          />
-        </div>
-
-        <div className="admin-edit-user-label">
-          <label htmlFor="admin-edit-user-bio">
-            За {newUserData.first_name}
-          </label>
-          <textarea
-            id="admin-edit-user-bio"
-            value={newUserData.bio}
-            rows={3}
-            className="card-padding"
-            onChange={(e) => {
-              if (!changedFields.bio) {
-                setChangedFields((prev) => ({ ...prev, bio: true }))
-              }
-              setNewUserData((prev) => ({ ...prev, bio: e.target.value }))
-            }}
-            style={{
-              backgroundColor: newUserData.bio.length > 150 ? "red" : "#fff",
-            }}
-            maxLength={150}
-          />
-        </div>
-        {changedFields.bio && (
-          <p style={{ textAlign: "right" }}>{newUserData.bio.length}/150</p>
-        )}
-
-        <div className="admin-edit-user-label">
-          <label htmlFor="admin-edit-user-role">Роля</label>
-          <select
-            value={newUserData.role || ""}
-            onChange={(e) => {
-              if (!changedFields.role) {
-                setChangedFields((prev) => ({ ...prev, role: true }))
-              }
-              setNewUserData((prev) => ({ ...prev, role: e.target.value }))
-            }}
-            id="admin-edit-user-role"
-          >
-            <option value="клиент">Клиент</option>
-            <option value="служител">Служител</option>
-            <option value="админ">Админ</option>
-          </select>
-        </div>
-
-        <p>Имейл: {fetchedUser?.email}</p>
-
-        <Button onClick={() => setIsDeleteUserDialogOpen(true)}>
-          Изтрий потребител
-        </Button>
-        {isDeleteUserDialogOpen && (
-          <ConfirmationDialog
-            cancelBtnEvent={() => setIsDeleteUserDialogOpen(false)}
-            deleteBtnEvent={() =>
-              handleAdminUserDelete(fetchedUser.id, navigate)
-            }
-          />
-        )}
-        <Button
-          onClick={() => {
             handleAdminCredsChange(newUserData)
 
             setChangedFields({
@@ -439,28 +261,218 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: User }) => {
               bio: newUserData.bio,
             }))
           }}
-          disabled={
-            !nameRegex.test(newUserData.first_name) ||
-            !nameRegex.test(newUserData.last_name) ||
-            !middleNameRegex.test(newUserData.middle_name) ||
-            !jobTitleRegex.test(newUserData.job_title) ||
-            !phoneRegex.test(newUserData.phone_number) ||
-            newUserData.bio.length > 150 ||
-            (nameRegex.test(newUserData.first_name) &&
-              initialUserData.first_name === newUserData.first_name &&
-              nameRegex.test(newUserData.last_name) &&
-              initialUserData.last_name === newUserData.last_name &&
-              middleNameRegex.test(newUserData.middle_name) &&
-              initialUserData.middle_name === newUserData.middle_name &&
-              jobTitleRegex.test(newUserData.job_title) &&
-              initialUserData.job_title === newUserData.job_title &&
-              initialUserData.phone_number === newUserData.phone_number &&
-              initialUserData.bio === newUserData.bio &&
-              initialUserData.role === newUserData.role)
-          }
         >
-          Спази
-        </Button>
+          <div className="admin-edit-user-label">
+            <label htmlFor="admin-edit-user-first-name">Име</label>
+            <input
+              value={newUserData.first_name}
+              onChange={(e) => {
+                if (!changedFields.first_name) {
+                  setChangedFields((prev) => ({ ...prev, first_name: true }))
+                }
+                setNewUserData((prev) => ({
+                  ...prev,
+                  first_name: e.target.value,
+                }))
+              }}
+              id="admin-edit-user-first-name"
+              style={{
+                backgroundColor:
+                  !nameRegex.test(newUserData.first_name) &&
+                  changedFields.first_name
+                    ? "red"
+                    : "#fff",
+                textTransform: "capitalize",
+              }}
+              maxLength={50}
+            />
+          </div>
+          <div className="admin-edit-user-label">
+            <label htmlFor="admin-edit-user-last-name">Фамилия</label>
+            <input
+              value={newUserData.last_name}
+              onChange={(e) => {
+                if (!changedFields.last_name) {
+                  setChangedFields((prev) => ({ ...prev, last_name: true }))
+                }
+                setNewUserData((prev) => ({
+                  ...prev,
+                  last_name: e.target.value,
+                }))
+              }}
+              id="admin-edit-user-last-name"
+              style={{
+                backgroundColor:
+                  !nameRegex.test(newUserData.last_name) &&
+                  changedFields.last_name
+                    ? "red"
+                    : "#fff",
+                textTransform: "capitalize",
+              }}
+              maxLength={50}
+            />
+          </div>
+
+          <div className="admin-edit-user-label">
+            <label htmlFor="admin-edit-user-middle-name">Презиме</label>
+            <input
+              value={newUserData.middle_name}
+              onChange={(e) => {
+                if (!changedFields.middle_name) {
+                  setChangedFields((prev) => ({ ...prev, middle_name: true }))
+                }
+                setNewUserData((prev) => ({
+                  ...prev,
+                  middle_name: e.target.value,
+                }))
+              }}
+              id="admin-edit-user-middle-name"
+              style={{
+                backgroundColor:
+                  !middleNameRegex.test(newUserData.middle_name) &&
+                  changedFields.middle_name
+                    ? "red"
+                    : "#fff",
+                textTransform: "capitalize",
+              }}
+              maxLength={50}
+            />
+          </div>
+
+          <div className="admin-edit-user-label">
+            <label htmlFor="admin-edit-user-job-title">Специялност</label>
+            <input
+              value={newUserData.job_title}
+              onChange={(e) => {
+                if (!changedFields.job_title) {
+                  setChangedFields((prev) => ({ ...prev, job_title: true }))
+                }
+                setNewUserData((prev) => ({
+                  ...prev,
+                  job_title: e.target.value,
+                }))
+              }}
+              id="admin-edit-user-job-title"
+              style={{
+                backgroundColor:
+                  !jobTitleRegex.test(newUserData.job_title) &&
+                  changedFields.job_title
+                    ? "red"
+                    : "#fff",
+                textTransform: "capitalize",
+              }}
+              maxLength={50}
+            />
+          </div>
+
+          <div className="admin-edit-user-label">
+            <label htmlFor="admin-edit-user-phone-number">Номер</label>
+            <input
+              value={newUserData.phone_number}
+              onChange={(e) => {
+                if (!changedFields.phone_number) {
+                  setChangedFields((prev) => ({ ...prev, phone_number: true }))
+                }
+                setNewUserData((prev) => ({
+                  ...prev,
+                  phone_number: e.target.value,
+                }))
+              }}
+              id="admin-edit-user-phone-number"
+              style={{
+                backgroundColor:
+                  !phoneRegex.test(newUserData.phone_number) &&
+                  changedFields.phone_number
+                    ? "red"
+                    : "#fff",
+                textTransform: "capitalize",
+              }}
+              maxLength={50}
+              placeholder="0899112233"
+            />
+          </div>
+
+          <div className="admin-edit-user-label">
+            <label htmlFor="admin-edit-user-bio">
+              За {newUserData.first_name}
+            </label>
+            <textarea
+              id="admin-edit-user-bio"
+              value={newUserData.bio}
+              rows={3}
+              className="card-padding"
+              onChange={(e) => {
+                if (!changedFields.bio) {
+                  setChangedFields((prev) => ({ ...prev, bio: true }))
+                }
+                setNewUserData((prev) => ({ ...prev, bio: e.target.value }))
+              }}
+              style={{
+                backgroundColor: newUserData.bio.length > 150 ? "red" : "#fff",
+              }}
+              maxLength={150}
+            />
+          </div>
+          {changedFields.bio && (
+            <p style={{ textAlign: "right" }}>{newUserData.bio.length}/150</p>
+          )}
+
+          <div className="admin-edit-user-label">
+            <label htmlFor="admin-edit-user-role">Роля</label>
+            <select
+              value={newUserData.role || ""}
+              onChange={(e) => {
+                if (!changedFields.role) {
+                  setChangedFields((prev) => ({ ...prev, role: true }))
+                }
+                setNewUserData((prev) => ({ ...prev, role: e.target.value }))
+              }}
+              id="admin-edit-user-role"
+            >
+              <option value="клиент">Клиент</option>
+              <option value="служител">Служител</option>
+              <option value="админ">Админ</option>
+            </select>
+          </div>
+
+          <p>Имейл: {fetchedUser?.email}</p>
+
+          <Button onClick={() => setIsDeleteUserDialogOpen(true)}>
+            Изтрий потребител
+          </Button>
+          {isDeleteUserDialogOpen && (
+            <ConfirmationDialog
+              cancelBtnEvent={() => setIsDeleteUserDialogOpen(false)}
+              deleteBtnEvent={() =>
+                handleAdminUserDelete(fetchedUser.id, navigate)
+              }
+            />
+          )}
+          <Button
+            type="submit"
+            disabled={
+              !nameRegex.test(newUserData.first_name) ||
+              !nameRegex.test(newUserData.last_name) ||
+              !middleNameRegex.test(newUserData.middle_name) ||
+              !jobTitleRegex.test(newUserData.job_title) ||
+              !phoneRegex.test(newUserData.phone_number) ||
+              newUserData.bio.length > 150 ||
+              (nameRegex.test(newUserData.first_name) &&
+                initialUserData.first_name === newUserData.first_name &&
+                nameRegex.test(newUserData.last_name) &&
+                initialUserData.last_name === newUserData.last_name &&
+                middleNameRegex.test(newUserData.middle_name) &&
+                initialUserData.middle_name === newUserData.middle_name &&
+                jobTitleRegex.test(newUserData.job_title) &&
+                initialUserData.job_title === newUserData.job_title &&
+                initialUserData.phone_number === newUserData.phone_number &&
+                initialUserData.bio === newUserData.bio &&
+                initialUserData.role === newUserData.role)
+            }
+          >
+            Спази
+          </Button>
+        </form>
       </section>
     </section>
   )
