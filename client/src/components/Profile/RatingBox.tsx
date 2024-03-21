@@ -4,6 +4,8 @@ import Button from "../Shared/Button"
 import { handleSendRating } from "../../Utils/ProfileUtils"
 import { Rating, SendRatingData } from "../../Types"
 import RatingStarsShow from "../Shared/RatingStarsShow"
+import { useSelector } from "react-redux"
+import { RootState } from "../../Store"
 
 const RatingBox = ({
   orderId,
@@ -16,6 +18,8 @@ const RatingBox = ({
   openDialogId: number
   setOpenDialogId: (value: React.SetStateAction<number>) => void
 }) => {
+  const theme = useSelector((state: RootState) => state.theme.current)
+
   const [hover, setHover] = useState<number | null>(null)
 
   const [ratingData, setRatingData] = useState<SendRatingData>({
@@ -74,8 +78,10 @@ const RatingBox = ({
                       size={40}
                       color={
                         currentrating <= (hover || ratingData.rating)
-                          ? "#ffc107"
-                          : "#e4e5e9"
+                          ? "#ff9607"
+                          : theme === "dark"
+                          ? "#e4e5e9"
+                          : "#121212"
                       }
                       onMouseEnter={() => {
                         if (ratingData.rating !== 0) {
