@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { AdminEditUserData, User } from "../Types"
-import { getPfpLink } from "../Utils/SettingsUtils"
+import { getPfpLink, handleFileChange } from "../Utils/SharedUtils"
 import { defaultPfpURL } from "../constants"
 import {
   handleAdminChangeProfilePicture,
@@ -8,7 +8,6 @@ import {
   handleAdminPfpDelete,
   handleAdminUserDelete,
 } from "../Utils/AdminUtils"
-import { handleFileChange } from "../Utils/SharedUtils"
 import { jobTitleRegex, middleNameRegex, nameRegex, phoneRegex } from "../Regex"
 import { useNavigate } from "react-router"
 import Button from "../components/Shared/Button"

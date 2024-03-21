@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router"
 import { Provider } from "../../Types"
-import { getPfpLink } from "../../Utils/SettingsUtils"
+import { getPfpLink } from "../../Utils/SharedUtils"
 import Button from "../Shared/Button"
 import { RootState } from "../../Store"
 import { useSelector } from "react-redux"

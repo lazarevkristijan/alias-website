@@ -198,3 +198,37 @@ export const getAllServices = async () => {
 
   return res
 }
+
+export const getPfpLink = (linkString: string) => {
+  try {
+    const pfpData = JSON.parse(linkString)
+    const pfpURL = pfpData.url
+    return pfpURL
+  } catch {
+    return linkString
+  }
+}
+
+export const displayPhoneNumber = (phoneNumber: string) => {
+  phoneNumber === phoneNumber.replace(" ", "")
+  if (phoneNumber[0] === "0") {
+    return (
+      phoneNumber.slice(0, 3) +
+      " " +
+      phoneNumber.slice(3, 6) +
+      " " +
+      phoneNumber.slice(6)
+    )
+  }
+  return phoneNumber
+}
+
+export const getPfpFileName = (linkString: string) => {
+  try {
+    const pfpData = JSON.parse(linkString)
+    const pfpFIleName = pfpData.fileName
+    return pfpFIleName
+  } catch {
+    return linkString
+  }
+}

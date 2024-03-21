@@ -1,7 +1,6 @@
 import axios from "axios"
-import { sendNotification } from "./SharedUtils"
+import { sendNotification, getPfpFileName } from "./SharedUtils"
 import { defaultPfpURL, errorNotifEnding } from "../constants"
-import { getPfpFileName } from "./SettingsUtils"
 import { AddCategory, AdminEditUserData, User } from "../Types"
 import { NavigateFunction } from "react-router"
 

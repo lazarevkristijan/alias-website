@@ -1,7 +1,7 @@
 import { ProviderServiceShowcase, Service } from "../../Types"
 import { useNavigate } from "react-router"
 import Button from "../Shared/Button"
-import { getPfpLink } from "../../Utils/SettingsUtils"
+import { getPfpLink } from "../../Utils/SharedUtils"
 import { useSelector } from "react-redux"
 import { RootState } from "../../Store"
 import RatingStarsShow from "../Shared/RatingStarsShow"

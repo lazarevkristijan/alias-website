@@ -1,8 +1,7 @@
 import { useSelector } from "react-redux"
 import { RootState } from "../../Store"
 import { Order } from "../../Types"
-import { getPfpLink } from "../../Utils/SettingsUtils"
-import { capitalizeString } from "../../Utils/SharedUtils"
+import { capitalizeString, getPfpLink } from "../../Utils/SharedUtils"
 
 const OrderCard = ({
   order,

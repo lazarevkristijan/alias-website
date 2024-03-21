@@ -1,6 +1,9 @@
 import { useQuery } from "@tanstack/react-query"
 import { useNavigate, useParams } from "react-router"
-import { getAllCategoryOrders } from "../Utils/SharedUtils"
+import {
+  getAllCategoryOrders,
+  getAllCategoryProviders,
+} from "../Utils/SharedUtils"
 import {
   OrderCount,
   ProviderServiceShowcase,
@@ -8,7 +11,6 @@ import {
   Service,
 } from "../Types"
 import SingleCategoryServiceCard from "../components/Services/SingleCategoryServiceCard"
-import { getAllCategoryProviders } from "../Utils/SharedUtils"
 import {
   getAllServicesByCategory,
   getCategoryServicesRatings,

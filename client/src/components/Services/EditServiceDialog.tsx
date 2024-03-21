@@ -9,10 +9,10 @@ import {
 import {
   getAllServiceCategories,
   handleEditService,
+  getPfpLink
 } from "../../Utils/SharedUtils"
 import { priceRegex, serviceNameRegex } from "../../Regex"
 import { useQuery } from "@tanstack/react-query"
-import { getPfpLink } from "../../Utils/SettingsUtils"
 import { getAllServiceProviders } from "../../Utils/ServiceProvidersUtils"
 import Button from "../Shared/Button"
 import { useSelector } from "react-redux"

@@ -2,11 +2,10 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../../Store"
 import {
-  getPfpLink,
   handlePfpDelete,
   handleProfilePictureChange,
 } from "../../Utils/SettingsUtils"
-import { handleFileChange } from "../../Utils/SharedUtils"
+import { handleFileChange, getPfpLink } from "../../Utils/SharedUtils"
 import { defaultPfpURL } from "../../constants"
 import Button from "../../components/Shared/Button"
 

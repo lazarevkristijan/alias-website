@@ -1,6 +1,6 @@
 import { useAuth0 } from "@auth0/auth0-react"
 import { useEffect, useState } from "react"
-import { postLoginOrRegister } from "./Utils/HomeUtils"
+import { postAuthenticate } from "./Utils/HomeUtils"
 import { Route, Routes, useLocation } from "react-router"
 import { useDispatch } from "react-redux"
 import { Home, Profile } from "./sections"
@@ -40,7 +40,7 @@ const App = () => {
   } = useAuth0()
 
   useEffect(() => {
-    auth0authenticated && postLoginOrRegister(auth0user, dispatch, setIsLoading)
+    auth0authenticated && postAuthenticate(auth0user, dispatch, setIsLoading)
     !auth0authenticated && !auth0loading && setIsLoading(false)
   }, [auth0authenticated, auth0user, dispatch, auth0loading])
 

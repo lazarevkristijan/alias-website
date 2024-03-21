@@ -4,6 +4,7 @@ import {
   getSingleService,
   getSingleServiceProviders,
   handleDeleteService,
+  getPfpLink,
 } from "../Utils/SharedUtils"
 import { useQuery } from "@tanstack/react-query"
 import { ProviderServiceShowcase, Service } from "../Types"
@@ -11,7 +12,6 @@ import { useSelector } from "react-redux"
 import { RootState } from "../Store"
 import { useState } from "react"
 import EditServiceDialog from "../components/Services/EditServiceDialog"
-import { getPfpLink } from "../Utils/SettingsUtils"
 import Button from "../components/Shared/Button"
 import "./SingleService.scss"
 import BuyServiceDialog from "../components/Services/BuyServiceDialog"
@@ -27,11 +27,10 @@ const SingleService = () => {
   const user = useSelector((state: RootState) => state.session.user)
   const theme = useSelector((state: RootState) => state.theme.current)
 
-  const { isFetching: isServiceFetching, data: service } =
-    useQuery<Service>({
-      queryKey: ["single-service"],
-      queryFn: () => getSingleService(category, id, navigate),
-    })
+  const { isFetching: isServiceFetching, data: service } = useQuery<Service>({
+    queryKey: ["single-service"],
+    queryFn: () => getSingleService(category, id, navigate),
+  })
 
   const {
     isFetching: areServiceProvidersFetching,

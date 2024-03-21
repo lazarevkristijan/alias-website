@@ -2,7 +2,7 @@ import { useSelector } from "react-redux"
 import { RootState } from "../../Store"
 import Button from "../Shared/Button"
 import { ProviderServiceShowcase } from "../../Types"
-import { getPfpLink } from "../../Utils/SettingsUtils"
+import { getPfpLink } from "../../Utils/SharedUtils"
 import { useState } from "react"
 
 const BuyServiceDialog = ({

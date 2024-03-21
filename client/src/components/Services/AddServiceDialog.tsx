@@ -4,12 +4,12 @@ import {
   getAllServiceCategories,
   getAllServices,
   handleAddService,
+  getPfpLink,
 } from "../../Utils/SharedUtils"
 import { useQuery } from "@tanstack/react-query"
 import { AddService, Provider, Service, ServiceCategory } from "../../Types"
 import { priceRegex, serviceNameRegex } from "../../Regex"
 import { getAllServiceProviders } from "../../Utils/ServiceProvidersUtils"
-import { getPfpLink } from "../../Utils/SettingsUtils"
 import Button from "../Shared/Button"
 import { useSelector } from "react-redux"
 import { RootState } from "../../Store"

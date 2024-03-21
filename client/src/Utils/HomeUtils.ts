@@ -4,7 +4,7 @@ import { login } from "../features/session/sessionSlice"
 import { AppDispatch } from "../Store"
 import { changeTheme } from "../features/theme/themeSlice"
 
-export const postLoginOrRegister = (
+export const postAuthenticate = (
   auth0user: User | undefined,
   dispatch: AppDispatch,
   setIsLoading: (value: React.SetStateAction<boolean>) => void
@@ -34,4 +34,3 @@ export const postLoginOrRegister = (
       setIsLoading(false)
     })
 }
-

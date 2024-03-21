@@ -3,17 +3,7 @@ import { AppDispatch } from "../Store"
 import { User } from "../Types"
 import { changeProfilePicture } from "../features/session/sessionSlice"
 import { defaultPfpURL, errorNotifEnding } from "../constants"
-import { sendNotification } from "./SharedUtils"
-
-export const getPfpLink = (linkString: string) => {
-  try {
-    const pfpData = JSON.parse(linkString)
-    const pfpURL = pfpData.url
-    return pfpURL
-  } catch {
-    return linkString
-  }
-}
+import { sendNotification, getPfpFileName } from "./SharedUtils"
 
 export const handlePfpDelete = async (
   userPfp: string,
@@ -75,14 +65,4 @@ export const handleProfilePictureChange = async (
     console.error("No file selected")
   }
   setPrrofilePicture(null)
-}
-
-export const getPfpFileName = (linkString: string) => {
-  try {
-    const pfpData = JSON.parse(linkString)
-    const pfpFIleName = pfpData.fileName
-    return pfpFIleName
-  } catch {
-    return linkString
-  }
 }

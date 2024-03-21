@@ -4,15 +4,13 @@ import { useState } from "react"
 import { useAuth0 } from "@auth0/auth0-react"
 import { useNavigate } from "react-router"
 import {
-  displayPhoneNumber,
   getAllUserOrders,
   getUserRatings,
   handleLogout,
 } from "../Utils/ProfileUtils"
-import { getPfpLink } from "../Utils/SettingsUtils"
 import { defaultPfpURL } from "../constants"
 import "./Profile.scss"
-import { capitalizeString } from "../Utils/SharedUtils"
+import { capitalizeString, getPfpLink,displayPhoneNumber } from "../Utils/SharedUtils"
 import Button from "../components/Shared/Button"
 import { useQuery } from "@tanstack/react-query"
 import { Order, Rating } from "../Types"

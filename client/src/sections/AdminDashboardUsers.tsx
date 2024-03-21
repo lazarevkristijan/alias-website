@@ -4,12 +4,11 @@ import { useNavigate } from "react-router"
 import { useQuery } from "@tanstack/react-query"
 import { getAllUsers } from "../Utils/AdminUtils"
 import { User } from "../Types"
-import { getPfpLink } from "../Utils/SettingsUtils"
 import { defaultPfpURL } from "../constants"
 import Button from "../components/Shared/Button"
 import "./AdminDashboard.scss"
-import { capitalizeString } from "../Utils/SharedUtils"
-import { displayPhoneNumber } from "../Utils/ProfileUtils"
+import { capitalizeString,getPfpLink } from "../Utils/SharedUtils"
+import { displayPhoneNumber } from "../Utils/SharedUtils"
 
 const AdminDashboardUsers = () => {
   const navigate = useNavigate()
