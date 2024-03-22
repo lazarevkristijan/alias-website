@@ -36,6 +36,7 @@ import {
   postAddCategory,
   postAddService,
   postLoginOrRegister,
+  postMakeCheckout,
   postRateOrder,
 } from "./Routes/postRoutes.js"
 import {
@@ -152,6 +153,8 @@ app.get("/ratings", getRatings)
 app.get("/ratings/category/:name", getCategoryServicesRatings)
 app.get("/ratings/user/:id", verifyToken, getUserRatings)
 app.post("/rating/submit", verifyToken, postRateOrder)
+
+app.post("/create-checkout-session", postMakeCheckout)
 
 // LISTEN
 const server = app.listen(port, () =>
