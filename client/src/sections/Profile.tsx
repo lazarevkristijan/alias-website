@@ -10,7 +10,11 @@ import {
 } from "../Utils/ProfileUtils"
 import { defaultPfpURL } from "../constants"
 import "./Profile.scss"
-import { capitalizeString, getPfpLink,displayPhoneNumber } from "../Utils/SharedUtils"
+import {
+  capitalizeString,
+  getPfpLink,
+  displayPhoneNumber,
+} from "../Utils/SharedUtils"
 import Button from "../components/Shared/Button"
 import { useQuery } from "@tanstack/react-query"
 import { Order, Rating } from "../Types"
@@ -79,7 +83,7 @@ const Profile = () => {
               )}
               <p>{capitalizeString(user?.role)}</p>
 
-              <p className="mt1rem w300 label-dark-bg">
+              <p className="mt1rem label-dark-bg">
                 {displayBio(user.bio)}
               </p>
             </div>
@@ -99,7 +103,10 @@ const Profile = () => {
             </h2>
             <div className="user-orders-container">
               {allOrders?.map((order: Order) => (
-                <OrderCard order={order}>
+                <OrderCard
+                  order={order}
+                  key={order.id}
+                >
                   {!areRatingsLoading && !areOrdersLoading && (
                     <RatingBox
                       orderId={order.id}

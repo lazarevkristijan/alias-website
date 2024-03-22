@@ -36,7 +36,7 @@ const RatingBox = ({
       {ratingOrderIds.includes(orderId) ? (
         <>
           <RatingStarsShow rating={thisRating[0].rating} />
-          <p className="w300">{thisRating[0]?.text}</p>
+          <p style={{ maxWidth: 300 }}>{thisRating[0]?.text}</p>
         </>
       ) : (
         <>

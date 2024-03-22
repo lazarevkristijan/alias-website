@@ -46,10 +46,12 @@ input {
   border: none;
   box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.3);
   outline: none;
+  width: 100%;
 }
 
 textarea {
   resize: none;
+  max-width: 100%;
 }
 
 .label-dark-bg {

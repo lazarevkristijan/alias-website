@@ -19,7 +19,7 @@ const AdminUserView = () => {
   if (!fetchedUser) return
 
   return (
-    <section className={` ${theme === "dark" ? "dark-bg" : "light-bg"}`}>
+    <section className={`${theme === "dark" ? "dark-bg" : "light-bg"}`}>
       {isUserFetching ? (
         <p>Зареждане...</p>
       ) : (

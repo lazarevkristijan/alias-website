@@ -434,7 +434,7 @@ const AdminEditUserSection = ({ fetchedUser }: { fetchedUser: User }) => {
             </select>
           </div>
 
-          <p>Имейл: {fetchedUser?.email}</p>
+          <p style={{ wordBreak: "break-all" }}>Имейл: {fetchedUser?.email}</p>
 
           <Button onClick={() => setIsDeleteUserDialogOpen(true)}>
             Изтрий потребител

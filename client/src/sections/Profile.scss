@@ -14,6 +14,18 @@
   margin-right: auto;
 }
 
+@media (max-width: 400px) {
+  .profile {
+    min-width: 0px;
+  }
+  .creds-container {
+    min-width: 100%;
+  }
+  .w300 {
+    width: 100%;
+  }
+}
+
 .full-name-profile {
   display: flex;
   justify-content: center;
