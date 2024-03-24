@@ -324,8 +324,7 @@ export const getAllUserOrders = async (req, res) => {
     ON a.provider_id = d.id
     JOIN service_categories as e
     ON e.id = c.category_id
-    WHERE buyer_id = 21`
-    // WHERE buyer_id = ${userId}`
+    WHERE buyer_id = ${userId}`
 
     return res.json(orders)
   } catch (error) {
@@ -359,8 +358,7 @@ export const getUserRatings = async (req, res) => {
     SELECT a.order_id, a.rating, a.text FROM ratings as a
     JOIN orders as b
     ON a.order_id = b.id
-    WHERE b.buyer_id = 21`
-    // WHERE b.buyer_id = ${id}`
+    WHERE b.buyer_id = ${id}`
 
     return res.json(ratings)
   } catch (error) {

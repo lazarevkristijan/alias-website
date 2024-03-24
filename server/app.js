@@ -156,10 +156,11 @@ app.get("/ratings/category/:name", getCategoryServicesRatings)
 app.get("/ratings/user/:id", verifyToken, getUserRatings)
 app.post("/rating/submit", verifyToken, postRateOrder)
 
+// STRIPE
 app.post("/create-checkout-session", postMakeCheckout)
 app.post("/webhook", postStripeWebhook)
 app.post("/stripe/save-order", postStripeSaveOrder)
-app.get('/')
+
 // LISTEN
 const server = app.listen(port, () =>
   console.log(`Alias is listening on port ${port}!`)
