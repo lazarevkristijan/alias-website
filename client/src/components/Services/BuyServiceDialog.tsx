@@ -4,6 +4,7 @@ import Button from "../Shared/Button"
 import { ProviderServiceShowcase } from "../../Types"
 import { getPfpLink } from "../../Utils/SharedUtils"
 import { useState } from "react"
+import { makePayment } from "../../Utils/ServicesUtils"
 
 const BuyServiceDialog = ({
   setIsBuyDialogOpen,
@@ -56,6 +57,7 @@ const BuyServiceDialog = ({
                 height: "50px",
                 borderRadius: "50%",
               }}
+              className="cover-center-img"
             />
 
             <p>{provider.first_name}</p>
@@ -72,7 +74,7 @@ const BuyServiceDialog = ({
         ))}
       </div>
 
-      <Button>Направи поръчка</Button>
+      <Button onClick={() => makePayment()}>Направи поръчка</Button>
     </div>
   )
 }

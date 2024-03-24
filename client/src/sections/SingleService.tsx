@@ -88,39 +88,48 @@ const SingleService = () => {
 
           <h3>Служители предлагащи услугата</h3>
           <div className="service-providers-container">
-            {singleServiceProviders.map((provider) => (
-              <div
-                className={`provider-card card-padding ${
-                  theme === "dark"
-                    ? "card-black-bg box-shadow-white"
-                    : "card-white-bg box-shadow-black"
-                }`}
-                key={provider.provider_id}
-              >
-                <img
-                  src={getPfpLink(provider.profile_picture)}
-                  alt={`Профилна снимка на ${provider.first_name}`}
-                  style={{
-                    width: "50px",
-                    height: "50px",
-                    borderRadius: "50%",
-                    objectFit: "cover",
-                    objectPosition: "center",
-                  }}
-                />
-
-                <p>{provider.first_name}</p>
-                <Button
-                  onClick={() => navigate(`/служител/${provider.provider_id}`)}
+            {singleServiceProviders.length !== 0 ? (
+              singleServiceProviders.map((provider) => (
+                <div
+                  className={`provider-card card-padding ${
+                    theme === "dark"
+                      ? "card-black-bg box-shadow-white"
+                      : "card-white-bg box-shadow-black"
+                  }`}
+                  key={provider.provider_id}
                 >
-                  Виж служителя
-                </Button>
-              </div>
-            ))}
+                  <img
+                    src={getPfpLink(provider.profile_picture)}
+                    alt={`Профилна снимка на ${provider.first_name}`}
+                    style={{
+                      width: "50px",
+                      height: "50px",
+                      borderRadius: "50%",
+                      objectFit: "cover",
+                      objectPosition: "center",
+                    }}
+                  />
+
+                  <p>{provider.first_name}</p>
+                  <Button
+                    onClick={() =>
+                      navigate(`/служител/${provider.provider_id}`)
+                    }
+                  >
+                    Виж служителя
+                  </Button>
+                </div>
+              ))
+            ) : (
+              <p>Към момента услугата няма служители</p>
+            )}
           </div>
 
           <div>
-            <Button onClick={() => setIsBuyDialogOpen((prev) => !prev)}>
+            <Button
+              onClick={() => setIsBuyDialogOpen((prev) => !prev)}
+              disabled={!user || singleServiceProviders.length === 0}
+            >
               Поръчай
             </Button>
             {isBuyDialogOpen && (
