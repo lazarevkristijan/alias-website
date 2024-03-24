@@ -3,33 +3,8 @@ import jwt from "jsonwebtoken"
 import { cookieOptions, dayinMs } from "../constants/index.js"
 import { JWTsecret } from "../utils/verifyToken.js"
 import stripePackage from "stripe"
+import axios from "axios"
 const stripe = stripePackage(process.env.STRIPE_SECRET_KEY)
-
-export const postMakeCheckout = async (req, res) => {
-  const { products } = req.body
-
-  const lineItems = products.map((product) => ({
-    price_data: {
-      currency: "usd",
-      product_data: {
-        name: product.name,
-        images: [product.image],
-      },
-      unit_amount: Math.round(product.price * 100),
-    },
-    quantity: product.quantity,
-  }))
-
-  const session = await stripe.checkout.sessions.create({
-    payment_method_types: ["card"],
-    line_items: lineItems,
-    mode: "payment",
-    success_url: "http://localhost:5173",
-    cancel_url: "http://localhost:5173",
-  })
-
-  res.json({ id: session.id })
-}
 
 export const postLoginOrRegister = async (req, res) => {
   try {
@@ -134,5 +109,93 @@ export const postRateOrder = async (req, res) => {
   } catch (error) {
     console.error("Error is: ", error)
     return res.status(500).json({ error: "Грешка при спазване на оценка" })
+  }
+}
+
+export const postMakeCheckout = async (req, res) => {
+  try {
+    const { products } = req.body
+
+    const lineItems = products.map((product) => ({
+      price_data: {
+        currency: "bgn",
+        product_data: {
+          name: product.name,
+          images: [product.image],
+        },
+        unit_amount: Math.round(product.price * 100),
+      },
+      quantity: product.quantity,
+    }))
+
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
+      line_items: lineItems,
+      mode: "payment",
+      success_url:
+        "http://localhost:5173/%D1%83%D1%81%D0%BB%D1%83%D0%B3%D0%B8/%D0%BF%D0%B5%D1%80%D1%81%D0%BE%D0%BD%D0%B0%D0%BB%D0%BD%D0%B8/26",
+      cancel_url: "http://localhost:5173",
+      metadata: {
+        name: "broski",
+      },
+    })
+
+    res.json({ id: session.id })
+  } catch (error) {
+    console.error("Error is: ", error)
+    return res.status(500).json({ error: "Грешка при поръчване услуга" })
+  }
+}
+
+export const postStripeWebhook = async (req, res) => {
+  const event = req.body
+  try {
+    // const event = await stripe.webhooks.constructEvent(
+    //   req.body,
+    //   req.headers["stripe-signature"],
+    //   process.env.STRIPE_WEBHOOK_SECRET
+    // )
+
+    switch (event.type) {
+      case "checkout.session.completed":
+        const session = event.data.object
+        // const paymentIntent = await stripe.paymentIntents.retrieve(
+        //   session.payment_intent
+        // )
+        await stripe.paymentIntents.retrieve(session.payment_intent)
+
+        await axios.post(
+          "http://localhost:5432/stripe/save-order",
+          JSON.stringify(session),
+          {
+            headers: { "Content-Type": "application/json" },
+            withCredentials: true,
+          }
+        )
+
+        break
+      case "checkout.session.failed":
+        console.log("Payment failed: ", event)
+        break
+    }
+
+    res.json({ received: true })
+  } catch (error) {
+    console.error("Error verifying webhook signature: ", error)
+    res.status(400).send(`Webhook Error: ${error.message}`)
+  }
+}
+
+export const postStripeSaveOrder = async (req, res) => {
+  try {
+    // console.log("req body: ", req.body)
+    console.log("post stripe save reached")
+
+    console.log("req body: ", req.body.metadata)
+    // await stripe.paymentIntents.retrieve(session.payment_intent)
+    return res.json({ success: "Успешно спазена покупка" })
+  } catch (error) {
+    console.error("Error while saving order")
+    res.status(500).send("Грешка при спазване на покупка")
   }
 }

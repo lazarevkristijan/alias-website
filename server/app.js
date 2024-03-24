@@ -38,6 +38,8 @@ import {
   postLoginOrRegister,
   postMakeCheckout,
   postRateOrder,
+  postStripeSaveOrder,
+  postStripeWebhook,
 } from "./Routes/postRoutes.js"
 import {
   deleteCategory,
@@ -155,7 +157,8 @@ app.get("/ratings/user/:id", verifyToken, getUserRatings)
 app.post("/rating/submit", verifyToken, postRateOrder)
 
 app.post("/create-checkout-session", postMakeCheckout)
-
+app.post("/webhook", postStripeWebhook)
+app.post("/stripe/save-order", postStripeSaveOrder)
 // LISTEN
 const server = app.listen(port, () =>
   console.log(`Alias is listening on port ${port}!`)
