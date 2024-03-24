@@ -21,7 +21,7 @@ const RatingBox = ({
   const theme = useSelector((state: RootState) => state.theme.current)
 
   const [hover, setHover] = useState<number | null>(null)
-
+  const [isSubmitted, setIsSubmitted] = useState(false)
   const [ratingData, setRatingData] = useState<SendRatingData>({
     orderId,
     rating: 0,
@@ -51,7 +51,8 @@ const RatingBox = ({
             <form
               onSubmit={(e) => {
                 e.preventDefault()
-
+                
+                setIsSubmitted(true)
                 handleSendRating(ratingData)
               }}
               className="mt1rem"
@@ -120,7 +121,8 @@ const RatingBox = ({
                 disabled={
                   ratingData.text.length > 200 ||
                   ratingData.rating < 1 ||
-                  ratingData.rating > 5
+                  ratingData.rating > 5 ||
+                  isSubmitted
                 }
               >
                 Изпрати
