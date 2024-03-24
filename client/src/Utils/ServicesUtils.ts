@@ -28,11 +28,6 @@ export const getCategoryServicesRatings = async (category: string) => {
 
 export const makePayment = async (data: MakePayment) => {
   const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY)
-  
-  const date = new Date().toLocaleString("bg-BG", {
-    timeZone: "Europe/Sofia",
-  })
-  data.date_of_order = date.split(" ")[0] + " " + date.split(" ")[2]
 
   const response = await axios
     .post(

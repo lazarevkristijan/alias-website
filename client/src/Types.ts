@@ -170,8 +170,6 @@ export type MakePayment = {
   buyer_id: number
   service: string
   service_id: number
-  quantity: number
-  date_of_order: string
   provider_id: number
   price: number 
 }

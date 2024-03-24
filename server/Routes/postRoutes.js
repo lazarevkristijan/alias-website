@@ -136,7 +136,7 @@ export const postMakeCheckout = async (req, res) => {
         "http://localhost:5173/%D1%83%D1%81%D0%BB%D1%83%D0%B3%D0%B8/%D0%BF%D0%B5%D1%80%D1%81%D0%BE%D0%BD%D0%B0%D0%BB%D0%BD%D0%B8/26",
       cancel_url: "http://localhost:5173",
       metadata: {
-        other,
+        ...other,
       },
     })
 
@@ -175,7 +175,7 @@ export const postStripeWebhook = async (req, res) => {
 
         break
       case "checkout.session.failed":
-        console.log("Payment failed: ", event)
+        console.error("Payment failed: ", event)
         break
     }
 
@@ -188,14 +188,29 @@ export const postStripeWebhook = async (req, res) => {
 
 export const postStripeSaveOrder = async (req, res) => {
   try {
-    // console.log("req body: ", req.body)
-    console.log("post stripe save reached")
+    const { buyer_id, provider_id, price, service_id } = req.body
 
-    console.log("req body: ", req.body)
-    // await stripe.paymentIntents.retrieve(session.payment_intent)
+    let providers
+    if (Number(provider_id) === 0) {
+      providers = await sql`
+      SELECT provider_id FROM service_providers
+      WHERE service_id = ${service_id}`
+    }
+
+    await sql`
+    INSERT INTO orders (buyer_id, service_id, quantity, date_of_order, provider_id, total_paid, finished)
+    VALUES(${Number(buyer_id)}, ${Number(
+      service_id
+    )}, 1, NOW() AT TIME ZONE 'Europe/Sofia', ${
+      Number(provider_id) !== 0
+        ? Number(provider_id)
+        : providers[Math.round(Math.random() * providers.length - 1)]
+            .provider_id
+    }, ${Number(price)}, 0)`
+
     return res.json({ success: "Успешно спазена покупка" })
   } catch (error) {
-    console.error("Error while saving order")
+    console.error("Error while saving order", error)
     res.status(500).send("Грешка при спазване на покупка")
   }
 }

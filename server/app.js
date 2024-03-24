@@ -159,6 +159,7 @@ app.post("/rating/submit", verifyToken, postRateOrder)
 app.post("/create-checkout-session", postMakeCheckout)
 app.post("/webhook", postStripeWebhook)
 app.post("/stripe/save-order", postStripeSaveOrder)
+app.get('/')
 // LISTEN
 const server = app.listen(port, () =>
   console.log(`Alias is listening on port ${port}!`)
