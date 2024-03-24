@@ -65,7 +65,7 @@ const SingleService = () => {
                 : "card-white-bg box-shadow-black"
             }`}
           >
-            Услуга: {service?.name}
+            Услуга: {service.name}
           </p>
           <p
             className={`single-service-tag box-shadow ${
@@ -136,6 +136,7 @@ const SingleService = () => {
               <BuyServiceDialog
                 setIsBuyDialogOpen={setIsBuyDialogOpen}
                 providers={singleServiceProviders}
+                service={service}
               />
             )}
           </div>

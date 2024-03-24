@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux"
 import { RootState } from "../../Store"
 import Button from "../Shared/Button"
-import { ProviderServiceShowcase } from "../../Types"
+import { ProviderServiceShowcase, Service } from "../../Types"
 import { getPfpLink } from "../../Utils/SharedUtils"
 import { useState } from "react"
 import { makePayment } from "../../Utils/ServicesUtils"
@@ -9,15 +9,24 @@ import { makePayment } from "../../Utils/ServicesUtils"
 const BuyServiceDialog = ({
   setIsBuyDialogOpen,
   providers,
+  service,
 }: {
   setIsBuyDialogOpen: (value: React.SetStateAction<boolean>) => void
   providers: ProviderServiceShowcase[]
+  service: Service
 }) => {
   const theme = useSelector((state: RootState) => state.theme.current)
+  const user = useSelector((state: RootState) => state.session.user)
 
-  const [selectedProviderId, setSelectedProviderId] = useState<number | null>(
-    null
-  )
+  const [data, setData] = useState({
+    buyer_id: user?.id || 0,
+    service: service.name,
+    service_id: service.id,
+    quantity: 1,
+    date_of_order: "",
+    provider_id: 0,
+    price: Number(service.price),
+  })
 
   return (
     <div
@@ -43,7 +52,7 @@ const BuyServiceDialog = ({
             className={`provider-card card-padding ${
               theme === "dark" ? "card-black-bg" : "card-white-bg"
             } ${
-              selectedProviderId === provider.provider_id
+              data.provider_id === provider.provider_id
                 ? "box-shadow-white"
                 : ""
             } `}
@@ -63,9 +72,13 @@ const BuyServiceDialog = ({
             <p>{provider.first_name}</p>
             <Button
               onClick={() =>
-                setSelectedProviderId((prev) =>
-                  prev === provider.provider_id ? null : provider.provider_id
-                )
+                setData((prev) => ({
+                  ...prev,
+                  provider_id:
+                    data.provider_id === provider.provider_id
+                      ? 0
+                      : provider.provider_id,
+                }))
               }
             >
               Избери
@@ -74,7 +87,7 @@ const BuyServiceDialog = ({
         ))}
       </div>
 
-      <Button onClick={() => makePayment()}>Направи поръчка</Button>
+      <Button onClick={() => makePayment(data)}>Направи поръчка</Button>
     </div>
   )
 }

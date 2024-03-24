@@ -2,6 +2,7 @@ import axios from "axios"
 import { sendNotification } from "./SharedUtils"
 import { errorNotifEnding } from "../constants"
 import { loadStripe } from "@stripe/stripe-js"
+import { MakePayment } from "../Types"
 
 export const getAllServicesByCategory = async (category: string) => {
   const res = await axios
@@ -25,14 +26,20 @@ export const getCategoryServicesRatings = async (category: string) => {
   return res
 }
 
-export const makePayment = async () => {
+export const makePayment = async (data: MakePayment) => {
   const stripe = await loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY)
+  
+  const date = new Date().toLocaleString("bg-BG", {
+    timeZone: "Europe/Sofia",
+  })
+  data.date_of_order = date.split(" ")[0] + " " + date.split(" ")[2]
 
   const response = await axios
     .post(
       "http://localhost:5432/create-checkout-session",
       JSON.stringify({
-        products: [{ name: "Пране на кола", price: 55, quantity: 1 }],
+        products: [{ name: data.service, price: data.price, quantity: 1 }],
+        other: data,
       }),
       { headers: { "Content-Type": "application/json" }, withCredentials: true }
     )
