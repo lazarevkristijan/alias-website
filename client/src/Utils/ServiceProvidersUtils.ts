@@ -15,7 +15,7 @@ export const getAllServicesAndProviders = async () => {
 
 export const getAllServiceProviders = async () => {
   const res = await axios
-    .get("http://localhost:5432/all-providers")
+    .get("http://localhost:5432/providers")
     .then((response) => response.data)
     .catch((error) =>
       sendNotification(`${error.response.data.error}, ${errorNotifEnding}`)
